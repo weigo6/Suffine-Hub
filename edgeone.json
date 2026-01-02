@@ -1,17 +1,20 @@
 {
-    "headers": [
-      {
-        "source": "/*",
-        "headers": [
-          {
-            "key": "X-Frame-Options",
-            "value": "DENY"
-          },
-          {
-            "key": "Cache-Control",
-            "value": "max-age=7200"
-          }
-        ]
-      }
-    ]
+  "installCommand": "python3 get-pip.py && python3 -m pip install zensical --upgrade pip",
+  "buildCommand": "python3 -m zensical build --clean",
+  "outputDirectory": "./site",
+  "headers": [
+    {
+      "source": "/*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "max-age=7200"
+        }
+      ]
+    }
+  ]
 }
