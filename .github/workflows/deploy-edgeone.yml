@@ -44,5 +44,3 @@ jobs:
       # 注意：<your-project-name> 需要替换成你想要的 EdgeOne Pages 项目名称
       - name: Deploy to EdgeOne Pages
         run: npx edgeone pages deploy ./site -n suffine-hub -t ${{ secrets.EDGEONE_API_TOKEN }}
-        env:
-          EDGEONE_API_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
