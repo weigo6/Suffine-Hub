@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <!-- 背景 -->
+    <rect width="800" height="400" fill="#f9f9f9"/>
+    
+    <!-- 标题 -->
+    <text x="400" y="30" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">PCM系统原理框图</text>
+    
+    <!-- 输入信号 -->
+    <line x1="50" y1="200" x2="100" y2="200" stroke="#000" stroke-width="2"/>
+    <text x="75" y="180" font-family="Arial" font-size="14" text-anchor="middle">模拟信号</text>
+    
+    <!-- 采样器 -->
+    <rect x="100" y="160" width="100" height="80" fill="#e6f7ff" stroke="#1890ff" stroke-width="2"/>
+    <text x="150" y="200" font-family="Arial" font-size="16" text-anchor="middle">采样器</text>
+    <line x1="200" y1="200" x2="250" y2="200" stroke="#000" stroke-width="2"/>
+    
+    <!-- 保持器 -->
+    <rect x="250" y="160" width="100" height="80" fill="#fff2e8" stroke="#fa8c16" stroke-width="2"/>
+    <text x="300" y="200" font-family="Arial" font-size="16" text-anchor="middle">保持器</text>
+    <line x1="350" y1="200" x2="400" y2="200" stroke="#000" stroke-width="2"/>
+    
+    <!-- 量化器 -->
+    <rect x="400" y="160" width="100" height="80" fill="#f6ffed" stroke="#52c41a" stroke-width="2"/>
+    <text x="450" y="200" font-family="Arial" font-size="16" text-anchor="middle">量化器</text>
+    <line x1="500" y1="200" x2="550" y2="200" stroke="#000" stroke-width="2"/>
+    
+    <!-- 编码器 -->
+    <rect x="550" y="160" width="100" height="80" fill="#f0f2ff" stroke="#722ed1" stroke-width="2"/>
+    <text x="600" y="200" font-family="Arial" font-size="16" text-anchor="middle">编码器</text>
+    <line x1="650" y1="200" x2="700" y2="200" stroke="#000" stroke-width="2"/>
+    
+    <!-- 输出信号 -->
+    <text x="725" y="180" font-family="Arial" font-size="14" text-anchor="middle">数字信号</text>
+    <line x1="700" y1="200" x2="750" y2="200" stroke="#000" stroke-width="2"/>
+    
+    <!-- 时钟信号 -->
+    <line x1="150" y1="280" x2="150" y2="240" stroke="#000" stroke-width="2" stroke-dasharray="5,3"/>
+    <line x1="300" y1="280" x2="300" y2="240" stroke="#000" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="225" y="300" font-family="Arial" font-size="14" text-anchor="middle">时钟信号</text>
+    <line x1="75" y1="280" x2="375" y2="280" stroke="#000" stroke-width="2" stroke-dasharray="5,3"/>
+    <polygon points="375,280 365,275 365,285" fill="#000"/>
+    
+    <!-- 波形示例 -->
+    <!-- 输入波形 -->
+    <path d="M50,120 C70,100 80,140 100,120 C120,100 130,140 150,120 C170,100 180,140 200,120" fill="none" stroke="#000" stroke-width="1.5"/>
+    <text x="125" y="90" font-family="Arial" font-size="12" text-anchor="middle">输入波形</text>
+    
+    <!-- 采样波形 -->
+    <path d="M250,120 L250,110 M270,120 L270,140 M290,120 L290,100 M310,120 L310,130 M330,120 L330,115 M350,120 L350,125" stroke="#000" stroke-width="1.5"/>
+    <text x="300" y="90" font-family="Arial" font-size="12" text-anchor="middle">采样后</text>
+    
+    <!-- 量化波形 -->
+    <path d="M400,120 L410,130 L420,130 L430,110 L440,110 L450,140 L460,140 L470,120 L480,120 L490,100 L500,100" fill="none" stroke="#000" stroke-width="1.5"/>
+    <text x="450" y="90" font-family="Arial" font-size="12" text-anchor="middle">量化后</text>
+    
+    <!-- 编码波形 -->
+    <path d="M550,120 L560,120 L560,140 L570,140 L570,120 L580,120 L580,140 L590,140 L590,120 L600,120 L600,100 L610,100 L610,120 L620,120 L620,100 L630,100 L630,120 L640,120 L640,100 L650,100" fill="none" stroke="#000" stroke-width="1.5"/>
+    <text x="600" y="90" font-family="Arial" font-size="12" text-anchor="middle">编码后</text>
+</svg>
+    

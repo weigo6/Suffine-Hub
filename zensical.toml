@@ -1,0 +1,285 @@
+[project]
+site_name = "Suffine Hub"
+site_url = "https://sufine.top"
+site_description = "不必倾城倾国色，斜阳影里自婷婷。"
+site_author = "Luwei"
+copyright = "Copyright &copy; 2026 Luwei"
+docs_dir = "docs"
+site_dir = "site"
+edit_uri = "edit/main/docs/"
+repo_url = "https://github.com/weigo6/suffine-hub"
+repo_name = "weigo6/Sufine Hub"
+
+extra_javascript = [
+    "javascripts/mathjax.js", # 加载 MathJax 配置脚本
+    "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js", # 从 CDN 加载 MathJax 库
+    "javascripts/feedback.js", # 页面反馈脚本
+    "javascripts/count.js" # 访问计数脚本
+]
+
+extra_css = ["stylesheets/extra.css"]
+
+nav = [
+  {"关于本站" = "index.md"},
+  {"课程学习" = [
+        "college-study/index.md", 
+        {"轨道交通信号与控制" = [
+            "college-study/RailSig/index.md",
+            {"城市轨道交通概论" = "college-study/RailSig/城市轨道交通概论.md"},
+            {"轨道交通信号基础一" = "college-study/RailSig/轨道交通信号基础一.md"},
+            {"城市轨道交通基础二" = "college-study/RailSig/轨道交通信号基础二.md"},
+            {"区间信号自动控制" = "college-study/RailSig/区间信号自动控制.md"},
+            {"车站信号控制系统" = "college-study/RailSig/车站信号控制系统.md"}
+        ]},
+        {"理工科专业课程"= [
+            "college-study/STEM/index.md",
+            {"Matlab入门学习" = "college-study/STEM/matlab-study.md"},
+            {"西门子PLC S7-200" = "college-study/STEM/PLC-S7-200-study.md"},
+            {"PLC ModbusRTU 学习" = "college-study/STEM/PLC-ModbusRTU.md"},
+            {"计算机网络课程" = "college-study/STEM/计算机网络复习笔记.md"},
+            {"传感器与检测技术" = "college-study/STEM/传感器与检测技术.md"},
+            {"专业外语课程-交通英语" = "college-study/STEM/交通英语答辩讲稿.md"},
+            {"通信原理课程" = "college-study/STEM/通信原理学习笔记.md"},
+            {"通信原理实验报告" = "college-study/STEM/通信原理实验报告.md"},
+            {"苏州评弹鉴赏" = "college-study/STEM/苏州评弹鉴赏.md"},
+            {"毛概复习笔记" =  "college-study/STEM/毛概复习笔记.md"},
+            {"数字电压表制作课程设计" = "college-study/STEM/数字电压表课程设计.md"},
+            {"交叉口信号配时课程设计" = "college-study/STEM/交叉口信号配时课程设计.md"}
+        ]},
+        {"考研相关科目" = [
+            "college-study/Kaoyan/index.md",
+            {"考研数二-高数知识点" = "college-study/Kaoyan/kaoyan-math-hm.md"},
+            {"考研数二-线代知识点" = "college-study/Kaoyan/kaoyan-math-la.md"},
+            {"考研英二-作文写作" = "college-study/Kaoyan/kaoyan-eng-write.md"},
+            {"考研英二-核心词汇926词" = "college-study/Kaoyan/考研核心926词汇及拓展.md"},
+            {"考研政治-知识点笔记" = "college-study/Kaoyan/考研政治笔记.md"},
+            {"自动控制原理-根轨迹法则" = "college-study/Kaoyan/自控-根轨迹法则.md"}
+        ]},
+    ]},
+    {"技术开发" = [
+        "tech-dev/index.md",
+        {"Markdown相关" = [
+            "tech-dev/Markdown/index.md",
+            {"Markdown 5 分钟上手" = "tech-dev/Markdown/markdown-in-5min.md"},
+            {"在Markdown中编写数学公式" = "tech-dev/Markdown/LaTeX-math.md"},
+            {"基于Markdown的Zensical博客搭建" = "tech-dev/Markdown/zensical-usedoc.md"},
+            {"Markdown 与 Typora 学习笔记" = "tech-dev/Markdown/markdown-typora.md"},
+            {"Typora 软件主题分享与记录" = "tech-dev/Markdown/typora-theme.md"}
+        ]},
+        {"嵌入式开发" = [
+            "tech-dev/Embedded/index.md",
+            {"基于STM32的四轮移动机器人设计" = "tech-dev/Embedded/基于STM32的四轮移动机器人设计.md"},
+            {"基于RFID的智能仓储管理系统设计" = "tech-dev/Embedded/基于RFID的智能仓储管理系统设计.md"},
+            {"2024电赛H题参赛记录" = "tech-dev/Embedded/2024电赛H题参赛记录.md"},
+            {"2024西门子杯参赛记录" = "tech-dev/Embedded/2024西门子杯参赛记录.md"},
+            {"蓝桥杯嵌入式与STM32学习笔记" = "tech-dev/Embedded/蓝桥杯嵌入式学习笔记.md"},
+            {"PCB设计注意事项" = "tech-dev/Embedded/PCB设计注意事项.md"}
+        ]},
+        {"软件程序开发" = [
+            "tech-dev/Software/index.md",
+            {"基于AST语义分析的Python文件查重" = "tech-dev/Software/基于AST语义分析的Python文件查重.md"},
+            {"基于Pyside6与ffmpeg的旋转音律视频稳定工具" = "tech-dev/Software/旋转音律视频稳定工具.md"},
+            {"Turbot4机器人开发记录" = "tech-dev/Software/Turbot4机器人开发记录.md"}
+        ]},        
+        {"工具与资源" = [
+            "tech-dev/Tools/index.md",
+            {"卡西欧fx-991使用技巧" = "tech-dev/Tools/卡西欧fx-991使用技巧.md"}
+        ]}
+    ]},
+    {"留言板" = "basic/guest-board.md"},
+    {"友链" = [
+        {"朋友们" = "basic/friendly-links.md"},
+        {"友链申请指南" = "basic/friendly-links-guide.md"},
+        {"联系表单" = "basic/contact-form.md"}
+    ]}
+]
+
+# 站点生成器选项
+[project.extra]
+generator = false
+
+# Umami站点分析配置
+[project.extra.analytics]
+provider = "custom"
+property = "foobar"
+script_url = "https://cloud.umami.is/script.js"
+website_id = "c53576ff-f759-4495-b8ec-bb653e56ce58"
+
+# 页面反馈配置
+[project.extra.analytics.feedback]
+title = "此页面有帮助吗?"
+
+[[project.extra.analytics.feedback.ratings]]
+icon = "material/thumb-up-outline"
+name = "此页面有帮助"
+data = 1
+note = "感谢您的反馈!"
+
+[[project.extra.analytics.feedback.ratings]]
+icon = "material/thumb-down-outline"
+name = "此页面可以改进"
+data = 0
+note = """
+  感谢您的反馈! 笔者将努力改进此页面
+  </br>您可以使用<a href="/basic/contact-form/">反馈表单</a>来帮助我
+"""
+
+[project.theme]
+variant = "modern"
+language = "zh"
+font.text = "Noto Sans"
+font.code = "JetBrains Mono"
+logo = "images/logo.png"
+favicon = "images/logo.png"
+custom_dir = "docs/overrides"
+features = [
+    "navigation.instant", # 启用即时导航
+    "navigation.instant.prefetch", # 启用预加载
+    "navigation.instant.progress", # 加载进度条
+    "navigation.tracking", # 滚动时URL锚点自动更新
+    "navigation.tabs", # 一级导航显示为顶部Tab
+    "navigation.tabs.sticky", # 顶部Tab栏粘性显示
+    "navigation.sections", # 启用侧边栏章节分组
+    "navigation.path", # URL路径导航
+    "navigation.indexes", # 导航索引
+    "navigation.top", # 返回顶部按钮
+    "toc.follow", # 目录跟随滚动
+    "search.highlight", # 搜索结果高亮显示
+    "content.action.edit", # 编辑此页按钮
+    "content.action.view",  # 浏览页面源码按钮
+    "navigation.footer", # 启用页脚导航
+    "content.code.copy", # 代码块复制按钮
+    "content.code.select", # 代码块选择按钮
+    "content.code.annotate", # 代码块注释按钮
+    "content.footnote.tooltips", # 脚注提示
+    "content.tooltips" # 启用内容工具提示
+]
+
+# 主题图标配置
+[project.theme.icon]
+previous = "lucide/arrow-left"
+next = "lucide/arrow-right"
+repo = "fontawesome/brands/github"
+edit = "material/pencil"
+view = "material/eye"
+
+# 主题调色板配置
+[[project.theme.palette]]
+media = "(prefers-color-scheme)"
+toggle.icon = "lucide/sun-moon"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+primary = "indigo"
+accent = "indigo"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+primary = "deep purple"
+accent = "orange"
+
+# 搜索插件配置
+[project.plugins.search]
+lang = ["zh", "en"]
+
+separator = '[\s\-\.]+'  # 中文优化：'[\s\u200b\-]'
+
+# 社交链接配置
+[[project.extra.social]]
+icon = "fontawesome/brands/weixin"
+link = "https://asave.rutno.com/fileview?id=fPfqgAbtujZj"
+name = "关注微信公众号"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/discord"
+link = "https://discord.gg/fSvCWA9say"
+name = "加入 Discord 服务器"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/weigo6"
+name = "访问 GitHub 主页"
+
+[[project.extra.social]]
+icon = "simple/gitee"
+link = "https://gitee.com/weigo6"
+name = "访问 Gitee 主页"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/bilibili"
+link = "https://space.bilibili.com/512710834"
+name = "访问 Bilibili 主页"
+
+[[project.extra.social]]
+icon = "simple/gmail"
+link = "mailto:yang92636@qq.com"
+name = "通过电子邮件联系我"
+
+# 允许您通过用 abbr 标签包裹元素来为其添加简短的工具提示
+[project.markdown_extensions.abbr]
+# 警告框支持
+[project.markdown_extensions.admonition]
+# 属性列表支持
+[project.markdown_extensions.attr_list]
+# 定义列表支持
+[project.markdown_extensions.def_list]
+# 脚注支持
+[project.markdown_extensions.footnotes]
+# 允许在 HTML 内容中使用 Markdown 语法
+[project.markdown_extensions.md_in_html]
+# 目录支持
+[project.markdown_extensions.toc]
+permalink =  true
+title = "目录 On This Page"
+permalink_title = "跳转至本节的锚点链接"
+toc_depth = 5 #目录层级
+# 表格支持
+[project.markdown_extensions.tables]
+# 数学公式支持
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+# 为任何 Markdown 代码块（包括图片、表格和代码块）添加标题
+[project.markdown_extensions.pymdownx.blocks.caption]
+# 高亮显示文本及简单语法实现上下标
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.tilde]
+# 增强了 Admonition 扩展程序的功能，使详情块可折叠
+[project.markdown_extensions.pymdownx.details]
+# 将图标和表情符号 *.svg 文件格式内联到生成的 HTML 页面中
+[project.markdown_extensions.pymdownx.emoji]
+emoji_index = "zensical.extensions.emoji.twemoji" 
+emoji_generator = "zensical.extensions.emoji.to_svg"
+# 代码块语法高亮
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+pygments_lang_class = true
+auto_title = true
+linenums = true
+linenums_style = "pymdownx-inline"
+line_spans = "__span"
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+# 行内代码高亮
+[project.markdown_extensions.pymdownx.inlinehilite]
+# 键盘按键样式，允许渲染键盘按键和组合键
+[project.markdown_extensions.pymdownx.keys]
+# 将某些字符序列转换为相应的符号，例如版权符号或分数
+[project.markdown_extensions.pymdownx.smartsymbols]
+# 允许使用简单的语法将任意文件中的内容嵌入到文档中，包括其他文档或源文件
+[project.markdown_extensions.pymdownx.snippets]
+# 允许使用内容标签页
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+# 任务列表支持
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true

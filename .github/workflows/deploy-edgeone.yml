@@ -1,0 +1,48 @@
+name: Deploy Zensical to EdgeOne Pages
+
+on:
+  # 当推送到 main 分支时触发
+  push:
+    branches:
+      - main
+  # 允许在 GitHub Actions 界面手动触发
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. 拉取代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. 设置 Python 环境 (用于构建 Zensical)
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' 
+
+      # 3. 安装 Zensical 并构建
+      - name: Install and Build Zensical
+        run: |
+          pip install zensical
+          zensical build --clean
+          
+      # 4. 关键步骤：处理配置文件
+      # EdgeOne CLI 上传目录时，需要配置文件在那个目录里才能生效重定向
+      - name: Copy edgeone.json to output directory
+        run: cp edgeone.json site/
+
+      # 5. 设置 Node.js 环境 (用于运行 EdgeOne CLI)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 6. 部署到 EdgeOne Pages
+      # 注意：<your-project-name> 需要替换成你想要的 EdgeOne Pages 项目名称
+      - name: Deploy to EdgeOne Pages
+        run: npx edgeone pages deploy ./site -n suffine-hub -t ${{ secrets.EDGEONE_API_TOKEN }}
+        env:
+          EDGEONE_API_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
