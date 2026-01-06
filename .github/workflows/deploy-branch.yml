@@ -1,0 +1,42 @@
+name: Build and Deploy Zensical to Deploy Branch
+
+# 触发条件：当推送到 main 分支时运行 (如果你的主分支叫 master，请修改此处)
+on:
+  push:
+    branches:
+      - main
+  # 允许在 Actions 页面手动触发
+  workflow_dispatch:
+
+# 设置权限，允许 GITHUB_TOKEN 推送代码到分支
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. 设置 Python 环境
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' # 根据需要修改 Python 版本
+
+      # 3. 安装依赖并构建
+      - name: Install and Build
+        run: |
+          pip install zensical
+          zensical build --clean
+
+      # 4. 部署 'site' 文件夹到 'deploy' 分支
+      - name: Deploy to deploy branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: deploy   # 目标分支
+          folder: site     # 构建生成的输出文件夹
+          clean: true      # 部署前清空目标分支的旧文件
