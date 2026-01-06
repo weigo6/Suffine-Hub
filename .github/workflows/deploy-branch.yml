@@ -37,6 +37,8 @@ jobs:
       - name: Deploy to deploy branch
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: deploy   # 目标分支
-          folder: site     # 构建生成的输出文件夹
+          branch: deploy   # 目标分支，部署后提交到那个分支
+          folder: site     # 构建生成的输出文件夹，存放build后产物的目录
           clean: true      # 部署前清空目标分支的旧文件
+          commit-message: "Deploy: ${{ github.event.head_commit.message }}" # 自定义提交信息
+          single-commit: true # 使用单次提交，保持分支整洁
