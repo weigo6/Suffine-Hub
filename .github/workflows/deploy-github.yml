@@ -9,7 +9,7 @@ permissions:
   pages: write
   id-token: write
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

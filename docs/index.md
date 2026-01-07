@@ -419,7 +419,7 @@ Welcome to my blog! 👋
 
 <div class="hero-avatar-area">
 <div class="avatar-glow">
-<img src="./images/aqua-stars.png" alt="avatar">
+<img src="https://asave.rutno.com/fileview?id=DqaYPJIHHRLv" alt="avatar">
 </div>
 </div>
 </div>

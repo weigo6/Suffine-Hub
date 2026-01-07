@@ -44,10 +44,10 @@ Markdown 是一种轻量级标记语言，它允许人们使用易读易写的�
 
     [:octicons-arrow-right-24: 阅读更多](typora-theme.md)
 
--   :material-web: **基于 Markdown 的 Zensical 博客搭建**
+-   :material-web: **在 Zensical 中使用 Markdown 高效写作**
 
-    从零开始搭建个人知识库，记录 Zensical (或 MkDocs) 博客的配置与部署过程。
+    学习 Markdown 拓展语法，了解如何在 Zensical 中编写文章。
 
-    [:octicons-arrow-right-24: 阅读更多](zensical-usedoc.md)
+    [:octicons-arrow-right-24: 阅读更多](zensical-markdown.md)
 
 </div>

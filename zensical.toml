@@ -62,9 +62,15 @@ nav = [
             "tech-dev/Markdown/index.md",
             {"Markdown 5 分钟上手" = "tech-dev/Markdown/markdown-in-5min.md"},
             {"在Markdown中编写数学公式" = "tech-dev/Markdown/LaTeX-math.md"},
-            {"基于Markdown的Zensical博客搭建" = "tech-dev/Markdown/zensical-usedoc.md"},
+            {"在 Zensical 中使用 Markdown 高效写作" = "tech-dev/Markdown/zensical-markdown.md"},
             {"Markdown 与 Typora 学习笔记" = "tech-dev/Markdown/markdown-typora.md"},
             {"Typora 软件主题分享与记录" = "tech-dev/Markdown/typora-theme.md"}
+        ]},
+        {"Web 相关开发" = [
+            "tech-dev/WebDev/index.md",
+            {"使用 EdgeOne Pages 托管 Zensical 站点" = "tech-dev/WebDev/使用EO-Pages托管Zensical站点.md"},
+            {"为 Zensical 站点添加邮件表单功能" = "tech-dev/WebDev/为Zensical站点添加邮件表单功能.md"},
+            {"基于 EdgeOne Pages 实现站点访问统计功能" = "tech-dev/WebDev/基于EO-Pages实现站点访问统计功能.md"}
         ]},
         {"嵌入式开发" = [
             "tech-dev/Embedded/index.md",
@@ -79,7 +85,8 @@ nav = [
             "tech-dev/Software/index.md",
             {"基于AST语义分析的Python文件查重" = "tech-dev/Software/基于AST语义分析的Python文件查重.md"},
             {"基于Pyside6与ffmpeg的旋转音律视频稳定工具" = "tech-dev/Software/旋转音律视频稳定工具.md"},
-            {"Turbot4机器人开发记录" = "tech-dev/Software/Turbot4机器人开发记录.md"}
+            {"Turbot4机器人开发记录" = "tech-dev/Software/Turbot4机器人开发记录.md"},
+            {" Python 下一代包管理器 uv 上手指南" = "tech-dev/Software/uv包管理器上手指南.md"}
         ]},        
         {"工具与资源" = [
             "tech-dev/Tools/index.md",
@@ -97,6 +104,11 @@ nav = [
 # 站点生成器选项
 [project.extra]
 generator = false
+
+# 页面状态配置
+[project.extra.status]
+new = "最近更新"
+deprecated = "过时内容"
 
 # Umami站点分析配置
 [project.extra.analytics]
