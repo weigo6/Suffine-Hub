@@ -489,7 +489,7 @@ hide:
 1.  运行 `zensical serve` 在本地启动博客。
 2.  进入`contact.md`文件被配置的路径，打开页面填写测试信息。
 3.  点击发送。
-4.  查看你的 Cloudflare Worker 日志（如果出错的话）、Resend Emails界面（检查是否有发信请求）或者直接查看你的收件箱。
+4.  查看你的 Cloudflare Worker 日志（如果出错的话）、Resend Emails 界面（检查是否有发信请求）或者直接查看你的收件箱。
 
 **🎉 成功效果：**
 

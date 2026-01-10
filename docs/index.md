@@ -500,7 +500,7 @@ Welcome to my blog! 👋
     -   [基于 RFID 的智能仓储管理系统设计](tech-dev/Embedded/基于RFID的智能仓储管理系统设计.md)
     -   [在 Markdown 中编写数学公式](tech-dev/Markdown/LaTeX-math.md)
     -   [数字电压表制作课程设计](college-study/STEM/数字电压表课程设计.md)
-    -   [基于 Markdown 的 Zensical 博客搭建](tech-dev/Markdown/zensical-usedoc.md)
+    -   [在 Zensical 中使用 Markdown 高效写作](tech-dev/Markdown/zensical-markdown.md)
 
 -   :octicons-code-16:{ .lg .middle } __技术开发__{.middle}
 

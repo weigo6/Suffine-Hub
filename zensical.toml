@@ -44,7 +44,9 @@ nav = [
             {"苏州评弹鉴赏" = "college-study/STEM/苏州评弹鉴赏.md"},
             {"毛概复习笔记" =  "college-study/STEM/毛概复习笔记.md"},
             {"数字电压表制作课程设计" = "college-study/STEM/数字电压表课程设计.md"},
-            {"交叉口信号配时课程设计" = "college-study/STEM/交叉口信号配时课程设计.md"}
+            {"PLC综合实训课程设计" = "college-study/STEM/PLC综合实训课程设计.md"},
+            {"交叉口信号配时课程设计" = "college-study/STEM/交叉口信号配时课程设计.md"},
+            {"菲涅尔双面镜测磁致伸缩系数实验" = "college-study/STEM/菲涅尔双面镜测磁致伸缩系数实验.md"}
         ]},
         {"考研相关科目" = [
             "college-study/Kaoyan/index.md",
@@ -79,7 +81,8 @@ nav = [
             {"2024电赛H题参赛记录" = "tech-dev/Embedded/2024电赛H题参赛记录.md"},
             {"2024西门子杯参赛记录" = "tech-dev/Embedded/2024西门子杯参赛记录.md"},
             {"蓝桥杯嵌入式与STM32学习笔记" = "tech-dev/Embedded/蓝桥杯嵌入式学习笔记.md"},
-            {"PCB设计注意事项" = "tech-dev/Embedded/PCB设计注意事项.md"}
+            {"PCB设计注意事项" = "tech-dev/Embedded/PCB设计注意事项.md"},
+            {"基于CD4017的简易密码器控制装置" = "tech-dev/Embedded/基于CD4017的简易密码器控制装置.md"}
         ]},
         {"软件程序开发" = [
             "tech-dev/Software/index.md",
@@ -87,7 +90,7 @@ nav = [
             {"基于Pyside6与ffmpeg的旋转音律视频稳定工具" = "tech-dev/Software/旋转音律视频稳定工具.md"},
             {"Turbot4机器人开发记录" = "tech-dev/Software/Turbot4机器人开发记录.md"},
             {" Python 下一代包管理器 uv 上手指南" = "tech-dev/Software/uv包管理器上手指南.md"}
-        ]},        
+        ]},
         {"工具与资源" = [
             "tech-dev/Tools/index.md",
             {"卡西欧fx-991使用技巧" = "tech-dev/Tools/卡西欧fx-991使用技巧.md"}
@@ -141,8 +144,8 @@ variant = "modern"
 language = "zh"
 font.text = "Noto Sans"
 font.code = "JetBrains Mono"
-logo = "images/logo.png"
-favicon = "images/logo.png"
+logo = "https://asave.rutno.com/fileview?id=tPMP3f2QEii2"
+favicon = "https://asave.rutno.com/fileview?id=tPMP3f2QEii2"
 custom_dir = "docs/overrides"
 features = [
     "navigation.instant", # 启用即时导航

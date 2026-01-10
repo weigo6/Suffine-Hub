@@ -42,6 +42,7 @@ hr {
     -   [:material-robot-industrial: 西门子 PLC S7-200 学习笔记](PLC-S7-200-study.md)
     -   [:material-serial-port: PLC ModbusRTU 通信协议](PLC-ModbusRTU.md)
     -   [:material-gauge: 传感器与检测技术](传感器与检测技术.md)
+    -   [:material-cogs: PLC综合实训课程设计](PLC综合实训课程设计.md)
 
 -   :material-access-point-network:{ .lg .middle } __计算机与通信技术__{.middle}
 
@@ -56,12 +57,13 @@ hr {
     ---
     -   [:material-flash: 数字电压表制作课程设计](数字电压表课程设计.md)
     -   [:material-road-variant: 交叉口信号配时课程设计](交叉口信号配时课程设计.md)
-    -   [:material-translate: 专业外语 - 交通英语答辩](交通英语答辩讲稿.md)
+    -   [:material-mirror-rectangle: 菲涅尔双面镜测磁致伸缩系数实验](菲涅尔双面镜测磁致伸缩系数实验.md)
 
 -   :material-book-open-page-variant:{ .lg .middle } __通识与人文拓展__{.middle}
 
     ---
     -   [:material-account-voice: 苏州评弹鉴赏](苏州评弹鉴赏.md)
     -   [:material-flag-triangle: 毛概复习笔记](毛概复习笔记.md)
+    -   [:material-translate: 专业外语 - 交通英语答辩](交通英语答辩讲稿.md)
 
 </div>
