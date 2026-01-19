@@ -164,4 +164,12 @@ comments: true
     </div>
   </a>
 
+  <a class="friend-card-block" href="https://www.b23.kim" target="_blank" rel="noopener">
+    <img class="ava" src="https://bucket.rutno.com/d?sid=ao9BQVEVae4qTzr15bRMRqspjIZM&e=1769434858&sig=9dcf3e016a872f1f77feb238874f260c68a062d55265405390df52b7ef826ef4" loading="lazy" alt="b23.kim" />
+    <div class="block-content">
+      <div class="title">b23.kim</div>
+      <div class="desc">记住「 黑客是客，博客也是客 」by 请输入内容404</div>
+    </div>
+  </a>
+
 </div>

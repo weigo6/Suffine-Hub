@@ -144,8 +144,8 @@ variant = "modern"
 language = "zh"
 font.text = "Noto Sans"
 font.code = "JetBrains Mono"
-logo = "https://asave.rutno.com/fileview?id=tPMP3f2QEii2"
-favicon = "https://asave.rutno.com/fileview?id=tPMP3f2QEii2"
+logo = "https://bucket.rutno.com/d?sid=OK7QfwZkobEwXeW4NRFxLEKCWkDy&e=1769434119&sig=7e2a990a3bd397a6f22e6f6c0c0ac7a82e14a51a32aecf0b252508ae7fb4703d"
+favicon = "https://bucket.rutno.com/d?sid=OK7QfwZkobEwXeW4NRFxLEKCWkDy&e=1769434119&sig=7e2a990a3bd397a6f22e6f6c0c0ac7a82e14a51a32aecf0b252508ae7fb4703d"
 custom_dir = "docs/overrides"
 features = [
     "navigation.instant", # 启用即时导航
@@ -209,7 +209,7 @@ separator = '[\s\-\.]+'  # 中文优化：'[\s\u200b\-]'
 # 社交链接配置
 [[project.extra.social]]
 icon = "fontawesome/brands/weixin"
-link = "https://asave.rutno.com/fileview?id=fPfqgAbtujZj"
+link = "https://bucket.rutno.com/d?sid=eqtRzdKfuGlmIm2wX3IwXffreqnr&e=1769434119&sig=aca3206c8defbfd303f1c5b6b36f51416243315723ae7e667fc98f7a5bf29111"
 name = "关注微信公众号"
 
 [[project.extra.social]]

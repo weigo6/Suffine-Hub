@@ -419,7 +419,7 @@ Welcome to my blog! 👋
 
 <div class="hero-avatar-area">
 <div class="avatar-glow">
-<img src="https://asave.rutno.com/fileview?id=DqaYPJIHHRLv" alt="avatar">
+<img src="https://bucket.rutno.com/d?sid=GmVLqQkMozg2U9xicP7krsXxEFIq&e=1769434119&sig=e75af40868e6730eead3bd617b88209e050a403790f559760c9215e9ce990275" alt="avatar">
 </div>
 </div>
 </div>
