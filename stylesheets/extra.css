@@ -1,0 +1,11 @@
+/*站点名称样式*/
+.md-header__topic:first-child {
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+/* 移动端侧边栏顶部标题的背景和文字颜色 */
+.md-nav--primary .md-nav__title[for="__drawer"] {
+    font-weight: 300;
+    letter-spacing: 2px;  
+}
