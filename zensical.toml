@@ -14,10 +14,16 @@ extra_javascript = [
     "javascripts/mathjax.js", # 加载 MathJax 配置脚本
     "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js", # 从 CDN 加载 MathJax 库
     "javascripts/feedback.js", # 页面反馈脚本
-    "javascripts/count.js" # 访问计数脚本
+    "javascripts/count.js", # 访问计数脚本
+    "https://cdn.jsdelivr.net/npm/marked/marked.min.js", # ASK AI Markdown 渲染
+    "javascripts/ask_ai.js", # ASK AI 脚本
+    "javascripts/extra.js" # 额外自定义脚本
 ]
 
-extra_css = ["stylesheets/extra.css"]
+extra_css = [
+    "stylesheets/extra.css", # 站点基础样式表
+    "stylesheets/ask_ai.css" # ASK AI 样式表
+]
 
 nav = [
   {"关于本站" = "index.md"},
