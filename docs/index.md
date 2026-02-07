@@ -424,7 +424,6 @@ Welcome to my blog! 👋
 </div>
 </div>
 
-<!-- 四格磁贴导航 -->
 <div class="grid-container" markdown="1">
 
 <div class="grid-card" markdown="1">
@@ -487,10 +486,8 @@ Welcome to my blog! 👋
 
 </div>
 
-<!-- 推荐阅读：使用官方原生 Grid Cards 语法 -->
 ### :octicons-book-16: 推荐阅读 {.rec-title}
 
-<!-- 推荐内容网格 -->
 <div class="grid cards" markdown>
 
 -   :octicons-bookmark-16:{ .lg .middle } __推荐的文章__{.middle}
@@ -532,7 +529,6 @@ Welcome to my blog! 👋
 
 </div>
 
-<!-- 打字机脚本 - 适配 MkDocs Material/Zensical Instant Loading -->
 <script>
   (() => {
     const phrases = ["A College Student!", "A Tech Enthusiast!", 

@@ -107,7 +107,8 @@ nav = [
         {"朋友们" = "basic/friendly-links.md"},
         {"友链申请指南" = "basic/friendly-links-guide.md"},
         {"联系表单" = "basic/contact-form.md"}
-    ]}
+    ]},
+    {"网址导航" = "https://nav.sufine.top"}
 ]
 
 # 站点生成器选项

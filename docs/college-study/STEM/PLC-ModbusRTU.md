@@ -9,8 +9,6 @@ comments: true
 
 # PLC-S7-200 SMART ModbusRTU
 
----
-
 S7-200 SMART PLC 支持 **Modbus RTU 通信协议**，可通过其集成的 **RS485 串口（端口 0）** 实现与变频器、仪表、HMI、其他 PLC 等支持 Modbus RTU 的设备进行主从站通信。
 
 在 Modbus RTU 应用中，S7-200 SMART 通常作为 **Modbus 主站（Master）**，主动轮询从站设备（如温控表、电能表等）；也可配置为 **Modbus 从站（Slave）**，响应上位主站（如 HMI 或 SCADA 系统）的读写请求。

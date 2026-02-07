@@ -1,5 +1,5 @@
 {
-  "installCommand": "python3 get-pip.py && python3 -m pip install --upgrade pip && python3 -m pip install zensical==0.0.14",
+  "installCommand": "python3 get-pip.py && python3 -m pip install zensical --upgrade pip",
   "buildCommand": "python3 -m zensical build --clean",
   "outputDirectory": "./site",
   "headers": [

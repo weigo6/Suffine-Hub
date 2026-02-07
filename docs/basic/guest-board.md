@@ -9,7 +9,6 @@ icon: material/forum
 comments: false
 ---
 
-<!-- 留言板主体视觉区域 -->
 <div class="pure-excerpt-container">
   <div class="pure-header">
     <span class="line"></span>
@@ -24,7 +23,6 @@ comments: false
     <span class="pure-quote-mark right">”</span>
   </div>
 
-  <!-- 整合后的状态栏：提示语 + 切换按钮 -->
   <div class="pure-tips-toolbar">
     <div class="tips-text">
        <span class="icon">💬</span> 请文明留言，内容将公开显示
@@ -32,7 +30,6 @@ comments: false
     
     <span class="toolbar-separator">/</span>
 
-    <!-- 嵌入式切换按钮 -->
     <div class="comment-switch-wrapper" id="switch-wrapper" data-tip="当前正在使用 GitHub 登录评论">
       <button id="comment-switch-btn" onclick="toggleCommentSystem()">
         <svg viewBox="0 0 24 24" width="14" height="14">
@@ -44,9 +41,7 @@ comments: false
   </div>
 </div>
 
-<!-- 评论区容器 -->
 <div class="guestbook-comments-wrapper">
-  <!-- Giscus 容器 -->
   <div id="giscus-container">
     <script src="https://giscus.app/client.js"
             data-repo="weigo6/sufine-giscus"
@@ -66,13 +61,11 @@ comments: false
     </script>
   </div>
 
-  <!-- Twikoo 容器 -->
   <div id="twikoo-container" style="display: none;">
     <div id="twikoo"></div>
   </div>
 </div>
 
-<!-- 样式集 -->
 <style>
 /* --- 1. 基础布局保持不变 --- */
 .md-content__button { display: none !important; }
@@ -222,7 +215,7 @@ comments: false
     opacity: 0.8;
 }
 
-/* --- 3. Tooltip 样式 (保持你的玻璃磨砂风) --- */
+/* --- 3. Tooltip 样式 (保持玻璃磨砂风) --- */
 .comment-switch-wrapper {
     position: relative;
     /* 修复 flex 布局下的定位基准 */
@@ -282,7 +275,6 @@ comments: false
 }
 </style>
 
-<!-- 逻辑脚本 (保持不变) -->
 <script>
   var isTwikooLoaded = false;
   function toggleCommentSystem() {

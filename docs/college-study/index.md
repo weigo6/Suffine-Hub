@@ -34,7 +34,6 @@ hr {
 
 这里汇集了本科期间的专业课学习、技术探索以及考研备战的学习笔记。
 
-<!-- 总览网格 -->
 <div class="grid cards" markdown>
 
 -   :material-train:{ .lg .middle } __轨道交通信号与控制__{.middle}

@@ -33,12 +33,10 @@ hide:
     === "👋 商务/其他"
         欢迎任何形式的友好交流或合作咨询。
 
-<!-- 表单容器 -->
 <div class="md-typeset form-container">
   <form id="contactForm">
     
     <div class="form-grid">
-      <!-- 主题：全宽 -->
       <div class="grid-item full-width">
         <label for="subject">主题</label>
         <div class="select-wrapper">
@@ -50,26 +48,22 @@ hide:
         </div>
       </div>
 
-      <!-- 姓名 -->
       <div class="grid-item">
         <label for="name">称呼</label>
         <input type="text" id="name" name="name" placeholder="我该如何称呼您？" required>
       </div>
       
-      <!-- 邮箱 -->
       <div class="grid-item">
         <label for="email">邮箱</label>
         <input type="email" id="email" name="email" placeholder="接收回复用（不会公开）" required>
       </div>
       
-      <!-- 内容：全宽 -->
       <div class="grid-item full-width">
         <label for="message">内容</label>
         <textarea id="message" name="message" rows="5" placeholder="请在此输入留言..." required></textarea>
       </div>
     </div>
     
-    <!-- 底部栏 -->
     <div class="form-footer">
       <div class="footer-quote" id="randomQuote">
         保持热爱，奔赴山海。

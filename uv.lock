@@ -127,7 +127,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "zensical", specifier = ">=0.0.14" }]
+requires-dist = [{ name = "zensical", specifier = ">=0.0.21" }]
 
 [[package]]
 name = "zensical"
