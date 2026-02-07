@@ -194,27 +194,52 @@ uv python pin 3.11
 
 ### 场景 A：如果使用的是项目管理模式（推荐）
 
-即使用了 uv init 和 uv add，并且目录下有 pyproject.toml 和 uv.lock 文件。
+即使用了 `uv init` 和 `uv add`，并且目录下有 `pyproject.toml` 和 `uv.lock` 文件。
 
-**升级单个包（在允许的版本范围内）：**
-如果只想把 requests 更新到 pyproject.toml 允许的最新版本（例如从 2.31.0 更新到 2.32.0），并更新锁文件：
+在 uv 项目中，**修改锁文件**（lock）和**更新环境**（sync）是两个步骤。仅更新锁文件不会改变当前环境中的包版本。
 
-````bash
-uv lock --upgrade-package requests
-````
+**方法一：一键升级并同步（推荐）**
 
-**升级所有包：**
+这是最快捷的方式，它会同时更新 `uv.lock` 并同步虚拟环境：
 
 ```bash
-uv lock --upgrade
+# 升级所有包到允许的最新版本
+uv sync --upgrade
+# 或者简写
+uv sync -U
+
+# 升级单个包（例如 requests）并同步
+uv sync --upgrade-package requests
+# 或者简写
+uv sync -P requests
 ```
 
-**强制升级到特定版本（修改配置）：**
-如果想升级到一个超出当前 pyproject.toml 限制的版本（例如升级大版本），直接再次运行 add 命令并指定版本：
+**方法二：分步操作（手动控制）**
 
-````bash
+如果你想先查看锁文件的变化，再决定是否应用：
+
+1. **更新锁文件**：
+   ```bash
+   # 更新所有包的锁定版本
+   uv lock --upgrade
+   
+   # 或者只更新特定包
+   uv lock --upgrade-package requests
+   ```
+   *注意：此时你的环境尚未改变，只是 `uv.lock` 文件变了。*
+
+2. **同步环境**：
+   应用锁文件的变更到当前环境：
+   ```bash
+   uv sync
+   ```
+
+**强制升级到特定版本（修改配置）：**
+如果想升级到一个超出当前 `pyproject.toml` 限制的版本（例如升级大版本），直接再次运行 `add` 命令并指定版本约束：
+
+```bash
 uv add "requests>=3.0"
-````
+```
 
 ### 场景 B：如果你仅把它当作 pip 使用（Pip 接口模式）
 
