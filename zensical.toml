@@ -17,12 +17,17 @@ extra_javascript = [
     "javascripts/count.js", # 访问计数脚本
     "https://cdn.jsdelivr.net/npm/marked/marked.min.js", # ASK AI Markdown 渲染
     "javascripts/ask_ai.js", # ASK AI 脚本
+    "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js", # Aplayer 脚本
+    "https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js", # MetingJS 脚本
+    "javascripts/music_player.js", # 音乐播放器脚本
     "javascripts/extra.js" # 额外自定义脚本
 ]
 
 extra_css = [
     "stylesheets/extra.css", # 站点基础样式表
-    "stylesheets/ask_ai.css" # ASK AI 样式表
+    "stylesheets/ask_ai.css", # ASK AI 样式表
+    "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css", # Aplayer 样式表
+    "stylesheets/music_player.css" # 音乐播放器样式表
 ]
 
 nav = [
@@ -78,7 +83,9 @@ nav = [
             "tech-dev/WebDev/index.md",
             {"使用 EdgeOne Pages 托管 Zensical 站点" = "tech-dev/WebDev/使用EO-Pages托管Zensical站点.md"},
             {"为 Zensical 站点添加邮件表单功能" = "tech-dev/WebDev/为Zensical站点添加邮件表单功能.md"},
-            {"基于 EdgeOne Pages 实现站点访问统计功能" = "tech-dev/WebDev/基于EO-Pages实现站点访问统计功能.md"}
+            {"基于 EdgeOne Pages 实现站点访问统计功能" = "tech-dev/WebDev/基于EO-Pages实现站点访问统计功能.md"},
+            {"为 Zensical 站点添加 AI 问答功能" = "tech-dev/WebDev/为Zensical站点添加AI问答功能.md"},
+            {"为 Zensical 站点添加音乐播放器功能" = "tech-dev/WebDev/为Zensical站点添加音乐播放器功能.md"}
         ]},
         {"嵌入式开发" = [
             "tech-dev/Embedded/index.md",

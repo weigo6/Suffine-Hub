@@ -42,11 +42,11 @@ status: new
 本文提供两种部署方案，请根据需求选择：
 
 1. **原生构建（推荐）**：通过 edgeone.json 配置，直接在 EdgeOne 服务器上安装 Python 依赖并构建。
-   - *优点*：配置简单，无需配置 Github Actions，代码推送即部署。
-   - *缺点*：依赖 EdgeOne 环境。
+    - *优点*：配置简单，无需配置 Github Actions，代码推送即部署。
+    - *缺点*：依赖 EdgeOne 环境。
 2. **Github Actions 构建**：在 Github 上构建完成后，仅将静态文件推送到 EdgeOne。
-   - *优点*：环境完全可控，构建速度快，EdgeOne 仅作为静态文件托管。
-   - *缺点*：需要配置 Workflow 文件，仓库会多一个分支。
+    - *优点*：环境完全可控，构建速度快，EdgeOne 仅作为静态文件托管。
+    - *缺点*：需要配置 Workflow 文件，仓库会多一个分支。
 
 ## 方法一：通过 edgeone.json 进行部署
 

@@ -82,17 +82,44 @@ function initializeChatEvents() {
         chatWindow.classList.toggle("open");
         const isOpen = chatWindow.classList.contains("open");
         
+        // Dynamic Query for Music Player Elements (fix race condition)
+        const musicToggleBtn = document.getElementById("music-player-toggle");
+        const musicContainer = document.getElementById("music-player-container");
+        
         if (isOpen) {
             input.focus();
             toggleBtn.innerHTML = COLLAPSE_ICON;
+            
+            // Hide Music Player UI
+            if (musicToggleBtn) {
+                musicToggleBtn.style.display = 'none';
+                musicToggleBtn.classList.remove("active");
+            }
+            if (musicContainer && musicContainer.classList.contains("show")) {
+                musicContainer.classList.remove("show");
+            }
+
         } else {
             toggleBtn.innerHTML = CHAT_ICON;
+            
+            // Restore Music Player UI
+            if (musicToggleBtn) {
+                musicToggleBtn.style.display = '';
+            }
         }
     });
 
     closeBtn.addEventListener("click", () => {
         chatWindow.classList.remove("open");
         toggleBtn.innerHTML = CHAT_ICON;
+        
+        // Dynamic Query for Music Player Elements
+        const musicToggleBtn = document.getElementById("music-player-toggle");
+
+        // Restore Music Player UI
+        if (musicToggleBtn) {
+            musicToggleBtn.style.display = '';
+        }
     });
 
     expandBtn.addEventListener("click", () => {
