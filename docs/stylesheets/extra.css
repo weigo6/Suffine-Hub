@@ -9,3 +9,11 @@
     font-weight: 300;
     letter-spacing: 2px;  
 }
+
+/* 720px以下屏幕，页脚社交图标强制换行并左对齐 */
+@media screen and (max-width: 720px) {
+  .md-footer-meta__inner .md-social {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

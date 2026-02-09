@@ -63,7 +63,7 @@ a^2,a_1\\
 x^{y+z},p_{ij},p_ij\\
 x_i,x_{\text i}\\
 \end{gather}
-单行公式换行:
+单行公式换行:(！不被 Katex 支持)
 \begin{multline} 1 + 2 + 3 + 4 + 5 + 6 \
 + 7 + 8 + 9 + 10 = 55 \end{multline}
 ```
@@ -74,8 +74,6 @@ x^{y+z},p_{ij},p_ij\\
 x_i,x_{\text i}\\
 \end{gather}
 
-\begin{multline} 1 + 2 + 3 + 4 + 5 + 6 \
-+ 7 + 8 + 9 + 10 = 55 \end{multline}
 
 ### 常用环境
 ```latex
@@ -162,12 +160,9 @@ F = ma
 \begin{equation}\label{eq:1}
 e^{i\pi} + 1 = 0
 \end{equation}
+（！此公式不被 Katex 支持）
 在文本中引用：见公式 \eqref{eq:1}
 ```
-
-\begin{equation}\label{eq:1}
-e^{i\pi} + 1 = 0
-\end{equation}
 
 在文本中引用：见公式 (1)
 

@@ -11,13 +11,16 @@ repo_url = "https://github.com/weigo6/suffine-hub"
 repo_name = "weigo6/Sufine Hub"
 
 extra_javascript = [
-    "javascripts/mathjax.js", # 加载 MathJax 配置脚本
-    "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js", # 从 CDN 加载 MathJax 库
+    #"javascripts/mathjax.js", # 加载 MathJax 配置脚本
+    #"https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js", # 从 CDN 加载 MathJax 库
     "javascripts/feedback.js", # 页面反馈脚本
     "javascripts/count.js", # 访问计数脚本
+    "javascripts/katex.js",
+    "https://unpkg.com/katex@0/dist/katex.min.js",
+    "https://unpkg.com/katex@0/dist/contrib/auto-render.min.js",
     "https://cdn.jsdelivr.net/npm/marked/marked.min.js", # ASK AI Markdown 渲染
     "javascripts/ask_ai.js", # ASK AI 脚本
-    "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js", # Aplayer 脚本
+    "https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js", # Aplayer 脚本
     "https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js", # MetingJS 脚本
     "javascripts/music_player.js", # 音乐播放器脚本
     "javascripts/extra.js" # 额外自定义脚本
@@ -25,8 +28,9 @@ extra_javascript = [
 
 extra_css = [
     "stylesheets/extra.css", # 站点基础样式表
+    "https://unpkg.com/katex@0/dist/katex.min.css", # KaTeX 样式表
     "stylesheets/ask_ai.css", # ASK AI 样式表
-    "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css", # Aplayer 样式表
+    "https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css", # Aplayer 样式表
     "stylesheets/music_player.css" # 音乐播放器样式表
 ]
 
@@ -163,7 +167,7 @@ favicon = "https://bucket.rutno.com/d?sid=OK7QfwZkobEwXeW4NRFxLEKCWkDy&e=1769434
 custom_dir = "docs/overrides"
 features = [
     "navigation.instant", # 启用即时导航
-    "navigation.instant.prefetch", # 启用预加载
+    #"navigation.instant.prefetch", # 启用预加载
     "navigation.instant.progress", # 加载进度条
     "navigation.tracking", # 滚动时URL锚点自动更新
     "navigation.tabs", # 一级导航显示为顶部Tab
