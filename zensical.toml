@@ -20,8 +20,8 @@ extra_javascript = [
     "https://unpkg.com/katex@0/dist/contrib/auto-render.min.js",
     "https://cdn.jsdelivr.net/npm/marked/marked.min.js", # ASK AI Markdown 渲染
     "javascripts/ask_ai.js", # ASK AI 脚本
-    "https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js", # Aplayer 脚本
-    "https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js", # MetingJS 脚本
+    "javascripts/APlayer.min.js", # Aplayer 脚本
+    "javascripts/Meting.min.js", # MetingJS 脚本
     "javascripts/music_player.js", # 音乐播放器脚本
     "javascripts/extra.js" # 额外自定义脚本
 ]
@@ -30,7 +30,7 @@ extra_css = [
     "stylesheets/extra.css", # 站点基础样式表
     "https://unpkg.com/katex@0/dist/katex.min.css", # KaTeX 样式表
     "stylesheets/ask_ai.css", # ASK AI 样式表
-    "https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css", # Aplayer 样式表
+    "stylesheets/APlayer.min.css", # Aplayer 样式表
     "stylesheets/music_player.css" # 音乐播放器样式表
 ]
 
@@ -162,8 +162,8 @@ variant = "modern"
 language = "zh"
 font.text = "Noto Sans"
 font.code = "JetBrains Mono"
-logo = "https://bucket.rutno.com/d?sid=OK7QfwZkobEwXeW4NRFxLEKCWkDy&e=1769434119&sig=7e2a990a3bd397a6f22e6f6c0c0ac7a82e14a51a32aecf0b252508ae7fb4703d"
-favicon = "https://bucket.rutno.com/d?sid=OK7QfwZkobEwXeW4NRFxLEKCWkDy&e=1769434119&sig=7e2a990a3bd397a6f22e6f6c0c0ac7a82e14a51a32aecf0b252508ae7fb4703d"
+logo = "images/logo.png"
+favicon = "images/logo.png"
 custom_dir = "docs/overrides"
 features = [
     "navigation.instant", # 启用即时导航
