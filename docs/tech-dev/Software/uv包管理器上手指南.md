@@ -1,5 +1,5 @@
 ---
-title: Python文件查重程序
+title: Python 下一代包管理器 uv 上手指南
 tags:
   - uv
   - Python

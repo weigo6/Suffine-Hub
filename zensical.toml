@@ -162,8 +162,8 @@ variant = "modern"
 language = "zh"
 font.text = "Noto Sans"
 font.code = "JetBrains Mono"
-logo = "images/logo.png"
-favicon = "images/logo.png"
+logo = "images/logo.webp"
+favicon = "images/logo.webp"
 custom_dir = "docs/overrides"
 features = [
     "navigation.instant", # 启用即时导航

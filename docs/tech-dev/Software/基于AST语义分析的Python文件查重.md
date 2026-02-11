@@ -31,7 +31,7 @@ comments: true
 ```bash
 项目根目录/ 
 ├── 输出结果/ # 程序运行结果输出目录（自动生成） 
-├── Python查重程序.assets/ # 文档图片资源 
+├── images.assets/ # 文档图片资源 
 ├── all_in_one.py # 主程序入口，整合所有功能的GUI界面 
 ├── ast-check.py # AST语义分析核心模块 
 ├── code-token.py # 基于Token的代码格式化与相似度计算 
@@ -146,7 +146,7 @@ pip install pandas seaborn matplotlib scikit-learn PySide6
 3. **等待处理完成**：在输出信息区查看处理进度，直到任务完成。
 4. **查看结果**：任务完成后，点击“打开输出文件夹”按钮，查看生成的结果文件。
 
-![image-20250113173309863](Python查重程序.assets/image-20250113173309863.png)
+![image-20250113173309863](基于AST语义分析的Python文件查重.assets/image-20250113173309863.png)
 
 ## 三、运行输出的结果
 
@@ -166,13 +166,13 @@ pip install pandas seaborn matplotlib scikit-learn PySide6
 - **check_files.txt**：文本文件，记录各文件与其他文件之间存在的雷同代码段，包括具体的雷同片段内容。
 
 程序输出结果的部分展示：
-![image-20250113173412794](Python查重程序.assets/image-20250113173412794.png)
+![image-20250113173412794](基于AST语义分析的Python文件查重.assets/image-20250113173412794.png)
 
-![image-20250113173523161](Python查重程序.assets/image-20250113173523161.png)
+![image-20250113173523161](基于AST语义分析的Python文件查重.assets/image-20250113173523161.png)
 
-![image-20250113173602804](Python查重程序.assets/image-20250113173602804.png)
+![image-20250113173602804](基于AST语义分析的Python文件查重.assets/image-20250113173602804.png)
 
-<img src="../Python查重程序.assets/image-20250113173624584.png" alt="image-20250113173624584" style="zoom: 67%;" />
+<img src="../基于AST语义分析的Python文件查重.assets/image-20250113173624584.png" alt="image-20250113173624584" style="zoom: 67%;" />
 
 ## 四、注意事项
 
