@@ -1,0 +1,158 @@
+/* Music Player Toggle Button */
+#music-player-toggle {
+    position: fixed;
+    bottom: 72px; /* Base position, 52px above Ask AI (20px + 40px + 12px gap) */
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    
+    /* Native Material Theme Styling */
+    background-color: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    color: var(--md-default-fg-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 101;
+    transition: all 0.3s;
+    opacity: 0.6;
+}
+
+#music-player-toggle:hover {
+    opacity: 1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transform: scale(1.05);
+}
+
+#music-player-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+#music-player-toggle.active {
+    background-color: var(--md-default-bg-color);
+    color: var(--md-accent-fg-color, #0052cc);
+    opacity: 1;
+}
+
+/* Music Player Container */
+#music-player-container {
+    position: fixed;
+    bottom: 20px;
+    right: 80px; /* To the left of the buttons (20px right + 40px btn + 20px gap) */
+    z-index: 100;
+    transition: opacity 0.3s ease, transform 0.3s ease, bottom 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(20px);
+    
+    /* Default APlayer width */
+    width: 400px;
+    max-width: calc(100vw - 100px);
+}
+
+#music-player-container.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+
+/* Glassmorphism & Rounded Corners for APlayer */
+#music-player-container .aplayer {
+    margin: 0 !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.55) !important; /* Light mode glass */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    /* Expand upwards logic: Use flex column-reverse */
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+/* Playlist Styling for Upward Expansion */
+#music-player-container .aplayer .aplayer-list {
+    border-radius: 12px 12px 0 0;
+    margin-bottom: 0;
+    border-bottom: none;
+    max-height: 320px; /* Removed !important to allow toggling */
+    overflow-y: auto;
+}
+
+/* Only show border when playlist is expanded */
+#music-player-container .aplayer .aplayer-list:not(.aplayer-list-hide) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+#music-player-container .aplayer .aplayer-body {
+    border-radius: 0 0 12px 12px;
+}
+
+/* Hide APlayer's fixed mode container if it somehow gets triggered */
+.aplayer-fixed {
+    display: none !important;
+}
+
+/* Remove borders from info area */
+#music-player-container .aplayer .aplayer-info {
+    border-bottom: none !important;
+}
+
+/* Dark Mode Support */
+[data-md-color-scheme="slate"] #music-player-container .aplayer {
+    background: rgba(30, 30, 30, 0.55) !important; /* Dark mode glass */
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--md-default-fg-color);
+}
+
+/* Dark Mode List Fixes */
+[data-md-color-scheme="slate"] #music-player-container .aplayer .aplayer-list {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Fix bright borders between songs in dark mode */
+[data-md-color-scheme="slate"] #music-player-container .aplayer .aplayer-list ol li {
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-bottom: none !important;
+}
+
+/* Fix bright borders on hover in dark mode */
+[data-md-color-scheme="slate"] #music-player-container .aplayer .aplayer-list ol li:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Fix active song background in dark mode */
+[data-md-color-scheme="slate"] #music-player-container .aplayer .aplayer-list ol li.aplayer-list-light {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Adjust text colors in dark mode */
+[data-md-color-scheme="slate"] #music-player-container .aplayer .aplayer-info .aplayer-music .aplayer-title {
+    color: var(--md-default-fg-color);
+}
+
+[data-md-color-scheme="slate"] #music-player-container .aplayer .aplayer-info .aplayer-music .aplayer-author {
+    color: var(--md-default-fg-color--light);
+}
+
+/* Hide gradient overlay in glassmorphism (both light and dark mode) as it looks weird */
+#music-player-container .aplayer .aplayer-lrc:before,
+#music-player-container .aplayer .aplayer-lrc:after {
+    display: none !important;
+}
+
+/* Fix bright scrollbar in dark mode */
+[data-md-color-scheme="slate"] #music-player-container .aplayer .aplayer-list ol::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+[data-md-color-scheme="slate"] #music-player-container .aplayer .aplayer-list ol::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+}
