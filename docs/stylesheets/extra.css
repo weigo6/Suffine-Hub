@@ -17,3 +17,9 @@
     justify-content: flex-start;
   }
 }
+
+/* 目录导航的缩进参考线，仅二级以上目录显示 */
+nav.md-nav--secondary ul ul {
+  /* 原为 #B0B4BA，改为带透明度的 rgba，以适应明暗模式 */
+  border-left: 1px solid rgba(176, 180, 186, 0.4);
+}
