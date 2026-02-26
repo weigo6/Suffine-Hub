@@ -1,0 +1,6060 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="不必倾城倾国色，斜阳影里自婷婷。">
+      
+      
+        <meta name="author" content="Luwei">
+      
+      
+        <link rel="canonical" href="https://sufine.top/college-study/RailSig/%E8%BD%A6%E7%AB%99%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/">
+      
+      
+        <link rel="prev" href="../%E5%8C%BA%E9%97%B4%E4%BF%A1%E5%8F%B7%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/">
+      
+      
+        <link rel="next" href="../../STEM/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/logo.webp">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>车站信号自动控制 - Suffine Hub</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/ask_ai.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/APlayer.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/music_player.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+  <!-- Umami Analytics 集成脚本，支持即时导航（SPA单页应用）模式，屏蔽navigation.tracking (滚动锚点变化) 干扰 -->
+<!-- 1. 基础统计脚本 -->
+<!-- 使用 defer 异步加载，data-auto-track="false" 关闭自动上报，交由下方手动接管 -->
+<script defer 
+  src="https://cloud.umami.is/script.js" 
+  data-website-id="c53576ff-f759-4495-b8ec-bb653e56ce58"
+  data-auto-track="false" 
+></script>
+
+<!-- 2. 逻辑控制脚本 -->
+<script>
+  /* Umami Analytics Integration for MkDocs Material */
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    // 封装上报函数：统一处理，强制使用 pathname (剔除 #hash)
+    var trackPageview = function() {
+      // 忽略本地开发环境
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        console.log("Umami tracking disabled on localhost"); //方便调试确认
+        return;
+      }
+
+      if (typeof umami !== "undefined") {
+        umami.track(function(props) { 
+          return { ...props, url: window.location.pathname } 
+        });
+      }
+    };
+
+    // A. 首次加载时的手动上报
+    // 页面刚打开时，script (defer) 执行完毕且 DOM 准备好后执行
+    trackPageview();
+
+    // B. 监听 MkDocs 的 SPA 导航事件 (Instant Loading)
+    // document$ 是一个 Observable，仅在 DOM 内容被替换时触发
+    var isFirstEmit = true;
+    
+    document$.subscribe(function() {
+      // document$ 在订阅瞬间会发射一次当前页面的信号
+      // 我们通过标志位跳过这一次，避免与步骤 A 重复统计
+      if (isFirstEmit) {
+        isFirstEmit = false;
+        return;
+      }
+      
+      // 只有真正的页面跳转（内容替换）才会执行到这里
+      // 单纯的 Hash 变化（目录跳转/滚动）不会触发 document$
+      trackPageview();
+    });
+  });
+</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Suffine Hub" class="md-header__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Suffine Hub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              车站信号自动控制
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  关于本站
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  课程学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tech-dev/" class="md-tabs__link">
+          
+  
+  技术开发
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../basic/guest-board/" class="md-tabs__link">
+        
+  
+  留言板
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../basic/friendly-links/" class="md-tabs__link">
+          
+  
+  友链
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://nav.sufine.top" class="md-tabs__link">
+        
+  
+  网址导航
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Suffine Hub" class="md-nav__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    Suffine Hub
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    关于本站
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    课程学习
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 2h7c.8 0 1.56.32 2.12.88S15 4.2 15 5v1h-2V4H4v7h5v5H8l-3 3H4v-2l1-1c-.8 0-1.56-.32-2.12-.88S2 13.8 2 13V5c0-.8.32-1.56.88-2.12S4.2 2 5 2m.71 10.29C5.5 12.11 5.27 12 5 12c-.26 0-.5.11-.71.29-.18.21-.29.45-.29.71 0 .27.11.5.29.71.21.19.45.29.71.29.27 0 .5-.1.71-.29.19-.21.29-.44.29-.71 0-.26-.1-.5-.29-.71M11 11c0-1.66 1-3 4-3h3c3 0 4 1.34 4 3v7c0 .74-.4 1.39-1 1.73V21c0 .55-.45 1-1 1s-1-.45-1-1v-1h-5v1c0 .55-.45 1-1 1s-1-.45-1-1v-1.27c-.6-.34-1-.99-1-1.73zm2-1v4h7v-4zm1 8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1m6-1c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号与控制
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    轨道交通信号与控制
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E6%A6%82%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-5V6h5m-1.5 11a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5M11 11H6V6h5M7.5 17A1.5 1.5 0 0 1 6 15.5 1.5 1.5 0 0 1 7.5 14 1.5 1.5 0 0 1 9 15.5 1.5 1.5 0 0 1 7.5 17M12 2c-4.42 0-8 .5-8 4v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5v.5h12v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.58-4-8-4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通概论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%B8%80/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m8-9h-3V8.86c1.72-.45 3-2 3-3.86h-3V4a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1H4c0 1.86 1.28 3.41 3 3.86V10H4c0 1.86 1.28 3.41 3 3.86V15H4c0 1.86 1.28 3.41 3 3.86V20a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1.14c1.72-.45 3-2 3-3.86h-3v-1.14c1.72-.45 3-2 3-3.86"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号基础一
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%BA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.67 10.5c-1.27 0-2.4.8-2.82 2h-1.68V7.77l3.49 2.09 1-1.72L14.11 6l3.57-2.14-1-1.72-3.51 2.09V2h-2v2.23L7.68 2.14l-1 1.72L10.23 6 6.66 8.14l1 1.72 3.51-2.09v4.73H9.5c-1.14-3.18-5.84-2.37-5.84 1s4.7 4.18 5.84 1h1.67V20a2 2 0 0 0-2 2h6a2 2 0 0 0-2-2v-5.5h1.68c.81 2.3 3.88 2.72 5.28.73s-.03-4.73-2.46-4.73m-11 4c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1m11 0c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通基础二
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8C%BA%E9%97%B4%E4%BF%A1%E5%8F%B7%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-3.18C14.4 9.84 13.3 9 12 9s-2.4.84-2.82 2H6c-.33 0-2-.1-2-2V8c0-1.83 1.54-2 2-2h10.18C16.6 7.16 17.7 8 19 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3c-1.3 0-2.4.84-2.82 2H6C4.39 4 2 5.06 2 8v1c0 2.94 2.39 4 4 4h3.18c.42 1.16 1.52 2 2.82 2s2.4-.84 2.82-2H18c.33 0 2 .1 2 2v1c0 1.83-1.54 2-2 2H7.82C7.4 16.84 6.3 16 5 16a3 3 0 0 0-3 3 3 3 0 0 0 3 3c1.3 0 2.4-.84 2.82-2H18c1.61 0 4-1.07 4-4v-1c0-2.93-2.39-4-4-4m1-7a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1M5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    区间信号自动控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 16V4H3v12zm0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v2h2v2H8v-2h2v-2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2zM5 6h9v5H5zm10 0h4v2h-4zm4 3v5h-4V9zM5 12h4v2H5zm5 0h4v2h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    车站信号控制系统
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 16V4H3v12zm0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v2h2v2H8v-2h2v-2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2zM5 6h9v5H5zm10 0h4v2h-4zm4 3v5h-4V9zM5 12h4v2H5zm5 0h4v2h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    车站信号控制系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车站信号控制系统概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="车站信号控制系统概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        安全线和避难线、警冲标、股道有效长
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车站作业：列车作业、调车作业和转场作业
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        道岔
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        轨道电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        站内轨道区段的命名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车站联锁
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        联锁表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路的控制过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车站信号控制技术基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="车站信号控制技术基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        铁路信号安全型继电器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        联锁系统结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号机继电接口电路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号机继电接口电路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进站信号机点灯电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        出站兼调车信号机点灯电路(自动闭塞区间三显示)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        显示的技术要求及安全防护设计：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        出站信号机点灯电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        调车信号机
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        道岔转辙机的继电接口电路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="道岔转辙机的继电接口电路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        道岔控制电路设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四线制直流道岔接口电路分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四线制直流道岔接口电路分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直流道岔启动电路技术条件与实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        站内轨道电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算机联锁控制系统
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算机联锁控制系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算机联锁控制系统功能
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算机联锁系统的优点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于并行总线扩展的计算机联锁系统的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于串行总线扩展的计算机联锁系统-继电接口的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于串行总线扩展的计算机联锁系统-全电子化接口的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        满足铁路现场需求的联锁系统基本要求：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        双机热备模式-计算机联锁控制系统的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二乘二取二模式-计算机联锁控制系统的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三取二模式-计算机联锁控制系统的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6502" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电气集中联锁控制系统（6502）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="电气集中联锁控制系统（6502）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6502_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6502电气集中联锁系统概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15条网络线的设计思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15条网络线的设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号组合的用途（6种）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        道岔类型的组合
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        其他组合类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        继电器组合使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路控制时序逻辑
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="进路控制时序逻辑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路选择时序逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路建立时序逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路解锁时序逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行组进路控制时序总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行组电路中的6类继电器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择组电路中的7类继电器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择组时序逻辑表达式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行组时序逻辑表达式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siid7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SII至D7的选择组时序逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路建立过程典型电路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="进路建立过程典型电路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        方向继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        按钮继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选岔电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        辅助开始继电器与终端继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        开始继电器KJ电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xjj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号检查继电器XJJ电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        照查继电器ZC电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路解锁过程典型电路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="进路解锁过程典型电路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        取消继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路继电器电路与传递继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SJ锁闭继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正常解锁电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../STEM/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    理工科专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    理工科专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/matlab-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v2h3v12h-3v2h5V4M4 4v16h5v-2H6V6h3V4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Matlab入门学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/PLC-S7-200-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    西门子PLC S7-200
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/PLC-ModbusRTU/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 3h10v2h2v3h-3v6H8V8H5V5h2zm10 6h2v5h-2zm-6 6h2v7h-2zM5 9h2v5H5z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC ModbusRTU 学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h1v2H2v2h4v2H5c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2zm0 2h4v3h-4zM5 17h4v3H5zm10 0h4v3h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/%E4%BC%A0%E6%84%9F%E5%99%A8%E4%B8%8E%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与检测技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/%E4%BA%A4%E9%80%9A%E8%8B%B1%E8%AF%AD%E7%AD%94%E8%BE%A9%E8%AE%B2%E7%A8%BF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    专业外语课程-交通英语
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 22a3 3 0 0 1-3-3c0-.6.18-1.16.5-1.63L9 7.81V6a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1v1.81l5.5 9.56c.32.47.5 1.03.5 1.63a3 3 0 0 1-3 3zm-1-3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1c0-.21-.07-.41-.18-.57l-2.29-3.96L14 17l-5.07-5.07-3.75 6.5c-.11.16-.18.36-.18.57m8-9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理实验报告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/%E8%8B%8F%E5%B7%9E%E8%AF%84%E5%BC%B9%E9%89%B4%E8%B5%8F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 5a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c2.67 0 8 1.34 8 4v2H1v-2c0-2.66 5.33-4 8-4m7.76-9.64c2.02 2.2 2.02 5.25 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89zM20.07 2c3.93 4.05 3.9 10.11 0 14l-1.63-1.63c2.77-3.18 2.77-7.72 0-10.74z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    苏州评弹鉴赏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/%E6%AF%9B%E6%A6%82%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h2v20H7zm12 7-8 5.6V3.4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    毛概复习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/%E6%95%B0%E5%AD%97%E7%94%B5%E5%8E%8B%E8%A1%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    数字电压表制作课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.9 18.45c1.35 0 2.45-1.1 2.45-2.45s-1.1-2.45-2.45-2.45c-1.36 0-2.45 1.1-2.45 2.45s1.09 2.45 2.45 2.45m5.2-1.77 1.48 1.16c.13.11.17.29.08.45l-1.4 2.42a.35.35 0 0 1-.43.15l-1.74-.7c-.36.28-.76.51-1.18.69l-.27 1.85c-.02.17-.17.3-.34.3h-2.8c-.18 0-.32-.13-.35-.3l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.75.7c-.15.06-.34 0-.42-.15l-1.4-2.42a.35.35 0 0 1 .08-.45l1.48-1.16-.05-.68.05-.69-1.48-1.15a.35.35 0 0 1-.08-.45l1.4-2.42c.08-.16.27-.22.42-.16l1.75.71c.36-.28.75-.52 1.18-.69l.26-1.86c.03-.16.17-.29.35-.29h2.8c.17 0 .32.13.34.29l.27 1.86c.42.17.82.41 1.18.69l1.74-.71c.17-.06.34 0 .43.16l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.15.05.69zM6.69 8.07c.87 0 1.57-.7 1.57-1.57s-.7-1.58-1.57-1.58A1.58 1.58 0 0 0 5.11 6.5c0 .87.71 1.57 1.58 1.57m3.34-1.13.97.74c.07.07.09.19.03.29l-.9 1.56c-.05.1-.17.14-.27.1l-1.12-.45-.74.44-.19 1.19c-.02.11-.11.19-.22.19h-1.8c-.12 0-.21-.08-.23-.19L5.4 9.62l-.76-.44-1.14.45c-.09.04-.2 0-.26-.1l-.9-1.56c-.06-.1-.03-.22.05-.29l.95-.74-.03-.44.03-.44-.95-.74a.23.23 0 0 1-.05-.29l.9-1.56c.06-.1.17-.14.26-.1l1.13.45.77-.44.16-1.19c.02-.11.11-.19.23-.19h1.8c.11 0 .2.08.22.19L8 3.38l.74.44 1.12-.45c.1-.04.22 0 .27.1l.9 1.56c.06.1.04.22-.03.29l-.97.74.03.44z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC综合实训课程设计
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%BF%A1%E5%8F%B7%E9%85%8D%E6%97%B6%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.1 4.8c-.1-.5-.5-.8-1-.8H13l.2 3h-2.4l.2-3H6.8c-.5 0-.9.4-1 .8l-2.7 14c-.1.6.4 1.2 1 1.2H10l.3-5h3.4l.3 5h5.8c.6 0 1.1-.6 1-1.2zM10.4 13l.2-4h2.6l.2 4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    交叉口信号配时课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STEM/%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8C%E9%9D%A2%E9%95%9C%E6%B5%8B%E7%A3%81%E8%87%B4%E4%BC%B8%E7%BC%A9%E7%B3%BB%E6%95%B0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.29 10.28 3.24-3.25 1.06 1.06-3.24 3.25zm.41 4.33 5.66-5.66L15.42 10l-5.66 5.67zM18 3v18H6V3zm2-2H4v22h16z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    菲涅尔双面镜测磁致伸缩系数实验
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Kaoyan/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研相关科目
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    考研相关科目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-math-hm/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.42 5.29c-1.1-.1-2.07.71-2.17 1.82L10 10h2.82v2h-3l-.44 5.07A4.001 4.001 0 0 1 2 18.83l1.5-1.5c.33 1.05 1.46 1.64 2.5 1.3.78-.24 1.33-.93 1.4-1.74L7.82 12h-3v-2H8l.27-3.07a4.01 4.01 0 0 1 4.33-3.65c1.26.11 2.4.81 3.06 1.89l-1.5 1.5c-.25-.77-.93-1.31-1.74-1.38M22 13.65l-1.41-1.41-2.83 2.83-2.83-2.83-1.43 1.41 2.85 2.85-2.85 2.81 1.43 1.41 2.83-2.83 2.83 2.83L22 19.31l-2.83-2.81z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-高数知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-math-la/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-线代知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-eng-write/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.54 3.5 4.96 4.97-1.43 1.41-4.95-4.95zM3.5 19.78l6.5-6.47c-.1-.31-.03-.7.23-.96.39-.39 1.03-.39 1.42 0 .39.4.39 1.03 0 1.42-.26.26-.65.33-.96.23l-6.47 6.5 10.61-3.55 3.53-6.36-4.94-4.95-6.37 3.53z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-作文写作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%80%83%E7%A0%94%E6%A0%B8%E5%BF%83926%E8%AF%8D%E6%B1%87%E5%8F%8A%E6%8B%93%E5%B1%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2zm0 2h2v2H3m12-.5V9a2 2 0 0 0-2-2H9v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M13 15h-2v-2h2zm0-4h-2V9h2m6-2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1h-2v1h-2V9h2v1h2V9a2 2 0 0 0-2-2Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-核心词汇926词
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-1.27 0-2.4.8-2.82 2H3v2h1.95L2 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3L6.05 7h3.12c.33.85.98 1.5 1.83 1.83V20H2v2h20v-2h-9V8.82c.85-.32 1.5-.97 1.82-1.82h3.13L15 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3l-2.95-7H21V5h-6.17C14.4 3.8 13.27 3 12 3m0 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-6.5 5.25L7 14H4zm13 0L20 14h-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研政治-知识点笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%87%AA%E6%8E%A7-%E6%A0%B9%E8%BD%A8%E8%BF%B9%E6%B3%95%E5%88%99/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.96 11.31C10.82 8.1 11.5 6 13 6s2.18 2.1 3.04 5.31C17 14.92 18.1 19 22 19v-2c-2.2 0-3-2.46-4.03-6.2C17.08 7.46 16.15 4 13 4s-4.08 3.46-4.97 6.8C7.03 14.54 6.2 17 4 17V2H2v20h20v-2H4v-1c3.9 0 5-4.08 5.96-7.69"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    自动控制原理-根轨迹法则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    技术开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技术开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Markdown/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12c.79 0 1.44.63 1.44 1.41v9.18c0 .78-.65 1.41-1.44 1.41M6.81 15.19v-3.66l1.92 2.35 1.92-2.35v3.66h1.93V8.81h-1.93l-1.92 2.35-1.92-2.35H4.89v6.38zM19.69 12h-1.92V8.81h-1.92V12h-1.93l2.89 3.28z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown相关
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Markdown相关
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/markdown-in-5min/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4zm10 14.5-4-4-4 4V20h8zm-4-5 4-4V4H8v3.5zM10 6h4v.75l-2 2-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 5 分钟上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/LaTeX-math/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 6H8.83l6 6-6 6H18v2H6v-2l6-6-6-6V4h12z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在Markdown中编写数学公式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/zensical-markdown/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5zm2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63s2.59.23 3.5.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Zensical 中使用 Markdown 高效写作
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/markdown-typora/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7V5h2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L18 9V2h1c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7zm4 4H5v2h2zm0-4V5H5v2zm0 12v-2H5v2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 与 Typora 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/typora-theme/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 12a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 17.5 9a1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-3-4A1.5 1.5 0 0 1 13 6.5 1.5 1.5 0 0 1 14.5 5 1.5 1.5 0 0 1 16 6.5 1.5 1.5 0 0 1 14.5 8m-5 0A1.5 1.5 0 0 1 8 6.5 1.5 1.5 0 0 1 9.5 5 1.5 1.5 0 0 1 11 6.5 1.5 1.5 0 0 1 9.5 8m-3 4A1.5 1.5 0 0 1 5 10.5 1.5 1.5 0 0 1 6.5 9 1.5 1.5 0 0 1 8 10.5 1.5 1.5 0 0 1 6.5 12M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9 1.5 1.5 0 0 0 1.5-1.5c0-.39-.15-.74-.39-1-.23-.27-.38-.62-.38-1a1.5 1.5 0 0 1 1.5-1.5H16a5 5 0 0 0 5-5c0-4.42-4.03-8-9-8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Typora 软件主题分享与记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/WebDev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.19 14.19 6 18l3.81-8.19L18 6m-6-4A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 8.9a1.1 1.1 0 0 0-1.1 1.1 1.1 1.1 0 0 0 1.1 1.1 1.1 1.1 0 0 0 1.1-1.1 1.1 1.1 0 0 0-1.1-1.1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Web 相关开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web 相关开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%BD%BF%E7%94%A8EO-Pages%E6%89%98%E7%AE%A1Zensical%E7%AB%99%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83s-2.05.78-2.83 0m-5.66 7.07-1.41-1.41zM6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 EdgeOne Pages 托管 Zensical 站点
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E8%A1%A8%E5%8D%95%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.13c-.15.01-.29.06-.39.17l-1 1 2.05 2 1-1c.22-.21.22-.56 0-.77l-1.24-1.23a.56.56 0 0 0-.38-.17m-2 1.75L13 19.94V22h2.06l6.06-6.07M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7v-.89l8.24-8.22c.47-.49 1.12-.76 1.8-.76.34 0 .68.06 1 .19V6c0-1.12-.92-2-2.04-2m0 4-8 5-8-5V6l8 5 8-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加邮件表单功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E5%9F%BA%E4%BA%8EEO-Pages%E5%AE%9E%E7%8E%B0%E7%AB%99%E7%82%B9%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于 EdgeOne Pages 实现站点访问统计功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0AI%E9%97%AE%E7%AD%94%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-1.26 2.75L15 5l2.74 1.26L19 9l1.25-2.74L23 5l-2.75-1.25M9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5M19 15l-1.26 2.74L15 19l2.74 1.25L19 23l1.25-2.75L23 19l-2.75-1.26"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加 AI 问答功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加音乐播放器功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Embedded/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E5%9B%9B%E8%BD%AE%E7%A7%BB%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 0 0 5 15.5 2.5 2.5 0 0 0 7.5 18a2.5 2.5 0 0 0 2.5-2.5A2.5 2.5 0 0 0 7.5 13m9 0a2.5 2.5 0 0 0-2.5 2.5 2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于STM32的四轮移动机器人设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ERFID%E7%9A%84%E6%99%BA%E8%83%BD%E4%BB%93%E5%82%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h2v2H6zm6-16L2 8v13h2v-8h16v8h2V8zm-4 8H4V9h4zm6 0h-4V9h4zm6 0h-4V9h4zM6 15h2v2H6zm4 0h2v2h-2zm0 4h2v2h-2zm4 0h2v2h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于RFID的智能仓储管理系统设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/2024%E7%94%B5%E8%B5%9BH%E9%A2%98%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2c-.9 0-2 1-2 2H8c0-1-1.1-2-2-2H2v9c0 1 1 2 2 2h2.2c.4 2 1.7 3.7 4.8 4v2.08C8 19.54 8 22 8 22h8s0-2.46-3-2.92V17c3.1-.3 4.4-2 4.8-4H20c1 0 2-1 2-2V2zM6 11H4V4h2zm14 0h-2V4h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024电赛H题参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/2024%E8%A5%BF%E9%97%A8%E5%AD%90%E6%9D%AF%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4v2l5.81 4.36a7.004 7.004 0 0 0-4.46 8.84 6.996 6.996 0 0 0 8.84 4.46 7 7 0 0 0 0-13.3L20 4zm-5.06 17.5L12 17.78 9.06 19.5l.78-3.33-2.59-2.24 3.41-.29L12 10.5l1.34 3.14 3.41.29-2.59 2.24z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024西门子杯参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    蓝桥杯嵌入式与STM32学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/PCB%E8%AE%BE%E8%AE%A1%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0 3 7l1.63 1.27L12 14l7.36-5.73L21 7zm7.37 10.73L12 16.47l-7.38-5.73L3 12l9 7 9-7zm0 5L12 21.47l-7.38-5.73L3 17l9 7 9-7z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PCB设计注意事项
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ECD4017%E7%9A%84%E7%AE%80%E6%98%93%E5%AF%86%E7%A0%81%E5%99%A8%E6%8E%A7%E5%88%B6%E8%A3%85%E7%BD%AE/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m5.6-4c-.8-2.3-3-4-5.6-4-3.3 0-6 2.7-6 6s2.7 6 6 6c2.6 0 4.8-1.7 5.6-4H16v4h4v-4h3v-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于CD4017的简易密码器控制装置
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Software/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v10H4m16 2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    软件程序开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件程序开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/%E5%9F%BA%E4%BA%8EAST%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E7%9A%84Python%E6%96%87%E4%BB%B6%E6%9F%A5%E9%87%8D/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18H6v-2h4zm0-4H6v-2h4zm0-13v1H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h4v1h2V1zm10 7v12c0 1.11-.89 2-2 2h-4v-2h4v-9h-4V9h4.5L14 4.5V2zm-4 6h-2v-2h2zm0 4h-2v-2h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于AST语义分析的Python文件查重
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/%E6%97%8B%E8%BD%AC%E9%9F%B3%E5%BE%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m0 2v12h16V6zm3.24.58 11.59 3.11-2.07 7.73-11.59-3.11z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于Pyside6与ffmpeg的旋转音律视频稳定工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/Turbot4%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Turbot4机器人开发记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55 6.28-3.63-.58-1.01-6.28 3.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+     Python 下一代包管理器 uv 上手指南
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Tools/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.8 3.8 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.8 3.8 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    工具与资源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具与资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Tools/%E5%8D%A1%E8%A5%BF%E6%AC%A7fx-991%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4zm0 6v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    卡西欧fx-991使用技巧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/guest-board/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 12V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14l4-4h10a1 1 0 0 0 1-1m4-6h-2v9H6v2a1 1 0 0 0 1 1h11l4 4V7a1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    留言板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    友链
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    友链
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 17q.86 0 1.45.6t.58 1.4L14 22l-7-2v-9h1.95l7.27 2.69q.78.31.78 1.12 0 .47-.34.82t-.86.37H13l-1.75-.67-.33.94L13 17zM16 3.23Q17.06 2 18.7 2q1.36 0 2.3 1t1 2.3q0 1.03-1 2.46t-1.97 2.39T16 13q-2.08-1.89-3.06-2.85t-1.97-2.39T10 5.3q0-1.36.97-2.3t2.34-1q1.6 0 2.69 1.23M.984 11H5v11H.984z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    朋友们
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links-guide/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 14c-2.67 0-8 1.33-8 4v2h16v-2c0-2.67-5.33-4-8-4m-9-4V7H4v3H1v2h3v3h2v-3h3v-2m6 2a4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4 4 4 0 0 0 4 4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    友链申请指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/contact-form/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 8V7l-3 2-3-2v1l3 2m4-7H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M8 6a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m6 12H2v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1m8-5h-8V6h8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    联系表单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nav.sufine.top" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网址导航
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车站信号控制系统概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="车站信号控制系统概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        安全线和避难线、警冲标、股道有效长
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车站作业：列车作业、调车作业和转场作业
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        道岔
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        轨道电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        站内轨道区段的命名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车站联锁
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        联锁表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路的控制过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车站信号控制技术基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="车站信号控制技术基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        铁路信号安全型继电器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        联锁系统结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号机继电接口电路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号机继电接口电路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进站信号机点灯电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        出站兼调车信号机点灯电路(自动闭塞区间三显示)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        显示的技术要求及安全防护设计：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        出站信号机点灯电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        调车信号机
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        道岔转辙机的继电接口电路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="道岔转辙机的继电接口电路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        道岔控制电路设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四线制直流道岔接口电路分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四线制直流道岔接口电路分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直流道岔启动电路技术条件与实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        站内轨道电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算机联锁控制系统
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算机联锁控制系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算机联锁控制系统功能
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算机联锁系统的优点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于并行总线扩展的计算机联锁系统的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于串行总线扩展的计算机联锁系统-继电接口的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于串行总线扩展的计算机联锁系统-全电子化接口的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        满足铁路现场需求的联锁系统基本要求：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        双机热备模式-计算机联锁控制系统的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二乘二取二模式-计算机联锁控制系统的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三取二模式-计算机联锁控制系统的主要特点：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6502" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电气集中联锁控制系统（6502）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="电气集中联锁控制系统（6502）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6502_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6502电气集中联锁系统概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15条网络线的设计思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15条网络线的设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号组合的用途（6种）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        道岔类型的组合
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        其他组合类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        继电器组合使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路控制时序逻辑
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="进路控制时序逻辑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路选择时序逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路建立时序逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路解锁时序逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行组进路控制时序总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行组电路中的6类继电器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择组电路中的7类继电器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择组时序逻辑表达式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行组时序逻辑表达式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siid7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SII至D7的选择组时序逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路建立过程典型电路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="进路建立过程典型电路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        方向继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        按钮继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选岔电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        辅助开始继电器与终端继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        开始继电器KJ电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xjj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号检查继电器XJJ电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        照查继电器ZC电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路解锁过程典型电路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="进路解锁过程典型电路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        取消继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进路继电器电路与传递继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SJ锁闭继电器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正常解锁电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    关于本站
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    课程学习
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    轨道交通信号与控制
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/weigo6/suffine-hub/edit/main/docs/college-study/RailSig/车站信号控制系统.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/weigo6/suffine-hub/raw/main/docs/college-study/RailSig/车站信号控制系统.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+<h1 id="_1">车站信号自动控制<a class="headerlink" href="#_1" title="跳转至本节的锚点链接">&para;</a></h1>
+<h2 id="_2">车站信号控制系统概述<a class="headerlink" href="#_2" title="跳转至本节的锚点链接">&para;</a></h2>
+<p><img alt="image-20241223104605782" src="../车站信号控制系统.assets/image-20241223104605782.png" /></p>
+<h3 id="_3">安全线和避难线、警冲标、股道有效长<a class="headerlink" href="#_3" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>为防止专用线或岔线上的机车车辆因故进入正线或到发 线而发生冲突，在岔线与站内正线或到发线接轨时要设置 安全线；或进站信号机外方制动距离内有6‰及以上的连 续下坡道时，在车站接车方向的末端设置要设置安全线。<img alt="image-20241223104824645" src="../车站信号控制系统.assets/image-20241223104824645.png" /></p>
+<p>为防止在又陡又长的下坡道上列车失去控制，或 在陡长的上坡道上因车辆断钩，而溜入占用的区 间或站内，在陡长坡道下方专设一条线路，叫避 难线。<img alt="image-20241223104903982" src="../车站信号控制系统.assets/image-20241223104903982.png" /></p>
+<p>警冲标是指示机车车辆不准超过道岔方面和线路交叉地 点的标志。在两分支轨道中心相距各2m 的地方设置警冲标防止列车侧面冲突。<img alt="image-20241223105101647" src="../车站信号控制系统.assets/image-20241223105101647.png" /></p>
+<p>股道有效长是指在股道全长范围内可以停留机车 车辆而不影响邻线行车的一段长度，应大于或等 于规定的列车长度在加上附加长度（30m）<img src="../车站信号控制系统.assets/image-20241223105304305.png" alt="image-20241223105304305" style="zoom:80%;" /></p>
+<h3 id="_4">车站作业：列车作业、调车作业和转场作业<a class="headerlink" href="#_4" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>列车作业：</p>
+<ul>
+<li>
+<p>接车作业—将列车由区间接入站内股道</p>
+</li>
+<li>
+<p>发车作业—将列车由站内股道发往区间</p>
+</li>
+<li>
+<p>通过作业—列车经由股道不停车通过车站</p>
+</li>
+</ul>
+<p>调车作业——在车站站场内进行的机车出入库、转线、车列解体、编组及取送车等作业，统称调车作业。</p>
+<p>转场作业——具有多个车场的车站，列车或车列由一个车场转线到另一个车场的作业，称为转场作业。</p>
+<p>车站作业的特点：</p>
+<ul>
+<li>并发性：车站内可能有多列车同时作业，列车作业和调 车作业同时进行；</li>
+<li>复杂多变性：作业过程随情况变化而发生变化</li>
+<li>安全性：必须保证各种车站作业的安全性。</li>
+</ul>
+<h3 id="_5">信号机<a class="headerlink" href="#_5" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>信号机的灯光:红、绿、黄、白、蓝、绿黄、双黄、红白的字母表示符号?</p>
+<p>红色是停车信号。在铁路信号系统中，当信号机显示红色灯光时，列车或车辆必须在信号机前停车，绝对禁止越过。</p>
+<p>绿色是按规定速度运行的信号。准许列车或车辆按规定的速度通过信号机。</p>
+<p>黄色是减速信号。提示列车或车辆应减速，准备停车或者在注意瞭望的前提下继续前进。</p>
+<p>月白色（白色），在调车信号机中，月白色灯光准许越过该信号机调车。在某些情况下作为引导信号，如进站信号机的<strong>红白显示</strong>中的白色部分，准许列车在该信号机前不停车，以不超过一定速度进站或通过接车进路，并随时准备停车。</p>
+<p>蓝色信号主要用于调车信号机，表示禁止越过该信号机调车。</p>
+<p>绿黄信号：进站信号机显示绿黄灯光：表示允许列车经道岔直向位置进入站内，越过下一架已经开放的接车进路信号机准备停车。比如当列车需要连续通过车站内的多个信号机时，进站信号机显示绿黄灯光，引导列车逐步进站停车；区间通过信号机显示绿黄灯光：在四显示自动闭塞区段，绿黄灯光表示前方有两个闭塞分区空闲，列车应注意运行速度，按规定速度越过该信号机后，在次一架信号机前减速准备停车。</p>
+<p>双黄信号；进站信号机显示双黄灯光：准许列车经道岔侧向位置，进入站内准备停车。即列车要通过道岔的侧向进入站内时，信号机显示双黄灯光，提醒司机注意侧向通过道岔的限速要求，因为列车侧向通过道岔时速度不能太高，以免脱轨等危险情况发生</p>
+<p>红白信号：进站信号机显示红白灯光，为引导进站信号，白色为引导信号，表示允许列车在该信号机前不停车，以不超过 20km/h 的速度进站或通过接车进路，并随时准备停车。</p>
+<p><img src="../车站信号控制系统.assets/image-20241227213238778.png" alt="image-20241227213238778" style="zoom:50%;" /></p>
+<p><strong>列车信号机：</strong></p>
+<ul>
+<li><strong>进站信号机</strong></li>
+</ul>
+<p>为了防护车站， 指示列车能否由区间进入车站，在车站的入口处设置的信号机叫做进站信号机。</p>
+<p>作用：防护车站，指示列车的运行条件，保证接车进路的正确和安全可靠。</p>
+<p>命名：上行用S，下行用X；有多个方向线路时，在字母右下角加线路名拼音字头，如X<sub>D</sub>；双线自动闭塞区间的反向进站信号机，在字母右下角加F或N，表示反向或逆向，如X<sub>F</sub>。<img alt="image-20241223112031024" src="../车站信号控制系统.assets/image-20241223112031024.png" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241223112109557.png" alt="image-20241223112109557" style="zoom: 67%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241223112127264.png" alt="image-20241223112127264" style="zoom:67%;" /></p>
+<ul>
+<li><strong>出站信号机</strong></li>
+</ul>
+<p>为了指示列车能否由车站进入区间，在车站的发车股道列车停车地点前方设置的信号机叫做出站信号机。</p>
+<p>作用：防护区间，作为列车进入区间的凭证，指示列车能否进入区间。</p>
+<p>命名：上行用S，下行用X，在字母右下角加上股道号，如图中的S<sub>I</sub>，S<sub>II</sub>等<img alt="image-20241223112732815" src="../车站信号控制系统.assets/image-20241223112732815.png" /><img src="../车站信号控制系统.assets/image-20241223112758507.png" alt="image-20241223112758507" style="zoom:67%;" /></p>
+<ul>
+<li>进路信号机（接车、发车）</li>
+</ul>
+<p>作用：防护转场进路，指示列车转场作业。</p>
+<p>设置：当两个车场间线路较短，在车场入口处不能装设接车进路信号机时，可在相邻车场出口处的正线上装设接发车进路信号机。 当两个车场间线路较长，为了提高站内通过能力，除在车场入口处的正线上装设接车进路信号机外，还应在相邻车场出口处的正线上装设接发车进路信号机。<img src="../车站信号控制系统.assets/image-20241223114919732.png" alt="image-20241223114919732" style="zoom:67%;" /></p>
+<p>命名：在 S 或 X 的后面加 L 表示进路信号机，再在L的右下角缀上所在股道号，如XL3。</p>
+<ul>
+<li>预告信号机</li>
+</ul>
+<p>设置：进站信号机外方，不少于800m的地方</p>
+<p>命名：Y+进站信号机名称：如YX</p>
+<p>显示：一个绿灯：表示主体信号机在开放状态；一个黄灯：表示主体信号机在关闭状态</p>
+<ul>
+<li>复示信号机</li>
+</ul>
+<p><strong>调车信号机</strong></p>
+<p>​   作用：指示站内各种调车作业</p>
+<p>​   设置：根据调车作业的实际需要划分，包括调车起始信号机、调车折返信号机、调车阻拦信号机。<img src="../车站信号控制系统.assets/image-20241223113148923.png" alt="image-20241223113148923" style="zoom:67%;" /></p>
+<p>根据调车信号机所处的位置划分：股道头部调车信号机、尽头型调车信号机、咽喉区调车信号机<img src="../车站信号控制系统.assets/image-20241223113328667.png" alt="image-20241223113328667" style="zoom:67%;" /></p>
+<p>命名：调车信号机的名称以<strong>D</strong>表示，再在右下角缀上顺序号。调车信号机从车站两端进站方向向股道顺序编号，上行咽喉区编为<strong>双号</strong>，下行咽喉区编为<strong>单号</strong>。<img alt="image-20241223113431210" src="../车站信号控制系统.assets/image-20241223113431210.png" /></p>
+<p>显示：一个月白灯光，表示准许越过该调车信号机；一个蓝色灯光，表示禁止越过该调车信号机；尽头线上起阻拦列车运行作用的调车信号机，可用红色灯光代替蓝色灯光。</p>
+<h3 id="_6">道岔<a class="headerlink" href="#_6" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>道岔是列车从一股道到另一股道的转辙设备，是进路方向的约束条件，是铁路信号的主要控制设备之一。
+<img src="../车站信号控制系统.assets/image-20241223115102770.png" alt="image-20241223115102770" style="zoom:50%;" /></p>
+<p>辙叉号：由叉心所形成的角叫辙叉角（a）；道岔号（N）代表道岔各部主要尺寸，用辙叉角的余切表示；辙叉号（道岔号）越大，导曲线半径也越大，允许过岔速度越高；9、12、18号道岔，允许侧向通过速度30、45、80km/h；30、38号道岔，允许侧向通过速度140、160km/h。</p>
+<p>通常把道岔经常所处的位置叫做定位，临时根据需要改变的另一位置叫做反位。一次操纵只能使一组道岔转换的道岔，叫单动道岔；一次操纵能使两组道岔同时或顺序转换的道岔，叫双动道岔；异常状态：四开、挤岔</p>
+<p>道岔定位的确定原则：按左侧行车制尽量考虑站内行车和调度作业的安全；作业方便，尽量减少扳动道岔的次数；单线正线进站道岔为由车站两端向不同线路开通的位置。双线车站正线进站道岔，为各该正线开通的位置。区间内由辅助所所辖道岔以开通正线为其定位。连通正线的其他道岔，应以引向正线开通的位置。引向安全线和避难线的道岔，为开通安全线和避难线的位置。站线上的道岔，（除安全线和避难线）为向列车开通的位置。如果两条进路都是列车进路，为向直股列车进路开通的位置或向靠近站舍方向开通的位置，即向经常使用的股道开通为定位。</p>
+<p>对向道岔和顺向道岔：列车顺着道岔尖轨运行时，叫顺向道岔，反之叫对向道岔。<img src="../车站信号控制系统.assets/image-20241223120231247.png" alt="image-20241223120231247" style="zoom:50%;" /></p>
+<h3 id="_7">轨道电路<a class="headerlink" href="#_7" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><strong>轨道电路区段划分原则</strong>：</p>
+<p>有信号机的地方必须设置绝缘节，使其前后为两个不同 的轨道区段；</p>
+<p>凡是能平行运行的进路，其间应设轨道绝缘将其隔开；</p>
+<p>一个轨道电路区段的道岔不能超过3组；</p>
+<p>为提高咽喉使用效率，应把轨道电路区段适当划短，但在提速区段，为了保证机车信号的连续显示，轨道电路区段不能过短。<img src="../车站信号控制系统.assets/image-20241223120457023.png" alt="image-20241223120457023" style="zoom:67%;" /></p>
+<p><strong>侵限绝缘</strong></p>
+<p>道岔区段的绝缘节设在警冲标的内方 ，不小于3.5m、不大于4m的地方，若 实在不能满足此要求，则该绝缘节称为侵限绝缘；</p>
+<p>两绝缘节应设在同一坐标处，避免产生死区段。错开距离小于2.5m。</p>
+<p>两相邻死区段间隔，不得小于18m。</p>
+<p>信号机处的绝缘节：应与信号机坐标相同，若达不到时：进站、接车进 路信号机处的绝缘可以设在信号机前方1m或后方1m处。出站、发车进路信号机处，钢轨绝缘可以设在信号机前方1m或后方6.5m的范围内。调车信号机处与进站一致，但设在到发线时与出站一致。</p>
+<p><img src="../车站信号控制系统.assets/image-20241223120512019.png" alt="image-20241223120512019" style="zoom: 67%;" /><img src="../车站信号控制系统.assets/image-20241223120524054.png" alt="image-20241223120524054" style="zoom:75%;" /></p>
+<h3 id="_8">站内轨道区段的命名<a class="headerlink" href="#_8" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><img src="../车站信号控制系统.assets/image-20241223120921457.png" alt="image-20241223120921457" style="zoom:67%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241223120946352.png" alt="image-20241223120946352" style="zoom:67%;" /></p>
+<h3 id="_9">车站联锁<a class="headerlink" href="#_9" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>车站室外信号设备（三大件）：<u>信号机</u>：命令指挥；<u>道岔转辙机</u>：方向转换；<u>轨道电路</u>：位置检测</p>
+<p>进路：为列车运行划分出来的、虚拟的、专用的一条通路</p>
+<p>联锁：为了保证行车安全，信号、道岔与进路之间必须保持一定的制约关系和操作顺序，这种制约关系和操作顺序称为联锁。</p>
+<p>进路与道岔的联锁关系：</p>
+<p>​   道岔是进路方向的约束条件，进路 建立后道岔不允许再动作，锁闭道岔。</p>
+<p>​   道岔在进路中的表示方法：</p>
+<p>​       进路通路上的道岔：定位：1，反位：（1）。</p>
+<p>​       不在通路上的道岔：防护道岔：定位锁闭[4/6]，反位锁闭 [(4/6)] ；带动道岔：定位锁闭     {4/6}，反位锁闭{(4/6)}<img alt="image-20241223121937232" src="../车站信号控制系统.assets/image-20241223121937232.png" /></p>
+<p>进路与信号机的联锁关系：</p>
+<p>​   防护：在进路表中写明信号名称和显示颜色，D21:B</p>
+<p>​   敌对：在进路表中写明信号名称和敌对条件，敌对锁闭，D23，＜19＞D33<img alt="image-20241223122158790" src="../车站信号控制系统.assets/image-20241223122158790.png" /></p>
+<p>进路与轨道区段的联锁关系：</p>
+<p>​   防护锁闭：检查空闲，建立锁闭；在进路表中写明轨道区段名称：11DG</p>
+<p>​   侵限检查：在进路表中写明轨道区段名称和侵限条件，D3-D11进路中检查&lt;3&gt;3DG。</p>
+<p>进路与进路的联锁关系：</p>
+<p>​   抵触进路和敌对进路：决定因素是道岔，如果道岔位置不能间接控制两条进路， 两条进路存在抵触或敌对关系，则为敌对进路，若通过道岔能分开，则为抵触进路</p>
+<h3 id="_10">联锁表<a class="headerlink" href="#_10" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>定义：说明车站信号设备联锁关系的图表</p>
+<p>设计依据：按照车站站场线路配置，咽喉区道岔分布以及信号机布置情况， 遵照《铁路信号联锁图表编制原则》编制出来的<img src="../车站信号控制系统.assets/image-20241225210909794.png" alt="image-20241225210909794" style="zoom:80%;" /><img src="../车站信号控制系统.assets/image-20241225210923011.png" alt="image-20241225210923011" style="zoom:80%;" /><img src="../车站信号控制系统.assets/image-20241225210937131.png" alt="image-20241225210937131" style="zoom:80%;" /></p>
+<h3 id="_11">进路的控制过程<a class="headerlink" href="#_11" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><img src="../车站信号控制系统.assets/image-20241225211017767.png" alt="image-20241225211017767" style="zoom:50%;" /></p>
+<p><strong>进路的选排：</strong></p>
+<p>​   功能：根据操作命令选择一条进路、检查进路建立的联锁条件、完成道岔的转状态转换过程控制与位置检查</p>
+<p>​   技术条件：区段空闲且未锁闭，侵限区段空闲；道岔未被封锁，未单独位置防护锁在错误位置；敌对进路未建立；进路的其他照查条件满足</p>
+<p><strong>进路的锁闭：</strong></p>
+<p>​   功能：检查进路的锁闭条件是否满足、条件满足则锁闭进路（道岔、轨道区段、敌对信号、照查锁闭）</p>
+<p>​   技术条件：区段空闲且未锁闭，侵限区段空闲、进路的防护道岔位置正确、敌对进路未建立、进路的其他照查条件满足</p>
+<p><strong>进路的信号开放：</strong></p>
+<p>​   功能：检查进路已锁闭、检查信号开放的技术条件、完成主体信号机的开放</p>
+<p>​   技术条件：区段空闲且锁闭，侵限区段空闲、进路的防护道岔位置正确、敌对进路未建立、进路的其他照查条件满足、未办理取消进路、列车信号机红灯灯丝完好、开放信号显示正确。</p>
+<p><strong>信号的保持开放：</strong></p>
+<p>​   功能：连续检查信号开放的技术条件、检查信号机的关闭条件、信号机开放条件不满足时，立即实施主体信号机的关闭</p>
+<p>​   技术条件-开放：区段空闲且锁闭，侵限区段空闲进路的防护道岔位置正确、敌对进路未建立、进路的其他照查条件满足、未办理取消进路、列车信号机红灯灯丝完好、开放信号显示正确</p>
+<p>​   技术条件-关闭：列车第一轮对压入进路内方、接近无车调车全部进入进路内方、接近有车调车越过进路内方第一区段、机车专用线机车第一轮对压入、信号机发生故障、办理取消或人工解锁进路、复示信号机的主体信号机关闭</p>
+<p><strong>进路的正常通过解锁：</strong></p>
+<p>​   功能：检查列车或调车顺序驶过进路、完成进路的分段解锁或一次解锁</p>
+<p>​   技术条件：防护进路的信号机因车列进入进路而自动关闭、车列确已顺序压入并出清进路区段、分段解锁闭，车列出清轨道区段后，该区段自动及时解锁（ 三点检查与3秒）</p>
+<p><strong>进路的取消解锁：</strong></p>
+<p>​   功能：检查是否办理了取消进路的操作、检查进路取消解锁的条件是否满足、条件满足时一次性取消进路</p>
+<p>​   技术条件：进路接近区段空闲且无接近锁闭、防护进路的信号机关闭、进路处于空闲状态</p>
+<p><strong>进路的人工延迟解锁：</strong></p>
+<p>​   功能：检查进路解锁的条件是否满足、条件满足时延时后一次性解锁进路</p>
+<p>​   技术条件：进路接近区段有车或处于接近锁闭状态、防护进路的信号机关闭、延时过程中，进路处于空闲状态（30秒和3分钟）</p>
+<p><strong>进路的区段故障解锁：</strong></p>
+<p>​   功能：检查车列非正常通过进路、破铅封解除区段的锁闭</p>
+<p>​   技术条件：检查解锁区段空闲、检查解锁区段未处于车列运行前方</p>
+<p><strong>进路的调车中途折返解锁：</strong></p>
+<p>​   功能：检查调车列的折返作业条件、解除调车折返作业的原牵出进路的锁闭</p>
+<p>​   技术条件：检查车列牵出作业后折返信号机开放、检查车列顺序退出牵出进路、检查车列压入折返信号机的内方</p>
+<p>特殊进路的控制：引导进路控制、延续进路控制、到发线出岔进路控制、非进路调车控制</p>
+<h2 id="_12">车站信号控制技术基础<a class="headerlink" href="#_12" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_13">铁路信号安全型继电器<a class="headerlink" href="#_13" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>所谓安全型继电器是指它的结构必须符合故障—安全原则，是一种不 对称器件，在故障情况下使前接点闭合的概率远小于后接点闭合的概率。（分类：无极继电器、极性继电器：偏极，极性保持）</p>
+<p>故障—安全措施：前接点采用了熔点高材料;增加衔铁重量，利用“重力恒定”原理;采用残磁极小的铁磁材料;衔铁不致因机械故障而卡在吸起状态<img src="../车站信号控制系统.assets/image-20241225214041517.png" alt="image-20241225214041517" style="zoom: 50%;" /></p>
+<p>J 继电器 W 无极 X 小型 C 插入式 Z 整流式 Y 有极 P 偏极 字头后J表示加强节点 阻值前H表示缓放型 JWJXC-H125/0.44</p>
+<p>125/0.44：前圈电阻值：后圈电阻值</p>
+<p>继电器一般都有多组接点，每组接点包含前接点、中接点和后接点，编号分别 为2、1和3。</p>
+<p>电路中继电器通常呈现的状态，称为定位或常态。（确定定位的原则：继电器的定位状态应与该继电器对应的信号设备的定位状态一致；继电器的释放状态必须与该继电器对应的信号设备的安全侧一致。常态吸起（定位）：↑ 常态落下（定位）：↓）<img src="../车站信号控制系统.assets/image-20241225214438679.png" alt="image-20241225214438679" style="zoom:67%;" /></p>
+<p>电路中选择继电器的一般原则：继电器的类型、线圈电阻，应满足各种电路的基本要求。电路中串联使用继电器时，串联继电器的数量满足电压的要求。接点通过的电流不应小于电路的工作电流，必要时采用并联。接点数量不够时，设置复示继电器反映主继电器工作状态。电路中串联继电器接点时，接点的接触电阻满足电路要求。</p>
+<p>接通公式：描述继电器励磁电流的径路，即由电源正极经由接点、线圈以及其它器件而流 向电源负极的回路，它是分析继电器电路的常用方法。KZ-DGJ<sub>11-12</sub> -DBJ<sub>21-22</sub> -AJ<sub>11-13</sub> -D<sub>1-2</sub> -CJ<sub>1-4</sub> -KF</p>
+<p>继电器安全电路：断线故障：使电路开路的故障；混线故障：使电路短路的故障</p>
+<h3 id="_14">联锁系统结构<a class="headerlink" href="#_14" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><img src="../车站信号控制系统.assets/image-20241225215737358.png" alt="image-20241225215737358" style="zoom:50%;" /></p>
+<p>车站室外设备继电接口电路作用：完成把室内联锁逻辑形成的设备控制命令，转 换为对室外设备的安全强电输出，并且把室外信号设备的状态，转换为对应的继电器组合状态再传递 给联锁逻辑部分进行运算。</p>
+<h3 id="_15">信号机继电接口电路<a class="headerlink" href="#_15" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>进站信号机的灯光设计：</p>
+<ul>
+<li>
+<p>红灯： 停车，禁止越过信号机</p>
+</li>
+<li>
+<p>黄灯： 正线停车</p>
+</li>
+<li>
+<p>双黄： 侧线停车</p>
+</li>
+<li>
+<p>绿黄： 正线通过，出站信号机点黄灯</p>
+</li>
+<li>
+<p>绿灯： 正线通过</p>
+</li>
+<li>
+<p>红白： 引导接车</p>
+</li>
+</ul>
+<p>进站信号机的功能继电器设计：</p>
+<ul>
+<li>
+<p>LXJ：区分禁止信号与允许信号</p>
+</li>
+<li>
+<p>ZXJ：区分正与侧线停车</p>
+</li>
+<li>
+<p>TXJ：正线通过</p>
+</li>
+<li>
+<p>LUJ：点绿黄灯</p>
+</li>
+<li>
+<p>YXJ：引导接车</p>
+</li>
+<li>
+<p>DJ ：第1灯光监督</p>
+</li>
+<li>
+<p>2DJ：第2灯光监督</p>
+</li>
+</ul>
+<h4 id="_16">进站信号机点灯电路<a class="headerlink" href="#_16" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>（1）平时：LXJ↓→点红灯 </p>
+<p>（2）正线通过：LXJ↑、ZXJ↑、TXJ↑→点绿灯 </p>
+<p>（3）正线接车：LXJ↑、ZXJ↑、TXJ↓、LUXJ ↓→点黄灯 </p>
+<p>（4）侧线接车： LXJF↑、ZXJ↓、TXJ↓→点双黄灯 </p>
+<p>（5）转场进路： LXJF↑、ZXJ <strong>↑</strong>、 TXJ ↓、LUXJ ↑→点绿黄灯 </p>
+<p>（6）引导信号： LXJ ↓、LXJF ↓、 YXJ ↑→点红白灯</p>
+<p><img src="../车站信号控制系统.assets/image-20241225220632795.png" alt="image-20241225220632795" style="zoom:80%;" /></p>
+<p>LXJ励磁吸起，点亮允许灯光；LXJ失磁落下，点 亮红色禁止灯光；允许灯灭灯或LXJ的控制输出断线时，自动转点红灯</p>
+<p>在同时点两个允许 显示信号时，在第1个点灯电路里接有2DJ的前接点。 如点绿黄灯时，当 第2黄灯电路故障或灯 丝断丝时，2DJ落下切断点绿灯电路，使绿 灯无法点灯或点亮后熄灭，信号机改点红灯，不会造成显示升级。</p>
+<p><img src="../车站信号控制系统.assets/image-20241225221446447.png" alt="image-20241225221446447" style="zoom:50%;" /></p>
+<p>混电防护    双断法防护：允许信号(U、L、2U)；引导信号YB</p>
+<p>混线防护    位置法防护：LU2U与UL2UH、H与HH、YB与YBH</p>
+<h4 id="_17">出站兼调车信号机点灯电路(自动闭塞区间三显示)<a class="headerlink" href="#_17" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>（1）平时：LXJ↓、DXJ↓→点红灯 </p>
+<p>（2）向主要方向发车：</p>
+<p>​   a.LXJ↑、ZXJ↑、2LQJ↑→点绿灯</p>
+<p>​   b.LXJ↑、ZXJ↑、2LQJ↓→点黄灯 </p>
+<p>（3）向次要方向发车：</p>
+<p>​   a.LXJ↑、ZXJ↓→点双绿灯</p>
+<p>​   b.LXJ↑、ZXJ↑、2LQJ ↓→点黄灯 </p>
+<p>（4）开放调车信号：LXJ↓、<strong>DXJ</strong>↑→点白灯</p>
+<h4 id="_18">显示的技术要求及安全防护设计：<a class="headerlink" href="#_18" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>基本要求：应符合“故障－安全”原则，当发生故障时， 信号机应能自动给出最大限制的信号显示；信号显示应具有较高的抗干扰能力。</p>
+<p>技术要求：允许灯光故障，要自动转点红灯；点亮双灯时，第2灯不能点亮则第1灯光不允许点亮；防混电混线设计</p>
+<p>防护措施：（1）设置灯丝监督继电器DJ，串接到电路中判断灯光点亮（2）供电双断法，以防止混入电源形成回路使信号错误点 灯，防止信号出现乱显实（3）位置法，防止混线（4）采用双丝灯泡，设置DZJ，监督主灯丝断丝(每个咽喉设一套 )</p>
+<h4 id="_19">出站信号机点灯电路<img src="../车站信号控制系统.assets/image-20241225221539380.png" alt="image-20241225221539380" style="zoom:80%;" /><a class="headerlink" href="#_19" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>出站兼调车信号机的点灯电路显示：H、U、L和2L ，B(调)</p>
+<p>继电器种类 :LXJ，ZXJ，2LQJ，DXJ，DJ，2DJ</p>
+<p>逻辑关系 ：①点一个红灯（条件LXJ↓） ②点一个黄灯 （条件LXJ↑+ZXJ↑+2LQJ↓） ③点两个绿灯（条件LXJ↑+ZXJ↓） ④点一个绿灯 （条件LXJ↑+ ZXJ↑+ 2LQJ↑）</p>
+<p><img src="../车站信号控制系统.assets/image-20241225221830152.png" alt="image-20241225221830152" style="zoom: 67%;" /></p>
+<h4 id="_20">调车信号机<a class="headerlink" href="#_20" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>A蓝灯和B白灯；DXJ、DJ；灯泡单灯丝；蓝灯断丝允许点白灯；共回线<img src="../车站信号控制系统.assets/image-20241225222214446.png" alt="image-20241225222214446" style="zoom: 80%;" /></p>
+<h3 id="_21">道岔转辙机的继电接口电路<a class="headerlink" href="#_21" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>转辙机是道岔控制系统的执行机构</p>
+<p>转辙机作用：转换：转换道岔的位置， 根据需要转换至定位或反位；锁闭：道岔转至 所需位置 而且密贴 后，实现锁闭，防止外力转换道岔；表示：正确地反映道岔的实际 位置，道岔的尖轨密贴于基本轨后 ，给出相应的表示；报警：道岔被挤 或因故处 于“四开” 位置时，及时断开表示，给出报警。</p>
+<p>基本要求：作为转换装置，应具有足够大的拉力，以带动尖轨作直线往返运动；当尖轨受阻不能运动到底时，应随时通过操纵使尖轨回复原位。作为锁闭装置，当尖轨和基本轨不密贴时，不应进行锁闭；一旦锁闭，应保证不致因车辆通过道岔时的震动而错误解锁。作为监督装置，应能正确的反映道岔的状态。道岔被挤后，在未修复前不应再使道岔转换。</p>
+<p>道岔启动电路技术条件：对道岔实行区段锁闭，道岔区段有车占用，或道岔区段轨道电路发生故障时，不准道岔转换；对道岔实行进路锁闭，进路在锁闭状态时，不准进路上的道岔再转换；道岔启动后，保证道岔能继续转到底；道岔启动电路接通后，如果电路故障使各部分没有启动造成道岔未转动，则启动电路应自动被切断；应保证道岔在不能转换到底时，能在车站值班员操纵下，随时都可以使其返回原位；道岔转换完毕到位密贴后，应自动切断启动电路使电机停转。</p>
+<p>道岔表示电路技术条件：当外线发生混线或混入其他电源时，必须保证不使DBJ和FBJ错误励磁；为实现断线保护， 只能用继电器的吸起状 态来反映道岔的工作状态(定位或反位)，继电器的落下状态，只能反映道岔在非工作状态；在道岔转换过程中，或发生挤岔、停电、断线等故障时，应保证DBJ和FBJ落下。（防混电、防混线；故障导向安全；吸起代表工作状态；切断表示：转换、停电、继线、挤岔；）</p>
+<h4 id="_22">道岔控制电路设计<a class="headerlink" href="#_22" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>DCJ/FCJ:发出定位操作或反位操作命令</p>
+<p>1DQJ：第1启动继电器，区分动作电与表示电</p>
+<p>2DQJ：第2启动继电器，区分供电方向，动作时接通定位或反位电机控制电路；表示时，接通定位或反位表示电路</p>
+<p>DBJ/FBJ:定位/反位表示继电器，组合给出位置表示。</p>
+<p>SFJ:道岔锁闭时落下，不允许启动转极电路</p>
+<p>启动电路采用分级控制（三级）：第一级电路（1DQJ电路）第二级电路（2DQJ电路）第三级电路（电动机电路）</p>
+<p>由1DQJ检查联锁条件，若条件满足则1DQJ↑→由2DQJ控制电机的转动方向（决定道岔定位转或反位转）→由直流电机转换道岔。</p>
+<h3 id="_23">四线制直流道岔接口电路分析<a class="headerlink" href="#_23" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><img src="../车站信号控制系统.assets/image-20241225223526895.png" alt="image-20241225223526895" style="zoom:80%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241225223713333.png" alt="image-20241225223713333" style="zoom:50%;" /></p>
+<p>1DQJ的励磁电路(一级控制)：<img src="../车站信号控制系统.assets/image-20241225223801241.png" alt="image-20241225223801241" style="zoom:67%;" /></p>
+<p>接通公式：KZ —&gt; SJ<sub>81-82</sub> —&gt;1DQJ<sub>3-4</sub>—&gt;2DQJ<sub>141-142</sub>—&gt;FCJ<sub>61-62</sub>—&gt;KF</p>
+<p>2DQJ的转极电路(二级控制):<img src="../车站信号控制系统.assets/image-20241225224034361.png" alt="image-20241225224034361" style="zoom:67%;" /></p>
+<p>接通公式：KZ—&gt;1DQJ<sub>41-42</sub>—&gt;2DQJ<sub>2-1</sub>—&gt;FCJ<sub>61-62</sub>—&gt;KF</p>
+<p>切断1DQJ的3-4线圈励磁电路<img src="../车站信号控制系统.assets/image-20241225224329812.png" alt="image-20241225224329812" style="zoom:67%;" /></p>
+<p>电机供电电路(三级控制)</p>
+<p><img src="../车站信号控制系统.assets/image-20241225224357286.png" alt="image-20241225224357286" style="zoom:80%;" /></p>
+<p>接通公式：DZ<sub>220</sub>—&gt;RD<sub>3</sub>—&gt;1DQJ<sub>1-2</sub>—&gt;1DQJ<sub>12-11</sub>—&gt;2DQJ<sub>111-113</sub>—&gt;外线X2—&gt;自动开闭器接点11-12 —&gt;电动机定子线圈2-3 —&gt;电动机转子线圈3-4—&gt;遮断器5-06 —&gt;外线X4—&gt;1DQJ<sub>21-22</sub>—&gt;2DQJ<sub>121-123</sub>—&gt; RD<sub>2</sub>—&gt;DF<sub>220</sub></p>
+<p>电机反转电路：</p>
+<p><img src="../车站信号控制系统.assets/image-20241225225126334.png" alt="image-20241225225126334" style="zoom:80%;" /></p>
+<h4 id="_24">直流道岔启动电路技术条件与实现<a class="headerlink" href="#_24" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>检查锁闭继电器SJ的前接点，证明道岔未被区段锁且未被进路锁闭。<img alt="image-20241225225303332" src="../车站信号控制系统.assets/image-20241225225303332.png" /></p>
+<p>由于表示杆的作用，道岔刚转换 时，自动开闭器接通反转回路。<img src="../车站信号控制系统.assets/image-20241225225329137.png" alt="image-20241225225329137" style="zoom:80%;" /></p>
+<p>自闭电路-转到底；自动开闭器动作切断电源-转完断电；无法转动，1DQJ自闭电路断开-不能转断开</p>
+<p><img src="../车站信号控制系统.assets/image-20241225225552230.png" alt="image-20241225225552230" style="zoom:80%;" /></p>
+<p>定位：当外线混线时，整流二极体失去作用，偏极继电器中流过交流电不会吸起，可防止DBJ或FBJ的错误励磁。</p>
+<p><img alt="image-20241225225716601" src="../车站信号控制系统.assets/image-20241225225716601.png" /></p>
+<p>当外线上混入外界电源时，由于采用变压器隔离，混入的电源不能构成闭合回路，可防止道岔表示继电器误动。</p>
+<p>当电容器C击穿时，道岔表示继电器被C短路，从而不会励磁；当电容器引线断线时，由于失去滤波作用，DBJ或FBJ将颤动。</p>
+<h3 id="_25">站内轨道电路<a class="headerlink" href="#_25" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>轨道电路是利用钢轨线路和钢轨绝缘，接上送电设备和受电设备构成的电路。</p>
+<p><img src="../车站信号控制系统.assets/image-20241225230525844.png" alt="image-20241225230525844" style="zoom:67%;" /></p>
+<p>轨道电路的作用：</p>
+<p>监督列车的占用：利用轨道电路区段是否空闲，为建立进路、开放信号、关闭信号以及构成闭塞提供依据。</p>
+<p>传递列车控制信息：移频自动闭塞利用轨道电路中传递不同的频率来反映前行列车的位置，决定各信号机的显示为列车运行提供行车命令。</p>
+<p>分支轨道区段的一送多受轨道电路</p>
+<p>一送两受轨道电路<img src="../车站信号控制系统.assets/image-20241225230836733.png" alt="image-20241225230836733" style="zoom:33%;" /></p>
+<p>一送三受轨道电路<img src="../车站信号控制系统.assets/image-20241225230849311.png" alt="image-20241225230849311" style="zoom: 25%;" /></p>
+<p>一送多受轨道电路设有一个送电端，在每个分支轨道电 路的另一端各设一个受电端；</p>
+<p>各分支受电端轨道继电器的前接点串联在主轨道继电器 电路中，分支轨道继电器落下，主轨道继电器也落下。</p>
+<h3 id="_26">计算机联锁控制系统<a class="headerlink" href="#_26" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_27">计算机联锁控制系统功能<a class="headerlink" href="#_27" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>是以计算机或微处理器实现联锁逻辑运算功能的车站联锁控制系统。</p>
+<ol>
+<li>人机交互功能（也称为操作表示功能）</li>
+</ol>
+<p>​   操作功能，是指行车指挥人员通过操作人机交互设备（如鼠标、键盘等）向联锁机构输入操作指令，如按压按钮、排列进路、操纵道岔等。</p>
+<p>​   表示功能，是将站场信号设备状态和行车作业情况的表示信息通过显示屏等人机交互设备表示出来。</p>
+<ol>
+<li>联锁运算功能</li>
+</ol>
+<p>​   联锁运算是系统的核心功能，其主要功能包括以下三类：</p>
+<p>​   第一类是进路控制功能，也是整个计算机联锁控制系统最重要的功能，包 括选排进路、锁闭进路、开放信号、关闭信号、解锁进路等；</p>
+<p>​   第二类是道岔操作功能，包括单独操作（定操/反操）、单独锁闭/单独解锁、 封锁/解封操作等；</p>
+<p>​   第三类是引导信号控制功能，包括进路式引导和引导总锁闭两类。</p>
+<ol>
+<li>输入/输出功能</li>
+</ol>
+<p>​   输入功能是指采集信号机、道岔以及轨道电路等现场设备的状态信息，反馈给联锁运算主机，作为联锁运算的实时动态数据。</p>
+<p>​   输出功能是指根据联锁运算结果，控制信号机显示，驱动道岔转换。</p>
+<h4 id="_28">计算机联锁系统的优点<a class="headerlink" href="#_28" title="跳转至本节的锚点链接">&para;</a></h4>
+<ol>
+<li>进一步提高了安全性和可靠性</li>
+<li>增加和完善了联锁系统的功能</li>
+<li>方便设计和站场的改建和扩建</li>
+<li>省工省料且降低了造价</li>
+</ol>
+<h4 id="_29">基于并行总线扩展的计算机联锁系统的主要特点：<a class="headerlink" href="#_29" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>上下位机间采用通信总线交互、联锁主机与输入输出板通过并行总线交互。输入输出板通过继电器接口电路与室外设备交互。输入输出板CPU处理器。</p>
+<h4 id="-">基于串行总线扩展的计算机联锁系统-继电接口的主要特点：<a class="headerlink" href="#-" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>上下位机间采用通信总线交互。联锁主机与I/O执行机通过串行总线交互，易于规模扩展。I/0执行机配置智能处理单元与联锁主机间进行通信交互，对内一般采用并行总线与驱采板交互。I/O执行机通过继电器接口电路与室外设备交互。</p>
+<h4 id="-_1">基于串行总线扩展的计算机联锁系统-全电子化接口的主要特点：<a class="headerlink" href="#-_1" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>上下位机间通信总线交互。输入输出采用全电子化I/O接口单元。联锁主机与电子化接口单元通过串行总线交互。全电子化I/O接口单元直接通过电缆与室外设备连接。全电子化I/O接口单元为带CPU处理器的逻辑控制单元。电子化接口单元一般分为道岔模块、信号模块、轨道模块、零散模块与对应的室外设备相连接。</p>
+<h4 id="_30">满足铁路现场需求的联锁系统基本要求：<a class="headerlink" href="#_30" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>​   (1)功能完备(功能安全与故障安全)</p>
+<p>​   (2)高可靠和高安全</p>
+<p>​   (3)应用与维护方便(高可用性）</p>
+<p>人机交互层系统结构</p>
+<p>​   一般不涉及安全，采用“双机热备结构” ，两套操作表示计算机互为热备提高系统的可靠性。</p>
+<p>主流的计算机联锁系统架构（制式）：(1)双机热备 (2)三取二 (3)二乘二取二</p>
+<h4 id="-_2">双机热备模式-计算机联锁控制系统的主要特点：<a class="headerlink" href="#-_2" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>上位机双套热备、联锁主机双套互为热备、输出驱动以倒切单元单套输出、一般采用继电器接口电路实现对室外设备的控制。</p>
+<h4 id="-_3">二乘二取二模式-计算机联锁控制系统的主要特点：<a class="headerlink" href="#-_3" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>上位机双套热备、联锁主机每系采用双处理器二取二表决、联锁两系互为热备、驱采机每系也采用二 取二处理器、驱采机两系一般采用并联输出、采用继电器接口电路实现对室外设备的控制。</p>
+<h4 id="-_4">三取二模式-计算机联锁控制系统的主要特点：<a class="headerlink" href="#-_4" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>上位机双套热备、联锁主机采用三套完全一致的处理器，按三取二表决运算输出、3套输入电路直接传递给3个主机，3输出电路按三取二表决输出，采用继电器接口电路实现对室外设备的控制。</p>
+<h3 id="6502">电气集中联锁控制系统（6502）<a class="headerlink" href="#6502" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="6502_1">6502电气集中联锁系统概述<a class="headerlink" href="#6502_1" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1）控制台   人机交互层 </p>
+<p>2）控制台继电接口   实现控制台与联锁机构的信息传输</p>
+<p>3）继电逻辑组合    是以安全继电器电路实现联锁逻辑运算的机构</p>
+<p>4）现场设备继电接口  现场设备与联锁机构的信息通道 </p>
+<p>5）现场设备  室外三大件</p>
+<p><img src="../车站信号控制系统.assets/image-20241225233759364.png" alt="image-20241225233759364" style="zoom:50%;" /></p>
+<p>站场型网络电路：将电路图形画成站场的形状， 以便将检查的条件参照信号 布置接入电路的对应位置。本质上是继电器电路化简后 的特例。 便于分析和设计电路。网络之间只有时序逻辑关系，没有必然的电路连接。</p>
+<h4 id="15">15条网络线的设计思想<a class="headerlink" href="#15" title="跳转至本节的锚点链接">&para;</a></h4>
+<ol>
+<li>进路操纵记录过程 </li>
+<li>进路选路过程</li>
+<li>进路选排一致性检查过程</li>
+<li>信号开放条件检查过程</li>
+<li>进路锁闭过程 </li>
+<li>信号开放保持过程</li>
+<li>进路解锁过程</li>
+</ol>
+<p>进路的控制过程—时间上-分时的，控制过程上-步进用上一个阶段的动作结果，作为下一阶段的动作条件。</p>
+<h4 id="15_1">15条网络线的设计<a class="headerlink" href="#15_1" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1~7线为选路电路，8~13线为执行电路 </p>
+<ul>
+<li>14、15线为轨道光带表示灯电路。 </li>
+<li>
+<p>选择组电路由记录电路和选路网路组成，主要用以记录车站值班员按压 按钮的动作，按要求自动选通所需进路，并将操作意图传给执行组电路。</p>
+</li>
+<li>
+<p>1、2网路线用于选“八”字第一笔撇形渡线双动道岔的反位</p>
+</li>
+<li>
+<p>3、4网路线用于选“八”字第二笔捺形渡线双动道岔的反位</p>
+</li>
+<li>
+<p>5、6网路线用于选单动及双动道岔定位和单动道岔反位。</p>
+</li>
+<li>
+<p>7网路线是开始继电器(KJ)励磁网路，用以检查所选进路和所排进路的一致性</p>
+</li>
+<li>
+<p>8线是信号检查继电器电路(XJJ)，用来检查开放信号的可能性</p>
+</li>
+<li>
+<p>9线是区段检查继电器(QJJ)和股道检查继电器电路(GJJ)</p>
+</li>
+<li>
+<p>10线是区段检查继电器自闭电路，用来防止利用区段故障解锁方式使进路迎面错误解锁。</p>
+</li>
+<li>
+<p>11线是信号继电器电路(XJ)，检查进路上各区段处于锁闭状态、道岔位 置正确，以及迎面敌对进路检查，符合条件即可开放信号。</p>
+</li>
+<li>
+<p>12、13线为进路继电器网路(1LJ,2LJ)，用来实现进路锁闭，完成进路的正常解锁、取消、人工解锁、调车中途返回解锁以及引导解锁等。</p>
+</li>
+</ul>
+<h4 id="6">信号组合的用途（6种）<a class="headerlink" href="#6" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>（1）调车信号组合DX——调车信号组合，用于各种调车信号机 </p>
+<p>（2）调车信号辅助组合DXF——调车信号辅助组合，用于单置调车、调车终端按钮和变 通按钮BA处 </p>
+<p>（3）引导信号组合YX——引导信号组合，用于进站及接车进路信号机 </p>
+<p>（4）列车信号主组合LXZ——列车信号主组合，用于出站、发车进路及股道的调车信号 </p>
+<p>（5）列车信号第一辅助组合1LXF——一方向列车信号辅助组合，用于一个方向出站、单线进站及股道的调车</p>
+<p>（6）列车信号第二辅助组合2LXF——二方向列车信号辅助组合，用于两个方向出站、单线进站及股道的调车</p>
+<p>6502电气集中的定型组合规定每一个组合内的继电器的数量不超过10个,12种定型组合 。</p>
+<h4 id="_31">道岔类型的组合<a class="headerlink" href="#_31" title="跳转至本节的锚点链接">&para;</a></h4>
+<ol>
+<li>
+<p>双动道岔主组合SDZ；</p>
+</li>
+<li>
+<p>双动道岔辅助组合SDF；</p>
+</li>
+<li>
+<p>单动道岔组合DD</p>
+</li>
+</ol>
+<h4 id="_32">其他组合类型<a class="headerlink" href="#_32" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>​   区段组合（Q）
+​   方向组合（F）
+​   电源组合 （DY）</p>
+<p>各组合中所含的继电器<img alt="image-20241225235215782" src="../车站信号控制系统.assets/image-20241225235215782.png" /></p>
+<h4 id="_33">继电器组合使用<a class="headerlink" href="#_33" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../车站信号控制系统.assets/image-20241225235246961.png" alt="image-20241225235246961" style="zoom: 67%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241225235308576.png" alt="image-20241225235308576" style="zoom:67%;" /></p>
+<p>交叉渡线道岔组合使用</p>
+<p><img src="../车站信号控制系统.assets/image-20241225235407564.png" alt="image-20241225235407564" style="zoom:67%;" /></p>
+<p><img alt="image-20241225235555097" src="../车站信号控制系统.assets/image-20241225235555097.png" /></p>
+<p><img alt="image-20241225235610532" src="../车站信号控制系统.assets/image-20241225235610532.png" /></p>
+<h4 id="_34">进路控制时序逻辑<a class="headerlink" href="#_34" title="跳转至本节的锚点链接">&para;</a></h4>
+<h5 id="_35">进路选择时序逻辑<a class="headerlink" href="#_35" title="跳转至本节的锚点链接">&para;</a></h5>
+<ol>
+<li>接收按压按钮的操作并记录</li>
+<li>确定进路性质和方向</li>
+<li>自动选出与进路相符的道岔位置</li>
+<li>进路选出后，记录进路终端和性质</li>
+</ol>
+<h5 id="_36">进路建立时序逻辑<a class="headerlink" href="#_36" title="跳转至本节的锚点链接">&para;</a></h5>
+<ol>
+<li>道岔启动并转换</li>
+<li>选排一致性检查</li>
+<li>进路锁闭条件检查</li>
+<li>信号开放条件检查</li>
+</ol>
+<h5 id="_37">进路解锁时序逻辑<a class="headerlink" href="#_37" title="跳转至本节的锚点链接">&para;</a></h5>
+<ol>
+<li>信号机的关闭</li>
+<li>三点检查的实现</li>
+<li>进路的解锁标志</li>
+</ol>
+<p><img alt="image-20241226230405168" src="../车站信号控制系统.assets/image-20241226230405168.png" /></p>
+<h5 id="_38">执行组进路控制时序总结<a class="headerlink" href="#_38" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>​   • DCJ、FCJ：选择道岔位置</p>
+<p>​   • DBJ、FBJ：反映道岔位置</p>
+<p>​   • KJ和ZJ：记录进路的始端位置和终端位置，KJ兼作检查进路选排一致性</p>
+<p>​   • FKJ：防止信号自动重复开放</p>
+<p>​   • XJJ：反映是否可以锁闭进路</p>
+<p>​   • XJ：控制信号机点灯</p>
+<p>​   • QJJ：选择哪个区段准备参与锁闭与解锁</p>
+<p>​   • 1LJ、2LJ：专门检查解锁条件（三点检查）</p>
+<p>​   • SJ：反映进路的锁闭与解锁状态</p>
+<p>​   • GJJ\ZCJ：检查股道占用和迎面锁闭</p>
+<h4 id="6_1">执行组电路中的6类继电器<a class="headerlink" href="#6_1" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>​   • 道岔启动与表示继电器（1DQJ、2DQJ、DBJ、FBJ）</p>
+<p>​   • 开始继电器（KJ）--7线</p>
+<p>​   • 信号检查继电器（XJJ） --8线 </p>
+<p>​   • 区段检查继电器（QJJ） --9线10线 </p>
+<p>​   • 进路继电器（1LJ、2LJ）和锁闭继电器（SJ）--12线13线 </p>
+<p>​   • 信号继电器（XJ） --11线</p>
+<h4 id="7">选择组电路中的7类继电器<a class="headerlink" href="#7" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>​   • 按钮继电器（DxAJ、LxAJ）</p>
+<p>​   • 方向继电器（LJJ、LFJ、DJJ、DFJ）</p>
+<p>​   • 进路选择继电器（ DxJXJ、LxJXJ ） </p>
+<p>​   • 道岔操纵继电器（DCJ、FCJ）</p>
+<p>​   • 辅助开始继电器（FKJ）</p>
+<p>​   • 终端继电器（ZJ）</p>
+<p>​   • 列车开始继电器（LKJ）</p>
+<h4 id="_39">选择组时序逻辑表达式<a class="headerlink" href="#_39" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img alt="image-20241225235937023" src="../车站信号控制系统.assets/image-20241225235937023.png" /></p>
+<p>左向右送正电，先选反位后定位</p>
+<h4 id="_40">执行组时序逻辑表达式<a class="headerlink" href="#_40" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../车站信号控制系统.assets/image-20241226225405636.png" alt="image-20241226225405636" style="zoom:80%;" /></p>
+<h4 id="siid7">SII至D7的选择组时序逻辑<a class="headerlink" href="#siid7" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img alt="image-20241226230806062" src="../车站信号控制系统.assets/image-20241226230806062.png" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241226230832031.png" alt="image-20241226230832031" style="zoom:80%;" /></p>
+<h4 id="_41">进路建立过程典型电路<a class="headerlink" href="#_41" title="跳转至本节的锚点链接">&para;</a></h4>
+<h5 id="_42">方向继电器电路<a class="headerlink" href="#_42" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>设置方式：每一个车站咽喉设4个方向继电器，列车接车方向继电器LJJ；列车发车方向继电器LFJ；调车接车方向继电器DJJ；调车发车方向继电器DFJ。</p>
+<p>技术条件：1.进路的性质和方向是由进路的始端按钮所确定的。 2. 4个方向继电器同时只允许其中一个方向继电器励磁吸起，并保持到整条进路全部选出.3.选路时间短，不包括道岔动作时间。 4.当进路因故不能正常选出时，通过办理取消手续使方向继电器复原。5.当办理取消进路人工解锁和重复开放信号而按下进路始端按 钮时，不应使方向继电器励磁，以免妨碍办理其它进路。(始端、唯一、时间短、取消复原、避误吸)</p>
+<p><img alt="image-20241226231258653" src="../车站信号控制系统.assets/image-20241226231258653.png" /></p>
+<p>LJJ励磁：XLAJ吸起，接通 LJJ励磁电路。用LJJ第一组后接 点断开DJJ和DFJ的 励磁电路，用LJJ第二组后接点断开LFJ的励磁电路， 使其不能励磁。按下终端列车按钮 后，不能使其他三个方向继电器励磁。</p>
+<p>LJJ自闭:利用终端按钮形成自闭。从而保证同时只准许一个方向继电器吸起和只准许一条进路。</p>
+<p>DJJ励磁：D5AJ吸起，接通 DJJ励磁电路。用DJJ第一组后接点断开LJJ和DFJ的 励磁电路，用LJJ 第二组后接点断开 LFJ的励磁电路，使其不能励磁。按下终端列车按钮 后，不能使其他三 个方向继电器励磁。     从而保证同时只准许一个方向继电器吸起和只准许一条进路。</p>
+<p>DJJ自闭:利用终端按钮形成自闭。</p>
+<p><img src="../车站信号控制系统.assets/image-20241226231602488.png" alt="image-20241226231602488" style="zoom: 33%;" /></p>
+<h6 id="_43">方向电源<a class="headerlink" href="#_43" title="跳转至本节的锚点链接">&para;</a></h6>
+<p>概念：接替方向继电器的功能，接向电源的条件电源</p>
+<p>采用方向电源的原因和优点：按钮继电器及其他一些继电器的电路，都需要方向继电器接点作为“断”或“通”的控制条件，为节省接点而采用方向电源。节省方向继电器接点，简化电路。</p>
+<p>方向电源共10种：KF电源6种，KZ电源4种。</p>
+<p>• 1．KF-共用-Q：经任一方向继电器的前接点所供出的负电源，用于进路选择继电器JXJ和DXF组合中按钮继电器1AJ和2AJ的自闭电 路。</p>
+<p>• 2．KF-共用-H：经四个方向继电器和ZQJ的后接点供出的负电源，用于单置调车信号机的辅助开始继电器FKJ在重复开放信号时的励磁电路。</p>
+<p>• 3．KF-LJJ-Q：经LJJ前接点供出的负电源，用于列车接车方向的 列车开始继电器LKJ的励磁电路。 </p>
+<p>• 4．KF-LFJ-Q：经LFJ前接点供出的负电源，用于列车发车方向的 LKJ的励磁电路。 </p>
+<p>• 5．KF-DJJ-Q：经DJJ前接点供出的负电源，用于接车方向的调车 信号机的FKJ、单置调车信号机的终端继电器ZJ的励磁电路，以及发车方向的并置、差置、尽头线的调车信号机ZJ励磁电路。</p>
+<p>• 6．KF-DFJ-Q：经DFJ前接点供出的负电源，用于发车方向的调车信号机的FKJ、单置调车信号机的ZJ励磁电路，以及接 车方向的并置、差置、尽头线的调车信号机ZJ励磁电路。 </p>
+<p>• 7．KZ-共用-H：经四个方向继电器后接点供出的正电源，用于单置调车信号机按钮继电器AJ的励磁电路。 </p>
+<p>• 8．KZ-列共-Q：经由LJJ或LFJ前接点供出的正电源，用于并置和差置调车信号机的两个AJ互相带动的励磁电路。</p>
+<p>• 9．KZ-列共-DJJ-Q：经LJJ或LFJ或DJJ前接点供出的正电源，用于发车方向的单置调车信号机AJ的励磁电路。</p>
+<p>• 10．KZ-列共-DFJ-Q：经LJJ或LFJ或DFJ前接点供出的正电源，用于接车方向的单置调车信号机AJ的励磁电路。</p>
+<p>Q－－指相应的J吸起才得到此电源  H－－指全部的J落下才得到此电源</p>
+<p><img src="../车站信号控制系统.assets/image-20241226232034368.png" alt="image-20241226232034368" style="zoom: 33%;" /></p>
+<h5 id="_44">按钮继电器电路<a class="headerlink" href="#_44" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>按钮的作用：办理进路、重复开放信号、取消进路、人工解锁进路。</p>
+<h6 id="_45">尽头线调车信号按钮继电器电路<a class="headerlink" href="#_45" title="跳转至本节的锚点链接">&para;</a></h6>
+<p><img alt="image-20241226232429994" src="../车站信号控制系统.assets/image-20241226232429994.png" /></p>
+<p><img alt="image-20241226232436168" src="../车站信号控制系统.assets/image-20241226232436168.png" /></p>
+<h6 id="_46">并置和差置调车按钮继电器<a class="headerlink" href="#_46" title="跳转至本节的锚点链接">&para;</a></h6>
+<p>3-4线圈与尽头型按钮继电器电路一致</p>
+<p>1-2线圈在列车变通进路中作为变更按钮的继电器带起</p>
+<p><img src="../车站信号控制系统.assets/image-20241226232525587.png" alt="image-20241226232525587" style="zoom:90%;" /></p>
+<h6 id="_47">单置调车信号机的按钮继电器<a class="headerlink" href="#_47" title="跳转至本节的锚点链接">&para;</a></h6>
+<p>对应每一个按钮设置三个按钮继电器:</p>
+<p>​   1AJ 记录按钮按下的动作</p>
+<p>​   2AJ 终端/变通</p>
+<p>​   AJ 始端/变通</p>
+<p>1.(始端)按下→1AJ↑→AJ↑，作为始端按钮使用时；</p>
+<p>2.(终端)按下→1AJ↑→2AJ↑，作为终端按钮使用时； </p>
+<p>3.(变通)按下→1AJ↑→2AJ↑→AJ↑，作为变通按钮使用时。</p>
+<p><img src="../车站信号控制系统.assets/image-20241226232655447.png" alt="image-20241226232655447" style="zoom:90%;" /></p>
+<ol>
+<li>
+<p>作始端（ 按下→1AJ↑→AJ↑） KZ-共用-H有电；AJ励磁、按下D13A，D131AJ 吸起并自闭</p>
+</li>
+<li>
+<p>作终端（按下→1AJ↑→2AJ↑ ）KZ-共用-H、 KZ-列共-SDFJ-Q无电KF-共用-Q有电；按下D13A，D131AJ 吸起并自闭；2AJ励磁</p>
+</li>
+<li>
+<p>当作变通按钮使用（按下→1AJ↑→2AJ↑→AJ↑）KF-共用-Q、 KZ-列共-SDFJ-Q有电；AJ励磁、2AJ励磁</p>
+</li>
+</ol>
+<h5 id="_48">选岔电路<a class="headerlink" href="#_48" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>作用：自动选出进路上的道岔位置     设置：DCJ和FCJ</p>
+<p>设计思路：站场型网路--并联传递式选岔网路-（防迂回）-分路法—6线制选岔网络 </p>
+<p>好处：继电器逐个励磁，稳压电路稳定；道岔启动电流错峰； 右端JXJ吸起全部选出。</p>
+<p>六线：</p>
+<p>​   1-2线，选“八”字撇型渡线道岔反位；</p>
+<p>​   3-4线，选“八”字捺型渡线道岔反位；</p>
+<p>​   5-6线，选择双动定位和单动定反位；</p>
+<h6 id="_49">道岔操纵继电器配置<a class="headerlink" href="#_49" title="跳转至本节的锚点链接">&para;</a></h6>
+<p>单动道岔：设一个DCJ、一个FCJ</p>
+<p>双动道岔：设1DCJ、2DCJ、1FCJ、2FCJ 渡线上处于左端道岔的操纵继电器编号为1，右端的编号为2 ，选岔时，一定要从左到右选</p>
+<p><img alt="image-20241226233756497" src="../车站信号控制系统.assets/image-20241226233756497.png" /></p>
+<p>技术条件（六条）：</p>
+<p>​   1、选出的进路应与操作意图相符。</p>
+<p>​   2、锁闭时，选岔电路不能工作。</p>
+<p>​   3、区段有车时，选岔电路不能工作。</p>
+<p>​   4、应防止选出两条相抵触的进路。</p>
+<p>​   5、应防止迂回电流和串电现象。</p>
+<p>​   6、电路工作稳定可靠、符合定型化。</p>
+<p>动作规律：</p>
+<p>1、继电器均并接在两条网络线上。 </p>
+<p>2、继电器从左向右顺序传递励磁，与进路方向无关。 </p>
+<p>3、可用最右端继电器的吸起状态证明电路工作完毕、正常。 </p>
+<p>4、任一继电器励磁后，向右传递KZ，接通右边继电器励磁电路，同时切断其左边继电器的励磁电路KF。 “右传左断” </p>
+<p>5、最多有两个继电器同时工作，避免多台电机同时启动而造 成整流器输出电流过大。 </p>
+<p>6、左端向网络送KZ，逐段传送，右端向网络送KF，一步到位。 </p>
+<p>7、岔道顺序选出、启动，可降低整流器电流峰值。</p>
+<h6 id="12">1、2线选岔网络<a class="headerlink" href="#12" title="跳转至本节的锚点链接">&para;</a></h6>
+<p><img src="../车站信号控制系统.assets/image-20241226234053313.png" alt="image-20241226234053313" style="zoom:80%;" /></p>
+<p>送电规律：1线从左到右依次传 递KZ，2线从右到左送KF。</p>
+<p>动作规律：1FCJ励磁后，2FCJ励磁。</p>
+<p>复原时机：进路锁闭后，SJ落下，1FCJ、 2FCJ均落下。</p>
+<p><img src="../车站信号控制系统.assets/image-20241226234151366.png" alt="image-20241226234151366" style="zoom:80%;" /></p>
+<p>送电规律：1线从左到右依次传递KZ，2线从右到左送KF。</p>
+<p>动作规律：1FCJ励磁后，2FCJ励磁。</p>
+<p>复原时机：进路锁闭后，SJ落下，1FCJ、 2FCJ均落下。</p>
+<h6 id="34">3、4线选岔网络<a class="headerlink" href="#34" title="跳转至本节的锚点链接">&para;</a></h6>
+<p><img src="../车站信号控制系统.assets/image-20241226234249814.png" alt="image-20241226234249814" style="zoom:80%;" /></p>
+<p>送电规律：3线从左到右依次传递KZ，4线从右到左送KF。</p>
+<p>动作规律：1FCJ励磁后，2FCJ励磁。</p>
+<p>复原时机：进路锁闭后，SJ落下，1FCJ、 2FCJ均落下。</p>
+<p><img src="../车站信号控制系统.assets/image-20241226234420825.png" alt="image-20241226234420825" style="zoom:80%;" /></p>
+<p>送电规律：3线从左到右依次传递KZ，4线从右到左送KF。</p>
+<p>动作规律：1FCJ励磁后，2FCJ励磁。</p>
+<p>复原时机：进路锁闭后，SJ落下，1FCJ、 2FCJ均落下。</p>
+<h6 id="56">5、6线选岔网络<a class="headerlink" href="#56" title="跳转至本节的锚点链接">&para;</a></h6>
+<p><img src="../车站信号控制系统.assets/image-20241226234515003.png" alt="image-20241226234515003" style="zoom:80%;" /></p>
+<p>送电规律：5线从左到右依次传递KZ，6线从右到左送KF。DCJ(FCJ)吸起后，依次断开KF。</p>
+<p><img src="../车站信号控制系统.assets/image-20241226234544953.png" alt="image-20241226234544953" style="zoom:80%;" /></p>
+<h6 id="jxj">进路选择继电器JXJ<a class="headerlink" href="#jxj" title="跳转至本节的锚点链接">&para;</a></h6>
+<p>说明：进路选择继电器（JXJ）是选路电路的组成部分。JXJ励磁电路不单独占用网路线，它与选岔网路的第5、6线合用，其电路动 作与选岔电路相似。</p>
+<p>设置：对应每一架信号机处的信号组合内均设一个JXJ。对应单置调 车信号机处设两个JXJ，分别在DX组合和DXF组合内。</p>
+<p>作用：JXJ↑后，用其前接点与方向电源相配合，使有关的FKJ↑和ZJ↑，确定了进路的始端和终端，为进路锁闭、开放信号创造了条件。</p>
+<p>进路选择继电器配置</p>
+<p>​   出站兼调车：设一个JXJ</p>
+<p>​   进站带调车（两个信号机）：设一个JXJ</p>
+<p>​   单置调车信号机：设两个JXJ</p>
+<p>​   变更按钮处：设一个JXJ</p>
+<p>​   别的信号机处：设一个JXJ</p>
+<p>​   发车口不设任何信号机，只设一个DZJ或LZJ，设一个JXJ</p>
+<p>进路中有两个JXJ，对应于始端和终端，只要进路中有一个 道岔操作继电器没有吸起，终端JXJ均不能吸起。</p>
+<h6 id="jxj_1">列车兼调车信号的JXJ电路<a class="headerlink" href="#jxj_1" title="跳转至本节的锚点链接">&para;</a></h6>
+<p><img alt="image-20241226235218429" src="../车站信号控制系统.assets/image-20241226235218429.png" /></p>
+<p>依次使进路中道岔DCJ励磁，最终使终端JXJ励磁。始端JXJ励磁与自闭，始端JXJ带动2DCJ励磁，并形成自闭电路，始端JXJ带动1DCJ励磁，并形成自闭电路，终端JXJ励磁，并形成自闭电路。终端JXJ吸起说明进路全部选定。</p>
+<p>复原时机：方向继电器落下，JXJ全部落下。进路锁闭后，SJ落下，DCJ(FCJ)均落下。</p>
+<h5 id="_50">辅助开始继电器与终端继电器电路<a class="headerlink" href="#_50" title="跳转至本节的锚点链接">&para;</a></h5>
+<h6 id="_51">辅助开始继电器<a class="headerlink" href="#_51" title="跳转至本节的锚点链接">&para;</a></h6>
+<p>作用：1、记录始端。接续记录电路工作，在信号开放前记录进路的始端。（因JXJ↑→AJ↓→FJ↓→ JXJ↓记录电路复原）2、防止信号重复开放。</p>
+<p>设置：（1）对应每架信号机设一个FKJ，放在LXZ或DX组合中。（2）进站带调车合用一个FKJ。</p>
+<p>技术条件：
+（1）为了接续记录电路工作，必须使FKJ在进路始端的JXJ和与所选进路的性质及方向相符的FJ吸起后吸起，以反映进路的始端； </p>
+<p>（2）为防止信号自动重复开放，必须用FKJ的前接点作为开放信号的必要条件；</p>
+<p>（3）信号开放后，在列车未进入进路前，若因轨道电路瞬时故障信号自动关闭，此时电路处于锁闭状态。只要进路处于锁闭状态，准许在此情况下，只按下进路始端按钮手动开放信号，称为重复开发信号。重开时，按下始端LA，就应使FKJ吸起。</p>
+<h6 id="_52">终端继电器介绍<a class="headerlink" href="#_52" title="跳转至本节的锚点链接">&para;</a></h6>
+<p>作用：接续进路选择继电器和方向继电器的工作，记录进路的终端。</p>
+<p>设置：凡是调车进路的终端，都要设一个终端继电器，放在DX组合中，列车进路除复线发车口处设一个LZJ外，其余地方都不设。</p>
+<p>技术条件：</p>
+<p>（1）要能够接续记录电路工作。</p>
+<p>（2）要检查进路必须在解锁状态，否则禁止ZJ吸起。</p>
+<p>（3）ZJ一旦吸起，必须使它保持到这条进路解锁为止。</p>
+<h6 id="fkj">调车信号的FKJ电路<a class="headerlink" href="#fkj" title="跳转至本节的锚点链接">&para;</a></h6>
+<p><img src="../车站信号控制系统.assets/image-20241226235807478.png" alt="image-20241226235807478" style="zoom:80%;" /></p>
+<p>调车的JXJ↑,构通FKJ励磁； JXJ↓，切断FKJ励磁电路。调车的FKJ↑,构通FKJ的自闭电路；信号开放后，XJ↑，切断FKJ自闭电路。重开信号的励磁时机：重按DA后；复原时机：松开DA后。</p>
+<h6 id="_53">终端继电器电路<a class="headerlink" href="#_53" title="跳转至本节的锚点链接">&para;</a></h6>
+<p><img src="../车站信号控制系统.assets/image-20241226235926159.png" alt="image-20241226235926159" style="zoom:80%;" /></p>
+<p>调车终端的JXJ↑,构通ZJ励磁电路；JXJ↓，切断ZJ励磁电路。调车进路终端最近的道岔的DCJ(FCJ)↑,构通自闭电路；落下切断FKJ自闭电路</p>
+<p>进路锁闭后，SJ↓，构通第二条自闭电路；进路解锁后，SJ↑，切断第二条自闭电路。</p>
+<h5 id="kj">开始继电器KJ电路<a class="headerlink" href="#kj" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>开始继电器：</p>
+<p>作用：（1）记录进路的始端。（2）检查进路的选排一致性。（3）作为网络的区分条件。</p>
+<p>设置：</p>
+<p>（1）每架调车信号机设一个KJ，在DX组合中。</p>
+<p>（2）每架列车兼调车信号机合用一个KJ，并增设列车开始继电器LKJ，都在 LXZ组合中。</p>
+<p>技术条件：</p>
+<p>（1） KJ应继续记录进路的始端。</p>
+<p>（2） KJ励磁时，必须检查进路的选排一致性。选排不一致时，禁止开始继电器励磁。</p>
+<p>（3）在KJ励磁前，必须检查有关进路在解锁状态，如果处于锁闭状态，则禁止励磁。（SJ↑）</p>
+<p>（4） KJ的接点，作为执行组网络的区分条件，在励磁吸起后必须一直保 持到进路解锁后才准复原。</p>
+<p>开始继电器KJ电路</p>
+<p>作用：记录进路始端和性质，检查进路选排一致性和解锁状态。    设置：7线</p>
+<p><img src="../车站信号控制系统.assets/image-20241227000716300.png" alt="image-20241227000716300" style="zoom:80%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241227000730585.png" alt="image-20241227000730585" style="zoom:80%;" /></p>
+<h5 id="xjj">信号检查继电器XJJ电路<a class="headerlink" href="#xjj" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>作用：检查开放信号的基本联锁条件，取消进路时检查进路空闲，调车进路防错解和解锁只有一段轨道电路的进路。 设置：8线</p>
+<p>网路结构：</p>
+<p>（1）DBJ和FBJ区分站场形状 </p>
+<p>（2）KJ前接点确定进路的始端和进路的方向</p>
+<p>（3）ZJ接点区分进路的性质-吸起调车：落下列车</p>
+<p>（4）DGJ前接点证明轨道空闲 </p>
+<p>（5）ZCJ前接点和ZJ后接点，迎面未建立敌对进路</p>
+<p>（6）始端XJJ接入KZ电源，8线接入KF电源</p>
+<p>励磁电路：5条---开放前、开放中、取消、人工延解锁、人工延时保持</p>
+<h6 id="8">8线检查的联锁条件<a class="headerlink" href="#8" title="跳转至本节的锚点链接">&para;</a></h6>
+<p>（1）进路空闲：是在8线网路上用串接各轨道电路区段的DGJ前接点来实现的； </p>
+<p>（2）进路上的道岔位置正确：XJJ的吸起，必须通过KJ前接点，用KJ前接点来间接实现这项检查，串接DBJ、FBJ直接检查； </p>
+<p>（3）未建立敌对进路：敌对进路包括本咽喉、另一咽喉迎面敌对进路。 本咽喉是通过8线上串接有敌对进路的KJ、ZJ的后接点来实现的； 另一咽喉是在8线上相当于股道部位串接ZCJ前接点来实现的。 </p>
+<p>（4）对超限绝缘的检查：所谓超限绝缘是指钢轨绝缘的设置位置距警冲标不足3.5m的绝缘。</p>
+<h6 id="8_1">8线网络和信号检查继电器电路<a class="headerlink" href="#8_1" title="跳转至本节的锚点链接">&para;</a></h6>
+<p>以X—&gt;IIIG接车进路为例</p>
+<p><img src="../车站信号控制系统.assets/image-20241227001101954.png" alt="image-20241227001101954" style="zoom:80%;" /></p>
+<h6 id="8qjjgjj">第8节区段检查继电器QJJ和股道检查继电器GJJ电路<a class="headerlink" href="#8qjjgjj" title="跳转至本节的锚点链接">&para;</a></h6>
+<p>设置：9线和10线</p>
+<p>9线作用：QJJ锁闭与解锁道岔，锁闭本咽喉的敌对进路,GJJ与 ZCJ配合锁闭另一咽喉的迎面敌对进路。</p>
+<p>10线的作用是防止列车迎面解锁和保证进路人工解锁、调车中途返回解锁。</p>
+<p><img src="../车站信号控制系统.assets/image-20241227001212652.png" alt="image-20241227001212652" style="zoom:80%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241227001239763.png" alt="image-20241227001239763" style="zoom:80%;" /></p>
+<h5 id="zc">照查继电器ZC电路<a class="headerlink" href="#zc" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>作用：防止车站两端咽喉向同一股道办理迎面敌对进路。</p>
+<p>设置：1LXF和2LXF组合中，由GJJ和SJ控制</p>
+<p><img src="../车站信号控制系统.assets/image-20241227001326312.png" alt="image-20241227001326312" style="zoom:67%;" /></p>
+<h5 id="_54">信号继电器电路<a class="headerlink" href="#_54" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>作用：控制信号机点灯电路开放信号。</p>
+<p>设置：11线</p>
+<p>开放信号的联锁条件： 区段空闲、敌对进路未建立且被锁在未建立状态、道岔位置正确、操纵才能开放并防重复开放、开放前检查红灯灯丝完整、禁止乱显示；</p>
+<p>信号关闭：列车或车列进入信号机内方、取消进路或人工解锁、故障关闭。</p>
+<p><img src="../车站信号控制系统.assets/image-20241227001450369.png" alt="image-20241227001450369" style="zoom:80%;" /></p>
+<p>列车励磁电路：11线终端传KF，始端局部传KZ；</p>
+<p>励磁时机：KJ ↑ ；自闭时机：XJ ↑ ；复原时机：FKJ ↓</p>
+<p><img src="../车站信号控制系统.assets/image-20241227001804294.png" alt="image-20241227001804294" style="zoom:80%;" /></p>
+<p>调车励磁电路：11线ZJ ↑送KZ电源，8线ZJ ↑送KF电源</p>
+<p>复原时机：信号开放XJ ↑，FKJ ↓，断开励磁电路</p>
+<p><img src="../车站信号控制系统.assets/image-20241227002105282.png" alt="image-20241227002105282" style="zoom:80%;" /></p>
+<p>调车自闭电路1：11线ZJ ↑送KZ电源，8线ZJ ↑送KF电源 </p>
+<p>励磁时机：信号开放XJ ↑</p>
+<p>复原时机：1）列车出清接近区段</p>
+<p>​         2）列车进入第一区段时，切断8线，接通白灯保留电路</p>
+<p><img src="../车站信号控制系统.assets/image-20241227002209633.png" alt="image-20241227002209633" style="zoom:80%;" /></p>
+<p>调车自闭电路2：11线终端传KZ，局部传KF </p>
+<p>励磁时机：接近区段列车占用，调车车列在信号机内方第一区段，接通 XJ励磁回路</p>
+<p>复原时机：1）调车车列出清信号机内方第一区段，断开XJ励磁回路</p>
+<p>​         2）调车车列全部进入信号机内方，出清接近区段，断开XJ励磁回路</p>
+<h4 id="_55">进路解锁过程典型电路<a class="headerlink" href="#_55" title="跳转至本节的锚点链接">&para;</a></h4>
+<h5 id="_56">取消继电器电路<a class="headerlink" href="#_56" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>为了完成取消进路、人工解锁等任务，在每个咽喉区设置一个总取消继电器ZQJ和一个总人工解锁继电器ZRJ，放在相应咽喉的方向组合内；对应每架信号机设一个取消继电器QJ（进站内方有一无岔区段，设一同方的调车信号机的情况 下，进站和调车可以共用一个QJ），列车信号机的QJ放在LXZ内，调车信号机的QJ放在DX内。</p>
+<p>作用：复原误按的按钮继电器和方向电路；取消正在排列的进路,使 FKJ复原（始端）；取消预先锁闭的进路；关闭处于接近锁闭进路的信号或使进路解锁。</p>
+<p>设置：进路始端，每架信号机设一个QJ</p>
+<h6 id="_57">总取消和总人工解锁继电器电路<img src="../车站信号控制系统.assets/image-20241227002504659.png" alt="image-20241227002504659" style="zoom:80%;" /><a class="headerlink" href="#_57" title="跳转至本节的锚点链接">&para;</a></h6>
+<h6 id="_58">调车信号的取消继电器电路<img src="../车站信号控制系统.assets/image-20241227002717627.png" alt="image-20241227002717627" style="zoom:80%;" /><a class="headerlink" href="#_58" title="跳转至本节的锚点链接">&para;</a></h6>
+<p><img src="../车站信号控制系统.assets/image-20241227002853838.png" alt="image-20241227002853838" style="zoom:80%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241227002944960.png" alt="image-20241227002944960" style="zoom:80%;" /></p>
+<p>XJJ：确保进路空闲</p>
+<p>FKJ：确保信号无法开放，即在信号开放时不能立即取消</p>
+<h5 id="_59">进路继电器电路与传递继电器电路<a class="headerlink" href="#_59" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>作用：1LJ和2LJ执行进路锁闭与解锁并点亮操纵台上进路光带表示灯，CJ传递12线解锁电源且通过故障解锁关闭特殊情况下已开放的信号机。 设置：12线和13线</p>
+<p>CJ：可以表示区段的锁闭与解锁，两个特性： </p>
+<p>​   （1）滞后励磁特性：进路建立后车轧入，（FDGJ缓放3-4s),稳定解锁网路；</p>
+<p>​   （2）即时励磁特性：进路建立后区段空闲，FDGJ落下，1LJ或2LJ吸 起则马上吸起。</p>
+<p><img src="../车站信号控制系统.assets/image-20241227003319434.png" alt="image-20241227003319434" style="zoom:67%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241227003422651.png" alt="image-20241227003422651" style="zoom:67%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241227003442544.png" alt="image-20241227003442544" style="zoom:67%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241227003502555.png" alt="image-20241227003502555" style="zoom:67%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241227003515835.png" alt="image-20241227003515835" style="zoom:80%;" /></p>
+<h5 id="sj">SJ锁闭继电器电路<a class="headerlink" href="#sj" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>作用：锁闭道岔和本咽喉敌对进路，反映进路锁闭、区段锁闭和引导锁闭的状况。当SJ↓后，道岔控制电路和有关的敌对进路的电路都被切断，使道岔不能转换，有关的敌对进路不能选出。</p>
+<p>设置：对应每个道岔区段设一个SJ，用道岔号来命名，对于双动道岔除了用道岔号来命名外，还要根据 “左1右2” 的原则加以区分，如5/7 1SJ，5/7 2SJ。</p>
+<p>电路原理： 1、平时SJ↑吸起；</p>
+<p>​          2、车占用或轨道电路故障DGJ ↓→SJ↓实现区段锁闭；</p>
+<p>​          3、经该区段建立进路后，LJ↓→ SJ↓实现区段的进路锁闭。</p>
+<p>工作原理：</p>
+<p>​   锁闭道岔：1DQJ励磁电路中接有SJ前接点</p>
+<p>​   锁闭敌对进路：接在KJ、ZJ及ZCJ励磁电路中SJ前接点</p>
+<p>​   1LJ和2LJ前接点：进路锁闭检查</p>
+<p>​   DGJF前接点：区段锁闭</p>
+<p>​   FDGJ后接点：防小车跳动或轨道电路瞬间分路不良</p>
+<p>​   条件电源KZ-YZSJ-H：平时有电，办理咽喉引导总锁闭时断开。</p>
+<p>锁闭继电器电路</p>
+<p><img alt="image-20241227004407674" src="../车站信号控制系统.assets/image-20241227004407674.png" /></p>
+<p>1LJ和2LJ同时吸起，SJ才励磁吸起</p>
+<h5 id="_60">正常解锁电路<a class="headerlink" href="#_60" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>1、解锁条件</p>
+<p>​   （1）防护进路的信号已关闭。</p>
+<p>​   （2）必须满足“三点检查”的条件才准许进路逐段解锁，即验证车已确实依次占用过并且顺序出清进路上的各区段，才准许进路逐段解锁。</p>
+<p>2、动作原理</p>
+<p>例：X→ⅠG接车进路的正常解锁</p>
+<p><img src="../车站信号控制系统.assets/image-20241227005017909.png" alt="image-20241227005017909" style="zoom:80%;" /></p>
+<p>3、动作规律</p>
+<p>（1）由始端向终端逐段解锁； </p>
+<p>（2）LJ吸起的顺序与进路的方向有关，当进路方向由左向右时，是1LJ先吸起，2LJ后吸起，（1LJ↑→2LJ↑）；当进路方向由右 向左时，是2LJ先吸起，1LJ后吸起，（2LJ↑→1LJ↑），先吸 起的LJ由1-2线圈构成经12线励磁电路，后吸起的LJ由3-4线圈经13线构成励磁电路； </p>
+<p>（3）利用CJ的缓动特性传递解锁电源（解锁电源是瞬间供的）；</p>
+<p>（4）根据第一区段是否选Q组合，其解锁时机及电路不同；</p>
+<p>（5）最后一个区段后动的LJ利用本区段FDGJ的缓动传递解锁电源。</p>
+<h6 id="1213">12、13线网络结构<a class="headerlink" href="#1213" title="跳转至本节的锚点链接">&para;</a></h6>
+<p><img src="../车站信号控制系统.assets/image-20241227005215733.png" alt="image-20241227005215733" style="zoom:80%;" /></p>
+<p><img src="../车站信号控制系统.assets/image-20241227005245837.png" alt="image-20241227005245837" style="zoom:80%;" /></p>
+<h6 id="_61">进路解锁电路<a class="headerlink" href="#_61" title="跳转至本节的锚点链接">&para;</a></h6>
+<p><img src="../车站信号控制系统.assets/image-20241227005449321.png" alt="image-20241227005449321" style="zoom:80%;" /></p>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">轨道交通信号与控制</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面有帮助" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面可以改进" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢您的反馈!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+                感谢您的反馈! 笔者将努力改进此页面
+  </br>您可以使用<a href="/basic/contact-form/">反馈表单</a>来帮助我
+
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <!-- 头部区域：左对齐聚合布局 -->
+  <div class="comments-header">
+    <h2 id="__comments">评论</h2>
+    
+    <!-- 切换按钮容器 -->
+    <div class="comment-switch-wrapper" id="switch-wrapper" data-tip="当前正在使用 GitHub 登录评论">
+      <button id="comment-switch-btn" onclick="toggleCommentSystem()">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path fill="currentColor" d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+        </svg>
+        <span>切换模式</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Giscus 容器 -->
+  <div id="giscus-container">
+    <script src="https://giscus.app/client.js"
+            data-repo="weigo6/sufine-giscus"
+            data-repo-id="R_kgDOQvA4xA"
+            data-category="General"
+            data-category-id="DIC_kwDOQvA4xM4C0P1S"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+
+  <!-- Twikoo 容器 (默认隐藏) -->
+  <div id="twikoo-container" style="display: none;">
+    <div id="twikoo"></div>
+  </div>
+
+  <!-- 样式与逻辑 -->
+  <style>
+    /* 1. 头部布局：保持左对齐和分割线 */
+    .comments-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--md-typeset-color--lighter);
+    }
+
+    .comments-header h2 {
+        margin: 0 !important;
+        line-height: 1.2;
+    }
+
+    /* 2. 按钮样式：保持 SVG 图标和 flex 布局 */
+    #comment-switch-btn {
+        background: transparent;
+        border: 1px solid var(--md-typeset-color--lighter);
+        color: var(--md-typeset-color--light);
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 28px;
+        line-height: 1;
+    }
+    
+    #comment-switch-btn:hover {
+        border-color: var(--md-accent-fg-color);
+        color: var(--md-accent-fg-color);
+        background: var(--md-accent-bg-color--transparent);
+    }
+
+    /* 3. Tooltip 样式重构：圆润玻璃磨砂风 */
+    .comment-switch-wrapper {
+        position: relative;
+    }
+
+    .comment-switch-wrapper::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: 115%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px); /* 初始下沉一点，用于浮动动画 */
+        
+        /* 核心：玻璃磨砂效果 */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        
+        /* 亮色模式默认：半透明白底 + 黑字 (柔和灰黑) */
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(0, 0, 0, 0.05); /* 极细微的边界线 */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* 柔和的漫反射投影 */
+        
+        padding: 6px 14px;
+        border-radius: 20px; /* 大圆角，胶囊形状 */
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        
+        /* 动画与可见性 */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* 4. 暗色模式适配：半透明黑底 + 白字 */
+    [data-md-color-scheme="slate"] .comment-switch-wrapper::after {
+        background: rgba(20, 20, 20, 0.7);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 悬浮交互：上浮并淡入 */
+    .comment-switch-wrapper:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Twikoo 容器样式 */
+    #twikoo-container {
+        margin-top: 1rem;
+    }
+    [data-md-color-scheme="slate"] .tk-content {
+        color: var(--md-typeset-color) !important;
+    }
+  </style>
+
+  <script>
+    var isTwikooLoaded = false;
+
+    function toggleCommentSystem() {
+      var giscusContainer = document.getElementById('giscus-container');
+      var twikooContainer = document.getElementById('twikoo-container');
+      var wrapper = document.getElementById('switch-wrapper');
+      
+      if (twikooContainer.style.display === 'none') {
+        // === 切换到 Twikoo ===
+        giscusContainer.style.display = 'none';
+        twikooContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 Twikoo 匿名评论');
+        
+        if (!isTwikooLoaded) {
+          loadTwikooScript();
+        }
+      } else {
+        // === 切换回 Giscus ===
+        twikooContainer.style.display = 'none';
+        giscusContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 GitHub 登录评论');
+      }
+    }
+
+    function loadTwikooScript() {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/twikoo@latest/dist/twikoo.all.min.js";
+      script.async = true;
+      script.onload = function() {
+        twikoo.init({
+          envId: 'https://twikoo.sufine.top',
+          el: '#twikoo',
+          lang: 'zh-CN'
+        }).catch(console.error);
+        isTwikooLoaded = true;
+      };
+      document.body.appendChild(script);
+    }
+  </script>
+
+  <!-- Giscus 主题同步 -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+          var frame = document.querySelector(".giscus-frame")
+          if (frame) {
+            frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app")
+          }
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    
+      
+      <nav
+        class="md-footer__inner md-grid"
+        aria-label="页脚"
+        
+      >
+
+        <!-- Link to previous page -->
+        
+          
+          <a
+            href="../%E5%8C%BA%E9%97%B4%E4%BF%A1%E5%8F%B7%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/"
+            class="md-footer__link md-footer__link--prev"
+            aria-label="上一页: 区间信号自动控制"
+          >
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                区间信号自动控制
+              </div>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          
+          <a
+            href="../../STEM/"
+            class="md-footer__link md-footer__link--next"
+            aria-label="下一页: 理工科专业课程"
+          >
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                理工科专业课程
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Luwei
+    </div>
+  
+  
+</div>
+
+      <!-- Site Visits -->
+      <style>
+      .site-visit-count {
+        padding: 0 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.65rem;
+        color: var(--md-default-fg-color);
+      }
+      </style>
+      <div class="site-visit-count">
+        本站访问量：<span id="site_pv">--</span>&nbsp;| 当前页浏览量：<span id="page_pv">--</span>
+      </div>
+
+      <!-- Social links -->
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://bucket.rutno.com/d?sid=eqtRzdKfuGlmIm2wX3IwXffreqnr&e=1769434119&sig=aca3206c8defbfd303f1c5b6b36f51416243315723ae7e667fc98f7a5bf29111" target="_blank" rel="noopener" title="关注微信公众号" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/fSvCWA9say" target="_blank" rel="noopener" title="加入 Discord 服务器" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/weigo6" target="_blank" rel="noopener" title="访问 GitHub 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://gitee.com/weigo6" target="_blank" rel="noopener" title="访问 Gitee 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.15a.59.59 0 0 1-.592-.592v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://space.bilibili.com/512710834" target="_blank" rel="noopener" title="访问 Bilibili 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M488.6 104.1c16.7 18.1 24.4 39.7 23.3 65.7v202.4c-.4 26.4-9.2 48.1-26.5 65.1-17.2 17-39.1 25.9-65.5 26.7H92c-26.4-.8-48.2-9.8-65.3-27.2S.7 396.5 0 368.2V169.8c.8-26 9.7-47.6 26.7-65.7C43.8 87.8 65.5 78.8 92 78h29.4L96 52.2c-5.7-5.7-8.6-13-8.6-21.8S90.3 14.3 96 8.6 109 0 117.9 0s16.1 2.9 21.9 8.6L213.1 78h88l74.5-69.4C381.7 2.9 389.2 0 398 0s16.1 2.9 21.9 8.6c5.7 5.7 8.6 13 8.6 21.8s-2.9 16.1-8.6 21.8L394.6 78h29.3c26.4.8 48 9.8 64.7 26.1m-38.8 69.7c-.4-9.6-3.7-17.4-10.7-23.5-5.2-6.1-14-9.4-22.7-9.8H96c-9.6.4-17.4 3.7-23.6 9.8-6.1 6.1-9.4 13.9-9.8 23.5v194.4c0 9.2 3.3 17 9.8 23.5s14.4 9.8 23.6 9.8h320.4c9.2 0 17-3.3 23.3-9.8s9.7-14.3 10.1-23.5zm-264.3 42.7c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.2 6.3-14 9.5-23.6 9.5s-17.5-3.2-23.6-9.5-9.4-14-9.8-23.2v-33.3c.4-9.1 3.8-16.9 10.1-23.2s13.2-9.6 23.3-10c9.2.4 17 3.7 23.3 10m191.5 0c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2s-14 9.5-23.6 9.5-17.4-3.2-23.6-9.5c-7-6.3-9.4-14-9.7-23.2v-33.3c.3-9.1 3.7-16.9 10-23.2s14.1-9.6 23.3-10c9.2.4 17 3.7 23.3 10"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yang92636@qq.com" target="_blank" rel="noopener" title="通过电子邮件联系我" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["navigation.instant","navigation.instant.progress","navigation.tracking","navigation.tabs","navigation.tabs.sticky","navigation.sections","navigation.path","navigation.indexes","navigation.top","toc.follow","search.highlight","content.action.edit","content.action.view","navigation.footer","content.code.copy","content.code.select","content.code.annotate","content.footnote.tooltips","content.tooltips"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+        <script src="../../../javascripts/feedback.js"></script>
+      
+        <script src="../../../javascripts/count.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+      
+        <script src="../../../javascripts/ask_ai.js"></script>
+      
+        <script src="../../../javascripts/APlayer.min.js"></script>
+      
+        <script src="../../../javascripts/Meting.min.js"></script>
+      
+        <script src="../../../javascripts/music_player.js"></script>
+      
+        <script src="../../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

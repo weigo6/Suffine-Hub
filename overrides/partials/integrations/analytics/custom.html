@@ -1,0 +1,51 @@
+<!-- Umami Analytics 集成脚本，支持即时导航（SPA单页应用）模式，屏蔽navigation.tracking (滚动锚点变化) 干扰 -->
+<!-- 1. 基础统计脚本 -->
+<!-- 使用 defer 异步加载，data-auto-track="false" 关闭自动上报，交由下方手动接管 -->
+<script defer 
+  src="{{ config.extra.analytics.script_url }}" 
+  data-website-id="{{ config.extra.analytics.website_id }}"
+  data-auto-track="false" 
+></script>
+
+<!-- 2. 逻辑控制脚本 -->
+<script>
+  /* Umami Analytics Integration for MkDocs Material */
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    // 封装上报函数：统一处理，强制使用 pathname (剔除 #hash)
+    var trackPageview = function() {
+      // 忽略本地开发环境
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        console.log("Umami tracking disabled on localhost"); //方便调试确认
+        return;
+      }
+
+      if (typeof umami !== "undefined") {
+        umami.track(function(props) { 
+          return { ...props, url: window.location.pathname } 
+        });
+      }
+    };
+
+    // A. 首次加载时的手动上报
+    // 页面刚打开时，script (defer) 执行完毕且 DOM 准备好后执行
+    trackPageview();
+
+    // B. 监听 MkDocs 的 SPA 导航事件 (Instant Loading)
+    // document$ 是一个 Observable，仅在 DOM 内容被替换时触发
+    var isFirstEmit = true;
+    
+    document$.subscribe(function() {
+      // document$ 在订阅瞬间会发射一次当前页面的信号
+      // 我们通过标志位跳过这一次，避免与步骤 A 重复统计
+      if (isFirstEmit) {
+        isFirstEmit = false;
+        return;
+      }
+      
+      // 只有真正的页面跳转（内容替换）才会执行到这里
+      // 单纯的 Hash 变化（目录跳转/滚动）不会触发 document$
+      trackPageview();
+    });
+  });
+</script>

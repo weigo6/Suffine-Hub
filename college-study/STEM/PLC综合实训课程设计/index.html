@@ -1,0 +1,6766 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="不必倾城倾国色，斜阳影里自婷婷。">
+      
+      
+        <meta name="author" content="Luwei">
+      
+      
+        <link rel="canonical" href="https://sufine.top/college-study/STEM/PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">
+      
+      
+        <link rel="prev" href="../%E6%95%B0%E5%AD%97%E7%94%B5%E5%8E%8B%E8%A1%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">
+      
+      
+        <link rel="next" href="../%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%BF%A1%E5%8F%B7%E9%85%8D%E6%97%B6%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/logo.webp">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>PLC综合实训课程设计 - Suffine Hub</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/ask_ai.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/APlayer.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/music_player.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+  <!-- Umami Analytics 集成脚本，支持即时导航（SPA单页应用）模式，屏蔽navigation.tracking (滚动锚点变化) 干扰 -->
+<!-- 1. 基础统计脚本 -->
+<!-- 使用 defer 异步加载，data-auto-track="false" 关闭自动上报，交由下方手动接管 -->
+<script defer 
+  src="https://cloud.umami.is/script.js" 
+  data-website-id="c53576ff-f759-4495-b8ec-bb653e56ce58"
+  data-auto-track="false" 
+></script>
+
+<!-- 2. 逻辑控制脚本 -->
+<script>
+  /* Umami Analytics Integration for MkDocs Material */
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    // 封装上报函数：统一处理，强制使用 pathname (剔除 #hash)
+    var trackPageview = function() {
+      // 忽略本地开发环境
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        console.log("Umami tracking disabled on localhost"); //方便调试确认
+        return;
+      }
+
+      if (typeof umami !== "undefined") {
+        umami.track(function(props) { 
+          return { ...props, url: window.location.pathname } 
+        });
+      }
+    };
+
+    // A. 首次加载时的手动上报
+    // 页面刚打开时，script (defer) 执行完毕且 DOM 准备好后执行
+    trackPageview();
+
+    // B. 监听 MkDocs 的 SPA 导航事件 (Instant Loading)
+    // document$ 是一个 Observable，仅在 DOM 内容被替换时触发
+    var isFirstEmit = true;
+    
+    document$.subscribe(function() {
+      // document$ 在订阅瞬间会发射一次当前页面的信号
+      // 我们通过标志位跳过这一次，避免与步骤 A 重复统计
+      if (isFirstEmit) {
+        isFirstEmit = false;
+        return;
+      }
+      
+      // 只有真正的页面跳转（内容替换）才会执行到这里
+      // 单纯的 Hash 变化（目录跳转/滚动）不会触发 document$
+      trackPageview();
+    });
+  });
+</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#plc" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Suffine Hub" class="md-header__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Suffine Hub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PLC综合实训课程设计
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  关于本站
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  课程学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tech-dev/" class="md-tabs__link">
+          
+  
+  技术开发
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../basic/guest-board/" class="md-tabs__link">
+        
+  
+  留言板
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../basic/friendly-links/" class="md-tabs__link">
+          
+  
+  友链
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://nav.sufine.top" class="md-tabs__link">
+        
+  
+  网址导航
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Suffine Hub" class="md-nav__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    Suffine Hub
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    关于本站
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    课程学习
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../RailSig/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 2h7c.8 0 1.56.32 2.12.88S15 4.2 15 5v1h-2V4H4v7h5v5H8l-3 3H4v-2l1-1c-.8 0-1.56-.32-2.12-.88S2 13.8 2 13V5c0-.8.32-1.56.88-2.12S4.2 2 5 2m.71 10.29C5.5 12.11 5.27 12 5 12c-.26 0-.5.11-.71.29-.18.21-.29.45-.29.71 0 .27.11.5.29.71.21.19.45.29.71.29.27 0 .5-.1.71-.29.19-.21.29-.44.29-.71 0-.26-.1-.5-.29-.71M11 11c0-1.66 1-3 4-3h3c3 0 4 1.34 4 3v7c0 .74-.4 1.39-1 1.73V21c0 .55-.45 1-1 1s-1-.45-1-1v-1h-5v1c0 .55-.45 1-1 1s-1-.45-1-1v-1.27c-.6-.34-1-.99-1-1.73zm2-1v4h7v-4zm1 8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1m6-1c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号与控制
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    轨道交通信号与控制
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E6%A6%82%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-5V6h5m-1.5 11a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5M11 11H6V6h5M7.5 17A1.5 1.5 0 0 1 6 15.5 1.5 1.5 0 0 1 7.5 14 1.5 1.5 0 0 1 9 15.5 1.5 1.5 0 0 1 7.5 17M12 2c-4.42 0-8 .5-8 4v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5v.5h12v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.58-4-8-4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通概论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%B8%80/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m8-9h-3V8.86c1.72-.45 3-2 3-3.86h-3V4a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1H4c0 1.86 1.28 3.41 3 3.86V10H4c0 1.86 1.28 3.41 3 3.86V15H4c0 1.86 1.28 3.41 3 3.86V20a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1.14c1.72-.45 3-2 3-3.86h-3v-1.14c1.72-.45 3-2 3-3.86"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号基础一
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%BA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.67 10.5c-1.27 0-2.4.8-2.82 2h-1.68V7.77l3.49 2.09 1-1.72L14.11 6l3.57-2.14-1-1.72-3.51 2.09V2h-2v2.23L7.68 2.14l-1 1.72L10.23 6 6.66 8.14l1 1.72 3.51-2.09v4.73H9.5c-1.14-3.18-5.84-2.37-5.84 1s4.7 4.18 5.84 1h1.67V20a2 2 0 0 0-2 2h6a2 2 0 0 0-2-2v-5.5h1.68c.81 2.3 3.88 2.72 5.28.73s-.03-4.73-2.46-4.73m-11 4c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1m11 0c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通基础二
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E5%8C%BA%E9%97%B4%E4%BF%A1%E5%8F%B7%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-3.18C14.4 9.84 13.3 9 12 9s-2.4.84-2.82 2H6c-.33 0-2-.1-2-2V8c0-1.83 1.54-2 2-2h10.18C16.6 7.16 17.7 8 19 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3c-1.3 0-2.4.84-2.82 2H6C4.39 4 2 5.06 2 8v1c0 2.94 2.39 4 4 4h3.18c.42 1.16 1.52 2 2.82 2s2.4-.84 2.82-2H18c.33 0 2 .1 2 2v1c0 1.83-1.54 2-2 2H7.82C7.4 16.84 6.3 16 5 16a3 3 0 0 0-3 3 3 3 0 0 0 3 3c1.3 0 2.4-.84 2.82-2H18c1.61 0 4-1.07 4-4v-1c0-2.93-2.39-4-4-4m1-7a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1M5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    区间信号自动控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A6%E7%AB%99%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 16V4H3v12zm0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v2h2v2H8v-2h2v-2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2zM5 6h9v5H5zm10 0h4v2h-4zm4 3v5h-4V9zM5 12h4v2H5zm5 0h4v2h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    车站信号控制系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    理工科专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    理工科专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matlab-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v2h3v12h-3v2h5V4M4 4v16h5v-2H6V6h3V4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Matlab入门学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC-S7-200-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    西门子PLC S7-200
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC-ModbusRTU/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 3h10v2h2v3h-3v6H8V8H5V5h2zm10 6h2v5h-2zm-6 6h2v7h-2zM5 9h2v5H5z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC ModbusRTU 学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h1v2H2v2h4v2H5c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2zm0 2h4v3h-4zM5 17h4v3H5zm10 0h4v3h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BC%A0%E6%84%9F%E5%99%A8%E4%B8%8E%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与检测技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%A4%E9%80%9A%E8%8B%B1%E8%AF%AD%E7%AD%94%E8%BE%A9%E8%AE%B2%E7%A8%BF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    专业外语课程-交通英语
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 22a3 3 0 0 1-3-3c0-.6.18-1.16.5-1.63L9 7.81V6a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1v1.81l5.5 9.56c.32.47.5 1.03.5 1.63a3 3 0 0 1-3 3zm-1-3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1c0-.21-.07-.41-.18-.57l-2.29-3.96L14 17l-5.07-5.07-3.75 6.5c-.11.16-.18.36-.18.57m8-9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理实验报告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8B%8F%E5%B7%9E%E8%AF%84%E5%BC%B9%E9%89%B4%E8%B5%8F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 5a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c2.67 0 8 1.34 8 4v2H1v-2c0-2.66 5.33-4 8-4m7.76-9.64c2.02 2.2 2.02 5.25 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89zM20.07 2c3.93 4.05 3.9 10.11 0 14l-1.63-1.63c2.77-3.18 2.77-7.72 0-10.74z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    苏州评弹鉴赏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%AF%9B%E6%A6%82%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h2v20H7zm12 7-8 5.6V3.4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    毛概复习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E5%AD%97%E7%94%B5%E5%8E%8B%E8%A1%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    数字电压表制作课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.9 18.45c1.35 0 2.45-1.1 2.45-2.45s-1.1-2.45-2.45-2.45c-1.36 0-2.45 1.1-2.45 2.45s1.09 2.45 2.45 2.45m5.2-1.77 1.48 1.16c.13.11.17.29.08.45l-1.4 2.42a.35.35 0 0 1-.43.15l-1.74-.7c-.36.28-.76.51-1.18.69l-.27 1.85c-.02.17-.17.3-.34.3h-2.8c-.18 0-.32-.13-.35-.3l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.75.7c-.15.06-.34 0-.42-.15l-1.4-2.42a.35.35 0 0 1 .08-.45l1.48-1.16-.05-.68.05-.69-1.48-1.15a.35.35 0 0 1-.08-.45l1.4-2.42c.08-.16.27-.22.42-.16l1.75.71c.36-.28.75-.52 1.18-.69l.26-1.86c.03-.16.17-.29.35-.29h2.8c.17 0 .32.13.34.29l.27 1.86c.42.17.82.41 1.18.69l1.74-.71c.17-.06.34 0 .43.16l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.15.05.69zM6.69 8.07c.87 0 1.57-.7 1.57-1.57s-.7-1.58-1.57-1.58A1.58 1.58 0 0 0 5.11 6.5c0 .87.71 1.57 1.58 1.57m3.34-1.13.97.74c.07.07.09.19.03.29l-.9 1.56c-.05.1-.17.14-.27.1l-1.12-.45-.74.44-.19 1.19c-.02.11-.11.19-.22.19h-1.8c-.12 0-.21-.08-.23-.19L5.4 9.62l-.76-.44-1.14.45c-.09.04-.2 0-.26-.1l-.9-1.56c-.06-.1-.03-.22.05-.29l.95-.74-.03-.44.03-.44-.95-.74a.23.23 0 0 1-.05-.29l.9-1.56c.06-.1.17-.14.26-.1l1.13.45.77-.44.16-1.19c.02-.11.11-.19.23-.19h1.8c.11 0 .2.08.22.19L8 3.38l.74.44 1.12-.45c.1-.04.22 0 .27.1l.9 1.56c.06.1.04.22-.03.29l-.97.74.03.44z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC综合实训课程设计
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.9 18.45c1.35 0 2.45-1.1 2.45-2.45s-1.1-2.45-2.45-2.45c-1.36 0-2.45 1.1-2.45 2.45s1.09 2.45 2.45 2.45m5.2-1.77 1.48 1.16c.13.11.17.29.08.45l-1.4 2.42a.35.35 0 0 1-.43.15l-1.74-.7c-.36.28-.76.51-1.18.69l-.27 1.85c-.02.17-.17.3-.34.3h-2.8c-.18 0-.32-.13-.35-.3l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.75.7c-.15.06-.34 0-.42-.15l-1.4-2.42a.35.35 0 0 1 .08-.45l1.48-1.16-.05-.68.05-.69-1.48-1.15a.35.35 0 0 1-.08-.45l1.4-2.42c.08-.16.27-.22.42-.16l1.75.71c.36-.28.75-.52 1.18-.69l.26-1.86c.03-.16.17-.29.35-.29h2.8c.17 0 .32.13.34.29l.27 1.86c.42.17.82.41 1.18.69l1.74-.71c.17-.06.34 0 .43.16l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.15.05.69zM6.69 8.07c.87 0 1.57-.7 1.57-1.57s-.7-1.58-1.57-1.58A1.58 1.58 0 0 0 5.11 6.5c0 .87.71 1.57 1.58 1.57m3.34-1.13.97.74c.07.07.09.19.03.29l-.9 1.56c-.05.1-.17.14-.27.1l-1.12-.45-.74.44-.19 1.19c-.02.11-.11.19-.22.19h-1.8c-.12 0-.21-.08-.23-.19L5.4 9.62l-.76-.44-1.14.45c-.09.04-.2 0-.26-.1l-.9-1.56c-.06-.1-.03-.22.05-.29l.95-.74-.03-.44.03-.44-.95-.74a.23.23 0 0 1-.05-.29l.9-1.56c.06-.1.17-.14.26-.1l1.13.45.77-.44.16-1.19c.02-.11.11-.19.23-.19h1.8c.11 0 .2.08.22.19L8 3.38l.74.44 1.12-.45c.1-.04.22 0 .27.1l.9 1.56c.06.1.04.22-.03.29l-.97.74.03.44z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC综合实训课程设计
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+      
+        
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本实验项目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本实验项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目一：音乐喷泉的控制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目一：音乐喷泉的控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验设备
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC的I/O分配表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcio_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        画出PLC的I/O接线图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        程序设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC控制过程简述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        个人心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目二：三台电机顺序启动逆序停止
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目二：三台电机顺序启动逆序停止">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcio_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC的I/O分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcio_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        画出PLC的I/O接线及图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        梯形图程序设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验调试情况及个人心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目三：变频器的手动控制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目三：变频器的手动控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三菱变频器参数记录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验内容
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验调试情况及个人心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目四：基于PLC和变频器对传动带的运行控制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目四：基于PLC和变频器对传动带的运行控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcio_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC的I/O分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电气原理控制图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制过程循环一个周期的顺序功能图（SFC）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        梯形图程序设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验调试情况及个人心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcinvhmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目五：基于PLC、INV及HMI对三项异步电动机正反转的控制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目五：基于PLC、INV及HMI对三项异步电动机正反转的控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC编程元件的分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        监控系统电气原理图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        梯形图程序设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HMI的主要界面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        触摸屏和PLC监控过程简述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验调试情况及个人心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcinvhmi_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目六：基于PLC、INV和HMI对货物运输带的控制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目六：基于PLC、INV和HMI对货物运输带的控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC软元件分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电气控制系统原理图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        触控屏设计的主要画面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        梯形图程序设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验调试情况及心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        课程设计综合项目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="课程设计综合项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设计项目及控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一处卸料运料小车的电气控制系统概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一处卸料运料小车的电气控制系统概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        系统组成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        工作过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制系统原理设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="控制系统原理设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制系统结构框图及概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电气控制原理设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电气控制系统原理图及概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        主要电器和传感器型号及性能概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC程序设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PLC程序设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plcio_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC的IO分配及软元件分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制过程的描述（流程图）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC梯形图程序简介
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        变频器参数设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        人机界面（触摸屏）组态设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人机界面（触摸屏）组态设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        触摸屏工程参数设置及通信连接
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        人机界面（触摸屏）的设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人机界面（触摸屏）的设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        触摸屏主画面设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参数设计画面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运行控制与运行状态画面
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目调试效果及总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目调试效果及总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目调试效果展示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        心得体会与总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%BF%A1%E5%8F%B7%E9%85%8D%E6%97%B6%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.1 4.8c-.1-.5-.5-.8-1-.8H13l.2 3h-2.4l.2-3H6.8c-.5 0-.9.4-1 .8l-2.7 14c-.1.6.4 1.2 1 1.2H10l.3-5h3.4l.3 5h5.8c.6 0 1.1-.6 1-1.2zM10.4 13l.2-4h2.6l.2 4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    交叉口信号配时课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8C%E9%9D%A2%E9%95%9C%E6%B5%8B%E7%A3%81%E8%87%B4%E4%BC%B8%E7%BC%A9%E7%B3%BB%E6%95%B0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.29 10.28 3.24-3.25 1.06 1.06-3.24 3.25zm.41 4.33 5.66-5.66L15.42 10l-5.66 5.67zM18 3v18H6V3zm2-2H4v22h16z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    菲涅尔双面镜测磁致伸缩系数实验
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Kaoyan/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研相关科目
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    考研相关科目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-math-hm/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.42 5.29c-1.1-.1-2.07.71-2.17 1.82L10 10h2.82v2h-3l-.44 5.07A4.001 4.001 0 0 1 2 18.83l1.5-1.5c.33 1.05 1.46 1.64 2.5 1.3.78-.24 1.33-.93 1.4-1.74L7.82 12h-3v-2H8l.27-3.07a4.01 4.01 0 0 1 4.33-3.65c1.26.11 2.4.81 3.06 1.89l-1.5 1.5c-.25-.77-.93-1.31-1.74-1.38M22 13.65l-1.41-1.41-2.83 2.83-2.83-2.83-1.43 1.41 2.85 2.85-2.85 2.81 1.43 1.41 2.83-2.83 2.83 2.83L22 19.31l-2.83-2.81z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-高数知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-math-la/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-线代知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-eng-write/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.54 3.5 4.96 4.97-1.43 1.41-4.95-4.95zM3.5 19.78l6.5-6.47c-.1-.31-.03-.7.23-.96.39-.39 1.03-.39 1.42 0 .39.4.39 1.03 0 1.42-.26.26-.65.33-.96.23l-6.47 6.5 10.61-3.55 3.53-6.36-4.94-4.95-6.37 3.53z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-作文写作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%80%83%E7%A0%94%E6%A0%B8%E5%BF%83926%E8%AF%8D%E6%B1%87%E5%8F%8A%E6%8B%93%E5%B1%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2zm0 2h2v2H3m12-.5V9a2 2 0 0 0-2-2H9v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M13 15h-2v-2h2zm0-4h-2V9h2m6-2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1h-2v1h-2V9h2v1h2V9a2 2 0 0 0-2-2Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-核心词汇926词
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-1.27 0-2.4.8-2.82 2H3v2h1.95L2 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3L6.05 7h3.12c.33.85.98 1.5 1.83 1.83V20H2v2h20v-2h-9V8.82c.85-.32 1.5-.97 1.82-1.82h3.13L15 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3l-2.95-7H21V5h-6.17C14.4 3.8 13.27 3 12 3m0 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-6.5 5.25L7 14H4zm13 0L20 14h-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研政治-知识点笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%87%AA%E6%8E%A7-%E6%A0%B9%E8%BD%A8%E8%BF%B9%E6%B3%95%E5%88%99/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.96 11.31C10.82 8.1 11.5 6 13 6s2.18 2.1 3.04 5.31C17 14.92 18.1 19 22 19v-2c-2.2 0-3-2.46-4.03-6.2C17.08 7.46 16.15 4 13 4s-4.08 3.46-4.97 6.8C7.03 14.54 6.2 17 4 17V2H2v20h20v-2H4v-1c3.9 0 5-4.08 5.96-7.69"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    自动控制原理-根轨迹法则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    技术开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技术开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Markdown/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12c.79 0 1.44.63 1.44 1.41v9.18c0 .78-.65 1.41-1.44 1.41M6.81 15.19v-3.66l1.92 2.35 1.92-2.35v3.66h1.93V8.81h-1.93l-1.92 2.35-1.92-2.35H4.89v6.38zM19.69 12h-1.92V8.81h-1.92V12h-1.93l2.89 3.28z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown相关
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Markdown相关
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/markdown-in-5min/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4zm10 14.5-4-4-4 4V20h8zm-4-5 4-4V4H8v3.5zM10 6h4v.75l-2 2-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 5 分钟上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/LaTeX-math/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 6H8.83l6 6-6 6H18v2H6v-2l6-6-6-6V4h12z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在Markdown中编写数学公式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/zensical-markdown/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5zm2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63s2.59.23 3.5.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Zensical 中使用 Markdown 高效写作
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/markdown-typora/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7V5h2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L18 9V2h1c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7zm4 4H5v2h2zm0-4V5H5v2zm0 12v-2H5v2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 与 Typora 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/typora-theme/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 12a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 17.5 9a1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-3-4A1.5 1.5 0 0 1 13 6.5 1.5 1.5 0 0 1 14.5 5 1.5 1.5 0 0 1 16 6.5 1.5 1.5 0 0 1 14.5 8m-5 0A1.5 1.5 0 0 1 8 6.5 1.5 1.5 0 0 1 9.5 5 1.5 1.5 0 0 1 11 6.5 1.5 1.5 0 0 1 9.5 8m-3 4A1.5 1.5 0 0 1 5 10.5 1.5 1.5 0 0 1 6.5 9 1.5 1.5 0 0 1 8 10.5 1.5 1.5 0 0 1 6.5 12M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9 1.5 1.5 0 0 0 1.5-1.5c0-.39-.15-.74-.39-1-.23-.27-.38-.62-.38-1a1.5 1.5 0 0 1 1.5-1.5H16a5 5 0 0 0 5-5c0-4.42-4.03-8-9-8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Typora 软件主题分享与记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/WebDev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.19 14.19 6 18l3.81-8.19L18 6m-6-4A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 8.9a1.1 1.1 0 0 0-1.1 1.1 1.1 1.1 0 0 0 1.1 1.1 1.1 1.1 0 0 0 1.1-1.1 1.1 1.1 0 0 0-1.1-1.1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Web 相关开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web 相关开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%BD%BF%E7%94%A8EO-Pages%E6%89%98%E7%AE%A1Zensical%E7%AB%99%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83s-2.05.78-2.83 0m-5.66 7.07-1.41-1.41zM6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 EdgeOne Pages 托管 Zensical 站点
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E8%A1%A8%E5%8D%95%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.13c-.15.01-.29.06-.39.17l-1 1 2.05 2 1-1c.22-.21.22-.56 0-.77l-1.24-1.23a.56.56 0 0 0-.38-.17m-2 1.75L13 19.94V22h2.06l6.06-6.07M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7v-.89l8.24-8.22c.47-.49 1.12-.76 1.8-.76.34 0 .68.06 1 .19V6c0-1.12-.92-2-2.04-2m0 4-8 5-8-5V6l8 5 8-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加邮件表单功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E5%9F%BA%E4%BA%8EEO-Pages%E5%AE%9E%E7%8E%B0%E7%AB%99%E7%82%B9%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于 EdgeOne Pages 实现站点访问统计功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0AI%E9%97%AE%E7%AD%94%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-1.26 2.75L15 5l2.74 1.26L19 9l1.25-2.74L23 5l-2.75-1.25M9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5M19 15l-1.26 2.74L15 19l2.74 1.25L19 23l1.25-2.75L23 19l-2.75-1.26"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加 AI 问答功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加音乐播放器功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Embedded/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E5%9B%9B%E8%BD%AE%E7%A7%BB%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 0 0 5 15.5 2.5 2.5 0 0 0 7.5 18a2.5 2.5 0 0 0 2.5-2.5A2.5 2.5 0 0 0 7.5 13m9 0a2.5 2.5 0 0 0-2.5 2.5 2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于STM32的四轮移动机器人设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ERFID%E7%9A%84%E6%99%BA%E8%83%BD%E4%BB%93%E5%82%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h2v2H6zm6-16L2 8v13h2v-8h16v8h2V8zm-4 8H4V9h4zm6 0h-4V9h4zm6 0h-4V9h4zM6 15h2v2H6zm4 0h2v2h-2zm0 4h2v2h-2zm4 0h2v2h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于RFID的智能仓储管理系统设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/2024%E7%94%B5%E8%B5%9BH%E9%A2%98%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2c-.9 0-2 1-2 2H8c0-1-1.1-2-2-2H2v9c0 1 1 2 2 2h2.2c.4 2 1.7 3.7 4.8 4v2.08C8 19.54 8 22 8 22h8s0-2.46-3-2.92V17c3.1-.3 4.4-2 4.8-4H20c1 0 2-1 2-2V2zM6 11H4V4h2zm14 0h-2V4h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024电赛H题参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/2024%E8%A5%BF%E9%97%A8%E5%AD%90%E6%9D%AF%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4v2l5.81 4.36a7.004 7.004 0 0 0-4.46 8.84 6.996 6.996 0 0 0 8.84 4.46 7 7 0 0 0 0-13.3L20 4zm-5.06 17.5L12 17.78 9.06 19.5l.78-3.33-2.59-2.24 3.41-.29L12 10.5l1.34 3.14 3.41.29-2.59 2.24z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024西门子杯参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    蓝桥杯嵌入式与STM32学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/PCB%E8%AE%BE%E8%AE%A1%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0 3 7l1.63 1.27L12 14l7.36-5.73L21 7zm7.37 10.73L12 16.47l-7.38-5.73L3 12l9 7 9-7zm0 5L12 21.47l-7.38-5.73L3 17l9 7 9-7z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PCB设计注意事项
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ECD4017%E7%9A%84%E7%AE%80%E6%98%93%E5%AF%86%E7%A0%81%E5%99%A8%E6%8E%A7%E5%88%B6%E8%A3%85%E7%BD%AE/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m5.6-4c-.8-2.3-3-4-5.6-4-3.3 0-6 2.7-6 6s2.7 6 6 6c2.6 0 4.8-1.7 5.6-4H16v4h4v-4h3v-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于CD4017的简易密码器控制装置
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Software/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v10H4m16 2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    软件程序开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件程序开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/%E5%9F%BA%E4%BA%8EAST%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E7%9A%84Python%E6%96%87%E4%BB%B6%E6%9F%A5%E9%87%8D/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18H6v-2h4zm0-4H6v-2h4zm0-13v1H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h4v1h2V1zm10 7v12c0 1.11-.89 2-2 2h-4v-2h4v-9h-4V9h4.5L14 4.5V2zm-4 6h-2v-2h2zm0 4h-2v-2h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于AST语义分析的Python文件查重
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/%E6%97%8B%E8%BD%AC%E9%9F%B3%E5%BE%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m0 2v12h16V6zm3.24.58 11.59 3.11-2.07 7.73-11.59-3.11z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于Pyside6与ffmpeg的旋转音律视频稳定工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/Turbot4%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Turbot4机器人开发记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55 6.28-3.63-.58-1.01-6.28 3.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+     Python 下一代包管理器 uv 上手指南
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Tools/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.8 3.8 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.8 3.8 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    工具与资源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具与资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Tools/%E5%8D%A1%E8%A5%BF%E6%AC%A7fx-991%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4zm0 6v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    卡西欧fx-991使用技巧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/guest-board/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 12V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14l4-4h10a1 1 0 0 0 1-1m4-6h-2v9H6v2a1 1 0 0 0 1 1h11l4 4V7a1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    留言板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    友链
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    友链
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 17q.86 0 1.45.6t.58 1.4L14 22l-7-2v-9h1.95l7.27 2.69q.78.31.78 1.12 0 .47-.34.82t-.86.37H13l-1.75-.67-.33.94L13 17zM16 3.23Q17.06 2 18.7 2q1.36 0 2.3 1t1 2.3q0 1.03-1 2.46t-1.97 2.39T16 13q-2.08-1.89-3.06-2.85t-1.97-2.39T10 5.3q0-1.36.97-2.3t2.34-1q1.6 0 2.69 1.23M.984 11H5v11H.984z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    朋友们
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links-guide/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 14c-2.67 0-8 1.33-8 4v2h16v-2c0-2.67-5.33-4-8-4m-9-4V7H4v3H1v2h3v3h2v-3h3v-2m6 2a4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4 4 4 0 0 0 4 4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    友链申请指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/contact-form/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 8V7l-3 2-3-2v1l3 2m4-7H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M8 6a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m6 12H2v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1m8-5h-8V6h8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    联系表单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nav.sufine.top" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网址导航
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本实验项目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本实验项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目一：音乐喷泉的控制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目一：音乐喷泉的控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验设备
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC的I/O分配表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcio_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        画出PLC的I/O接线图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        程序设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC控制过程简述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        个人心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目二：三台电机顺序启动逆序停止
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目二：三台电机顺序启动逆序停止">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcio_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC的I/O分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcio_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        画出PLC的I/O接线及图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        梯形图程序设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验调试情况及个人心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目三：变频器的手动控制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目三：变频器的手动控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三菱变频器参数记录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验内容
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验调试情况及个人心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目四：基于PLC和变频器对传动带的运行控制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目四：基于PLC和变频器对传动带的运行控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcio_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC的I/O分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电气原理控制图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制过程循环一个周期的顺序功能图（SFC）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        梯形图程序设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验调试情况及个人心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcinvhmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目五：基于PLC、INV及HMI对三项异步电动机正反转的控制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目五：基于PLC、INV及HMI对三项异步电动机正反转的控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC编程元件的分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        监控系统电气原理图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        梯形图程序设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HMI的主要界面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        触摸屏和PLC监控过程简述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验调试情况及个人心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plcinvhmi_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目六：基于PLC、INV和HMI对货物运输带的控制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目六：基于PLC、INV和HMI对货物运输带的控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC软元件分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电气控制系统原理图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        触控屏设计的主要画面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        梯形图程序设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实验调试情况及心得
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        课程设计综合项目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="课程设计综合项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设计项目及控制要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一处卸料运料小车的电气控制系统概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一处卸料运料小车的电气控制系统概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        系统组成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        工作过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制系统原理设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="控制系统原理设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制系统结构框图及概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电气控制原理设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电气控制系统原理图及概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        主要电器和传感器型号及性能概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC程序设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PLC程序设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plcio_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC的IO分配及软元件分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制过程的描述（流程图）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plc_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PLC梯形图程序简介
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        变频器参数设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        人机界面（触摸屏）组态设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人机界面（触摸屏）组态设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        触摸屏工程参数设置及通信连接
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        人机界面（触摸屏）的设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人机界面（触摸屏）的设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        触摸屏主画面设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参数设计画面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运行控制与运行状态画面
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目调试效果及总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目调试效果及总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目调试效果展示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        心得体会与总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    关于本站
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    课程学习
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    理工科专业课程
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/weigo6/suffine-hub/edit/main/docs/college-study/STEM/PLC综合实训课程设计.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/weigo6/suffine-hub/raw/main/docs/college-study/STEM/PLC综合实训课程设计.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+<style>
+.md-typeset__scrollwrap {
+  display: flex;
+  justify-content: center;
+}
+</style>
+
+<h1 id="plc">PLC综合实训课程设计<a class="headerlink" href="#plc" title="跳转至本节的锚点链接">&para;</a></h1>
+<h2 id="_1">基本实验项目<a class="headerlink" href="#_1" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_2">项目一：音乐喷泉的控制<a class="headerlink" href="#_2" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_3">实验目的<a class="headerlink" href="#_3" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1、掌握基本逻辑指令的编程；</p>
+<p>2、掌握基本的编程方法。</p>
+<h4 id="_4">控制要求<a class="headerlink" href="#_4" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1） 当打开启动开关SD后，音乐喷泉的8组灯，每组灯依次按照以下顺序点亮：L1亮0.5秒后灭，接着L2亮0.5秒后灭，接着L3亮0.5秒后灭，接着L4亮0.5秒后灭，接着L5亮0.5秒后灭，接着L6亮0.5秒后灭，接着L7亮0.5秒后灭，接着L8亮0.5秒后灭，L1亮0.5秒后灭，如此循环，当循环5次后8组灯全亮。</p>
+<p>2） 当关闭开关SD后，所有的灯熄灭。</p>
+<h4 id="_5">实验设备<a class="headerlink" href="#_5" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>所用主要设备如表所示。</p>
+<center>表 主要设备</center>
+
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>名    称</th>
+<th>型号与规格</th>
+<th>数量</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>PLC实验台</td>
+<td>HHSMS-C1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>实训挂箱</td>
+<td>A10</td>
+<td>1</td>
+<td>挂件中+5V不需接线</td>
+</tr>
+<tr>
+<td>3</td>
+<td>导线</td>
+<td>控制线</td>
+<td>若干</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>网线</td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>计算机</td>
+<td></td>
+<td>1</td>
+<td>自备</td>
+</tr>
+</tbody>
+</table>
+<h4 id="plcio">PLC的I/O分配表<a class="headerlink" href="#plcio" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>PLC的I/O分配表如表所示。</p>
+<center>表 PLC的I/O分配表</center>
+
+<table>
+<thead>
+<tr>
+<th>I（输入）</th>
+<th></th>
+<th>O（输出）</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>名称及文字代号</td>
+<td>地址</td>
+<td>名称及文字代号</td>
+<td>地址</td>
+</tr>
+<tr>
+<td>启动开关SD（扳手开关非按钮）</td>
+<td>I0.1</td>
+<td>彩灯PG1</td>
+<td>Q1.0</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>彩灯PG2</td>
+<td>Q1.1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>彩灯PG3</td>
+<td>Q1.2</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>彩灯PG4</td>
+<td>Q1.3</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>彩灯PG5</td>
+<td>Q1.4</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>彩灯PG6</td>
+<td>Q1.5</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>彩灯PG7</td>
+<td>Q1.6</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>彩灯PG8</td>
+<td>Q1.7</td>
+</tr>
+<tr>
+<td>电源正端</td>
+<td>主机1M、L、2L+、面板V+接电源+24V</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>电源地端</td>
+<td>主机2M、M、面板COM接电源GND</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="plcio_1">画出PLC的I/O接线图<a class="headerlink" href="#plcio_1" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img alt="image-20250924204936388" src="../PLC综合实训课程设计.assets/image-20250924204936388.png" /></p>
+<h4 id="_6">程序设计<a class="headerlink" href="#_6" title="跳转至本节的锚点链接">&para;</a></h4>
+<ol>
+<li>时序图</li>
+</ol>
+<p><img alt="image-20250924205011421" src="../PLC综合实训课程设计.assets/image-20250924205011421.png" /></p>
+<p>本音乐喷泉PLC课程实验的时序图如上。第一个子图中的蓝色线表示开关通断，余下8个子图为灯组的通断时序。</p>
+<ol>
+<li>梯形图程序</li>
+</ol>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924205104147.png" alt="image-20250924205104147" style="zoom:55%;" /><img src="../PLC综合实训课程设计.assets/image-20250924205126328.png" alt="image-20250924205126328" style="zoom:55%;" /><img src="../PLC综合实训课程设计.assets/image-20250924205146120.png" alt="image-20250924205146120" style="zoom:60%;" /><img src="../PLC综合实训课程设计.assets/image-20250924205221333.png" alt="image-20250924205221333" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924205235754.png" alt="image-20250924205235754" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924205305854.png" alt="image-20250924205305854" style="zoom:67%;" /></p>
+<h4 id="plc_1">PLC控制过程简述<a class="headerlink" href="#plc_1" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>程序实现了一个典型的循环移位灯控制功能，并且带有一个循环次数计数器。它利用定时器 (TON) 和输出位 (Q) 的置位 (S) 和复位 (R) 指令来实现步进控制。</p>
+<ol>
+<li><strong>启动：</strong> I0.1 的上升沿 (EU) 置位 M0.0，触发第一步 (Network 2)。</li>
+<li><strong>步进运行：</strong> 第一步 (Q1.0) 点亮 5 个单位时间 (T37)。 T37 到时触发第二步 (Q1.1) 点亮，同时关闭第一步 (Q1.0)。 第二步点亮 5 个单位时间 (T38)。 如此类推，每一步点亮 5 个单位时间，并关闭前一步。 信号从 Q1.0 依次移位到 Q1.7。</li>
+<li><strong>循环：</strong> 当最后一步 (Q1.7) 点亮 5 个单位时间 (T44) 后： T44 的上升沿使计数器 C0 加 1 (Network 10)。 同时，T44 作为条件反馈回 Network 2 (O T44)，触发第一步 (Q1.0) 重新点亮（此时 Network 2 的 R Q1.7, 1 会关闭 Q1.7），开始<strong>下一次循环</strong>。</li>
+<li><strong>计数与结束动作：</strong> 每次循环完成 (T44 上升沿)，计数器 C0 加 1。 当完成 5 次循环 (C0 = 1) 时，Network 11 执行，<strong>同时点亮所有输出</strong> <strong>Q1.0</strong> <strong>到</strong> <strong>Q1.7</strong>。 注意：C0 = 1 后，由于循环逻辑仍在运行（Network 2 的 O T44 条件满足），Q1.0 会立刻再次被点亮（S Q1.0, 1），同时 Network 11 的 S Q1.0, 8 也在置位它。但由于 Network 3 的 R Q1.0, 1 会在下一步将其复位，实际效果可能是所有灯亮一下之后，移位逻辑又开始了新一轮循环（Q1.0 亮 -&gt; Q1.1 亮 Q1.0 灭 -&gt; ...）。C0 会保持为 1 直到被复位。</li>
+<li><strong>停止</strong>/<strong>复位：</strong> I0.1 的下降沿 (ED) 会复位所有定时器 (T37-T44)、所有输出 (Q1.0-Q1.7) 和计数器 C0 (LDN I0.1 条件满足)。</li>
+</ol>
+<p>一个 8 位的流水灯控制：8 个灯 (Q1.0到 Q1.7) 依次点亮，每个亮 0.5 秒，循环 5 次后所有灯一起保持常亮，通过控制开关进行启动和复位。</p>
+<h4 id="_7">个人心得<a class="headerlink" href="#_7" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>本次实验旨在通过西门子S7-200 SMART PLC实现一个8位流水灯的复杂控制功能。它不仅要求灯光能依次顺序点亮，还增加了循环次数计数和最终全亮效果的功能。通过程序编写、硬件接线、系统调试等一系列过程，我深刻体会到理论知识与工程实践相结合的重要性，并对PLC的工作原理和应用有了更深入的理解。</p>
+<p>通过这次流水灯实验，我不仅成功实现了一个有趣的视觉效果，更重要的是，我深入理解了定时器（TON） 和计数器（CTU）在顺序控制中的核心作用，以及如何将它们组合起来构建复杂功能。我的工程实践能力，包括程序设计、硬件接线、系统调试和故障排查，都得到了全面的锻炼。</p>
+<p>此次实验让我明白，PLC编程不仅仅是代码的堆砌，更是对工业流程的抽象和逻辑思维的体现。未来，我希望能将此次学到的顺序控制思想和编程技巧应用到更复杂的项目中，例如机械手控制、自动化生产线等，真正做到学以致用。</p>
+<h3 id="_8">项目二：三台电机顺序启动逆序停止<a class="headerlink" href="#_8" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_9">实验目的<a class="headerlink" href="#_9" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1、 掌握用顺序功能图（SFC）表达控制过程的方法；</p>
+<p>2、掌握SCR指令的编程与程序调试的方法。</p>
+<h4 id="_10">控制要求<a class="headerlink" href="#_10" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>3台电机顺序启动逆序停止控制流程如图所示。按启动按钮SF1后，3台电机MA1、MA2、MA3间隔3秒依次正序启动；按停止按钮SF2后，3台电机MA1、MA2、MA3间隔2秒依次逆序停止；如果在6秒之内只启动了2台或1台电机，当按下停止按钮SF2后，电机仍然按要求逆序停止。请用SCR指令写出控制程序。</p>
+<p><img alt="image-20250924205707859" src="../PLC综合实训课程设计.assets/image-20250924205707859.png" /></p>
+<center>图  三台电机顺序启动逆序停止流程示意图</center>
+
+<h4 id="plcio_2">PLC的I/O分配<a class="headerlink" href="#plcio_2" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>把PLC输入输出地址分配填入表中。</p>
+<center>表 PLC I/O 分配表</center>
+
+<table>
+<thead>
+<tr>
+<th>I（输入）</th>
+<th>O（输出）</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>名 称</strong></td>
+<td><strong>地址</strong></td>
+<td><strong>名  称</strong></td>
+<td><strong>地址</strong></td>
+</tr>
+<tr>
+<td>启动按钮SF1</td>
+<td>I0.1</td>
+<td>电机MA1</td>
+<td>Q0.6</td>
+</tr>
+<tr>
+<td>停止按钮SF2</td>
+<td>I0.2</td>
+<td>电机MA2</td>
+<td>Q0.7</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>电机MA3</td>
+<td>Q1.0</td>
+</tr>
+<tr>
+<td>电源正端</td>
+<td>主机1M、L、2L+、面板V+接电源+24V</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>电源地端</td>
+<td>主机2M、M、面板COM接电源GND</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="plcio_3">画出PLC的I/O接线及图<a class="headerlink" href="#plcio_3" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924210314825.png" alt="image-20250924210314825" style="zoom:67%;" /></p>
+<h4 id="_11">梯形图程序设计<a class="headerlink" href="#_11" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>一. 画出描述控制过程的SFC</p>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924210404363.png" alt="image-20250924210404363" style="zoom:67%;" /></p>
+<p>二. 梯形图程序设计</p>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924210442088.png" alt="image-20250924210442088" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210458004.png" alt="image-20250924210458004" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210519424.png" alt="image-20250924210519424" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210644089.png" alt="image-20250924210644089" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210659827.png" alt="image-20250924210659827" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210708533.png" alt="image-20250924210708533" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210721723.png" alt="image-20250924210721723" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210732740.png" alt="image-20250924210732740" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210741132.png" alt="image-20250924210741132" style="zoom:67%;" /></p>
+<p>三. 梯形图总体流程总结</p>
+<p>启动： PLC 上电或从 STOP 切 RUN 时，进入初始状态 S0.0。</p>
+<p>运行： 当 I0.1有效时，进入 S0.1。</p>
+<p>主流程 (无中断)： S0.1 (Q0.6 ON, 3s) -&gt; S0.2 (Q0.7 ON, 3s) -&gt; S0.3 (Q1.0 ON, 等待 I0.2) -&gt; S0.4 (Q1.0 OFF, 2s) -&gt; S0.5 (Q0.7 OFF, 2s) -&gt; S0.6 (Q0.6 OFF) -&gt; 回到 S0.0。</p>
+<p>中断/急停路径：</p>
+<p>在 S0.1 时按 I0.2： S0.1 -&gt; S0.6 (Q0.6 OFF) -&gt; 回到 S0.0。(立即停止 Q0.6，跳过 S0.2-S0.5)</p>
+<p>在 S0.2 时按 I0.2： S0.2 -&gt; S0.5 (Q0.7 OFF, 2s) -&gt; S0.6 (Q0.6 OFF) -&gt; 回到 S0.0。(停止 Q0.7，跳过 S0.3-S0.4，按顺序关闭 Q0.7 和 Q0.6)</p>
+<p>在 S0.3 时按 I0.2： S0.3 -&gt; S0.4 (Q1.0 OFF, 2s) -&gt; S0.5 (Q0.7 OFF, 2s) -&gt; S0.6 (Q0.6 OFF) -&gt; 回到 S0.0。(按顺序关闭 Q1.0, Q0.7, Q0.6)</p>
+<h4 id="_12">实验调试情况及个人心得<a class="headerlink" href="#_12" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>一. 实验调试情况</p>
+<p><strong>调试目的</strong></p>
+<p>验证基于顺序控制继电器（SCR）指令编写的程序，能否正确实现三台电机MA1、MA2、MA3的顺序启动与逆序停止功能，并测试在启动过程中任意时刻按下停止按钮的逆序停止逻辑。</p>
+<p><strong>调试设备与接线</strong></p>
+<ul>
+<li>PLC: 西门子S7-200 SMART (CPU     SR20/ST20)</li>
+<li>编程软件: STEP 7-Micro/WIN SMART</li>
+<li>输入设备: 按钮SF1（常开，接I0.1），按钮SF2（常开，接I0.2）</li>
+<li>输出设备: 三盏指示灯（分别模拟电机MA1/Q0.6,     MA2/Q0.7, MA3/Q1.0）</li>
+<li>接线: 严格按照IO分配表将按钮和指示灯连接到PLC相应的I/O端子。</li>
+</ul>
+<p><strong>调试步骤及现象记录</strong></p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>操作</th>
+<th>观察现象（指示灯亮灭顺序）</th>
+<th>结果分析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>将PLC模式开关拨至RUN，程序开始运行。</td>
+<td>S0.0状态激活，所有电机指示灯（Q0.6, Q0.7, Q1.0）均不亮。</td>
+<td>系统成功进入初始状态，等待启动信号，符合预期。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>正常启动流程： 按下启动按钮SF1 (I0.1)。</td>
+<td>Q0.6 (MA1) 立即点亮。   等待约3秒后 -&gt; Q0.7 (MA2) 点亮。   再等待约3秒后 -&gt; Q1.0 (MA3) 点亮。</td>
+<td>三台电机严格按MA1-&gt;MA2-&gt;MA3的顺序，间隔3秒依次启动，顺序启动功能实现成功。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>正常停止流程： 在三台电机全部运行（Q0.6,  Q0.7, Q1.0全亮）时，按下停止按钮SF2 (I0.2)。</td>
+<td>Q1.0 (MA3) 立即熄灭。   等待约2秒后 -&gt; Q0.7 (MA2) 熄灭。   再等待约2秒后 -&gt; Q0.6 (MA1) 熄灭。   最后，所有灯灭，系统返回初始状态S0.0。</td>
+<td>三台电机严格按MA3-&gt;MA2-&gt;MA1的顺序，间隔2秒依次停止，逆序停止功能实现成功。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>中断测试1（启动1台后停止）： 按下SF1启动MA1 (Q0.6亮)后，立即（3秒内） 按下SF2 (I0.2)。</td>
+<td>Q0.6 (MA1) 立即熄灭。   系统迅速返回初始状态S0.0。</td>
+<td>程序从S0.1状态直接跳转至S0.6状态，复位Q0.6后返回初始状态。实现了“只启动了1台时，立即停止该电机”的逆序停止要求。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>中断测试2（启动2台后停止）： 按下SF1，待MA1和MA2均亮（Q0.6, Q0.7亮，Q1.0未亮）时，按下SF2 (I0.2)。</td>
+<td>Q0.7 (MA2) 立即熄灭。   等待约2秒后 -&gt; Q0.6 (MA1) 熄灭。   系统返回初始状态S0.0。</td>
+<td>程序从S0.2状态直接跳转至S0.5状态，开始执行逆序停止流程（先停MA2，再停MA1）。完美实现了“只启动了2台时，按MA2-&gt;MA1的顺序逆序停止”的复杂逻辑要求。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>边界测试： 在状态S0.3（仅Q1.0未启动）时按下SF2。</td>
+<td>Q1.0 (MA3) 被置位但立刻在S0.4状态被复位熄灭。   后续流程同步骤5，Q0.7和Q0.6依次延时2秒熄灭。</td>
+<td>此操作触发了从S0.3到S0.4的转移，程序依然严格按照逆序停止的逻辑执行，证明了程序逻辑的严谨性和鲁棒性。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>调试结论</strong></p>
+<p>本次调试完全成功。所编写的SCR程序完全满足了实验要求的全部功能：</p>
+<ol>
+<li>顺序启动：按下SF1，三台电机按MA1-&gt;MA2-&gt;MA3顺序，间隔3秒依次启动。</li>
+<li>逆序停止：按下SF2，三台电机按MA3-&gt;MA2-&gt;MA1顺序，间隔2秒依次停止。</li>
+<li>中断逆停：在启动过程中任意时刻按下SF2，系统能智能地判断当前已启动的电机，并严格按照从后向前的顺序（逆序）延时停止它们，最终安全返回初始状态。</li>
+</ol>
+<p>程序结构清晰，逻辑严谨，对输入信号的处理准确无误，达到了预期的控制目标。</p>
+<p>二. 个人心得</p>
+<p>通过本次西门子S7-200 SMART PLC的实验，我获得了丰富的理论知识和实践经验，心得体会如下，本次实验是学习顺序功能图（SFC） 和 SCR指令 的绝佳案例。我深刻体会到，对于复杂的顺序控制流程，使用SCR编程比传统的“起保停”电路更加直观、清晰、易于维护。每个状态（S0.x）都是一个独立的模块，状态内的操作和向其他状态的转移条件一目了然，极大地减少了程序间的互锁纠缠，降低了编程和调试的难度。我认识到PLC程序并不只是一堆简单的逻辑组合，而可以是一个完整的“状态机”。系统在任何时刻都处于一个确定的状态，并根据外部事件（如按钮信号）或内部条件（如定时器信号）切换到另一个状态。这种编程思想对于处理复杂的工艺流程至关重要。</p>
+<p>本次程序的精妙之处在于对停止按钮I0.2的复用。它在不同状态下扮演了不同的角色（S0.1/S0.2下的“急停跳转”和S0.3下的“正常停止触发”）。这让我意识到，一个好的控制程序必须考虑到所有可能的情况，并对同一信号在不同上下文中的含义做出精准的定义和响应。将书本上的指令和概念（如TON, S, R, SCRT）应用于一个完整的、有实际意义的工程案例中，极大地加深了我的理解。我不仅记住了指令的用法，更明白了它们为何要这样用，以及如何组合起来解决实际问题。</p>
+<p>总而言之，本次实验不仅成功实现了三台电机的顺序控制，更让我对PLC的结构化编程方法有了更深刻的认识，提升了我的逻辑思维能力和工程实践能力，为今后学习和设计更复杂的控制系统打下了坚实的基础。</p>
+<h3 id="_13">项目三：变频器的手动控制<a class="headerlink" href="#_13" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_14">实验目的<a class="headerlink" href="#_14" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1、 掌握三菱变频器的基本参数，实验模块各端口的对应功能。</p>
+<p>2、 通过控制面板设置变频器最小、最大运行频率，并启动电机，验证频率设置。</p>
+<p>3、 通过外围接线，控制电动机的正反转。</p>
+<p>4、 设置变频器低速、中速、高速频率，通过外接端子实现电机多段速度控制。</p>
+<h4 id="_15">控制要求<a class="headerlink" href="#_15" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>设置变频器最低转速为10Hz，最高转速70Hz，低速RL为15Hz，中速RM为35Hz，高速RH55Hz，通过端子实现电机三速运转。</p>
+<h4 id="_16">三菱变频器参数记录<a class="headerlink" href="#_16" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>把三菱变频器参数填入表3-1中。</p>
+<center>表 三菱变频器参数记录</center>
+
+<table>
+<thead>
+<tr>
+<th><strong>三菱变频器型号</strong></th>
+<th><strong>FR - D720S - 0.4K - CHT</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入电压类型</strong></td>
+<td><strong>单相200V</strong></td>
+</tr>
+<tr>
+<td><strong>适用电机容量</strong></td>
+<td><strong>0.4kW</strong></td>
+</tr>
+<tr>
+<td><strong>额定电流</strong></td>
+<td><strong>2.5A</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_17">实验内容<a class="headerlink" href="#_17" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1、阅读三菱变频器说明书，熟悉变频器面板各按键功能，设置最小、最大运行频率，并启动电机，验证频率设置是否正确。</p>
+<p>（将参数79设置为1，运行方式：启动指令：RUN，频率指令：面板转盘）</p>
+<p>2、通过外围接线，控制电动机的正反转。</p>
+<div class="admonition note">
+<p>STF信号ON时为正转、OFF时为停止指令。</p>
+<p>STR信号ON时为反转、OFF时为停止指令。</p>
+<p>STF、STR信号同时ON时变成停止指令。</p>
+</div>
+<p><img alt="image-20250924211723314" src="../PLC综合实训课程设计.assets/image-20250924211723314.png" /></p>
+<p>3、设置变频器低速、中速、高速频率，通过外接端子实现电机多段速度控制。</p>
+<p><img alt="image-20250924211830707" src="../PLC综合实训课程设计.assets/image-20250924211830707.png" /></p>
+<h4 id="_18">实验调试情况及个人心得<a class="headerlink" href="#_18" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>一. 实验调试情况</p>
+<p><img alt="image-20250924211943647" src="../PLC综合实训课程设计.assets/image-20250924211943647.png" /></p>
+<p>本次实验通过手动操作变频器面板，对三相异步电机进行转向控制与无级调速测试，旨在掌握变频器基本操作方法、参数设置流程及电机响应特性。通过不同的端子接口，成功测试了正反转功能，多段速调节功能。在调试中，变频器参数设置正确，电机转向可控，转速可调，保护功能完善，满足手动操作控制的基本要求。</p>
+<p>二. 个人心得</p>
+<p>通过本次“手动操作变频器控制电机转向与转速”实验，我对变频调速系统的底层控制逻辑与工程实现方式有了更加直观和深入的理解，收获颇丰。我不仅扎实掌握了变频器的参数设置、正反转及多段速编程等硬技能，更显著提升了解决复杂工程问题的软实力。</p>
+<p>虽然现代产线多采用PLC+触摸屏自动控制，但本次手动实验让我明白：只有先掌握“手动怎么控”，才能理解“自动为何这样编”。比如，PLC程序中“正转中速”指令，本质上就是通过DO点触发变频器对应端子+频率设定——手动调试的经验，为后续学习PLC联动控制打下了坚实基础。</p>
+<p>本次实验不仅让我掌握了变频器手动操作的核心技能，更培养了我严谨细致的工程态度、系统化的调试思维与强烈的安全意识。这些收获，远比学会几个参数代码更为珍贵。未来在学习PLC自动控制、组态监控、甚至智能制造系统时，这段“亲手调频、亲耳听机、亲眼见证”的经历，将成为我理解自动化世界的重要基石。</p>
+<h3 id="plc_2">项目四：基于PLC和变频器对传动带的运行控制<a class="headerlink" href="#plc_2" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_19">实验目的<a class="headerlink" href="#_19" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1、 进一步熟悉三菱变频器的参数设置方法；</p>
+<p>2、 进一步熟悉西门子PLC和变频器的接线方式；</p>
+<p>3、 进一步练习PLC顺序功能图（SFC）的设计和使用；</p>
+<p>4、 掌握使用PLC来控制变频器的程序设计方法。</p>
+<h4 id="_20">控制要求<a class="headerlink" href="#_20" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>传动带运送系统如图4-1所示。当按下启动按钮SF1后，先将传送带上的工件以中速方式移动到初始位置（传感器SQ3处）后停止2秒。然后，传动带以低速方式带动工件向左运行至SQ2停止2秒后，再以中速运行至SQ1停止3秒后，高速返回至SQ3停止2秒。循环重复上述的动作直到按下停止按钮SF2后，传送带将工件运送到SQ1位置后停止工作。请设计控制程序并投入运行。</p>
+<p>其中：低速设置：15Hz，中速设置：35Hz，高速设置：55Hz</p>
+<p><img alt="image-20250924212321171" src="../PLC综合实训课程设计.assets/image-20250924212321171.png" /></p>
+<h4 id="plcio_4">PLC的I/O分配<a class="headerlink" href="#plcio_4" title="跳转至本节的锚点链接">&para;</a></h4>
+<center>表4-1 PLC I/O分配表</center>
+
+<table>
+<thead>
+<tr>
+<th>I（输入）</th>
+<th>O（输出）</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>名称</strong></td>
+<td><strong>地址</strong></td>
+<td><strong>名称</strong></td>
+<td><strong>地址</strong></td>
+</tr>
+<tr>
+<td>启动按钮SF1</td>
+<td>I0.1</td>
+<td>STF正转</td>
+<td>Q1.0</td>
+</tr>
+<tr>
+<td>停止按钮SF2</td>
+<td>I0.2</td>
+<td>STR反转</td>
+<td>Q1.1</td>
+</tr>
+<tr>
+<td>传感器1SQ1</td>
+<td>I0.3</td>
+<td>RH高速</td>
+<td>Q1.2</td>
+</tr>
+<tr>
+<td>传感器2SQ2</td>
+<td>I0.4</td>
+<td>RM中速</td>
+<td>Q1.3</td>
+</tr>
+<tr>
+<td>传感器3SQ3</td>
+<td>I0.5</td>
+<td>RL低速</td>
+<td>Q1.4</td>
+</tr>
+<tr>
+<td>电源正端</td>
+<td>主机1M、L、2L+、面板V+接电源+24V</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>电源地端</td>
+<td>主机2M、M、面板COM接电源GND</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_21">电气原理控制图<a class="headerlink" href="#_21" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924212443980.jpg" alt="image-20250924212443980" style="zoom:67%;" /></p>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924220654951.png" alt="image-20250924220654951" style="zoom:67%;" /></p>
+<h4 id="sfc">控制过程循环一个周期的顺序功能图（SFC）<a class="headerlink" href="#sfc" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924213738809.png" alt="image-20250924213738809" style="zoom:67%;" /></p>
+<h4 id="_22">梯形图程序设计<a class="headerlink" href="#_22" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924213806461.png" alt="image-20250924213806461" style="zoom:90%;" /><img src="../PLC综合实训课程设计.assets/image-20250924213814021.png" alt="image-20250924213814021" style="zoom:90%;" /><img src="../PLC综合实训课程设计.assets/image-20250924213833877.png" alt="image-20250924213833877" style="zoom:90%;" /><img src="../PLC综合实训课程设计.assets/image-20250924213843407.png" alt="image-20250924213843407" style="zoom:90%;" /><img src="../PLC综合实训课程设计.assets/image-20250924213856819.png" alt="image-20250924213856819" style="zoom:90%;" /><img src="../PLC综合实训课程设计.assets/image-20250924213905688.png" alt="image-20250924213905688" style="zoom:80%;" /></p>
+<h4 id="_23">实验调试情况及个人心得<a class="headerlink" href="#_23" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>一、实验调试情况</p>
+<p>在完成PLC程序编写并下载至S7-200 SMART控制器后，我对系统进行了分步调试与功能验证，确保各环节逻辑正确、动作可靠。调试过程如下：</p>
+<ol>
+<li>
+<p>初始化调试
+        上电后，利用SM0.1（首次扫描脉冲）自动置位S0.0，确保系统从初始状态启动。通过状态表监控，确认S0.0在PLC首次运行时被正确置位，程序进入待命状态。</p>
+</li>
+<li>
+<p>启动与停止功能测试
+        按下启动按钮I0.1，系统置位S0.1（启动运行状态），同时复位S0.5（停止状态），传送带开始运行。按下停止按钮I0.2，系统进入S0.5状态，执行“运送至SQ1后停止”流程。测试中，启停响应灵敏，状态切换无误。</p>
+</li>
+<li>顺序控制流程验证
+        系统采用SCR（顺序控制继电器）指令实现多步流程控制：<ul>
+<li>S0.1阶段：中速正转（Q1.0=1，Q1.3=1）移动至SQ3（I0.5），到位后T37延时2秒，转入S0.2。</li>
+<li>S0.2阶段：低速正转（Q1.0=1，Q1.4=1）至SQ2（I0.4），延时2秒后转入S0.3。</li>
+<li>S0.3阶段：中速正转至SQ1（I0.3），延时3秒后转入S0.4。</li>
+<li>S0.4阶段：高速反转（Q1.1=1，Q1.2=1）返回SQ3，延时2秒后跳回S0.2，形成循环。</li>
+<li>各阶段输出点（Q1.0<sub>Q1.4）与传感器输入（I0.3</sub>I0.5）联动正常，定时器T37~T40计时准确，状态转移顺畅。</li>
+</ul>
+</li>
+<li>停止流程测试
+        在任意运行阶段按下I0.2，系统跳转至S0.5状态，强制正转（Q1.0=1，Q1.3=1）至SQ1（I0.3），到位后停止所有输出，系统安全停机。经多次测试，该流程稳定可靠，符合“运送至SQ1后停止”的设计要求。</li>
+<li>异常与边界情况处理<ul>
+<li>传感器未触发时，系统保持当前状态，避免误动作。</li>
+<li>在定时器计时期间再次触发传感器，程序仍按原逻辑执行，未出现状态冲突。</li>
+<li>多次启停切换无状态残留或输出紊乱现象。</li>
+</ul>
+</li>
+</ol>
+<p>二、个人心得</p>
+<p>通过本次基于S7-200 SMART PLC的传送带控制系统设计与调试实验，我深刻体会到PLC在工业自动化控制中的强大功能与灵活应用。课堂上学习的顺序控制、定时器、置位/复位指令等知识，在本次实验中得到了充分应用。特别是SCR步进控制结构，使复杂流程变得条理清晰，易于调试和维护，让我认识到结构化编程的重要性。</p>
+<p>在调试过程中，我学会了使用STEP 7-Micro/WIN SMART软件的状态表、强制表、程序状态监控等功能，快速定位逻辑错误。例如，最初T37未正常触发状态转移，通过监控发现是传感器信号未正确接入，及时修正硬件接线后问题解决。</p>
+<p>本系统不仅要求动作准确，还需考虑安全性和异常处理。例如，停止按钮按下后不是立即停机，而是“运送至指定位置再停”，这体现了工业控制中“柔性停止”和“安全归位”的工程思维，让我对实际产线控制逻辑有了更深理解。</p>
+<p>在实验过程中，与同学协作排查传感器信号干扰、输出点接线错误等问题，锻炼了沟通能力和团队协作精神。同时，在面对程序逻辑冲突时，学会了分步隔离、逐段验证的调试方法，提升了独立解决问题的能力。</p>
+<h3 id="plcinvhmi">项目五：基于PLC、INV及HMI对三项异步电动机正反转的控制<a class="headerlink" href="#plcinvhmi" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_24">实验目的<a class="headerlink" href="#_24" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1、 熟悉三菱触摸屏设计软件的使用，掌握画面设计等相关技术；</p>
+<p>2、 掌握PLC、变频器、触摸屏项目监控等技术。</p>
+<h4 id="_25">控制要求<a class="headerlink" href="#_25" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1) 当按下启动按钮SF1后，电机以中速反向运行，传送带上的工件向右运行，当工件到达SQ3位置时停止2秒，电机以高速正向运行，传送带上的工件向左运行，当工件到达SQ1位置时停止2秒，重复刚才的动作。当按下停止按钮SF2后，传送带带动工件停留在SQ1位置。</p>
+<p>2) 设计由触摸屏监视的控制系统。</p>
+<p><img alt="image-20250924214220781" src="../PLC综合实训课程设计.assets/image-20250924214220781.png" /></p>
+<h4 id="plc_3">PLC编程元件的分配<a class="headerlink" href="#plc_3" title="跳转至本节的锚点链接">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>名 称</strong></th>
+<th><strong>编程元件</strong></th>
+<th><strong>名  称</strong></th>
+<th><strong>编程元件</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启动按钮SF1</td>
+<td>M0.3</td>
+<td>STF正转</td>
+<td>Q1.0</td>
+</tr>
+<tr>
+<td>停止按钮SF2</td>
+<td>M0.1</td>
+<td>STR反转</td>
+<td>Q1.1</td>
+</tr>
+<tr>
+<td>传感器1 SQ1</td>
+<td>I0.3</td>
+<td>RH高速</td>
+<td>Q1.2</td>
+</tr>
+<tr>
+<td>传感器2 SQ2</td>
+<td>I0.4</td>
+<td>RM中速</td>
+<td>Q1.3</td>
+</tr>
+<tr>
+<td>传感器3 SQ3</td>
+<td>I0.5</td>
+<td>RL低速</td>
+<td>Q1.4</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_26">监控系统电气原理图<a class="headerlink" href="#_26" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img alt="image-20250924220501954" src="../PLC综合实训课程设计.assets/image-20250924220501954.png" /></p>
+<h4 id="_27">梯形图程序设计<a class="headerlink" href="#_27" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924214622819.png" alt="image-20250924214622819" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924214631091.png" alt="image-20250924214631091" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924214643407.png" alt="image-20250924214643407" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924214652946.png" alt="image-20250924214652946" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924214706825.png" alt="image-20250924214706825" style="zoom:67%;" /></p>
+<h4 id="hmi">HMI的主要界面<a class="headerlink" href="#hmi" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924214742520.jpg" alt="image-20250924214742520" style="zoom: 80%;" /></p>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924214749367.jpg" alt="image-20250924214749367" style="zoom:80%;" /></p>
+<h4 id="plc_4">触摸屏和PLC监控过程简述<a class="headerlink" href="#plc_4" title="跳转至本节的锚点链接">&para;</a></h4>
+<ol>
+<li>
+<p>I/O信号测试
+        首先对输入信号（SF1、SF2、SQ1~SQ3）进行手动触发测试，确认PLC能正确读取按钮与传感器状态。测试中发现SQ3（I0.5）初始安装位置略偏，导致工件未完全到位即触发，经微调传感器位置后问题解决。输出方面，通过强制输出测试Q1.0（正转）、Q1.1（反转）、Q1.2（高速）、Q1.3（中速），确认变频器能正确接收指令并驱动电机按预期运行。</p>
+</li>
+<li>
+<p>顺序控制逻辑调试
+        程序采用SCR顺序控制结构，分为S0.1（中速反转→SQ3）、S0.2（高速正转→SQ1）、S0.5（停止归位）三个主要状态。</p>
+<ul>
+<li>启动后，S0.1激活，电机中速反转（Q1.1 + Q1.3），工件右移，到达SQ3后触发T37延时2秒，随后跳转至S0.2；</li>
+<li>S0.2激活，电机高速正转（Q1.0 + Q1.2），工件左移，到达SQ1后触发T38延时2秒，跳回S0.1，形成循环；</li>
+<li>按下SF2后，S0.5激活，电机中速正转（Q1.0 + Q1.3）将工件送回SQ1后停止。</li>
+</ul>
+</li>
+<li>
+<p>HMI联动调试
+        在GT Designer3中设计了启动/停止按钮、运行状态指示灯（正转、反转、高速）画面。通过HMI操作SF1/SF2，系统响应灵敏；状态变量（如M0.5高速指示）能实时反馈运行模式，增强了监控直观性。调试中优化了画面布局与颜色标识，使操作界面更符合工业人机交互习惯。</p>
+</li>
+</ol>
+<h4 id="_28">实验调试情况及个人心得<a class="headerlink" href="#_28" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>一. 实验调试情况</p>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924215043254.jpg" alt="image-20250924215043254" style="zoom:80%;" /></p>
+<p>二. 个人心得</p>
+<p>本次实验让我深刻体会到PLC顺序控制在工业自动化中的强大实用性。课本上的状态转移图（SFC）在本次实验中得到了真实应用，通过SCR指令实现多步骤循环控制，逻辑清晰、易于维护。同时，传感器触发与定时器配合，实现了精确的位置-时间控制，这在传送带、装配线等场景中极为常见。</p>
+<p>实验不仅涉及PLC编程，还整合了变频器参数设置（如多段速控制）、HMI画面组态与通信配置（如PLC与触摸屏的地址映射）。这让我认识到现代工业控制是“PLC+驱动器+人机界面”的协同系统，任何一环出错都会导致整体失效。调试中的一次通信延迟问题，最终通过检查波特率与站号设置解决，让我对系统集成细节有了更深理解。</p>
+<p>本实验不仅巩固了PLC顺序控制、变频器调速、HMI组态等核心技术，更让我体验了从方案设计→程序编写→硬件接线→系统调试→优化改进的完整工程流程。未来我将继续深入学习工业通信（如Modbus）、故障诊断、上位机监控等进阶内容，为成为合格的自动化工程师打下坚实基础。</p>
+<h3 id="plcinvhmi_1">项目六：基于PLC、INV和HMI对货物运输带的控制<a class="headerlink" href="#plcinvhmi_1" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_29">实验目的<a class="headerlink" href="#_29" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>1、 掌握触摸屏多画面和动画设计等技术；</p>
+<p>2、 掌握PLC、INV和HMI简单监控系统的设计。</p>
+<h4 id="_30">控制要求<a class="headerlink" href="#_30" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>传动带运送系统如图6-1所示。当按下启动按钮SF1后，先将传送带上的工件以低速方式移动到初始位置（传感器SQ1处）后停止t1秒。然后，传动带以中速方式带动工件向右运行至SQ2停止t2秒后，再以高速运行至SQ3停止t3秒后，低速返回至SQ1停止t1秒。循环重复上述的动作直到按下停止按钮SF2后，传送带中速将工件运送到SQ1位置后停止工作。其中：低速设置：5Hz，中速设置：30Hz，高速设置：60Hz.</p>
+<p>1） 触摸屏设计：1）主画面。包含项目名称，画面切换按钮等 2）参数设计画面。包含输入t1、t2和t3可改变的时间；高、中、低速度显示等。3）货物运输带运行控制与运行状态画面。包括运输带状态动画，控制按钮和状态指示灯等。</p>
+<p>2） 按要求设计PLC控制程序。</p>
+<p><img alt="image-20250924215420523" src="../PLC综合实训课程设计.assets/image-20250924215420523.png" /></p>
+<center>图 货物运输传动带示意图</center>
+
+<h4 id="plc_5">PLC软元件分配<a class="headerlink" href="#plc_5" title="跳转至本节的锚点链接">&para;</a></h4>
+<center>PLC编程元件的分配</center>
+
+<table>
+<thead>
+<tr>
+<th><strong>名 称</strong></th>
+<th><strong>编程元件</strong></th>
+<th><strong>名  称</strong></th>
+<th><strong>编程元件</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启动按钮SF1</td>
+<td>M0.0</td>
+<td>STF正转左移</td>
+<td>Q1.0</td>
+</tr>
+<tr>
+<td>停止按钮SF2</td>
+<td>M0.1</td>
+<td>STR反转右移</td>
+<td>Q1.1</td>
+</tr>
+<tr>
+<td>传感器1SQ1</td>
+<td>I0.3</td>
+<td>RH高速</td>
+<td>Q1.2</td>
+</tr>
+<tr>
+<td>传感器2SQ2</td>
+<td>I0.4</td>
+<td>RM中速</td>
+<td>Q1.3</td>
+</tr>
+<tr>
+<td>传感器3SQ3</td>
+<td>I0.5</td>
+<td>RL低速</td>
+<td>Q1.4</td>
+</tr>
+</tbody>
+</table>
+<center>PLC软元件的分配</center>
+
+<table>
+<thead>
+<tr>
+<th><strong>名 称</strong></th>
+<th><strong>编程元件</strong></th>
+<th><strong>名  称</strong></th>
+<th><strong>编程元件</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启动按钮</td>
+<td>M0.0</td>
+<td>正转指示</td>
+<td>Q1.0</td>
+</tr>
+<tr>
+<td>停止按钮</td>
+<td>M0.1</td>
+<td>反转指示</td>
+<td>Q1.1</td>
+</tr>
+<tr>
+<td>传感器SQ1指示</td>
+<td>I0.3</td>
+<td>高速指示</td>
+<td>Q1.2</td>
+</tr>
+<tr>
+<td>传感器SQ2指示</td>
+<td>I0.4</td>
+<td>中速指示</td>
+<td>Q1.3</td>
+</tr>
+<tr>
+<td>传感器SQ3指示</td>
+<td>I0.5</td>
+<td>低速指示</td>
+<td>Q1.4</td>
+</tr>
+<tr>
+<td>工件位置变量</td>
+<td>VW500</td>
+<td>时间t1</td>
+<td>VW200</td>
+</tr>
+<tr>
+<td>时间t2</td>
+<td>VW300</td>
+<td>时间t3</td>
+<td>VW400</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_31">电气控制系统原理图<a class="headerlink" href="#_31" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img alt="image-20250924220558293" src="../PLC综合实训课程设计.assets/image-20250924220558293.png" /></p>
+<h4 id="_32">触控屏设计的主要画面<a class="headerlink" href="#_32" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924220845472.png" alt="image-20250924220845472" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924220858233.png" alt="image-20250924220858233" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924220906963.png" alt="image-20250924220906963" style="zoom:80%;" /></p>
+<h4 id="_33">梯形图程序设计<a class="headerlink" href="#_33" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924220932596.png" alt="image-20250924220932596" style="zoom:85%;" /><img src="../PLC综合实训课程设计.assets/image-20250924220942742.png" alt="image-20250924220942742" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924220955989.png" alt="image-20250924220955989" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221006288.png" alt="image-20250924221006288" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221027948.png" alt="image-20250924221027948" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221039125.png" alt="image-20250924221039125" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221101308.png" alt="image-20250924221101308" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221120656.png" alt="image-20250924221120656" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221133134.png" alt="image-20250924221133134" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221143706.png" alt="image-20250924221143706" style="zoom:80%;" /></p>
+<h4 id="_34">实验调试情况及心得<a class="headerlink" href="#_34" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>一、实验调试情况</p>
+<p>在完成PLC程序编写与HMI画面组态后，对整个货物运输带控制系统进行了系统性调试，调试过程分为硬件接线检查、PLC程序仿真验证、HMI联动测试及整体运行稳定性测试四个阶段。</p>
+<p>首先确认PLC（S7-200系列）、变频器（INV）与触摸屏（HMI）之间的通信连接正常。检查传感器<code>SQ1~SQ3</code>的安装位置与信号反馈是否准确，启动/停止按钮SF1/SF2触发灵敏，无粘连或误触发现象。变频器参数已按实验要求设置：低速5Hz、中速30Hz、高速60Hz，并通过PLC输出点<code>Q1.2~Q1.4</code>正确控制变频器多段速端子。</p>
+<p>使用STEP 7-Micro/WIN软件对STL程序进行逐段仿真与监控。重点调试顺序控制（S0.0~S0.5）的跳转逻辑：</p>
+<ul>
+<li>
+<p>启动阶段（S0.1）：按下SF1后，传送带左移（Q1.0）并低速运行（Q1.4），到达SQ1后定时T37（t1）准确停止；</p>
+</li>
+<li>
+<p>中速右移（S0.2）：T37计时结束自动跳转S0.2，传送带右移（Q1.1）+中速（Q1.3），至SQ2后T38（t2）停止；</p>
+</li>
+<li>
+<p>高速右移（S0.3）：T38结束跳转S0.3，右移+高速（Q1.2），至SQ3后T39（t3）停止；</p>
+</li>
+<li>
+<p>返回阶段（S0.4）：T39结束跳转S0.4，左移+低速返回SQ1，T40（t1）后循环至S0.2；</p>
+</li>
+<li>
+<p>停止阶段（S0.5）：按下SF2后跳转S0.5，中速左移至SQ1后完全停止，符合“运回原点”要求。</p>
+</li>
+</ul>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924221306189.jpg" alt="image-20250924221306189" style="zoom: 80%;" /></p>
+<p>HMI三画面功能均正常实现：</p>
+<ul>
+<li>
+<p>主画面：项目名称醒目，画面切换按钮响应迅速；</p>
+</li>
+<li>
+<p>参数设置画面：可自由输入t1、t2、t3（VW200/VW300/VW400），数值实时写入PLC并生效，高低中速状态（Q1.2~Q1.4）同步显示；</p>
+</li>
+<li>
+<p>运行控制画面：动画传送带根据Q1.0/Q1.1方向移动，传感器状态（I0.3~I0.5）与速度指示灯实时反馈，启动/停止按钮（M0.0/M0.1）控制可靠；</p>
+</li>
+</ul>
+<p>在整体运行测试中，系统连续运行5个完整循环，各阶段时间控制精确，速度切换平滑，无卡顿或误动作。按下SF2后，系统能稳定执行“中速返回SQ1”动作后停机，符合工艺要求。HMI数据显示与PLC内部状态完全同步，人机交互体验良好。</p>
+<p>二、个人心得</p>
+<p>通过本次“基于PLC、INV与HMI的货物运输带控制系统”实验，我深刻体会到现代工业自动化系统中“控制层-驱动层-人机层”协同设计的重要性。</p>
+<p>本实验采用SCR顺序控制指令实现多阶段循环运行，每一个状态的跳转条件、输出控制与定时器复位都必须精确设计。稍有疏漏（如未及时复位输出或定时器），就会导致流程错乱或设备异常。这让我认识到在工业控制程序中，“防御性编程”与“状态闭环管理”是保障系统稳定运行的基础。</p>
+<p>触摸屏不仅用于美观展示，更是操作员与设备交互的核心媒介。通过设置参数变量（VW200~VW400）与状态反馈（I/Q点），实现了“所见即所控”。尤其是工件位置变量VW500的设计，巧妙利用传感器信号进行位置校准，有效避免了因脉冲累计导致的定位漂移，体现了软件补偿在自动化系统中的实用价值。</p>
+<p>初次仿真时，程序看似逻辑完整，但实际运行中暴露出跳转不稳定、输出未复位等问题。通过在线监控、变量跟踪与分段测试，逐步定位并修复BUG，这个过程极大提升了我的工程调试能力与问题分析思维。</p>
+<p>实验中与组员分工协作（一人负责PLC编程，一人负责HMI组态，一人负责接线与测试），并通过统一IO表与变量命名规范确保系统集成顺畅。这让我意识到，在真实工程项目中，良好的沟通是项目成功的关键。</p>
+<p>从按下启动按钮到工件按预设路径精准运行，整个系统如同一个精密的“机械舞蹈”。这种将逻辑思维转化为物理动作的过程，让我感受到自动化控制的魅力，也坚定了我深入学习PLC与工业组态技术的决心。</p>
+<h2 id="_35">课程设计综合项目<a class="headerlink" href="#_35" title="跳转至本节的锚点链接">&para;</a></h2>
+<p><strong>课程设计综合项目——一处卸料运料小车的控制</strong></p>
+<h3 id="_36">设计项目及控制要求<a class="headerlink" href="#_36" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>运料小车如图所示。该车由电动机拖动，可用变频器控制的三相异步电机传动装置模拟。其<strong>控制要求</strong>为：</p>
+<p><img alt="image-20250924221419371" src="../PLC综合实训课程设计.assets/image-20250924221419371.png" /></p>
+<p>1）单周期工作方式：</p>
+<p>小车处于中间位置SQ2处，按动启动按钮SB0，小车MA1向左运行，运行至左端压下限位开关SQ1，料斗门打开装料，t1秒后料斗门关闭小车向右运行；运行至右端压下限位开关SQ3，小车底门打开卸料，t2秒后底门关闭，车子自动返回到SQ2,完成单周期工作。返回的速度是前进速度的两倍。</p>
+<p>2）自动循环方式：</p>
+<p>按动启动按钮SB0，小车运行至装料处SQ1，料斗门打开装料，t1秒后料斗门关闭，装满料后就自动前进送料，到达SQ3料斗门打开装料，t2秒后底门关闭，小车自动返回到SQ1装料，然后再送料，实现运料小车的自动循环工作。</p>
+<p>3）无论是单周期工作方式，还是自动循环方式，当按下停止按钮SB1时，小车要求停在SQ2处。小车如果出现故障时，要立即停止。</p>
+<p><strong>项目设计要求</strong>：</p>
+<p>1．根据控制要求分配合适的编程元件；</p>
+<p>2．设计能完成控制要求，且相对简单可靠的梯形图程序；</p>
+<p>3．可通过人机界面（触摸屏）对运动小车进行监控。触摸屏设计的主要要求为：</p>
+<p>1）主界面、参数设置页面、控制及运行状态显示界面的设计要合理美观；</p>
+<p>2）能实时显示运行的状态（如左右、定点位置、高速、低速等）；</p>
+<p>3）可以对运行速度、运行时间等参数进行设置；</p>
+<p>4）设计小车的动画，显示小车运动状态。</p>
+<h3 id="_37">一处卸料运料小车的电气控制系统概述<a class="headerlink" href="#_37" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_38">系统组成<a class="headerlink" href="#_38" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>本系统以西门子S7-200 SMART PLC为核心控制器，配合变频器驱动三相异步电动机模拟运料小车的运行。系统主要由以下部分组成：</p>
+<ul>
+<li><strong>PLC控制器</strong>：S7-200 SMART CPU ST40，负责逻辑控制、状态判断与流程管理；</li>
+<li><strong>执行机构</strong>：三相异步电动机 + 变频器（三菱D700系列），以模拟小车行走；</li>
+<li><strong>位置检测元件</strong>：三个限位开关（SQ1、SQ2、SQ3），分别对应左端装料位、中间初始位、右端卸料位；</li>
+<li><strong>控制按钮</strong>：启动按钮SB0（I0.0）、停止按钮SB1（I0.1）；</li>
+<li><strong>人机界面（HMI）</strong>：三菱触控屏（GS2110-WTBD），用于参数设置、状态监控与动画显示；</li>
+<li><strong>故障保护</strong>：通过M0.4实现急停功能，确保系统安全。</li>
+</ul>
+<p>系统通过PLC内部状态机（VW100）实现单周期与自动循环两种工作模式，并支持在任意时刻按下停止按钮后返回中间位置SQ2。</p>
+<h4 id="_39">工作过程<a class="headerlink" href="#_39" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>系统支持两种工作模式：</p>
+<ol>
+<li>
+<p><strong>单周期工作方式</strong></p>
+<ul>
+<li>初始状态：小车位于中间位置SQ2（I0.4动作）；</li>
+<li>按下启动按钮SB0，小车以设定速度向左运行至SQ1（I0.3动作）；</li>
+<li>到达SQ1后，料斗门打开，装料t1秒（由VW102设定）；</li>
+<li>装料完成后，小车向右运行至SQ3（I0.5动作）；</li>
+<li>到达SQ3后，底门打开卸料t2秒（由VW104设定）；</li>
+<li>卸料完成后，小车以<strong>两倍于前进速度</strong>返回SQ2，完成一个周期；</li>
+<li>返回SQ2后自动停止。</li>
+</ul>
+</li>
+<li>
+<p><strong>自动循环工作方式</strong></p>
+<ul>
+<li>启动后，小车从SQ2出发至SQ1装料t1秒；</li>
+<li>装料完成后前往SQ3卸料t2秒；</li>
+<li>卸料完成后<strong>不返回SQ2</strong>，而是立即返回SQ1继续装料，形成“SQ1→SQ3→SQ1→SQ3…”的循环；</li>
+<li>循环过程中，返回段（SQ3→SQ1）速度仍为前进速度的两倍；</li>
+<li>按下停止按钮SB1后，无论处于何种状态，小车均运行至SQ2后停止。</li>
+</ul>
+</li>
+</ol>
+<h3 id="_40">控制系统原理设计<a class="headerlink" href="#_40" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_41">控制系统结构框图及概述<a class="headerlink" href="#_41" title="跳转至本节的锚点链接">&para;</a></h4>
+<pre class="mermaid"><code>flowchart LR
+    classDef input fill:#d1e7dd,stroke:#198754;
+    classDef plc fill:#e7f1ff,stroke:#0d6efd;
+    classDef output fill:#f8d7da,stroke:#dc3545;
+    classDef hmi fill:#fff3cd,stroke:#ffc107;
+
+    subgraph 输入设备
+        A["启动/停止按钮&lt;br/&gt;(SB0, SB1)"]
+        B["限位开关 SQ1~3&lt;br/&gt;(位置检测)"]
+        C["急停/故障信号"]
+    end
+
+    subgraph 核心控制器
+        D["S7-200 SMART PLC&lt;br/&gt;状态机 &amp; 逻辑控制"]
+    end
+
+    subgraph 执行机构
+        E["变频器 + 电机&lt;br/&gt;(小车驱动)"]
+    end
+
+    subgraph 人机界面
+        F["触摸屏 HMI&lt;br/&gt;(参数/监控/动画)"]
+    end
+
+    A --&gt; D
+    B --&gt; D
+    C --&gt; D
+    D --&gt; E
+    D &lt;--&gt; F
+
+    class A,B,C input
+    class D plc
+    class E output
+    class F hmi</code></pre>
+<p>系统采用“PLC+HMI+变频器”三层架构，PLC负责核心逻辑控制，HMI提供人机交互，变频器实现多段速及正反转控制。</p>
+<h4 id="_42">电气控制原理设计<a class="headerlink" href="#_42" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>系统采用<strong>状态机</strong>设计思想，以VW100作为状态寄存器，划分6个状态（0~5），分别对应等待、左行、装料、右行、卸料、返回。通过限位开关信号触发状态转移，配合定时器实现延时控制。</p>
+<p>速度控制通过Q1.2~Q1.4输出组合，选择变频器的多段速端子（RH、RM、RL），实现低、中、高三档速度。其中：</p>
+<ul>
+<li>前进段（SQ2→SQ1、SQ1→SQ3）使用VW106/VW108设定的速度；</li>
+<li>返回段（SQ3→SQ2 或 SQ3→SQ1）使用VW110设定的速度，通常设为高速（如3），以实现“返回速度为前进两倍”的要求。</li>
+</ul>
+<p>方向控制由Q1.0（正转/右行）和Q1.1（反转/左行）实现，VW106/108/110寄存器值设置为1时，输出低速；设置为2时，输出中速；设置为3时，输出高速。高速速度约为低速的两倍。</p>
+<h4 id="_43">电气控制系统原理图及概述<a class="headerlink" href="#_43" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../PLC综合实训课程设计.assets/image-20250925000915696.png" alt="image-20250925000915696" style="zoom:80%;" /></p>
+<p><strong>输入回路</strong>：SB0（I0.0）、SB1（I0.1）、SQ1（I0.3）、SQ2（I0.4）、SQ3（I0.5）均接入PLC输入端子，</p>
+<p><strong>输出回路</strong>：</p>
+<ul>
+<li>Q1.0/Q1.1 接变频器正/反转控制端（STR/STF）；</li>
+<li>Q1.2~Q1.4 接变频器多段速选择端（RH、RM、RL）；</li>
+</ul>
+<p><strong>通信</strong>：PLC与三菱触控屏（GS系列）通过以太网连接。</p>
+<h4 id="_44">主要电器和传感器型号及性能概述<a class="headerlink" href="#_44" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>在本课程设计中，SQ1选用光电式传感器，SQ2选用电感式传感器，SQ3采用色标传感器，采用的PLC型号为西门子S7-200 SMART（ST40），采用三菱触控屏 GS系列（GS2110-WTBD）和三菱D700系列变频器，通过三相电机带动传送带上的工件以模拟小车的运动。</p>
+<p>光电式传感器是通过把光强度的变化转换成电信号的变化来实现检测物体有无的接近开关: 其集发射器和接收器于一体, 当有被检测物体经过时, 将光电开关发射器发射的足够量的光线反射到接收器,于是光电开关就产生了开关信号。</p>
+<p>电感式传感器由三大部分组成：LC 高频振荡器、开关电路及放大输出电路。振荡器产生一个交变磁场，当金属目标物体接近这一磁场，并达到感应距离时，在金属目标内产生涡流，从而导致电感式传感器振荡衰减，以至停振。振荡器振荡及停振的参数变化被后级放大电路处理并转换成开关信号，触发驱动控制器件，进而控制开关的通或断。这种传感器所能检测的物体必须是金属物体。</p>
+<p>色标传感器是通过对比度与设定值进行比较，当有被检测物体经过时，对比度达到设定值，于是色标传感器就产生了开关信号。</p>
+<table>
+<thead>
+<tr>
+<th>元件</th>
+<th>型号</th>
+<th>类型</th>
+<th>性能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PLC</strong></td>
+<td>S7-200 SMART ST40</td>
+<td>西门子</td>
+<td>24VDC供电，24点数字量输入/16点输出，支持以太网通信</td>
+</tr>
+<tr>
+<td><strong>触摸屏</strong></td>
+<td>SMART 700 IE</td>
+<td>西门子</td>
+<td>7英寸彩色屏，支持与S7-200 SMART直接组态通信</td>
+</tr>
+<tr>
+<td><strong>SQ1（左限位）</strong></td>
+<td>GRTE18S-N1317</td>
+<td>光电式传感器</td>
+<td>检测距离 3~115mm可调，NPN常开，用于精确检测小车左端位置</td>
+</tr>
+<tr>
+<td><strong>SQ2（中限位）</strong></td>
+<td>IME18-08BNSZW2S</td>
+<td>电感式接近开关</td>
+<td>检测金属物体，触发感应距离 8mm, 安全接通距离 6.48mm，稳定性高，用于初始定位</td>
+</tr>
+<tr>
+<td><strong>SQ3（右限位）</strong></td>
+<td>KTM-WN11182P</td>
+<td>色标传感器</td>
+<td>检测距离≥10mm，通过识别色带标记定位，适用于卸料点精确定位</td>
+</tr>
+</tbody>
+</table>
+<h3 id="plc_6">PLC程序设计<a class="headerlink" href="#plc_6" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="plcio_5">PLC的IO分配及软元件分配<a class="headerlink" href="#plcio_5" title="跳转至本节的锚点链接">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>软元件</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>I0.0</strong></td>
+<td>启动按钮 SB0（实体）</td>
+</tr>
+<tr>
+<td><strong>I0.1</strong></td>
+<td>停止按钮 SB1（实体）</td>
+</tr>
+<tr>
+<td><strong>I0.3</strong></td>
+<td>左限位 SQ1</td>
+</tr>
+<tr>
+<td><strong>I0.4</strong></td>
+<td>中限位 SQ2</td>
+</tr>
+<tr>
+<td><strong>I0.5</strong></td>
+<td>右限位 SQ3</td>
+</tr>
+<tr>
+<td><strong>Q1.0</strong></td>
+<td>电机正转（右行）</td>
+</tr>
+<tr>
+<td><strong>Q1.1</strong></td>
+<td>电机反转（左行）</td>
+</tr>
+<tr>
+<td><strong>Q1.2</strong></td>
+<td>高速选择</td>
+</tr>
+<tr>
+<td><strong>Q1.3</strong></td>
+<td>中速选择</td>
+</tr>
+<tr>
+<td><strong>Q1.4</strong></td>
+<td>低速选择</td>
+</tr>
+<tr>
+<td><strong>M0.2</strong></td>
+<td>工作模式：0=单周期，1=自动循环</td>
+</tr>
+<tr>
+<td><strong>M0.4</strong></td>
+<td>故障急停信号</td>
+</tr>
+<tr>
+<td><strong>M0.5</strong></td>
+<td>停止标志（返回SQ2）</td>
+</tr>
+<tr>
+<td><strong>M0.6</strong></td>
+<td>HMI停止按钮</td>
+</tr>
+<tr>
+<td><strong>M0.7</strong></td>
+<td>HMI启动按钮</td>
+</tr>
+<tr>
+<td><strong>VW100</strong></td>
+<td>状态机寄存器（0~5）</td>
+</tr>
+<tr>
+<td><strong>VW102</strong></td>
+<td>SQ1装料时间（单位：100ms，如30=3s）</td>
+</tr>
+<tr>
+<td><strong>VW104</strong></td>
+<td>SQ3卸料时间（单位：100ms，如50=5s）</td>
+</tr>
+<tr>
+<td><strong>VW106</strong></td>
+<td>SQ2→SQ1段速度，返回段（1=低，2=中，3=高）</td>
+</tr>
+<tr>
+<td><strong>VW108</strong></td>
+<td>SQ1→SQ3段速度，前进段</td>
+</tr>
+<tr>
+<td><strong>VW110</strong></td>
+<td>SQ3→SQ2返回段速度（应设为前进段的2倍效果）</td>
+</tr>
+<tr>
+<td><strong>VW112</strong></td>
+<td>小车位置坐标（-40~40，用于HMI动画）</td>
+</tr>
+<tr>
+<td><strong>T55/T56</strong></td>
+<td>装料/卸料定时器</td>
+</tr>
+<tr>
+<td><strong>T97/T32/T100</strong></td>
+<td>低/中/高速位置刷新脉冲</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_45">控制过程的描述（流程图）<a class="headerlink" href="#_45" title="跳转至本节的锚点链接">&para;</a></h4>
+<pre class="mermaid"><code>flowchart TD
+    A["状态0：等待启动"] --&gt;|"启动按钮按下&lt;br/&gt;且小车位于SQ2"| B["状态1：SQ2→SQ1&lt;br/&gt;（左行）"]
+    B --&gt;|"到达SQ1&lt;br/&gt;(I0.3动作)"| C["状态2：SQ1装料&lt;br/&gt;（延时t1）"]
+    C --&gt;|"t1结束"| D["状态3：SQ1→SQ3&lt;br/&gt;（右行）"]
+    D --&gt;|"到达SQ3&lt;br/&gt;(I0.5动作)"| E["状态4：SQ3卸料&lt;br/&gt;（延时t2）"]
+    E --&gt;|"t2结束"| F{"工作模式？"}
+
+    F --&gt;|"单周期模式"| G["状态5：SQ3→SQ2&lt;br/&gt;（高速返回）"]
+    F --&gt;|"自动循环模式"| H["状态1'：SQ3→SQ1&lt;br/&gt;（高速返回）"]
+
+    G --&gt;|"到达SQ2&lt;br/&gt;(I0.4动作)"| A
+    H --&gt;|"到达SQ1&lt;br/&gt;(I0.3动作)"| C
+
+    %% 可选：美化样式
+    classDef state fill:#e6f7ff,stroke:#1890ff,stroke-width:1px;
+    classDef decision fill:#fffbe6,stroke:#faad14,stroke-width:1px;
+    class A,B,C,D,E,G,H state
+    class F decision</code></pre>
+<h4 id="plc_7">PLC梯形图程序简介<a class="headerlink" href="#plc_7" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>程序采用<strong>结构化设计</strong>，逻辑清晰，易于维护与扩展。</p>
+<ul>
+<li><strong>Network 1</strong>：系统初始化，设定默认参数（t1=3s, t2=5s，速度默认值等）；</li>
+</ul>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924231416373.png" alt="image-20250924231416373" style="zoom:80%;" /></p>
+<ul>
+<li><strong>Network 2~7</strong>：状态机主逻辑，实现6个状态的转移与控制；</li>
+</ul>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924231519479.png" alt="image-20250924231519479" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924231642317.png" alt="image-20250924231642317" style="zoom:80%;" /></p>
+<ul>
+<li><strong>Network 8</strong>：故障处理，强制回到状态0；</li>
+</ul>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924232030484.png" alt="image-20250924232030484" style="zoom:80%;" /></p>
+<ul>
+<li><strong>Network 9~11</strong>：速度与方向输出控制，根据当前状态和速度设定值激活对应Q点；</li>
+</ul>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924231935850.png" alt="image-20250924231935850" style="zoom:80%;" /></p>
+<ul>
+<li><strong>Network 12</strong>：停止逻辑，置位M0.5，确保最终停在SQ2；</li>
+</ul>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924232004952.png" alt="image-20250924232004952" style="zoom:80%;" /></p>
+<ul>
+<li><strong>Network 13~15</strong>：位置坐标初始化（VW112），用于HMI动画；</li>
+</ul>
+<p><img src="../PLC综合实训课程设计.assets/image-20250924232119741.png" alt="image-20250924232119741" style="zoom:80%;" /></p>
+<ul>
+<li><strong>Network 16~19</strong>：基于不同速度档位生成位置刷新脉冲，并更新VW112（-40=SQ1, 0=SQ2, 40=SQ3），实现平滑动画。<img src="../PLC综合实训课程设计.assets/image-20250924232148829.png" alt="image-20250924232148829" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924232542036.png" alt="image-20250924232542036" style="zoom:80%;" /></li>
+</ul>
+<h3 id="_46">变频器参数设置<a class="headerlink" href="#_46" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本次课程设计中的变频器采用三菱D700系列。</p>
+<p><img alt="image-20250924211943647" src="../PLC综合实训课程设计.assets/image-20250924211943647.png" /></p>
+<table>
+<thead>
+<tr>
+<th>参数编号</th>
+<th>名 称</th>
+<th>单位</th>
+<th>初始值</th>
+<th>范围</th>
+<th>用 途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>转矩提升</td>
+<td><span class="arithmatex">\(0.1 \%\)</span></td>
+<td><span class="arithmatex">\(6 \%/ 4 \% / 3 \% *\)</span></td>
+<td><span class="arithmatex">\(0 \sim 30 \%\)</span></td>
+<td><span class="arithmatex">\(\mathrm{V} / \mathrm{F}\)</span> 控制时，在需要进一步提高启动时的转矩，以及负载后电机不转动、输出报警(OL)且(0C1)发生跳闸的情况下使用。<br> * 初始值根据变频器容量不同而不同。（0:75K以下/1:5K 3.7K/5.5K、7.5K）</td>
+</tr>
+<tr>
+<td>1</td>
+<td>上限频率</td>
+<td>$0.01 \mathrm{~Hz} $</td>
+<td>$120 \mathrm{~Hz} $</td>
+<td>$0 \sim 120 \mathrm{~Hz} $</td>
+<td>想设置输出频率的上限时使用。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>下限频率</td>
+<td>$0.01 \mathrm{~Hz} $</td>
+<td>$0 \mathrm{~Hz} $</td>
+<td>$0 \sim 120 \mathrm{~Hz} $</td>
+<td>想设置输出频率的下限时使用。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>基准频率</td>
+<td>$0.01 \mathrm{~Hz} $</td>
+<td>$50 \mathrm{~Hz} $</td>
+<td>$0 \sim 400 \mathrm{~Hz} $</td>
+<td>请确认电机的额定铭牌。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3速设定（高速）</td>
+<td>$0.01 \mathrm{~Hz} $</td>
+<td>$50 \mathrm{~Hz} $</td>
+<td>$0 \sim 400 \mathrm{~Hz} $</td>
+<td>想用参数预先设定运转速度，用端子切换速度时使用。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3速设定（中速）</td>
+<td>$0.01 \mathrm{~Hz} $</td>
+<td>$30 \mathrm{~Hz} $</td>
+<td>$0 \sim 400 \mathrm{~Hz} $</td>
+<td>想用参数预先设定运转速度，用端子切换速度时使用。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3速设定（低速）</td>
+<td>$0.01 \mathrm{~Hz} $</td>
+<td>$10 \mathrm{~Hz} $</td>
+<td>$0 \sim 400 \mathrm{~Hz} $</td>
+<td>想用参数预先设定运转速度，用端子切换速度时使用。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>加速时间</td>
+<td>$0.1 \mathrm{~s} $</td>
+<td>$5 \mathrm{~s} / 10 \mathrm{~s} * $</td>
+<td>$0 \sim 3600 \mathrm{~s} $</td>
+<td>可以设定加减速时间。<br>*初始值根据变频器容量不同而不同。<br>（3.7K以下/5.5K、7.5K）</td>
+</tr>
+<tr>
+<td>8</td>
+<td>减速时间</td>
+<td>$0.1 \mathrm{~s} $</td>
+<td>$5 \mathrm{~s} / 10 \mathrm{~s} * $</td>
+<td>$0 \sim 3600 \mathrm{~s} $</td>
+<td>可以设定加减速时间。<br>*初始值根据变频器容量不同而不同。<br>（3.7K以下/5.5K、7.5K）</td>
+</tr>
+<tr>
+<td>9</td>
+<td>电子过电流保护</td>
+<td>$0.01 \mathrm{~A} $</td>
+<td>变频器<br>额定电流</td>
+<td>$0 \sim 500 \mathrm{~A} $</td>
+<td>用变频器对电机进行热保护。<br>设定电机的额定电流。</td>
+</tr>
+<tr>
+<td>79</td>
+<td>操作模式选择</td>
+<td>1</td>
+<td>0</td>
+<td>$0、1、2、3、4、6、7 $</td>
+<td>选择启动指令场所和频率设定场所。</td>
+</tr>
+<tr>
+<td>125</td>
+<td>端子2频率设定增益</td>
+<td>$0.01 \mathrm{~Hz} $</td>
+<td>$50 \mathrm{~Hz} $</td>
+<td>$0 \sim 400 \mathrm{~Hz} $</td>
+<td>改变电位器最大值（5V初始值）的频率。</td>
+</tr>
+<tr>
+<td>126</td>
+<td>端子4频率设定增益</td>
+<td>$0.01 \mathrm{~Hz} $</td>
+<td>$50 \mathrm{~Hz} $</td>
+<td>$0 \sim 400 \mathrm{~Hz} $</td>
+<td>可变更电流最大输入（20mA初始值）时的频率。</td>
+</tr>
+<tr>
+<td>160</td>
+<td>扩展功能显示选择</td>
+<td>1</td>
+<td>9999</td>
+<td>0、9999</td>
+<td>可以限制通过操作面板或参数单元读取的参数。</td>
+</tr>
+</tbody>
+</table>
+<p>3速设定中，RH端口代表高速，设置为50Hz；RM端口代表中速，设置为35Hz；RL端口代表低速，设置为15Hz。其余参数尽量使用默认设置。</p>
+<h3 id="_47">人机界面（触摸屏）组态设计<a class="headerlink" href="#_47" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_48">触摸屏工程参数设置及通信连接<a class="headerlink" href="#_48" title="跳转至本节的锚点链接">&para;</a></h4>
+<ul>
+<li><strong>HMI型号</strong>：三菱触控屏 GS系列（GS2110-WTBD）；</li>
+<li><strong>通信方式</strong>：以太网（RJ45，TCP）；</li>
+<li><strong>PLC连接</strong>：在GT3 Designer中新建项目，选择“SIEMENS”驱动；</li>
+<li><strong>IP设置</strong>：PLC（192.168.0.10），HMI（192.168.0.18），子网掩码255.255.255.0；</li>
+<li><strong>变量连接</strong>：将VW100、VW102、VW104、M0.2、M0.7、M0.6、VW112等变量绑定至HMI。</li>
+</ul>
+<h4 id="_49">人机界面（触摸屏）的设计<a class="headerlink" href="#_49" title="跳转至本节的锚点链接">&para;</a></h4>
+<h5 id="_50">触摸屏主画面设计<a class="headerlink" href="#_50" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><img src="../PLC综合实训课程设计.assets/主界面.png" alt="主界面" style="zoom:67%;" /></p>
+<p>主界面拥有启动、停止、参数页面、状态页面四个功能按钮。</p>
+<h5 id="_51">参数设计画面<a class="headerlink" href="#_51" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><img src="../PLC综合实训课程设计.assets/参数设置界面.png" alt="参数设置界面" style="zoom:67%;" /></p>
+<p>参数设计页面可设置：</p>
+<ul>
+<li>装料时间（VW102，单位0.1s，根据课程设计要求，SQ1装料时间为3s，触控屏填入30）；</li>
+<li>卸料时间（VW104，单位0.1s，根据课程设计要求，SQ3装料时间为5s，触控屏填入50）；</li>
+<li>
+<p>各段速度（VW106/VW108/VW110，数值选择：1-低，2-中，3-高）；</p>
+</li>
+<li>
+<p>状态页面按钮：跳转运行控制与运行状态画面。</p>
+</li>
+</ul>
+<h5 id="_52">运行控制与运行状态画面<a class="headerlink" href="#_52" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><img src="../PLC综合实训课程设计.assets/状态显示界面.png" alt="状态显示界面" style="zoom:67%;" /></p>
+<p>运行控制与运行状态画面的内容包括：</p>
+<ul>
+<li>顶部：标题“小车运行状态指示动画”；</li>
+<li>中部：动态小车动画（基于VW112坐标，-40~40线性映射到画面位置）；</li>
+<li>底部：状态指示（运行模式、运行方向、速度等级）；</li>
+<li>按钮：【启动】、【停止】、【参数页面】、【模式切换】、【故障】（急停）、【返回】。</li>
+</ul>
+<p>实时显示：</p>
+<ul>
+<li>当前状态（小车装卸料时间、装卸料动画、SQ1~3传感器触发指示）；</li>
+<li>小车位置（运行动画进度条）；</li>
+<li>速度等级（移速指示灯）；</li>
+<li>模式指示（单周期 / 自动循环）；</li>
+</ul>
+<h3 id="_53">项目调试效果及总结<a class="headerlink" href="#_53" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_54">项目调试效果展示<a class="headerlink" href="#_54" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../PLC综合实训课程设计.assets/shiwu.jpg" alt="shiwu" style="zoom: 25%;" /><img src="../PLC综合实训课程设计.assets/chukong.jpg" alt="chukong" style="zoom: 50%;" /><img src="../PLC综合实训课程设计.assets/jiexian.jpg" alt="jiexian" style="zoom: 50%;" /></p>
+<ul>
+<li>单周期模式：小车从SQ2出发→左行至SQ1→装料3s→右行至SQ3→卸料5s→高速返回SQ2，动作准确；</li>
+<li>自动循环模式：小车在SQ1与SQ3之间循环运料，返回段速度明显快于前进段；</li>
+<li>停止功能：任意时刻按停止，小车均能安全返回SQ2，急停功能能使小车立即停止运动；</li>
+<li>HMI动画：小车位置随VW112实时移动，状态显示同步准确；</li>
+<li>参数修改：通过触摸屏修改时间或速度，系统立即生效。</li>
+</ul>
+<h4 id="_55">心得体会与总结<a class="headerlink" href="#_55" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>通过本次“一处卸料运料小车的电气控制系统”实验，我不仅巩固了PLC编程的基础知识，更在系统设计、逻辑构建与人机协同控制等方面获得了宝贵的实践经验，深刻体会到自动化控制系统在现代工业中的核心价值。</p>
+<p>首先，在程序设计层面，我首次完整实践了基于状态机的控制逻辑构建方法。通过使用VW100作为状态寄存器，将复杂的运料流程分解为六个清晰的状态步骤（等待、左行、装料、右行、卸料、返回），使程序结构层次分明、逻辑严谨、易于调试与维护。这种“分而治之”的设计思想，极大提升了程序的可读性和可靠性，也让我认识到在工业控制中，良好的软件架构与清晰的状态管理往往比复杂的算法更为重要。</p>
+<p>其次，在硬件协同与参数整定方面，我深入理解了PLC、变频器与电机之间的配合机制。通过合理设置变频器的多段速参数，并利用PLC输出点（Q1.2~Q1.4）组合控制不同运行阶段的速度，成功实现了“返回速度为前进速度两倍”的控制要求。这一过程让我意识到，自动化系统不仅是软件逻辑的实现，更是软硬件深度融合的工程实践。任何一个环节（如传感器响应延迟、变频器加速时间）的疏忽，都可能导致系统运行不稳或定位不准。</p>
+<p>第三，在人机界面（HMI）设计中，我体会到“以用户为中心”的设计理念的重要性。通过GT3 Designer软件，我不仅实现了参数设置、状态监控等基本功能，还创新性地引入了基于VW112坐标的小车位置动画，使操作人员能够直观地掌握设备运行状态。这种可视化反馈不仅提升了系统的可操作性，也增强了故障排查的效率。我认识到，优秀的自动化系统不仅要“能用”，更要“好用”、“易用”。</p>
+<p>此外，实验中对安全逻辑的实现也让我印象深刻。无论是按下停止按钮后强制返回SQ2，还是故障急停时立即复位状态机，都体现了“安全第一”的工程原则。这让我明白，在工业现场，控制系统的鲁棒性与安全性往往比效率更为关键。</p>
+<p>本次实验极大提升了我的系统集成能力与工程思维。从I/O分配、电气接线，到PLC编程、HMI组态，再到变频器参数整定与联合调试，整个过程模拟了真实工程项目的工作流程。我学会了如何将理论知识转化为可运行的系统，如何在调试中分析问题（如状态跳变异常、动画卡顿等），并逐步优化解决方案。</p>
+<p>总之，本次实验不仅是一次技术训练，更是一次工程素养的全面提升。它让我更加坚定了投身自动化领域的信心，也让我深刻理解到：真正的自动化，不仅是机器的自动运行，更是人、机、信息的高效协同。</p>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">本科课程笔记</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">实践设计</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">PLC</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面有帮助" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面可以改进" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢您的反馈!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+                感谢您的反馈! 笔者将努力改进此页面
+  </br>您可以使用<a href="/basic/contact-form/">反馈表单</a>来帮助我
+
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <!-- 头部区域：左对齐聚合布局 -->
+  <div class="comments-header">
+    <h2 id="__comments">评论</h2>
+    
+    <!-- 切换按钮容器 -->
+    <div class="comment-switch-wrapper" id="switch-wrapper" data-tip="当前正在使用 GitHub 登录评论">
+      <button id="comment-switch-btn" onclick="toggleCommentSystem()">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path fill="currentColor" d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+        </svg>
+        <span>切换模式</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Giscus 容器 -->
+  <div id="giscus-container">
+    <script src="https://giscus.app/client.js"
+            data-repo="weigo6/sufine-giscus"
+            data-repo-id="R_kgDOQvA4xA"
+            data-category="General"
+            data-category-id="DIC_kwDOQvA4xM4C0P1S"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+
+  <!-- Twikoo 容器 (默认隐藏) -->
+  <div id="twikoo-container" style="display: none;">
+    <div id="twikoo"></div>
+  </div>
+
+  <!-- 样式与逻辑 -->
+  <style>
+    /* 1. 头部布局：保持左对齐和分割线 */
+    .comments-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--md-typeset-color--lighter);
+    }
+
+    .comments-header h2 {
+        margin: 0 !important;
+        line-height: 1.2;
+    }
+
+    /* 2. 按钮样式：保持 SVG 图标和 flex 布局 */
+    #comment-switch-btn {
+        background: transparent;
+        border: 1px solid var(--md-typeset-color--lighter);
+        color: var(--md-typeset-color--light);
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 28px;
+        line-height: 1;
+    }
+    
+    #comment-switch-btn:hover {
+        border-color: var(--md-accent-fg-color);
+        color: var(--md-accent-fg-color);
+        background: var(--md-accent-bg-color--transparent);
+    }
+
+    /* 3. Tooltip 样式重构：圆润玻璃磨砂风 */
+    .comment-switch-wrapper {
+        position: relative;
+    }
+
+    .comment-switch-wrapper::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: 115%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px); /* 初始下沉一点，用于浮动动画 */
+        
+        /* 核心：玻璃磨砂效果 */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        
+        /* 亮色模式默认：半透明白底 + 黑字 (柔和灰黑) */
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(0, 0, 0, 0.05); /* 极细微的边界线 */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* 柔和的漫反射投影 */
+        
+        padding: 6px 14px;
+        border-radius: 20px; /* 大圆角，胶囊形状 */
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        
+        /* 动画与可见性 */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* 4. 暗色模式适配：半透明黑底 + 白字 */
+    [data-md-color-scheme="slate"] .comment-switch-wrapper::after {
+        background: rgba(20, 20, 20, 0.7);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 悬浮交互：上浮并淡入 */
+    .comment-switch-wrapper:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Twikoo 容器样式 */
+    #twikoo-container {
+        margin-top: 1rem;
+    }
+    [data-md-color-scheme="slate"] .tk-content {
+        color: var(--md-typeset-color) !important;
+    }
+  </style>
+
+  <script>
+    var isTwikooLoaded = false;
+
+    function toggleCommentSystem() {
+      var giscusContainer = document.getElementById('giscus-container');
+      var twikooContainer = document.getElementById('twikoo-container');
+      var wrapper = document.getElementById('switch-wrapper');
+      
+      if (twikooContainer.style.display === 'none') {
+        // === 切换到 Twikoo ===
+        giscusContainer.style.display = 'none';
+        twikooContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 Twikoo 匿名评论');
+        
+        if (!isTwikooLoaded) {
+          loadTwikooScript();
+        }
+      } else {
+        // === 切换回 Giscus ===
+        twikooContainer.style.display = 'none';
+        giscusContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 GitHub 登录评论');
+      }
+    }
+
+    function loadTwikooScript() {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/twikoo@latest/dist/twikoo.all.min.js";
+      script.async = true;
+      script.onload = function() {
+        twikoo.init({
+          envId: 'https://twikoo.sufine.top',
+          el: '#twikoo',
+          lang: 'zh-CN'
+        }).catch(console.error);
+        isTwikooLoaded = true;
+      };
+      document.body.appendChild(script);
+    }
+  </script>
+
+  <!-- Giscus 主题同步 -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+          var frame = document.querySelector(".giscus-frame")
+          if (frame) {
+            frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app")
+          }
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    
+      
+      <nav
+        class="md-footer__inner md-grid"
+        aria-label="页脚"
+        
+      >
+
+        <!-- Link to previous page -->
+        
+          
+          <a
+            href="../%E6%95%B0%E5%AD%97%E7%94%B5%E5%8E%8B%E8%A1%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"
+            class="md-footer__link md-footer__link--prev"
+            aria-label="上一页: 数字电压表制作课程设计"
+          >
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                数字电压表制作课程设计
+              </div>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          
+          <a
+            href="../%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%BF%A1%E5%8F%B7%E9%85%8D%E6%97%B6%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"
+            class="md-footer__link md-footer__link--next"
+            aria-label="下一页: 交叉口信号配时课程设计"
+          >
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                交叉口信号配时课程设计
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Luwei
+    </div>
+  
+  
+</div>
+
+      <!-- Site Visits -->
+      <style>
+      .site-visit-count {
+        padding: 0 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.65rem;
+        color: var(--md-default-fg-color);
+      }
+      </style>
+      <div class="site-visit-count">
+        本站访问量：<span id="site_pv">--</span>&nbsp;| 当前页浏览量：<span id="page_pv">--</span>
+      </div>
+
+      <!-- Social links -->
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://bucket.rutno.com/d?sid=eqtRzdKfuGlmIm2wX3IwXffreqnr&e=1769434119&sig=aca3206c8defbfd303f1c5b6b36f51416243315723ae7e667fc98f7a5bf29111" target="_blank" rel="noopener" title="关注微信公众号" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/fSvCWA9say" target="_blank" rel="noopener" title="加入 Discord 服务器" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/weigo6" target="_blank" rel="noopener" title="访问 GitHub 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://gitee.com/weigo6" target="_blank" rel="noopener" title="访问 Gitee 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.15a.59.59 0 0 1-.592-.592v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://space.bilibili.com/512710834" target="_blank" rel="noopener" title="访问 Bilibili 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M488.6 104.1c16.7 18.1 24.4 39.7 23.3 65.7v202.4c-.4 26.4-9.2 48.1-26.5 65.1-17.2 17-39.1 25.9-65.5 26.7H92c-26.4-.8-48.2-9.8-65.3-27.2S.7 396.5 0 368.2V169.8c.8-26 9.7-47.6 26.7-65.7C43.8 87.8 65.5 78.8 92 78h29.4L96 52.2c-5.7-5.7-8.6-13-8.6-21.8S90.3 14.3 96 8.6 109 0 117.9 0s16.1 2.9 21.9 8.6L213.1 78h88l74.5-69.4C381.7 2.9 389.2 0 398 0s16.1 2.9 21.9 8.6c5.7 5.7 8.6 13 8.6 21.8s-2.9 16.1-8.6 21.8L394.6 78h29.3c26.4.8 48 9.8 64.7 26.1m-38.8 69.7c-.4-9.6-3.7-17.4-10.7-23.5-5.2-6.1-14-9.4-22.7-9.8H96c-9.6.4-17.4 3.7-23.6 9.8-6.1 6.1-9.4 13.9-9.8 23.5v194.4c0 9.2 3.3 17 9.8 23.5s14.4 9.8 23.6 9.8h320.4c9.2 0 17-3.3 23.3-9.8s9.7-14.3 10.1-23.5zm-264.3 42.7c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.2 6.3-14 9.5-23.6 9.5s-17.5-3.2-23.6-9.5-9.4-14-9.8-23.2v-33.3c.4-9.1 3.8-16.9 10.1-23.2s13.2-9.6 23.3-10c9.2.4 17 3.7 23.3 10m191.5 0c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2s-14 9.5-23.6 9.5-17.4-3.2-23.6-9.5c-7-6.3-9.4-14-9.7-23.2v-33.3c.3-9.1 3.7-16.9 10-23.2s14.1-9.6 23.3-10c9.2.4 17 3.7 23.3 10"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yang92636@qq.com" target="_blank" rel="noopener" title="通过电子邮件联系我" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["navigation.instant","navigation.instant.progress","navigation.tracking","navigation.tabs","navigation.tabs.sticky","navigation.sections","navigation.path","navigation.indexes","navigation.top","toc.follow","search.highlight","content.action.edit","content.action.view","navigation.footer","content.code.copy","content.code.select","content.code.annotate","content.footnote.tooltips","content.tooltips"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+        <script src="../../../javascripts/feedback.js"></script>
+      
+        <script src="../../../javascripts/count.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+      
+        <script src="../../../javascripts/ask_ai.js"></script>
+      
+        <script src="../../../javascripts/APlayer.min.js"></script>
+      
+        <script src="../../../javascripts/Meting.min.js"></script>
+      
+        <script src="../../../javascripts/music_player.js"></script>
+      
+        <script src="../../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

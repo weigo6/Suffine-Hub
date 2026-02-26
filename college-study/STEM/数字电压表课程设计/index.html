@@ -1,0 +1,5619 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="不必倾城倾国色，斜阳影里自婷婷。">
+      
+      
+        <meta name="author" content="Luwei">
+      
+      
+        <link rel="canonical" href="https://sufine.top/college-study/STEM/%E6%95%B0%E5%AD%97%E7%94%B5%E5%8E%8B%E8%A1%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">
+      
+      
+        <link rel="prev" href="../%E6%AF%9B%E6%A6%82%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+      
+      
+        <link rel="next" href="../PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/logo.webp">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>数字电压表设计 - Suffine Hub</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/ask_ai.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/APlayer.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/music_player.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+  <!-- Umami Analytics 集成脚本，支持即时导航（SPA单页应用）模式，屏蔽navigation.tracking (滚动锚点变化) 干扰 -->
+<!-- 1. 基础统计脚本 -->
+<!-- 使用 defer 异步加载，data-auto-track="false" 关闭自动上报，交由下方手动接管 -->
+<script defer 
+  src="https://cloud.umami.is/script.js" 
+  data-website-id="c53576ff-f759-4495-b8ec-bb653e56ce58"
+  data-auto-track="false" 
+></script>
+
+<!-- 2. 逻辑控制脚本 -->
+<script>
+  /* Umami Analytics Integration for MkDocs Material */
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    // 封装上报函数：统一处理，强制使用 pathname (剔除 #hash)
+    var trackPageview = function() {
+      // 忽略本地开发环境
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        console.log("Umami tracking disabled on localhost"); //方便调试确认
+        return;
+      }
+
+      if (typeof umami !== "undefined") {
+        umami.track(function(props) { 
+          return { ...props, url: window.location.pathname } 
+        });
+      }
+    };
+
+    // A. 首次加载时的手动上报
+    // 页面刚打开时，script (defer) 执行完毕且 DOM 准备好后执行
+    trackPageview();
+
+    // B. 监听 MkDocs 的 SPA 导航事件 (Instant Loading)
+    // document$ 是一个 Observable，仅在 DOM 内容被替换时触发
+    var isFirstEmit = true;
+    
+    document$.subscribe(function() {
+      // document$ 在订阅瞬间会发射一次当前页面的信号
+      // 我们通过标志位跳过这一次，避免与步骤 A 重复统计
+      if (isFirstEmit) {
+        isFirstEmit = false;
+        return;
+      }
+      
+      // 只有真正的页面跳转（内容替换）才会执行到这里
+      // 单纯的 Hash 变化（目录跳转/滚动）不会触发 document$
+      trackPageview();
+    });
+  });
+</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#-" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Suffine Hub" class="md-header__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Suffine Hub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              数字电压表设计
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  关于本站
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  课程学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tech-dev/" class="md-tabs__link">
+          
+  
+  技术开发
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../basic/guest-board/" class="md-tabs__link">
+        
+  
+  留言板
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../basic/friendly-links/" class="md-tabs__link">
+          
+  
+  友链
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://nav.sufine.top" class="md-tabs__link">
+        
+  
+  网址导航
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Suffine Hub" class="md-nav__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    Suffine Hub
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    关于本站
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    课程学习
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../RailSig/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 2h7c.8 0 1.56.32 2.12.88S15 4.2 15 5v1h-2V4H4v7h5v5H8l-3 3H4v-2l1-1c-.8 0-1.56-.32-2.12-.88S2 13.8 2 13V5c0-.8.32-1.56.88-2.12S4.2 2 5 2m.71 10.29C5.5 12.11 5.27 12 5 12c-.26 0-.5.11-.71.29-.18.21-.29.45-.29.71 0 .27.11.5.29.71.21.19.45.29.71.29.27 0 .5-.1.71-.29.19-.21.29-.44.29-.71 0-.26-.1-.5-.29-.71M11 11c0-1.66 1-3 4-3h3c3 0 4 1.34 4 3v7c0 .74-.4 1.39-1 1.73V21c0 .55-.45 1-1 1s-1-.45-1-1v-1h-5v1c0 .55-.45 1-1 1s-1-.45-1-1v-1.27c-.6-.34-1-.99-1-1.73zm2-1v4h7v-4zm1 8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1m6-1c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号与控制
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    轨道交通信号与控制
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E6%A6%82%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-5V6h5m-1.5 11a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5M11 11H6V6h5M7.5 17A1.5 1.5 0 0 1 6 15.5 1.5 1.5 0 0 1 7.5 14 1.5 1.5 0 0 1 9 15.5 1.5 1.5 0 0 1 7.5 17M12 2c-4.42 0-8 .5-8 4v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5v.5h12v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.58-4-8-4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通概论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%B8%80/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m8-9h-3V8.86c1.72-.45 3-2 3-3.86h-3V4a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1H4c0 1.86 1.28 3.41 3 3.86V10H4c0 1.86 1.28 3.41 3 3.86V15H4c0 1.86 1.28 3.41 3 3.86V20a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1.14c1.72-.45 3-2 3-3.86h-3v-1.14c1.72-.45 3-2 3-3.86"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号基础一
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%BA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.67 10.5c-1.27 0-2.4.8-2.82 2h-1.68V7.77l3.49 2.09 1-1.72L14.11 6l3.57-2.14-1-1.72-3.51 2.09V2h-2v2.23L7.68 2.14l-1 1.72L10.23 6 6.66 8.14l1 1.72 3.51-2.09v4.73H9.5c-1.14-3.18-5.84-2.37-5.84 1s4.7 4.18 5.84 1h1.67V20a2 2 0 0 0-2 2h6a2 2 0 0 0-2-2v-5.5h1.68c.81 2.3 3.88 2.72 5.28.73s-.03-4.73-2.46-4.73m-11 4c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1m11 0c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通基础二
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E5%8C%BA%E9%97%B4%E4%BF%A1%E5%8F%B7%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-3.18C14.4 9.84 13.3 9 12 9s-2.4.84-2.82 2H6c-.33 0-2-.1-2-2V8c0-1.83 1.54-2 2-2h10.18C16.6 7.16 17.7 8 19 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3c-1.3 0-2.4.84-2.82 2H6C4.39 4 2 5.06 2 8v1c0 2.94 2.39 4 4 4h3.18c.42 1.16 1.52 2 2.82 2s2.4-.84 2.82-2H18c.33 0 2 .1 2 2v1c0 1.83-1.54 2-2 2H7.82C7.4 16.84 6.3 16 5 16a3 3 0 0 0-3 3 3 3 0 0 0 3 3c1.3 0 2.4-.84 2.82-2H18c1.61 0 4-1.07 4-4v-1c0-2.93-2.39-4-4-4m1-7a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1M5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    区间信号自动控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A6%E7%AB%99%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 16V4H3v12zm0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v2h2v2H8v-2h2v-2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2zM5 6h9v5H5zm10 0h4v2h-4zm4 3v5h-4V9zM5 12h4v2H5zm5 0h4v2h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    车站信号控制系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    理工科专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    理工科专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matlab-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v2h3v12h-3v2h5V4M4 4v16h5v-2H6V6h3V4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Matlab入门学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC-S7-200-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    西门子PLC S7-200
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC-ModbusRTU/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 3h10v2h2v3h-3v6H8V8H5V5h2zm10 6h2v5h-2zm-6 6h2v7h-2zM5 9h2v5H5z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC ModbusRTU 学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h1v2H2v2h4v2H5c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2zm0 2h4v3h-4zM5 17h4v3H5zm10 0h4v3h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BC%A0%E6%84%9F%E5%99%A8%E4%B8%8E%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与检测技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%A4%E9%80%9A%E8%8B%B1%E8%AF%AD%E7%AD%94%E8%BE%A9%E8%AE%B2%E7%A8%BF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    专业外语课程-交通英语
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 22a3 3 0 0 1-3-3c0-.6.18-1.16.5-1.63L9 7.81V6a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1v1.81l5.5 9.56c.32.47.5 1.03.5 1.63a3 3 0 0 1-3 3zm-1-3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1c0-.21-.07-.41-.18-.57l-2.29-3.96L14 17l-5.07-5.07-3.75 6.5c-.11.16-.18.36-.18.57m8-9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理实验报告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8B%8F%E5%B7%9E%E8%AF%84%E5%BC%B9%E9%89%B4%E8%B5%8F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 5a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c2.67 0 8 1.34 8 4v2H1v-2c0-2.66 5.33-4 8-4m7.76-9.64c2.02 2.2 2.02 5.25 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89zM20.07 2c3.93 4.05 3.9 10.11 0 14l-1.63-1.63c2.77-3.18 2.77-7.72 0-10.74z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    苏州评弹鉴赏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%AF%9B%E6%A6%82%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h2v20H7zm12 7-8 5.6V3.4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    毛概复习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    数字电压表制作课程设计
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    数字电压表制作课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        摘要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 课程设计目的
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-adicl7135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 基于双积分A/D转换器ICL7135实现四位半数字电压表
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 基于双积分A&#x2f;D转换器ICL7135实现四位半数字电压表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.1节 方案简述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.2节 原理框图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.3节 原理总图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.4节 各部分电路原理分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第2.4节 各部分电路原理分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1 基准电压产生电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2 时钟信号产生电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3 待测模拟信号输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4 数码管驱动与显示电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245-adicl7135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5 双积分A/D转换器ICL7135
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.5节 实验过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.6节 实验结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.7节 方案总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-icl7107led" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 基于集成芯片ICL7107的LED驱动数字电压表设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 基于集成芯片ICL7107的LED驱动数字电压表设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3.1节 方案简述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3.2节 电路原理分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第3.2节 电路原理分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-icl7107" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1 ICL7107 芯片工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2 积分电路原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-osc1osc2osc3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3 时钟振荡电路（OSC1、OSC2、OSC3）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.4 自动调零与参考电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.4 显示模块原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3.3节 仿真验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3.4节 方案总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-esp32arduino" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 基于ESP32单片机和Arduino的数字电压表设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 基于ESP32单片机和Arduino的数字电压表设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4.1节 方案简述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4.2节 电路原理设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第4.2节 电路原理设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2.1 原理框图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2.2 硬件电路说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2.3 分压电阻连接与计算公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4.3节 代码说明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第4.3节 代码说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.1代码结构概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.2系统流程图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#433" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.3关键代码解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3.3关键代码解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-adc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ADC初始化与校准
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-adc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. ADC多采样与电压计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.动态显示与单位切换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.分压比代码实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.代码设计要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4.4节 仿真验证
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第4.4节 仿真验证">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.1 仿真工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.2 仿真结果分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4.5节 方案总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 结论
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考文献
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.9 18.45c1.35 0 2.45-1.1 2.45-2.45s-1.1-2.45-2.45-2.45c-1.36 0-2.45 1.1-2.45 2.45s1.09 2.45 2.45 2.45m5.2-1.77 1.48 1.16c.13.11.17.29.08.45l-1.4 2.42a.35.35 0 0 1-.43.15l-1.74-.7c-.36.28-.76.51-1.18.69l-.27 1.85c-.02.17-.17.3-.34.3h-2.8c-.18 0-.32-.13-.35-.3l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.75.7c-.15.06-.34 0-.42-.15l-1.4-2.42a.35.35 0 0 1 .08-.45l1.48-1.16-.05-.68.05-.69-1.48-1.15a.35.35 0 0 1-.08-.45l1.4-2.42c.08-.16.27-.22.42-.16l1.75.71c.36-.28.75-.52 1.18-.69l.26-1.86c.03-.16.17-.29.35-.29h2.8c.17 0 .32.13.34.29l.27 1.86c.42.17.82.41 1.18.69l1.74-.71c.17-.06.34 0 .43.16l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.15.05.69zM6.69 8.07c.87 0 1.57-.7 1.57-1.57s-.7-1.58-1.57-1.58A1.58 1.58 0 0 0 5.11 6.5c0 .87.71 1.57 1.58 1.57m3.34-1.13.97.74c.07.07.09.19.03.29l-.9 1.56c-.05.1-.17.14-.27.1l-1.12-.45-.74.44-.19 1.19c-.02.11-.11.19-.22.19h-1.8c-.12 0-.21-.08-.23-.19L5.4 9.62l-.76-.44-1.14.45c-.09.04-.2 0-.26-.1l-.9-1.56c-.06-.1-.03-.22.05-.29l.95-.74-.03-.44.03-.44-.95-.74a.23.23 0 0 1-.05-.29l.9-1.56c.06-.1.17-.14.26-.1l1.13.45.77-.44.16-1.19c.02-.11.11-.19.23-.19h1.8c.11 0 .2.08.22.19L8 3.38l.74.44 1.12-.45c.1-.04.22 0 .27.1l.9 1.56c.06.1.04.22-.03.29l-.97.74.03.44z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC综合实训课程设计
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%BF%A1%E5%8F%B7%E9%85%8D%E6%97%B6%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.1 4.8c-.1-.5-.5-.8-1-.8H13l.2 3h-2.4l.2-3H6.8c-.5 0-.9.4-1 .8l-2.7 14c-.1.6.4 1.2 1 1.2H10l.3-5h3.4l.3 5h5.8c.6 0 1.1-.6 1-1.2zM10.4 13l.2-4h2.6l.2 4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    交叉口信号配时课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8C%E9%9D%A2%E9%95%9C%E6%B5%8B%E7%A3%81%E8%87%B4%E4%BC%B8%E7%BC%A9%E7%B3%BB%E6%95%B0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.29 10.28 3.24-3.25 1.06 1.06-3.24 3.25zm.41 4.33 5.66-5.66L15.42 10l-5.66 5.67zM18 3v18H6V3zm2-2H4v22h16z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    菲涅尔双面镜测磁致伸缩系数实验
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Kaoyan/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研相关科目
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    考研相关科目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-math-hm/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.42 5.29c-1.1-.1-2.07.71-2.17 1.82L10 10h2.82v2h-3l-.44 5.07A4.001 4.001 0 0 1 2 18.83l1.5-1.5c.33 1.05 1.46 1.64 2.5 1.3.78-.24 1.33-.93 1.4-1.74L7.82 12h-3v-2H8l.27-3.07a4.01 4.01 0 0 1 4.33-3.65c1.26.11 2.4.81 3.06 1.89l-1.5 1.5c-.25-.77-.93-1.31-1.74-1.38M22 13.65l-1.41-1.41-2.83 2.83-2.83-2.83-1.43 1.41 2.85 2.85-2.85 2.81 1.43 1.41 2.83-2.83 2.83 2.83L22 19.31l-2.83-2.81z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-高数知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-math-la/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-线代知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-eng-write/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.54 3.5 4.96 4.97-1.43 1.41-4.95-4.95zM3.5 19.78l6.5-6.47c-.1-.31-.03-.7.23-.96.39-.39 1.03-.39 1.42 0 .39.4.39 1.03 0 1.42-.26.26-.65.33-.96.23l-6.47 6.5 10.61-3.55 3.53-6.36-4.94-4.95-6.37 3.53z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-作文写作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%80%83%E7%A0%94%E6%A0%B8%E5%BF%83926%E8%AF%8D%E6%B1%87%E5%8F%8A%E6%8B%93%E5%B1%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2zm0 2h2v2H3m12-.5V9a2 2 0 0 0-2-2H9v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M13 15h-2v-2h2zm0-4h-2V9h2m6-2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1h-2v1h-2V9h2v1h2V9a2 2 0 0 0-2-2Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-核心词汇926词
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-1.27 0-2.4.8-2.82 2H3v2h1.95L2 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3L6.05 7h3.12c.33.85.98 1.5 1.83 1.83V20H2v2h20v-2h-9V8.82c.85-.32 1.5-.97 1.82-1.82h3.13L15 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3l-2.95-7H21V5h-6.17C14.4 3.8 13.27 3 12 3m0 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-6.5 5.25L7 14H4zm13 0L20 14h-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研政治-知识点笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%87%AA%E6%8E%A7-%E6%A0%B9%E8%BD%A8%E8%BF%B9%E6%B3%95%E5%88%99/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.96 11.31C10.82 8.1 11.5 6 13 6s2.18 2.1 3.04 5.31C17 14.92 18.1 19 22 19v-2c-2.2 0-3-2.46-4.03-6.2C17.08 7.46 16.15 4 13 4s-4.08 3.46-4.97 6.8C7.03 14.54 6.2 17 4 17V2H2v20h20v-2H4v-1c3.9 0 5-4.08 5.96-7.69"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    自动控制原理-根轨迹法则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    技术开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技术开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Markdown/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12c.79 0 1.44.63 1.44 1.41v9.18c0 .78-.65 1.41-1.44 1.41M6.81 15.19v-3.66l1.92 2.35 1.92-2.35v3.66h1.93V8.81h-1.93l-1.92 2.35-1.92-2.35H4.89v6.38zM19.69 12h-1.92V8.81h-1.92V12h-1.93l2.89 3.28z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown相关
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Markdown相关
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/markdown-in-5min/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4zm10 14.5-4-4-4 4V20h8zm-4-5 4-4V4H8v3.5zM10 6h4v.75l-2 2-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 5 分钟上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/LaTeX-math/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 6H8.83l6 6-6 6H18v2H6v-2l6-6-6-6V4h12z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在Markdown中编写数学公式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/zensical-markdown/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5zm2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63s2.59.23 3.5.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Zensical 中使用 Markdown 高效写作
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/markdown-typora/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7V5h2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L18 9V2h1c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7zm4 4H5v2h2zm0-4V5H5v2zm0 12v-2H5v2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 与 Typora 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/typora-theme/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 12a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 17.5 9a1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-3-4A1.5 1.5 0 0 1 13 6.5 1.5 1.5 0 0 1 14.5 5 1.5 1.5 0 0 1 16 6.5 1.5 1.5 0 0 1 14.5 8m-5 0A1.5 1.5 0 0 1 8 6.5 1.5 1.5 0 0 1 9.5 5 1.5 1.5 0 0 1 11 6.5 1.5 1.5 0 0 1 9.5 8m-3 4A1.5 1.5 0 0 1 5 10.5 1.5 1.5 0 0 1 6.5 9 1.5 1.5 0 0 1 8 10.5 1.5 1.5 0 0 1 6.5 12M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9 1.5 1.5 0 0 0 1.5-1.5c0-.39-.15-.74-.39-1-.23-.27-.38-.62-.38-1a1.5 1.5 0 0 1 1.5-1.5H16a5 5 0 0 0 5-5c0-4.42-4.03-8-9-8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Typora 软件主题分享与记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/WebDev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.19 14.19 6 18l3.81-8.19L18 6m-6-4A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 8.9a1.1 1.1 0 0 0-1.1 1.1 1.1 1.1 0 0 0 1.1 1.1 1.1 1.1 0 0 0 1.1-1.1 1.1 1.1 0 0 0-1.1-1.1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Web 相关开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web 相关开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%BD%BF%E7%94%A8EO-Pages%E6%89%98%E7%AE%A1Zensical%E7%AB%99%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83s-2.05.78-2.83 0m-5.66 7.07-1.41-1.41zM6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 EdgeOne Pages 托管 Zensical 站点
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E8%A1%A8%E5%8D%95%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.13c-.15.01-.29.06-.39.17l-1 1 2.05 2 1-1c.22-.21.22-.56 0-.77l-1.24-1.23a.56.56 0 0 0-.38-.17m-2 1.75L13 19.94V22h2.06l6.06-6.07M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7v-.89l8.24-8.22c.47-.49 1.12-.76 1.8-.76.34 0 .68.06 1 .19V6c0-1.12-.92-2-2.04-2m0 4-8 5-8-5V6l8 5 8-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加邮件表单功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E5%9F%BA%E4%BA%8EEO-Pages%E5%AE%9E%E7%8E%B0%E7%AB%99%E7%82%B9%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于 EdgeOne Pages 实现站点访问统计功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0AI%E9%97%AE%E7%AD%94%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-1.26 2.75L15 5l2.74 1.26L19 9l1.25-2.74L23 5l-2.75-1.25M9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5M19 15l-1.26 2.74L15 19l2.74 1.25L19 23l1.25-2.75L23 19l-2.75-1.26"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加 AI 问答功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加音乐播放器功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Embedded/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E5%9B%9B%E8%BD%AE%E7%A7%BB%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 0 0 5 15.5 2.5 2.5 0 0 0 7.5 18a2.5 2.5 0 0 0 2.5-2.5A2.5 2.5 0 0 0 7.5 13m9 0a2.5 2.5 0 0 0-2.5 2.5 2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于STM32的四轮移动机器人设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ERFID%E7%9A%84%E6%99%BA%E8%83%BD%E4%BB%93%E5%82%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h2v2H6zm6-16L2 8v13h2v-8h16v8h2V8zm-4 8H4V9h4zm6 0h-4V9h4zm6 0h-4V9h4zM6 15h2v2H6zm4 0h2v2h-2zm0 4h2v2h-2zm4 0h2v2h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于RFID的智能仓储管理系统设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/2024%E7%94%B5%E8%B5%9BH%E9%A2%98%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2c-.9 0-2 1-2 2H8c0-1-1.1-2-2-2H2v9c0 1 1 2 2 2h2.2c.4 2 1.7 3.7 4.8 4v2.08C8 19.54 8 22 8 22h8s0-2.46-3-2.92V17c3.1-.3 4.4-2 4.8-4H20c1 0 2-1 2-2V2zM6 11H4V4h2zm14 0h-2V4h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024电赛H题参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/2024%E8%A5%BF%E9%97%A8%E5%AD%90%E6%9D%AF%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4v2l5.81 4.36a7.004 7.004 0 0 0-4.46 8.84 6.996 6.996 0 0 0 8.84 4.46 7 7 0 0 0 0-13.3L20 4zm-5.06 17.5L12 17.78 9.06 19.5l.78-3.33-2.59-2.24 3.41-.29L12 10.5l1.34 3.14 3.41.29-2.59 2.24z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024西门子杯参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    蓝桥杯嵌入式与STM32学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/PCB%E8%AE%BE%E8%AE%A1%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0 3 7l1.63 1.27L12 14l7.36-5.73L21 7zm7.37 10.73L12 16.47l-7.38-5.73L3 12l9 7 9-7zm0 5L12 21.47l-7.38-5.73L3 17l9 7 9-7z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PCB设计注意事项
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ECD4017%E7%9A%84%E7%AE%80%E6%98%93%E5%AF%86%E7%A0%81%E5%99%A8%E6%8E%A7%E5%88%B6%E8%A3%85%E7%BD%AE/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m5.6-4c-.8-2.3-3-4-5.6-4-3.3 0-6 2.7-6 6s2.7 6 6 6c2.6 0 4.8-1.7 5.6-4H16v4h4v-4h3v-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于CD4017的简易密码器控制装置
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Software/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v10H4m16 2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    软件程序开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件程序开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/%E5%9F%BA%E4%BA%8EAST%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E7%9A%84Python%E6%96%87%E4%BB%B6%E6%9F%A5%E9%87%8D/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18H6v-2h4zm0-4H6v-2h4zm0-13v1H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h4v1h2V1zm10 7v12c0 1.11-.89 2-2 2h-4v-2h4v-9h-4V9h4.5L14 4.5V2zm-4 6h-2v-2h2zm0 4h-2v-2h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于AST语义分析的Python文件查重
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/%E6%97%8B%E8%BD%AC%E9%9F%B3%E5%BE%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m0 2v12h16V6zm3.24.58 11.59 3.11-2.07 7.73-11.59-3.11z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于Pyside6与ffmpeg的旋转音律视频稳定工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/Turbot4%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Turbot4机器人开发记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55 6.28-3.63-.58-1.01-6.28 3.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+     Python 下一代包管理器 uv 上手指南
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Tools/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.8 3.8 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.8 3.8 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    工具与资源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具与资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Tools/%E5%8D%A1%E8%A5%BF%E6%AC%A7fx-991%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4zm0 6v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    卡西欧fx-991使用技巧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/guest-board/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 12V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14l4-4h10a1 1 0 0 0 1-1m4-6h-2v9H6v2a1 1 0 0 0 1 1h11l4 4V7a1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    留言板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    友链
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    友链
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 17q.86 0 1.45.6t.58 1.4L14 22l-7-2v-9h1.95l7.27 2.69q.78.31.78 1.12 0 .47-.34.82t-.86.37H13l-1.75-.67-.33.94L13 17zM16 3.23Q17.06 2 18.7 2q1.36 0 2.3 1t1 2.3q0 1.03-1 2.46t-1.97 2.39T16 13q-2.08-1.89-3.06-2.85t-1.97-2.39T10 5.3q0-1.36.97-2.3t2.34-1q1.6 0 2.69 1.23M.984 11H5v11H.984z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    朋友们
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links-guide/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 14c-2.67 0-8 1.33-8 4v2h16v-2c0-2.67-5.33-4-8-4m-9-4V7H4v3H1v2h3v3h2v-3h3v-2m6 2a4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4 4 4 0 0 0 4 4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    友链申请指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/contact-form/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 8V7l-3 2-3-2v1l3 2m4-7H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M8 6a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m6 12H2v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1m8-5h-8V6h8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    联系表单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nav.sufine.top" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网址导航
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        摘要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 课程设计目的
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-adicl7135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 基于双积分A/D转换器ICL7135实现四位半数字电压表
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 基于双积分A&#x2f;D转换器ICL7135实现四位半数字电压表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.1节 方案简述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.2节 原理框图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.3节 原理总图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.4节 各部分电路原理分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第2.4节 各部分电路原理分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1 基准电压产生电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2 时钟信号产生电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3 待测模拟信号输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4 数码管驱动与显示电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245-adicl7135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5 双积分A/D转换器ICL7135
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.5节 实验过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.6节 实验结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2.7节 方案总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-icl7107led" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 基于集成芯片ICL7107的LED驱动数字电压表设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 基于集成芯片ICL7107的LED驱动数字电压表设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3.1节 方案简述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3.2节 电路原理分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第3.2节 电路原理分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-icl7107" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1 ICL7107 芯片工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2 积分电路原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-osc1osc2osc3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3 时钟振荡电路（OSC1、OSC2、OSC3）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.4 自动调零与参考电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.4 显示模块原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3.3节 仿真验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3.4节 方案总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-esp32arduino" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 基于ESP32单片机和Arduino的数字电压表设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 基于ESP32单片机和Arduino的数字电压表设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4.1节 方案简述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4.2节 电路原理设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第4.2节 电路原理设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2.1 原理框图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2.2 硬件电路说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2.3 分压电阻连接与计算公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4.3节 代码说明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第4.3节 代码说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.1代码结构概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.2系统流程图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#433" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.3关键代码解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3.3关键代码解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-adc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ADC初始化与校准
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-adc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. ADC多采样与电压计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.动态显示与单位切换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.分压比代码实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.代码设计要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4.4节 仿真验证
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第4.4节 仿真验证">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.1 仿真工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.2 仿真结果分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4.5节 方案总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 结论
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考文献
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    关于本站
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    课程学习
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    理工科专业课程
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/weigo6/suffine-hub/edit/main/docs/college-study/STEM/数字电压表课程设计.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/weigo6/suffine-hub/raw/main/docs/college-study/STEM/数字电压表课程设计.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+<h1 id="-">数字电压表设计与制作 - 课程设计<a class="headerlink" href="#-" title="跳转至本节的锚点链接">&para;</a></h1>
+<h2 id="_1">摘要<a class="headerlink" href="#_1" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>本课程设计围绕数字电压表的开发与实现，提出了三种不同的设计方案：基于双积分A/D转换器ICL7135的四位半电压表、基于集成芯片ICL7107的LED驱动电压表，以及基于ESP32单片机和Arduino框架的数字化电压表。</p>
+<p>各方案分别采用不同的核心技术与硬件架构，兼顾高精度、低成本与灵活性。ICL7135方案利用双积分原理实现高抗干扰性和±199.99mV量程的精密测量；ICL7107方案通过集成化设计简化电路，支持三位半LED显示；ESP32方案结合软件滤波与分压电路，以极简硬件实现宽量程测量。</p>
+<p>实验结果表明，三种方案均能有效实现电压测量，但各具特点，适用于不同场景。本设计验证了模数转换技术的多样性，为实际应用提供了参考依据。</p>
+<p><strong>关键词：</strong>ADC；数字电压表；ICL7135；ICL7107；Arduino</p>
+<h2 id="1">1 课程设计目的<a class="headerlink" href="#1" title="跳转至本节的锚点链接">&para;</a></h2>
+<ol>
+<li>
+<p><strong>掌握核心理论知识</strong></p>
+<ul>
+<li>
+<p>理解双积分型A/D转换器（如ICL7135、ICL7107）的工作原理，分析其高精度与抗干扰特性的技术本质。</p>
+</li>
+<li>
+<p>学习单片机（ESP32）内置ADC模块的采样机制，掌握分压电路设计、软件滤波算法等关键技术。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>培养工程实践能力</strong></p>
+<ul>
+<li>
+<p>通过原理图设计、PCB布局（EDA工具）、电路焊接与调试，熟悉电子系统开发的完整流程。</p>
+</li>
+<li>
+<p>通过仿真验证和实验测试，掌握数字电压表的性能分析与调试方法，提升实践操作和问题解决能力。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>提升问题分析与解决能力</strong></p>
+<ul>
+<li>
+<p>在实验过程中识别常见问题（如信号干扰、数码管显示异常、ADC非线性误差），并通过理论推导与实验验证提出解决方案。</p>
+</li>
+<li>
+<p>对比不同方案（ICL7135、ICL7107、ESP32）的硬件复杂度、成本与性能差异，培养技术选型与优化意识。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>强化创新与扩展思维</strong></p>
+<ul>
+<li>
+<p>探索传统分立电路与嵌入式系统的融合设计，例如结合Arduino框架实现数据可视化与交互功能。</p>
+</li>
+<li>
+<p>鼓励在基础方案上进行功能扩展（如量程自动切换、温度补偿），提升系统的实用性与适应性。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>规范科研与工程素养</strong></p>
+<ul>
+<li>
+<p>学习查阅芯片数据手册、学术文献，规范撰写设计文档与实验报告。</p>
+</li>
+<li>
+<p>通过团队协作（如电路调试分工）与项目管理（如进度规划），培养工程实践中的综合素养。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-adicl7135">2 基于双积分A/D转换器ICL7135实现四位半数字电压表<a class="headerlink" href="#2-adicl7135" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="21">第2.1节 方案简述<a class="headerlink" href="#21" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本方案设计了一个基于ICL7135的简易数字电压表。本设计以双积分式A/D转换器ICL7135为核心，结合典型200mV满量程应用电路，实现四位半（4<sup>&frac12;</sup>位）数字电压表。通过双积分技术保证高精度和强抗干扰能力，量程为-199.99mV至+199.99mV，分辨率为10μV。系统由模拟输入调理、参考电压源、时钟信号生成、模数转换及动态扫描显示驱动等模块组成。</p>
+<h3 id="22">第2.2节 原理框图<a class="headerlink" href="#22" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><img src="../数字电压表课程设计.assets/image001.png" alt="image001" style="zoom: 80%;" /></p>
+<p style="text-align: center">图1：系统原理框图</p>
+
+<h3 id="23">第2.3节 原理总图<a class="headerlink" href="#23" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><img alt="image002" src="../数字电压表课程设计.assets/image002.png" /></p>
+<p style="text-align: center">图2：电路设计原理图</p>
+
+<p>下图展示了系统的关键信号流连接：</p>
+<p><img src="../数字电压表课程设计.assets/image003.png" alt="image003" style="zoom:67%;" /></p>
+<p style="text-align: center">图3：系统信号流图</p>
+
+<h3 id="24">第2.4节 各部分电路原理分析<a class="headerlink" href="#24" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="241">2.4.1 基准电压产生电路<a class="headerlink" href="#241" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>基于外部电压输入，通过MC1403芯片产生2.5V精密基准源，通过精密电阻分压生成1 V参考电压。</p>
+<p><img alt="image004" src="../数字电压表课程设计.assets/image004.png" /></p>
+<p style="text-align: center">图4：基准电压原理图</p>
+
+<h4 id="242">2.4.2 时钟信号产生电路<a class="headerlink" href="#242" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>时钟信号产生采用MC14036芯片，利用反相器与RC网络构成环形振荡器，</p>
+<p>其频率大致为<span class="arithmatex">\(f\approx \frac{1}{2.2RC}\)</span></p>
+<p>通过调整电阻与电容，使得输出方波频率大于125Khz。</p>
+<p><img alt="image005" src="../数字电压表课程设计.assets/image005.png" /></p>
+<p style="text-align: center">图5：时钟信号产生电路</p>
+
+<h4 id="243">2.4.3 待测模拟信号输入<a class="headerlink" href="#243" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>参考芯片手册典型电路设计，在电压测量线输入端接入 100K 电阻和 0.1μF 电容。</p>
+<p>数字电压表的输入阻抗需足够高，避免对被测电路产生分流作用（即 “负载效应”）。100KΩ 电阻与后续电路（如缓冲放大器）的输入阻抗配合，可使整体输入阻抗达到 MΩ 级别（如 10MΩ)，满足高精度测量需求。通过RC组合，滤除高频干扰，保留直流精度。</p>
+<p><img alt="image006" src="../数字电压表课程设计.assets/image006.png" /></p>
+<p style="text-align: center">图6：输入RC电路</p>
+
+<h4 id="244">2.4.4 数码管驱动与显示电路<a class="headerlink" href="#244" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>数码管显示驱动有ICL7135芯片与74LS47译码芯片配合完成。</p>
+<p><img src="../数字电压表课程设计.assets/image007.png" alt="image007" style="zoom:67%;" /></p>
+<p style="text-align: center">图7：数码管驱动原理图</p>
+
+<p>上图简要展示了数码管显示驱动的过程。ICL7135输出多路复用的BCD码（B1-B8）和位选信号（D1-D5），通过74LS47译码为七段码，9013晶体管驱动共阳数码管。通过动态扫描机制对数码管进行快速刷新，利用人眼视觉残留，实现数值的显示。最高位数码管实现灭零控制，仅显示有效数字1及负号。</p>
+<p><img alt="image008" src="../数字电压表课程设计.assets/image008.png" /></p>
+<p style="text-align: center">图8：ICL7135位选信号输出时序图</p>
+
+<h4 id="245-adicl7135">2.4.5 双积分A/D转换器ICL7135<a class="headerlink" href="#245-adicl7135" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>ICL7135双积分式A/D转换器是在单极性参考电压(VR=+1V)供给之下，对双极性输入的模拟电压进行A/D转换，并输出自动极性判别信号。</p>
+<p><img alt="image009" src="../数字电压表课程设计.assets/image009.png" /></p>
+<p style="text-align: center">图9：ICL7135外围电路测试电路</p>
+
+<p>双积分式 A/D 转换是一种基于间接测量原理的模数转换技术，通过对输入模拟电压和参考电压进行两次积分操作，将模拟量转换为数字量。</p>
+<p>双积分式 A/D 转换的核心是 “积分 - 比较 - 计数” 过程，分为两个阶段：定时积分阶段和定压积分阶段。</p>
+<p>1.定时积分阶段（正向积分）</p>
+<p>输入信号：将未知模拟电压 <span class="arithmatex">\(V_{in}\)</span> 接入积分器，在固定时间 <span class="arithmatex">\(T_{1}\)</span> 内对 <span class="arithmatex">\(V_{in}\)</span> 进行积分。</p>
+<p>积分结果：积分器的输出电压 <span class="arithmatex">\(V_{1}\)</span> 与 <span class="arithmatex">\(V_{in}\)</span> 在 <span class="arithmatex">\(T_{1}\)</span> 内的平均值成正比，即：</p>
+<p>$$
+V_1=\frac{1}{RC}\int_0^{T_1}{V_{in}(t)dt}
+$$
+其中，<span class="arithmatex">\(R\)</span> 和 <span class="arithmatex">\(C\)</span> 为积分电路的电阻和电容。</p>
+<p>2.定压积分阶段（反向积分）</p>
+<p>参考电压接入：断开 <span class="arithmatex">\(V_{in}\)</span> ，接入与 <span class="arithmatex">\(V_{in}\)</span> 极性相反的固定参考电压 <span class="arithmatex">\(-V_{ref}\)</span> ，对积分器进行反向积分。</p>
+<p>计数过程：从积分器输出 <span class="arithmatex">\(V_{1}\)</span> 开始反向积分，直至积分器输出回到零电平。记录此过程的时间 <span class="arithmatex">\(T_{2}\)</span> 。</p>
+<p>电荷平衡：正向积分与反向积分的电荷相等，即：</p>
+<p>$$
+V_{in,avg}\cdot T_1=V_{ref}\cdot T_2
+$$
+因此， <span class="arithmatex">\(T_{2}\)</span> 与 <span class="arithmatex">\(V_{in,avg}\)</span>成正比，通过计数器测量 <span class="arithmatex">\(T_{2}\)</span> 即可得到对应的数字量<span class="arithmatex">\(N\)</span>：
+$$
+N=\frac{T_2}{T_0}=\frac{V_{in,avg}\cdot T_1}{V_{ref}\cdot T_0}
+$$
+其中， <span class="arithmatex">\(T_{0}\)</span>为计数脉冲的周期。</p>
+<p><img alt="image010" src="../数字电压表课程设计.assets/image010.png" /></p>
+<p style="text-align: center">图10：ICL7135芯片的模拟部分</p>
+
+<p>双积分式 A/D 转换具有抗干扰能力强、精度高、线性度好、成本低等特点，其缺点是转换速度慢、实时性差。其简单的电路结构和低成本特性决定其非常适合用于数字万用表的制作。</p>
+<h3 id="25">第2.5节 实验过程<a class="headerlink" href="#25" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>查询已有芯片的数据手册，进行电路功能解读与原理图二次绘制，通过专业EDA软件进行原理图器件与封装绑定，通过EDA软件进行电路布局与布线的辅助设计，确定通过洞洞板进行电路焊接验证时的芯片、阻容器件的放置位置与走线。</p>
+<p><img src="../数字电压表课程设计.assets/image011.png" alt="image011" style="zoom:67%;" /></p>
+<p style="text-align: center">图11：通过EDA软件进行电路布局与走线设计</p>
+
+<p>电路焊接采用先焊元件，后连线的方式。</p>
+<p>完成电路焊接后，进入调试环节，步骤如下：</p>
+<ol>
+<li>
+<p>给电路板外接±5V电源和GND。观察电源指示灯是否正常，测量芯片底座的供电引脚和电路中其余的电源网络联通是否完好。</p>
+</li>
+<li>
+<p>检查焊点是否存在连锡，检查是否存在虚焊的地方。</p>
+</li>
+<li>
+<p>插上MC1403芯片，测量2脚是否输出2.5V，旋转滑动变阻器使7135插座2脚为1V。</p>
+</li>
+<li>
+<p>插芯片MC14069，用示波器观察MC14069的4脚和7135插槽的22脚是否为f&gt;125KHz的矩形。</p>
+</li>
+</ol>
+<p><img src="../数字电压表课程设计.assets/image012.jpg" alt="image012" style="zoom:33%;" /></p>
+<p style="text-align: center">图12：时钟信号波形图</p>
+
+<ol>
+<li>
+<p>插芯片7135和74LS47，用示波器观察7135的BCD码输出13,14,15,16矩形波，选通输出12，17，18，19，20矩形波。</p>
+</li>
+<li>
+<p>用示波器观察74LS47输出9，10，11，12，13，14，15段选信号波形，如果出现方波，说明74LS47能正常将BCD码译成abcdefg段选信号，此视数码管显示正常。</p>
+</li>
+</ol>
+<h3 id="26">第2.6节 实验结果<a class="headerlink" href="#26" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>实验设计焊接完成的电路板如下图所示：</p>
+<p><img src="../数字电压表课程设计.assets/image013.jpg" alt="image013" style="zoom: 25%;" /><img src="../数字电压表课程设计.assets/image014.jpg" alt="image014" style="zoom: 39%;" /></p>
+<p style="text-align: center">图13：实际焊接电路板</p>
+
+<p>表1：实验电压数据测试表</p>
+<table>
+<thead>
+<tr>
+<th>次数  电压（V）</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标准表</td>
+<td>-1.99</td>
+<td>-1.80</td>
+<td>-1.70</td>
+<td>-1.60</td>
+<td>-1.50</td>
+<td>-1.40</td>
+<td>-1.30</td>
+<td>-1.20</td>
+<td>-1.10</td>
+<td>-1.00</td>
+<td>+1.10</td>
+<td>+1.20</td>
+<td>+1.30</td>
+<td>+1.40</td>
+<td>+1.50</td>
+<td>+1.60</td>
+<td>+1.70</td>
+<td>+1.80</td>
+<td>+1.90</td>
+<td>+1.99</td>
+</tr>
+<tr>
+<td>自制表</td>
+<td>-1.98</td>
+<td>-1.79</td>
+<td>-1.69</td>
+<td>-1.59</td>
+<td>-1.49</td>
+<td>-1.39</td>
+<td>-1.29</td>
+<td>-1.19</td>
+<td>-1.09</td>
+<td>-0.99</td>
+<td>0.093</td>
+<td>+1.19</td>
+<td>+1.29</td>
+<td>+1.39</td>
+<td>+1.49</td>
+<td>+1.59</td>
+<td>+1.69</td>
+<td>+1.79</td>
+<td>+1.89</td>
+<td>+1.97</td>
+</tr>
+</tbody>
+</table>
+<h3 id="27">第2.7节 方案总结<a class="headerlink" href="#27" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>双积分式A/D转换以其高抗干扰性和高精度的优势，在低速、高精度的场景中占据重要地位。尽管转换速度较慢，但其简单的电路结构和低成本特性，使其成为工业仪表、精密测量等领域的理想选择。本设计成功实现了基于ICL7135的高精度数字电压表，验证了双积分ADC在低速高精度测量中的优势。</p>
+<h2 id="3-icl7107led">3 基于集成芯片ICL7107的LED驱动数字电压表设计<a class="headerlink" href="#3-icl7107led" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="31">第3.1节 方案简述<a class="headerlink" href="#31" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本设计旨在基于 ICL7107 芯片制作一款数字电压表，实现对直流电压的精确测量与显示。ICL7107 是一款高精度、低功耗的双积分型 A/D 转换芯片。与ICL7135芯片不同的是，ICL7107芯片内部集成了时钟发生器、积分器、比较器等电路，可直接驱动共阳极 LED 数码管，极大地简化了外围电路的设计，非常适合用于数字电压表的设计。</p>
+<p><img alt="image015" src="../数字电压表课程设计.assets/image015.png" /></p>
+<p style="text-align: center">图14：200mV满量程电路典型芯片应用图</p>
+
+<h3 id="32">第3.2节 电路原理分析<a class="headerlink" href="#32" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="321-icl7107">3.2.1 ICL7107 芯片工作原理<a class="headerlink" href="#321-icl7107" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>ICL7107 采用双积分型 A/D 转换原理，其工作过程主要包括采样阶段和比较阶段。在采样阶段，芯片对输入电压进行固定时间的积分，积分电容上的电压与输入电压成正比；在比较阶段，芯片对基准电压进行反向积分，直至积分电容上的电压回到零，通过计数器记录比较阶段的时间，该时间与输入电压成正比，从而实现模拟信号到数字信号的转换。</p>
+<p>芯片内部的时钟发生器产生稳定的时钟信号，为积分器和计数器提供工作时序。比较器用于检测积分电容上的电压是否为零，控制计数器的启停。</p>
+<p>此外，ICL7107 还具有自动调零功能，可消除放大器的失调电压和漂移，提高测量精度。</p>
+<h4 id="322">3.2.2 积分电路原理<a class="headerlink" href="#322" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>根据ICL7107芯片的数据手册，积分电阻<em>R<sub>INT</sub></em>和积分电容<em>C<sub>INT</sub></em>作用如下：</p>
+<p><em>R<sub>INT</sub></em>：与输入电压共同决定积分电流 <em>I<sub>INT</sub>=V<sub>INFS</sub>/R<sub>INT</sub></em>，典型值 4μA。</p>
+<p><em>C<sub>INT</sub></em>：存储积分电荷，其容量影响积分器输出电压摆幅 <em>V<sub>INT</sub>=I<sub>INT</sub>×t<sub>INT</sub>/C<sub>INT</sub></em>。</p>
+<p>设计要点：</p>
+<ol>
+<li>
+<p><em>R<sub>INT</sub></em>：2V 满量程时选 470kΩ，200mV 满量程时选 47kΩ，确保电流在芯片线性范围内（≤100μA）。</p>
+</li>
+<li>
+<p><em>C<sub>INT</sub></em>：选用低介质吸收的电容（如聚丙烯电容），避免电荷泄漏引入误差。典型值：2V 量程 0.1μF，200mV 量程 0.22μF）。</p>
+</li>
+</ol>
+<p>下图展示了ICL7107芯片的模拟部分，本节中后续所有的元件与引脚名称参考此图标注。</p>
+<p><img alt="image016" src="../数字电压表课程设计.assets/image016.png" /></p>
+<p style="text-align: center">图15：ICL7107芯片的模拟部分</p>
+
+<h4 id="323-osc1osc2osc3">3.2.3 时钟振荡电路（OSC1、OSC2、OSC3）<a class="headerlink" href="#323-osc1osc2osc3" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>根据ICL7107芯片的数据手册，电阻<em>R<sub>OSC</sub></em><span class="arithmatex">\(和电容\)</span><em>C<sub>OSC</sub></em>构成 RC 振荡器，产生芯片所需的时钟信号（典型频率 48kHz）。</p>
+<p>时钟频率公式：<em>f<sub>OSC</sub></em>=0.45<em>/(R×C)</em>，如 <em>R</em>=100kΩ,<em>C</em>=100pF 时，<em>f<sub>OSC</sub></em>=48kHz。</p>
+<p>设计要点：</p>
+<ol>
+<li>
+<p>时钟频率影响转换速度和抗干扰能力。若需抑制 50Hz/60Hz 干扰，积分周期<em>t<sub>INT</sub></em>应设为其整数倍（如 40kHz 时钟可同时抑制 50Hz 和 60Hz）。</p>
+</li>
+<li>
+<p>电容需选用稳定性高的类型（如瓷片电容），避免温度漂移影响频率精度。</p>
+</li>
+</ol>
+<p><img src="../数字电压表课程设计.assets/image017.png" alt="image017" style="zoom: 33%;" /></p>
+<p style="text-align: center">图16：时钟振荡电路</p>
+
+<h4 id="324">3.2.4 自动调零与参考电路<a class="headerlink" href="#324" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>根据ICL7107芯片的数据手册，自动调零电容<em>C<sub>AZ</sub></em>，0.01μF~1μF的作用如下：存储自动调零阶段的补偿电压，消除缓冲器、积分器和比较器的失调电压（典型≤10μV）。</p>
+<p>设计要点：</p>
+<p>1. 200mV 满量程时选 0.47μF（降低噪声），2V 满量程时选 0.047μF（加快过载恢复）。</p>
+<p>参考电容<em>C<sub>REF</sub></em>，0.1μF~1μF的作用为稳定参考电压，抑制共模电压引起的翻转误差（Rollover Error）。</p>
+<p>设计要点：</p>
+<p>1. 共模电压较高时（如 <em>R<sub>EFLO</sub></em> 未接 COMMON），需增大 <em>C<sub>REF</sub></em>至 1μF，确保误差＜0.5 计数。</p>
+<h4 id="324_1">3.2.4 显示模块原理<a class="headerlink" href="#324_1" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>ICL7107 芯片内部集成了七段译码器和驱动电路，可直接驱动共阳极 LED 数码管。芯片的输出端 a、b、c、d、e、f、g 分别对应数码管的七段笔划，通过控制各输出端的电平状态，即可显示相应的数字。三位半数码管的最高位为半位，可显示 0 或 1，用于表示电压的极性或超量程状态。数码管需外接限流电阻（如 130Ω），避免电流过大损坏器件。极性指示（POL 引脚）用于显示负电压，通过点亮千位 “1” 表示负值。</p>
+<p><img src="../数字电压表课程设计.assets/image018.png" alt="image018" style="zoom: 33%;" /></p>
+<p style="text-align: center">图17：ICL7107芯片的数字部分</p>
+
+<h3 id="33">第3.3节 仿真验证<a class="headerlink" href="#33" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>1. 仿真工具与电路设计</p>
+<p>本次仿真采用 Proteus 仿真软件，设计的仿真电路主要包括电源电路、信号调理电路、ICL7107 芯片和数码管显示电路。电源电路提供 + 5V 和 - 5V 电源，为 ICL7107 芯片和数码管供电；采用高阻抗信号输入电路；根据芯片数据手册，选择合适的阻容元件，将ICL7107 芯片的各个引脚按照原理图正确连接，数码管选用共阳极三位半 LED 数码管。</p>
+<p><img alt="image019" src="../数字电压表课程设计.assets/image019.png" /></p>
+<p style="text-align: center">图18：ICL7107用于数字万用表电路的设计原理图</p>
+
+<p>2. 仿真结果与分析</p>
+<p>在仿真过程中，分别输入不同的直流电压值，观察数码管的显示情况。经过比对发现，输入电压探针与数码管显示的数值能够保持同步变化，电路具备量程选择切换和负压测量功能。</p>
+<p><img alt="image020" src="../数字电压表课程设计.assets/image020.png" /></p>
+<p style="text-align: center">图19：Proteus 8 电路仿真测试图</p>
+
+<h3 id="34">第3.4节 方案总结<a class="headerlink" href="#34" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本方案所述电路为基于ICL7107芯片的高精度数字电压表系统，采用LED数码管显示。ICL7107芯片作为核心组件，集成了3.5位模数转换器，其内部电路架构包含七段译码器、显示驱动器、基准电压源及时钟发生器，系统功耗低于10mW且显示稳定性卓越。</p>
+<p>本系统工作原理可概括为：待测电压经由芯片内置模数转换器转化为等效数字量，经译码后通过七段码格式驱动显示。该转换器采用双积分型架构，其工作过程可分为两个阶段：首先对待测电压进行固定时间积分以产生斜坡信号，随后施加反向基准电压进行反向积分直至积分器输出归零。通过测量反向积分阶段所消耗的时钟周期数（与输入电压呈正比关系），实现模拟量至数字量的精确转换。</p>
+<p>简言之，系统通过将输入电压与内部基准电压进行对比，最终将差值量转换为数字格式输出。</p>
+<p>如图18所示，关键外围元件参数配置如下：电阻R2与电容C1协同设定芯片内部时钟频率；电容C2通过抑制基准电压波动显著提升显示稳定性；量程调节电阻R4的阻值决定测量范围（R4=1.2kΩ对应0-20V量程，R4=12kΩ对应0-200V量程）。显示单元采用四位LED数码管布局，右侧三位具备完整数字显示功能，左侧首位特殊设计仅支持"1"及负号显示。</p>
+<p>本方案仅需ICL7107芯片以及10个左右的无源器件即可完成高精度的数字电压表设计，具有非常高的经济效益。</p>
+<h2 id="4-esp32arduino">4 基于ESP32单片机和Arduino的数字电压表设计<a class="headerlink" href="#4-esp32arduino" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="41">第4.1节 方案简述<a class="headerlink" href="#41" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本设计基于ESP32单片机与Arduino框架，通过分压电路扩展输入电压范围，利用ESP32单片机内置ADC采集电压信号，结合OLED显示屏实时显示输入电压值。在硬件设计上，采用分压电阻扩展电压测量范围，ESP32的ADC模块（GPIO36）采集分压后信号。在软件设计上，通过多采样平均滤波提升精度，OLED显示电压值，支持串口输出调试。本方案的测量量程由分压比（外接分压电阻计算得到）决定，默认分压比为5，最大输入电压支持16.5V（对应ADC量程3.3V）。</p>
+<h3 id="42">第4.2节 电路原理设计<a class="headerlink" href="#42" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="421">4.2.1 原理框图<a class="headerlink" href="#421" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img alt="image021" src="../数字电压表课程设计.assets/image021.png" /></p>
+<p style="text-align: center">图20：使用单片机方案的原理框图</p>
+
+<h4 id="422">4.2.2 硬件电路说明<a class="headerlink" href="#422" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>本方案使用的硬件电路十分简单，只需要一块ESP32单片机核心板（以ESP32-WROOM为例），将ESP32的ADC引脚（GPIO36）连接外部分压电阻中点，将OLED显示屏（SSD1306）连接单片机的I2C接口（SCL -GPIO22、SDA-GPIO21）。</p>
+<p>如果使用ESP32的其他型号，需要在代码中修改相应的引脚端口。</p>
+<p><img src="../数字电压表课程设计.assets/image022.png" alt="image022" style="zoom:75%;" /></p>
+<p style="text-align: center">图21：硬件模拟图</p>
+
+<p>图21展示了硬件接线示意图，图示VP引脚即为ESP32单片机的ADC采集引脚（GPIO36），在该图中采用电位器模拟输入电压变化。</p>
+<p>表2：方案接线表</p>
+<table>
+<thead>
+<tr>
+<th>模块引脚</th>
+<th>ESP32引脚</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分压电路中点</td>
+<td>GPIO36</td>
+<td>连接分压电阻中点</td>
+</tr>
+<tr>
+<td>OLED SDA</td>
+<td>GPIO21</td>
+<td>I2C数据线</td>
+</tr>
+<tr>
+<td>OLED SCL</td>
+<td>GPIO22</td>
+<td>I2C时钟线</td>
+</tr>
+<tr>
+<td>OLED VCC</td>
+<td>3V3</td>
+<td>电源正极</td>
+</tr>
+<tr>
+<td>OLED GND</td>
+<td>GND</td>
+<td>电源负极</td>
+</tr>
+</tbody>
+</table>
+<h4 id="423">4.2.3 分压电阻连接与计算公式<a class="headerlink" href="#423" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>当需要测量的电压超过3V3（ESP32单片机引脚耐受电平不超过3.9V）时，需要根据最高的电压输入值确定分压电阻值，并根据下文中的分压比计算公式同步修改代码中的分压值。需要测量的电压范围越大，分压比越大，相应的测量分辨率会降低。</p>
+<p>代码中ADC衰减设置 <em>ADC_ATTEN_DB_11</em>对应量程3.3V，需确保分压后电压不超过此值。默认使用0-3V3量程时，无需外接的分压电阻，最小测量分辨率为<span class="arithmatex">\(\small{\frac{3.3}{2^{12}}}=0.000805664\)</span>V。</p>
+<p>分压电路由两个电阻（R1、R2）串联组成，输入电压接R1端，R2接地，ADC引脚连接R1与R2中点。可以在ADC引脚附近添加0.1μF去耦电容，抑制高频干扰。</p>
+<p><img src="../数字电压表课程设计.assets/image023.png" alt="image023" style="zoom:75%;" /></p>
+<p style="text-align: center">图22：ADC分压电路</p>
+
+<p>分压比公式：</p>
+<p>$$
+\text{分压比}=\frac{R1+R2}{R2}
+$$
+如图所示：若R1=400kΩ，R2=100kΩ，分压比为<span class="arithmatex">\(\frac{400+100}{100}=5\)</span>，实际电压为ADC测量值（0-3V3)的5倍。</p>
+<p>表3：分压比与电阻值对照表</p>
+<table>
+<thead>
+<tr>
+<th>目标量程</th>
+<th>R1</th>
+<th>R2</th>
+<th>分压比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-16.5V</td>
+<td>400K</td>
+<td>100K</td>
+<td>5</td>
+</tr>
+<tr>
+<td>0-25V</td>
+<td>680K</td>
+<td>100K</td>
+<td>7.8</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43">第4.3节 代码说明<a class="headerlink" href="#43" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="431">4.3.1代码结构概述<a class="headerlink" href="#431" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>代码分为以下功能模块：</p>
+<ul>
+<li>
+<p>硬件初始化：配置OLED显示屏和ADC校准参数。</p>
+</li>
+<li>
+<p>ADC采样：多采样平均滤波读取电压值。</p>
+</li>
+<li>
+<p>电压计算：根据分压比转换实际电压。</p>
+</li>
+<li>
+<p>显示与输出：OLED动态显示电压值，串口输出调试信息。</p>
+</li>
+</ul>
+<h4 id="432">4.3.2系统流程图<a class="headerlink" href="#432" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><img src="../数字电压表课程设计.assets/image024.png" alt="image024" style="zoom:75%;" /></p>
+<p style="text-align: center">图23：系统流程图</p>
+
+<h4 id="433">4.3.3关键代码解析<a class="headerlink" href="#433" title="跳转至本节的锚点链接">&para;</a></h4>
+<h5 id="1-adc">1. ADC初始化与校准<a class="headerlink" href="#1-adc" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><img alt="image025" src="../数字电压表课程设计.assets/image025.png" /></p>
+<p>代码功能是初始化ADC单元，校准参数以提升精度，使用ESP32内部参考电压源。</p>
+<blockquote>
+<p><em>ADC_ATTEN_DB_11</em>：设置ADC衰减为11dB，对应量程0-3.3V 。</p>
+<p><em>ADC_WIDTH_BIT_12</em>：12位分辨率（ESP32 ADC实际有效位约9-10位）。 </p>
+<p><em>adc_chars</em>：存储校准后的ADC特性参数。</p>
+</blockquote>
+<h5 id="2-adc">2. ADC多采样与电压计算<a class="headerlink" href="#2-adc" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><img alt="image026" src="../数字电压表课程设计.assets/image026.png" /></p>
+<blockquote>
+<p>代码功能是采集10次ADC值，取平均以减少噪声干扰。关键函数如下：</p>
+<p><em>analogRead(ADC_PIN)</em>：读取ADC原始值（0-4095）。</p>
+<p><em>esp_adc_cal_raw_to_voltage()</em>：将原始值转换为实际电压（单位mV）。</p>
+</blockquote>
+<h5 id="3">3.动态显示与单位切换<a class="headerlink" href="#3" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><img alt="image027" src="../数字电压表课程设计.assets/image027.png" /></p>
+<blockquote>
+<p>此代码的逻辑是根据电压值自动切换单位（V/mV），优化显示效果。</p>
+</blockquote>
+<h5 id="4">4.分压比代码实现<a class="headerlink" href="#4" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>代码中分压比通过该行实现：</p>
+<p><img alt="image028" src="../数字电压表课程设计.assets/image028.png" /></p>
+<blockquote>
+<p>若分压电阻更换（如R1=680kΩ，R2=100kΩ，分压比7.8），需修改此处的乘数。</p>
+</blockquote>
+<h5 id="5">5.代码设计要点<a class="headerlink" href="#5" title="跳转至本节的锚点链接">&para;</a></h5>
+<ol>
+<li>抗干扰设计</li>
+</ol>
+<blockquote>
+<p>通过 <em>SAMPLES=10</em> 多次采样取平均，抑制瞬时噪声。</p>
+<p><em>delay(10)</em> 确保两次采样间隔，避免ADC内部电路干扰。</p>
+</blockquote>
+<ol>
+<li>单位自适应</li>
+</ol>
+<blockquote>
+<p>根据 <em>actual_voltage</em> 大小自动切换V/mV单位，提升可读性。</p>
+</blockquote>
+<ol>
+<li>校准优化</li>
+</ol>
+<blockquote>
+<p>使用 <em>esp_adc_cal_characterize</em>校准ADC非线性误差，提高测量精度。</p>
+</blockquote>
+<h3 id="44">第4.4节 仿真验证<a class="headerlink" href="#44" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="441">4.4.1 仿真工具<a class="headerlink" href="#441" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>使用wokwi.com平台进行仿真设计及验证。</p>
+<p>搭建的仿真链接：<a href="https://wokwi.com/projects/428534368100928513">Wokwi - Online ESP32, STM32, Arduino Simulator</a></p>
+<p><img src="../数字电压表课程设计.assets/image029.png" alt="image029" style="zoom: 33%;" /></p>
+<p style="text-align: center">图24：仿真实验图</p>
+
+<h4 id="442">4.4.2 仿真结果分析<a class="headerlink" href="#442" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>在仿真过程中，调节电位器模拟输入电压变化，观察OLED的显示数据。OLED能够显示ADC引脚测量得到的电压值<em>Pin Voltage</em>，能够显示计算得到的实际待测电压值<em>Input Voltage</em>。仿真电路能够实现自动切换显示单位（mV/V）功能，具备串口电压数据输出功能。</p>
+<p><img alt="image030" src="../数字电压表课程设计.assets/image030.png" /></p>
+<p style="text-align: center">图25：仿真OLED显示数据</p>
+
+<p><img alt="image031" src="../数字电压表课程设计.assets/image031.png" /></p>
+<p style="text-align: center">图26：串口调试器输出结果图</p>
+
+<h3 id="45">第4.5节 方案总结<a class="headerlink" href="#45" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本设计方案，通过构建分压电路，成功扩展了输入电压的测量范围，同时利用 ESP32 的内置12位 ADC 完成电压信号的采集工作，并借助I2C接口与 SSD1306 OLED 驱动芯片进行通信，通过显示屏和串口监视器实时显示测量电压值。</p>
+<p>方案的设计优势在于通过调整分压电阻（R1/R2）可轻松扩展测量量程（如0-30V），适应不同场景需求。代码中分压比参数可快速修改，无需重构核心逻辑。通过多次采样并计算平均值的方式，有效抑制随机噪声，提高了电压测量的准确性；通过ADC校准函数补偿非线性误差，优化精度；支持人机交互可视化，支持串口输出调试，便于开发验证。未来可以增加软件校准功能，支持用户手动输入标准电压值进行误差补偿；在硬件上增加过压保护器件，防止输入电压超限。</p>
+<p>本方案最大的特点就是硬件结构极为简单，无需额外模数转换芯片，硬件结构简单的同时，保留了较高的测量精度。此方案采用Arduino框架，代码非常容易在不同微控制器之间进行迁移，适配成本低。本方案非常适合集成于嵌入式系统中进行电源电压采集，适用于电子工程教学中电压测量原理的验证，可替代低精度万用表，用于非关键场合的电压粗略测量。</p>
+<h2 id="5_1">5 结论<a class="headerlink" href="#5_1" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>本课程设计通过三种不同方案实现了数字电压表，各方案在技术特点、性能指标和适用场景上存在明显差异，具体对比如下：</p>
+<p><strong>基于 ICL7135 的四位半数字电压表方案</strong></p>
+<ul>
+<li>
+<p><strong>优势</strong>：采用双积分 A/D 转换技术，具有极高的测量精度（四位半，分辨率 10μV）和强抗干扰能力，适合对精度要求高的低速测量场景，如工业仪表、精密测量等。电路原理清晰，通过各模块的合理设计，验证了双积分 ADC 在高精度测量中的优势。</p>
+</li>
+<li>
+<p><strong>不足</strong>：电路结构相对复杂，需要较多的外围元件（如基准电压产生电路、时钟信号产生电路等），焊接和调试过程较为繁琐，转换速度较慢，实时性较差。</p>
+</li>
+</ul>
+<p><strong>基于 ICL7107 芯片的数字电压表方案</strong></p>
+<ul>
+<li>
+<p><strong>优势</strong>：ICL7107 芯片内部集成了时钟发生器、积分器、比较器、七段译码器和驱动电路等，可直接驱动共阳极 LED 数码管，极大简化了外围电路设计，仅需约 10 个无源器件即可完成设计，具有很高的经济效益。电路设计简洁，功耗低（低于 10mW），显示稳定性卓越，适合低成本、对电路复杂度要求低的直流电压测量场景。</p>
+</li>
+<li>
+<p><strong>不足</strong>：测量精度为三位半，相对 ICL7135 方案精度较低，在需要更高精度测量的场合表现不足。</p>
+</li>
+</ul>
+<p><strong>基于 ESP32 单片机和 Arduino 的数字电压表方案</strong></p>
+<ul>
+<li>
+<p><strong>优势</strong>：硬件结构极为简单，无需额外模数转换芯片，利用 ESP32 内置 ADC 和 Arduino 框架，通过分压电路可轻松扩展测量量程（如 0-30V），适配不同场景需求。代码基于 Arduino 框架，易于在不同微控制器之间迁移，适配成本低，且支持 OLED 显示和串口输出调试，便于开发验证和人机交互。通过多采样平均滤波和 ADC 校准，有效抑制噪声和补偿误差，提高了测量准确性，适合集成于嵌入式系统中进行电源电压采集，以及电子工程教学和非关键场合的电压粗略测量。</p>
+</li>
+<li>
+<p><strong>不足</strong>：测量精度受 ESP32 内置 ADC 限制（实际有效位约 9-10 位），相比前两种基于专用 A/D 转换芯片的方案，精度相对较低。</p>
+</li>
+</ul>
+<p>表4：三种数字电压表设计方案维度对比表</p>
+<table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>ICL7135方案</th>
+<th>ICL7107方案</th>
+<th>ESP32方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>核心技术</strong></td>
+<td>双积分A/D转换</td>
+<td>集成双积分ADC+LED驱动</td>
+<td>单片机内置ADC+软件滤波</td>
+</tr>
+<tr>
+<td><strong>分辨率</strong></td>
+<td>10μV（四位半）</td>
+<td>100μV（三位半）</td>
+<td>0.8mV（12位ADC）</td>
+</tr>
+<tr>
+<td><strong>量程</strong></td>
+<td>±199.99mV</td>
+<td>0-200mV（可扩展至200V）</td>
+<td>0-3.3V（分压扩展至25V）</td>
+</tr>
+<tr>
+<td><strong>抗干扰能力</strong></td>
+<td>极强（双积分原理）</td>
+<td>强（集成化设计）</td>
+<td>一般（依赖软件滤波）</td>
+</tr>
+<tr>
+<td><strong>硬件复杂度</strong></td>
+<td>高（需外围时钟、译码电路）</td>
+<td>中（集成驱动，减少元件）</td>
+<td>低（仅分压电阻+单片机）</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>较高（专用芯片+多元件）</td>
+<td>极低（集成芯片）</td>
+<td>中等（通用单片机）</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>实验室精密测量</td>
+<td>工业仪表、手持设备</td>
+<td>嵌入式系统、教学实验</td>
+</tr>
+<tr>
+<td><strong>开发难度</strong></td>
+<td>高（需精密调试）</td>
+<td>中（依赖芯片手册）</td>
+<td>低（Arduino框架易用）</td>
+</tr>
+<tr>
+<td><strong>扩展性</strong></td>
+<td>有限（固定量程）</td>
+<td>可扩展量程</td>
+<td>灵活（软件可调分压比）</td>
+</tr>
+</tbody>
+</table>
+<p>通过对比三种设计方案，得出的结论如下：</p>
+<ul>
+<li>
+<p>ICL7135方案适合对精度要求极高的场景，但硬件复杂且成本较高；</p>
+</li>
+<li>
+<p>ICL7107方案在精度与成本间取得平衡，适合批量生产的工业仪表；</p>
+</li>
+<li>
+<p>ESP32方案在嵌入式集成和扩展性方面具有优势，适用于教学实验或非精密测量。</p>
+</li>
+</ul>
+<p>通过本次课程设计，我全面系统地学习了不同技术路径下数字电压表的设计方法，提升了从原理分析、电路设计到仿真调试的全流程能力，为今后电子系统设计积累了宝贵经验。</p>
+<h2 id="_2">参考文献<a class="headerlink" href="#_2" title="跳转至本节的锚点链接">&para;</a></h2>
+<ol>
+<li>Intersil. ICL7135 Data Sheet: 4½ Digit A/D Converter.</li>
+<li>Texas Instruments. ICL7107 CMOS Analog-to-Digital Converter.</li>
+<li>Espressif. ESP32 Technical Reference Manual.</li>
+<li>Arduino Voltage Monitoring System（<a href="https://github.com/Mashuk048/digitalVoltmeter">https://github.com/Mashuk048/digitalVoltmeter</a>）</li>
+<li>Digital Voltmeter Circuit（<a href="https://github.com/rwandhare/Digital-Voltmeter">https://github.com/rwandhare/Digital-Voltmeter</a>）</li>
+<li>Simple-Digital-Voltmeter（<a href="https://github.com/tejasgolhar2/Simple-Digital-Voltmeter">https://github.com/tejasgolhar2/Simple-Digital-Voltmeter</a>）</li>
+<li>Digital voltmeter using ICL7107（<a href="https://www.circuitstoday.com/digital-voltmeter-using-icl7107">https://www.circuitstoday.com/digital-voltmeter-using-icl7107</a>）</li>
+<li>Digital Voltmeter based on 7135 IC（<a href="https://github.com/NosherwanA/Digital_Voltmeter">https://github.com/NosherwanA/Digital_Voltmeter</a>）</li>
+<li>万用表之电压测量原理(基于ICL7107)-CSDN博客(<a href="https://blog.csdn.net/liht_1634/article/details/134671809">https://blog.csdn.net/liht_1634/article/details/134671809</a>)</li>
+</ol>
+<h2 id="_3">附录<a class="headerlink" href="#_3" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>附录1：</p>
+<p><img alt="image032" src="../数字电压表课程设计.assets/image032.png" /></p>
+<p style="text-align: center">图27：ICL7135设计电路图</p>
+
+<p>附录2：ESP32-数字电压表源程序与仿真设计图</p>
+<div class="language-c++ highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Wire.h&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Adafruit_GFX.h&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Adafruit_SSD1306.h&gt;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;esp_adc_cal.h&gt;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="cp">#define SCREEN_WIDTH 128 </span><span class="c1">// OLED显示屏宽度</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="cp">#define SCREEN_HEIGHT 64 </span><span class="c1">// OLED显示屏高度</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="cp">#define OLED_RESET -1    </span><span class="c1">// OLED复位引脚，如果没有则设为-1</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="cp">#define ADC_PIN 36       </span><span class="c1">// ESP32 ADC引脚，这里使用GPIO36</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="cp">#define SAMPLES 10       </span><span class="c1">// 取样次数</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a><span class="n">Adafruit_SSD1306</span><span class="w"> </span><span class="nf">display</span><span class="p">(</span><span class="n">SCREEN_WIDTH</span><span class="p">,</span><span class="w"> </span><span class="n">SCREEN_HEIGHT</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Wire</span><span class="p">,</span><span class="w"> </span><span class="n">OLED_RESET</span><span class="p">);</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a><span class="n">esp_adc_cal_characteristics_t</span><span class="w"> </span><span class="n">adc_chars</span><span class="p">;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos="12 "></span></a><span class="c1">// 初始化ADC</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos="13 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">initADC</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">  </span><span class="n">esp_adc_cal_characterize</span><span class="p">(</span><span class="n">ADC_UNIT_1</span><span class="p">,</span><span class="w"> </span><span class="n">ADC_ATTEN_DB_11</span><span class="p">,</span><span class="w"> </span><span class="n">ADC_WIDTH_BIT_12</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">adc_chars</span><span class="p">);</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">ADC_PIN</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT</span><span class="p">);</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><a href="#__codelineno-0-16"><span class="linenos" data-linenos="16 "></span></a><span class="p">}</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><a href="#__codelineno-0-17"><span class="linenos" data-linenos="17 "></span></a><span class="c1">// 读取ADC值并计算平均电压</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><a href="#__codelineno-0-18"><span class="linenos" data-linenos="18 "></span></a><span class="kt">float</span><span class="w"> </span><span class="nf">readADC</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><a href="#__codelineno-0-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">adc_sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><a href="#__codelineno-0-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="err">\</span><span class="o">&lt;</span><span class="w"> </span><span class="n">SAMPLES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><a href="#__codelineno-0-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">    </span><span class="n">adc_sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">esp_adc_cal_raw_to_voltage</span><span class="p">(</span><span class="n">analogRead</span><span class="p">(</span><span class="n">ADC_PIN</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">adc_chars</span><span class="p">);</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><a href="#__codelineno-0-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w"> </span><span class="c1">// 稍微延时以稳定读数</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><a href="#__codelineno-0-23"><span class="linenos" data-linenos="23 "></span></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><a href="#__codelineno-0-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">adc_sum</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">SAMPLES</span><span class="p">;</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><a href="#__codelineno-0-25"><span class="linenos" data-linenos="25 "></span></a><span class="p">}</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><a href="#__codelineno-0-26"><span class="linenos" data-linenos="26 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><a href="#__codelineno-0-27"><span class="linenos" data-linenos="27 "></span></a><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><a href="#__codelineno-0-28"><span class="linenos" data-linenos="28 "></span></a><span class="w">  </span><span class="c1">// 初始化OLED显示屏</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><a href="#__codelineno-0-29"><span class="linenos" data-linenos="29 "></span></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">display</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">SSD1306_SWITCHCAPVCC</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3C</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><a href="#__codelineno-0-30"><span class="linenos" data-linenos="30 "></span></a><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="s">&quot;SSD1306 allocation failed&quot;</span><span class="p">));</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><a href="#__codelineno-0-31"><span class="linenos" data-linenos="31 "></span></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;;);</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><a href="#__codelineno-0-32"><span class="linenos" data-linenos="32 "></span></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><a href="#__codelineno-0-33"><span class="linenos" data-linenos="33 "></span></a><span class="w">  </span><span class="n">display</span><span class="p">.</span><span class="n">clearDisplay</span><span class="p">();</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><a href="#__codelineno-0-34"><span class="linenos" data-linenos="34 "></span></a><span class="w">  </span><span class="n">display</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><a href="#__codelineno-0-35"><span class="linenos" data-linenos="35 "></span></a><span class="w">  </span><span class="n">initADC</span><span class="p">();</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a><a href="#__codelineno-0-36"><span class="linenos" data-linenos="36 "></span></a><span class="p">}</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><a href="#__codelineno-0-37"><span class="linenos" data-linenos="37 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a><a href="#__codelineno-0-38"><span class="linenos" data-linenos="38 "></span></a><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">voltage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readADC</span><span class="p">();</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><a href="#__codelineno-0-39"><span class="linenos" data-linenos="39 "></span></a><span class="w">  </span><span class="c1">// 假设经过分压电路，进行电压范围扩展，这里假设分压比为 5</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a><a href="#__codelineno-0-40"><span class="linenos" data-linenos="40 "></span></a><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">actual_voltage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">voltage</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="mf">4.096</span><span class="p">;</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a><a href="#__codelineno-0-41"><span class="linenos" data-linenos="41 "></span></a><span class="w">  </span><span class="n">display</span><span class="p">.</span><span class="n">clearDisplay</span><span class="p">();</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><a href="#__codelineno-0-42"><span class="linenos" data-linenos="42 "></span></a><span class="w">  </span><span class="n">display</span><span class="p">.</span><span class="n">setTextSize</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a><a href="#__codelineno-0-43"><span class="linenos" data-linenos="43 "></span></a><span class="w">  </span><span class="n">display</span><span class="p">.</span><span class="n">setTextColor</span><span class="p">(</span><span class="n">WHITE</span><span class="p">);</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><a href="#__codelineno-0-44"><span class="linenos" data-linenos="44 "></span></a><span class="w">  </span><span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><a href="#__codelineno-0-45"><span class="linenos" data-linenos="45 "></span></a><span class="w">  </span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Input Voltage:&quot;</span><span class="p">);</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a><a href="#__codelineno-0-46"><span class="linenos" data-linenos="46 "></span></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">actual_voltage</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><a href="#__codelineno-0-47"><span class="linenos" data-linenos="47 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><a href="#__codelineno-0-48"><span class="linenos" data-linenos="48 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">actual_voltage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a><a href="#__codelineno-0-49"><span class="linenos" data-linenos="49 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;V&quot;</span><span class="p">);</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a><a href="#__codelineno-0-50"><span class="linenos" data-linenos="50 "></span></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a><a href="#__codelineno-0-51"><span class="linenos" data-linenos="51 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a><a href="#__codelineno-0-52"><span class="linenos" data-linenos="52 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">actual_voltage</span><span class="p">);</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a><a href="#__codelineno-0-53"><span class="linenos" data-linenos="53 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;mV&quot;</span><span class="p">);</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a><a href="#__codelineno-0-54"><span class="linenos" data-linenos="54 "></span></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a><a href="#__codelineno-0-55"><span class="linenos" data-linenos="55 "></span></a><span class="w">  </span><span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a><a href="#__codelineno-0-56"><span class="linenos" data-linenos="56 "></span></a><span class="w">  </span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Pin Voltage:&quot;</span><span class="p">);</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a><a href="#__codelineno-0-57"><span class="linenos" data-linenos="57 "></span></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">voltage</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a><a href="#__codelineno-0-58"><span class="linenos" data-linenos="58 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">);</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a><a href="#__codelineno-0-59"><span class="linenos" data-linenos="59 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">voltage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a><a href="#__codelineno-0-60"><span class="linenos" data-linenos="60 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;V&quot;</span><span class="p">);</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a><a href="#__codelineno-0-61"><span class="linenos" data-linenos="61 "></span></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a><a href="#__codelineno-0-62"><span class="linenos" data-linenos="62 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">);</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a><a href="#__codelineno-0-63"><span class="linenos" data-linenos="63 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">voltage</span><span class="p">);</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a><a href="#__codelineno-0-64"><span class="linenos" data-linenos="64 "></span></a><span class="w">    </span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;mV&quot;</span><span class="p">);</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a><a href="#__codelineno-0-65"><span class="linenos" data-linenos="65 "></span></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a><a href="#__codelineno-0-66"><span class="linenos" data-linenos="66 "></span></a><span class="w">  </span><span class="n">display</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67"></a><a href="#__codelineno-0-67"><span class="linenos" data-linenos="67 "></span></a><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Input Voltage: &quot;</span><span class="p">);</span>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68"></a><a href="#__codelineno-0-68"><span class="linenos" data-linenos="68 "></span></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">actual_voltage</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69"></a><a href="#__codelineno-0-69"><span class="linenos" data-linenos="69 "></span></a><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">actual_voltage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70"></a><a href="#__codelineno-0-70"><span class="linenos" data-linenos="70 "></span></a><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot; V&quot;</span><span class="p">);</span>
+</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71"></a><a href="#__codelineno-0-71"><span class="linenos" data-linenos="71 "></span></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72"></a><a href="#__codelineno-0-72"><span class="linenos" data-linenos="72 "></span></a><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">actual_voltage</span><span class="p">);</span>
+</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73"></a><a href="#__codelineno-0-73"><span class="linenos" data-linenos="73 "></span></a><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot; mV&quot;</span><span class="p">);</span>
+</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74"></a><a href="#__codelineno-0-74"><span class="linenos" data-linenos="74 "></span></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a><a href="#__codelineno-0-75"><span class="linenos" data-linenos="75 "></span></a><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Pin Voltage: &quot;</span><span class="p">);</span>
+</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76"></a><a href="#__codelineno-0-76"><span class="linenos" data-linenos="76 "></span></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">voltage</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77"></a><a href="#__codelineno-0-77"><span class="linenos" data-linenos="77 "></span></a><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">voltage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span>
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a><a href="#__codelineno-0-78"><span class="linenos" data-linenos="78 "></span></a><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot; V&quot;</span><span class="p">);</span>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a><a href="#__codelineno-0-79"><span class="linenos" data-linenos="79 "></span></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80"></a><a href="#__codelineno-0-80"><span class="linenos" data-linenos="80 "></span></a><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">voltage</span><span class="p">);</span>
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81"></a><a href="#__codelineno-0-81"><span class="linenos" data-linenos="81 "></span></a><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot; mV&quot;</span><span class="p">);</span>
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82"></a><a href="#__codelineno-0-82"><span class="linenos" data-linenos="82 "></span></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83"></a><a href="#__codelineno-0-83"><span class="linenos" data-linenos="83 "></span></a><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84"></a><a href="#__codelineno-0-84"><span class="linenos" data-linenos="84 "></span></a><span class="p">}</span><span class="w">    </span>
+</span></code></pre></div>
+<p><img src="../数字电压表课程设计.assets/image033.png" alt="image033" style="zoom:48%;" /></p>
+<p style="text-align: center">图28：基于ESP32的数字电压表的仿真电路图</p>
+
+<p>附录3：基于ICL7107集成芯片的数字电压表原理图和仿真测试图</p>
+<p><img src="../数字电压表课程设计.assets/image034.png" alt="image034" style="zoom: 33%;" /></p>
+<p style="text-align: center">图29：基于ICL7107集成芯片的数字电压表仿真测试图</p>
+
+<p><img src="../数字电压表课程设计.assets/image035.gif" alt="image035" style="zoom: 80%;" /></p>
+<p style="text-align: center">图30：ICL7107仿真电路所参考的原理图</p>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">本科课程笔记</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">实践设计</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面有帮助" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面可以改进" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢您的反馈!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+                感谢您的反馈! 笔者将努力改进此页面
+  </br>您可以使用<a href="/basic/contact-form/">反馈表单</a>来帮助我
+
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <!-- 头部区域：左对齐聚合布局 -->
+  <div class="comments-header">
+    <h2 id="__comments">评论</h2>
+    
+    <!-- 切换按钮容器 -->
+    <div class="comment-switch-wrapper" id="switch-wrapper" data-tip="当前正在使用 GitHub 登录评论">
+      <button id="comment-switch-btn" onclick="toggleCommentSystem()">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path fill="currentColor" d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+        </svg>
+        <span>切换模式</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Giscus 容器 -->
+  <div id="giscus-container">
+    <script src="https://giscus.app/client.js"
+            data-repo="weigo6/sufine-giscus"
+            data-repo-id="R_kgDOQvA4xA"
+            data-category="General"
+            data-category-id="DIC_kwDOQvA4xM4C0P1S"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+
+  <!-- Twikoo 容器 (默认隐藏) -->
+  <div id="twikoo-container" style="display: none;">
+    <div id="twikoo"></div>
+  </div>
+
+  <!-- 样式与逻辑 -->
+  <style>
+    /* 1. 头部布局：保持左对齐和分割线 */
+    .comments-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--md-typeset-color--lighter);
+    }
+
+    .comments-header h2 {
+        margin: 0 !important;
+        line-height: 1.2;
+    }
+
+    /* 2. 按钮样式：保持 SVG 图标和 flex 布局 */
+    #comment-switch-btn {
+        background: transparent;
+        border: 1px solid var(--md-typeset-color--lighter);
+        color: var(--md-typeset-color--light);
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 28px;
+        line-height: 1;
+    }
+    
+    #comment-switch-btn:hover {
+        border-color: var(--md-accent-fg-color);
+        color: var(--md-accent-fg-color);
+        background: var(--md-accent-bg-color--transparent);
+    }
+
+    /* 3. Tooltip 样式重构：圆润玻璃磨砂风 */
+    .comment-switch-wrapper {
+        position: relative;
+    }
+
+    .comment-switch-wrapper::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: 115%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px); /* 初始下沉一点，用于浮动动画 */
+        
+        /* 核心：玻璃磨砂效果 */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        
+        /* 亮色模式默认：半透明白底 + 黑字 (柔和灰黑) */
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(0, 0, 0, 0.05); /* 极细微的边界线 */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* 柔和的漫反射投影 */
+        
+        padding: 6px 14px;
+        border-radius: 20px; /* 大圆角，胶囊形状 */
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        
+        /* 动画与可见性 */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* 4. 暗色模式适配：半透明黑底 + 白字 */
+    [data-md-color-scheme="slate"] .comment-switch-wrapper::after {
+        background: rgba(20, 20, 20, 0.7);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 悬浮交互：上浮并淡入 */
+    .comment-switch-wrapper:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Twikoo 容器样式 */
+    #twikoo-container {
+        margin-top: 1rem;
+    }
+    [data-md-color-scheme="slate"] .tk-content {
+        color: var(--md-typeset-color) !important;
+    }
+  </style>
+
+  <script>
+    var isTwikooLoaded = false;
+
+    function toggleCommentSystem() {
+      var giscusContainer = document.getElementById('giscus-container');
+      var twikooContainer = document.getElementById('twikoo-container');
+      var wrapper = document.getElementById('switch-wrapper');
+      
+      if (twikooContainer.style.display === 'none') {
+        // === 切换到 Twikoo ===
+        giscusContainer.style.display = 'none';
+        twikooContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 Twikoo 匿名评论');
+        
+        if (!isTwikooLoaded) {
+          loadTwikooScript();
+        }
+      } else {
+        // === 切换回 Giscus ===
+        twikooContainer.style.display = 'none';
+        giscusContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 GitHub 登录评论');
+      }
+    }
+
+    function loadTwikooScript() {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/twikoo@latest/dist/twikoo.all.min.js";
+      script.async = true;
+      script.onload = function() {
+        twikoo.init({
+          envId: 'https://twikoo.sufine.top',
+          el: '#twikoo',
+          lang: 'zh-CN'
+        }).catch(console.error);
+        isTwikooLoaded = true;
+      };
+      document.body.appendChild(script);
+    }
+  </script>
+
+  <!-- Giscus 主题同步 -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+          var frame = document.querySelector(".giscus-frame")
+          if (frame) {
+            frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app")
+          }
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    
+      
+      <nav
+        class="md-footer__inner md-grid"
+        aria-label="页脚"
+        
+      >
+
+        <!-- Link to previous page -->
+        
+          
+          <a
+            href="../%E6%AF%9B%E6%A6%82%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+            class="md-footer__link md-footer__link--prev"
+            aria-label="上一页: 毛概复习笔记"
+          >
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                毛概复习笔记
+              </div>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          
+          <a
+            href="../PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"
+            class="md-footer__link md-footer__link--next"
+            aria-label="下一页: PLC综合实训课程设计"
+          >
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                PLC综合实训课程设计
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Luwei
+    </div>
+  
+  
+</div>
+
+      <!-- Site Visits -->
+      <style>
+      .site-visit-count {
+        padding: 0 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.65rem;
+        color: var(--md-default-fg-color);
+      }
+      </style>
+      <div class="site-visit-count">
+        本站访问量：<span id="site_pv">--</span>&nbsp;| 当前页浏览量：<span id="page_pv">--</span>
+      </div>
+
+      <!-- Social links -->
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://bucket.rutno.com/d?sid=eqtRzdKfuGlmIm2wX3IwXffreqnr&e=1769434119&sig=aca3206c8defbfd303f1c5b6b36f51416243315723ae7e667fc98f7a5bf29111" target="_blank" rel="noopener" title="关注微信公众号" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/fSvCWA9say" target="_blank" rel="noopener" title="加入 Discord 服务器" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/weigo6" target="_blank" rel="noopener" title="访问 GitHub 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://gitee.com/weigo6" target="_blank" rel="noopener" title="访问 Gitee 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.15a.59.59 0 0 1-.592-.592v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://space.bilibili.com/512710834" target="_blank" rel="noopener" title="访问 Bilibili 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M488.6 104.1c16.7 18.1 24.4 39.7 23.3 65.7v202.4c-.4 26.4-9.2 48.1-26.5 65.1-17.2 17-39.1 25.9-65.5 26.7H92c-26.4-.8-48.2-9.8-65.3-27.2S.7 396.5 0 368.2V169.8c.8-26 9.7-47.6 26.7-65.7C43.8 87.8 65.5 78.8 92 78h29.4L96 52.2c-5.7-5.7-8.6-13-8.6-21.8S90.3 14.3 96 8.6 109 0 117.9 0s16.1 2.9 21.9 8.6L213.1 78h88l74.5-69.4C381.7 2.9 389.2 0 398 0s16.1 2.9 21.9 8.6c5.7 5.7 8.6 13 8.6 21.8s-2.9 16.1-8.6 21.8L394.6 78h29.3c26.4.8 48 9.8 64.7 26.1m-38.8 69.7c-.4-9.6-3.7-17.4-10.7-23.5-5.2-6.1-14-9.4-22.7-9.8H96c-9.6.4-17.4 3.7-23.6 9.8-6.1 6.1-9.4 13.9-9.8 23.5v194.4c0 9.2 3.3 17 9.8 23.5s14.4 9.8 23.6 9.8h320.4c9.2 0 17-3.3 23.3-9.8s9.7-14.3 10.1-23.5zm-264.3 42.7c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.2 6.3-14 9.5-23.6 9.5s-17.5-3.2-23.6-9.5-9.4-14-9.8-23.2v-33.3c.4-9.1 3.8-16.9 10.1-23.2s13.2-9.6 23.3-10c9.2.4 17 3.7 23.3 10m191.5 0c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2s-14 9.5-23.6 9.5-17.4-3.2-23.6-9.5c-7-6.3-9.4-14-9.7-23.2v-33.3c.3-9.1 3.7-16.9 10-23.2s14.1-9.6 23.3-10c9.2.4 17 3.7 23.3 10"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yang92636@qq.com" target="_blank" rel="noopener" title="通过电子邮件联系我" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["navigation.instant","navigation.instant.progress","navigation.tracking","navigation.tabs","navigation.tabs.sticky","navigation.sections","navigation.path","navigation.indexes","navigation.top","toc.follow","search.highlight","content.action.edit","content.action.view","navigation.footer","content.code.copy","content.code.select","content.code.annotate","content.footnote.tooltips","content.tooltips"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+        <script src="../../../javascripts/feedback.js"></script>
+      
+        <script src="../../../javascripts/count.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+      
+        <script src="../../../javascripts/ask_ai.js"></script>
+      
+        <script src="../../../javascripts/APlayer.min.js"></script>
+      
+        <script src="../../../javascripts/Meting.min.js"></script>
+      
+        <script src="../../../javascripts/music_player.js"></script>
+      
+        <script src="../../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

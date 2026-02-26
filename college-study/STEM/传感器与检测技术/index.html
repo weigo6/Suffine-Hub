@@ -1,0 +1,5257 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="不必倾城倾国色，斜阳影里自婷婷。">
+      
+      
+        <meta name="author" content="Luwei">
+      
+      
+        <link rel="canonical" href="https://sufine.top/college-study/STEM/%E4%BC%A0%E6%84%9F%E5%99%A8%E4%B8%8E%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF/">
+      
+      
+        <link rel="prev" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+      
+      
+        <link rel="next" href="../%E4%BA%A4%E9%80%9A%E8%8B%B1%E8%AF%AD%E7%AD%94%E8%BE%A9%E8%AE%B2%E7%A8%BF/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/logo.webp">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>传感器与检测技术 - Suffine Hub</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/ask_ai.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/APlayer.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/music_player.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+  <!-- Umami Analytics 集成脚本，支持即时导航（SPA单页应用）模式，屏蔽navigation.tracking (滚动锚点变化) 干扰 -->
+<!-- 1. 基础统计脚本 -->
+<!-- 使用 defer 异步加载，data-auto-track="false" 关闭自动上报，交由下方手动接管 -->
+<script defer 
+  src="https://cloud.umami.is/script.js" 
+  data-website-id="c53576ff-f759-4495-b8ec-bb653e56ce58"
+  data-auto-track="false" 
+></script>
+
+<!-- 2. 逻辑控制脚本 -->
+<script>
+  /* Umami Analytics Integration for MkDocs Material */
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    // 封装上报函数：统一处理，强制使用 pathname (剔除 #hash)
+    var trackPageview = function() {
+      // 忽略本地开发环境
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        console.log("Umami tracking disabled on localhost"); //方便调试确认
+        return;
+      }
+
+      if (typeof umami !== "undefined") {
+        umami.track(function(props) { 
+          return { ...props, url: window.location.pathname } 
+        });
+      }
+    };
+
+    // A. 首次加载时的手动上报
+    // 页面刚打开时，script (defer) 执行完毕且 DOM 准备好后执行
+    trackPageview();
+
+    // B. 监听 MkDocs 的 SPA 导航事件 (Instant Loading)
+    // document$ 是一个 Observable，仅在 DOM 内容被替换时触发
+    var isFirstEmit = true;
+    
+    document$.subscribe(function() {
+      // document$ 在订阅瞬间会发射一次当前页面的信号
+      // 我们通过标志位跳过这一次，避免与步骤 A 重复统计
+      if (isFirstEmit) {
+        isFirstEmit = false;
+        return;
+      }
+      
+      // 只有真正的页面跳转（内容替换）才会执行到这里
+      // 单纯的 Hash 变化（目录跳转/滚动）不会触发 document$
+      trackPageview();
+    });
+  });
+</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Suffine Hub" class="md-header__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Suffine Hub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              传感器与检测技术
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  关于本站
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  课程学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tech-dev/" class="md-tabs__link">
+          
+  
+  技术开发
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../basic/guest-board/" class="md-tabs__link">
+        
+  
+  留言板
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../basic/friendly-links/" class="md-tabs__link">
+          
+  
+  友链
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://nav.sufine.top" class="md-tabs__link">
+        
+  
+  网址导航
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Suffine Hub" class="md-nav__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    Suffine Hub
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    关于本站
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    课程学习
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../RailSig/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 2h7c.8 0 1.56.32 2.12.88S15 4.2 15 5v1h-2V4H4v7h5v5H8l-3 3H4v-2l1-1c-.8 0-1.56-.32-2.12-.88S2 13.8 2 13V5c0-.8.32-1.56.88-2.12S4.2 2 5 2m.71 10.29C5.5 12.11 5.27 12 5 12c-.26 0-.5.11-.71.29-.18.21-.29.45-.29.71 0 .27.11.5.29.71.21.19.45.29.71.29.27 0 .5-.1.71-.29.19-.21.29-.44.29-.71 0-.26-.1-.5-.29-.71M11 11c0-1.66 1-3 4-3h3c3 0 4 1.34 4 3v7c0 .74-.4 1.39-1 1.73V21c0 .55-.45 1-1 1s-1-.45-1-1v-1h-5v1c0 .55-.45 1-1 1s-1-.45-1-1v-1.27c-.6-.34-1-.99-1-1.73zm2-1v4h7v-4zm1 8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1m6-1c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号与控制
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    轨道交通信号与控制
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E6%A6%82%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-5V6h5m-1.5 11a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5M11 11H6V6h5M7.5 17A1.5 1.5 0 0 1 6 15.5 1.5 1.5 0 0 1 7.5 14 1.5 1.5 0 0 1 9 15.5 1.5 1.5 0 0 1 7.5 17M12 2c-4.42 0-8 .5-8 4v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5v.5h12v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.58-4-8-4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通概论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%B8%80/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m8-9h-3V8.86c1.72-.45 3-2 3-3.86h-3V4a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1H4c0 1.86 1.28 3.41 3 3.86V10H4c0 1.86 1.28 3.41 3 3.86V15H4c0 1.86 1.28 3.41 3 3.86V20a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1.14c1.72-.45 3-2 3-3.86h-3v-1.14c1.72-.45 3-2 3-3.86"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号基础一
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%BA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.67 10.5c-1.27 0-2.4.8-2.82 2h-1.68V7.77l3.49 2.09 1-1.72L14.11 6l3.57-2.14-1-1.72-3.51 2.09V2h-2v2.23L7.68 2.14l-1 1.72L10.23 6 6.66 8.14l1 1.72 3.51-2.09v4.73H9.5c-1.14-3.18-5.84-2.37-5.84 1s4.7 4.18 5.84 1h1.67V20a2 2 0 0 0-2 2h6a2 2 0 0 0-2-2v-5.5h1.68c.81 2.3 3.88 2.72 5.28.73s-.03-4.73-2.46-4.73m-11 4c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1m11 0c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通基础二
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E5%8C%BA%E9%97%B4%E4%BF%A1%E5%8F%B7%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-3.18C14.4 9.84 13.3 9 12 9s-2.4.84-2.82 2H6c-.33 0-2-.1-2-2V8c0-1.83 1.54-2 2-2h10.18C16.6 7.16 17.7 8 19 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3c-1.3 0-2.4.84-2.82 2H6C4.39 4 2 5.06 2 8v1c0 2.94 2.39 4 4 4h3.18c.42 1.16 1.52 2 2.82 2s2.4-.84 2.82-2H18c.33 0 2 .1 2 2v1c0 1.83-1.54 2-2 2H7.82C7.4 16.84 6.3 16 5 16a3 3 0 0 0-3 3 3 3 0 0 0 3 3c1.3 0 2.4-.84 2.82-2H18c1.61 0 4-1.07 4-4v-1c0-2.93-2.39-4-4-4m1-7a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1M5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    区间信号自动控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A6%E7%AB%99%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 16V4H3v12zm0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v2h2v2H8v-2h2v-2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2zM5 6h9v5H5zm10 0h4v2h-4zm4 3v5h-4V9zM5 12h4v2H5zm5 0h4v2h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    车站信号控制系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    理工科专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    理工科专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matlab-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v2h3v12h-3v2h5V4M4 4v16h5v-2H6V6h3V4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Matlab入门学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC-S7-200-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    西门子PLC S7-200
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC-ModbusRTU/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 3h10v2h2v3h-3v6H8V8H5V5h2zm10 6h2v5h-2zm-6 6h2v7h-2zM5 9h2v5H5z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC ModbusRTU 学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h1v2H2v2h4v2H5c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2zm0 2h4v3h-4zM5 17h4v3H5zm10 0h4v3h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与检测技术
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与检测技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        传感器的基本特性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="传感器的基本特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        迟滞误差
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="迟滞误差">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        迟滞误差的一般表达式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重复性误差
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="重复性误差">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最大偏差法求重复性误差的步骤与公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最小二乘法拟合直线
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最小二乘法拟合直线">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线性度（非线性误差）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        灵敏度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动态误差
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="动态误差">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tau_0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时间常数（\(\tau_0\)）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一阶系统微分方程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选填简答题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电阻式传感器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="电阻式传感器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        应变片工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        应力 - 应变关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        温度与热膨胀系数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        应变片测量电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电感式传感器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="电感式传感器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电感线圈的阻抗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四臂等阻抗电桥的平衡条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选填简答题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电容式传感器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="电容式传感器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平板电容的工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平板电容的基本公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        压电式传感器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="压电式传感器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选填简答题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        霍尔式传感器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="霍尔式传感器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选填简答题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%A4%E9%80%9A%E8%8B%B1%E8%AF%AD%E7%AD%94%E8%BE%A9%E8%AE%B2%E7%A8%BF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    专业外语课程-交通英语
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 22a3 3 0 0 1-3-3c0-.6.18-1.16.5-1.63L9 7.81V6a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1v1.81l5.5 9.56c.32.47.5 1.03.5 1.63a3 3 0 0 1-3 3zm-1-3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1c0-.21-.07-.41-.18-.57l-2.29-3.96L14 17l-5.07-5.07-3.75 6.5c-.11.16-.18.36-.18.57m8-9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理实验报告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8B%8F%E5%B7%9E%E8%AF%84%E5%BC%B9%E9%89%B4%E8%B5%8F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 5a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c2.67 0 8 1.34 8 4v2H1v-2c0-2.66 5.33-4 8-4m7.76-9.64c2.02 2.2 2.02 5.25 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89zM20.07 2c3.93 4.05 3.9 10.11 0 14l-1.63-1.63c2.77-3.18 2.77-7.72 0-10.74z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    苏州评弹鉴赏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%AF%9B%E6%A6%82%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h2v20H7zm12 7-8 5.6V3.4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    毛概复习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E5%AD%97%E7%94%B5%E5%8E%8B%E8%A1%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    数字电压表制作课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.9 18.45c1.35 0 2.45-1.1 2.45-2.45s-1.1-2.45-2.45-2.45c-1.36 0-2.45 1.1-2.45 2.45s1.09 2.45 2.45 2.45m5.2-1.77 1.48 1.16c.13.11.17.29.08.45l-1.4 2.42a.35.35 0 0 1-.43.15l-1.74-.7c-.36.28-.76.51-1.18.69l-.27 1.85c-.02.17-.17.3-.34.3h-2.8c-.18 0-.32-.13-.35-.3l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.75.7c-.15.06-.34 0-.42-.15l-1.4-2.42a.35.35 0 0 1 .08-.45l1.48-1.16-.05-.68.05-.69-1.48-1.15a.35.35 0 0 1-.08-.45l1.4-2.42c.08-.16.27-.22.42-.16l1.75.71c.36-.28.75-.52 1.18-.69l.26-1.86c.03-.16.17-.29.35-.29h2.8c.17 0 .32.13.34.29l.27 1.86c.42.17.82.41 1.18.69l1.74-.71c.17-.06.34 0 .43.16l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.15.05.69zM6.69 8.07c.87 0 1.57-.7 1.57-1.57s-.7-1.58-1.57-1.58A1.58 1.58 0 0 0 5.11 6.5c0 .87.71 1.57 1.58 1.57m3.34-1.13.97.74c.07.07.09.19.03.29l-.9 1.56c-.05.1-.17.14-.27.1l-1.12-.45-.74.44-.19 1.19c-.02.11-.11.19-.22.19h-1.8c-.12 0-.21-.08-.23-.19L5.4 9.62l-.76-.44-1.14.45c-.09.04-.2 0-.26-.1l-.9-1.56c-.06-.1-.03-.22.05-.29l.95-.74-.03-.44.03-.44-.95-.74a.23.23 0 0 1-.05-.29l.9-1.56c.06-.1.17-.14.26-.1l1.13.45.77-.44.16-1.19c.02-.11.11-.19.23-.19h1.8c.11 0 .2.08.22.19L8 3.38l.74.44 1.12-.45c.1-.04.22 0 .27.1l.9 1.56c.06.1.04.22-.03.29l-.97.74.03.44z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC综合实训课程设计
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%BF%A1%E5%8F%B7%E9%85%8D%E6%97%B6%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.1 4.8c-.1-.5-.5-.8-1-.8H13l.2 3h-2.4l.2-3H6.8c-.5 0-.9.4-1 .8l-2.7 14c-.1.6.4 1.2 1 1.2H10l.3-5h3.4l.3 5h5.8c.6 0 1.1-.6 1-1.2zM10.4 13l.2-4h2.6l.2 4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    交叉口信号配时课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8C%E9%9D%A2%E9%95%9C%E6%B5%8B%E7%A3%81%E8%87%B4%E4%BC%B8%E7%BC%A9%E7%B3%BB%E6%95%B0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.29 10.28 3.24-3.25 1.06 1.06-3.24 3.25zm.41 4.33 5.66-5.66L15.42 10l-5.66 5.67zM18 3v18H6V3zm2-2H4v22h16z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    菲涅尔双面镜测磁致伸缩系数实验
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Kaoyan/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研相关科目
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    考研相关科目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-math-hm/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.42 5.29c-1.1-.1-2.07.71-2.17 1.82L10 10h2.82v2h-3l-.44 5.07A4.001 4.001 0 0 1 2 18.83l1.5-1.5c.33 1.05 1.46 1.64 2.5 1.3.78-.24 1.33-.93 1.4-1.74L7.82 12h-3v-2H8l.27-3.07a4.01 4.01 0 0 1 4.33-3.65c1.26.11 2.4.81 3.06 1.89l-1.5 1.5c-.25-.77-.93-1.31-1.74-1.38M22 13.65l-1.41-1.41-2.83 2.83-2.83-2.83-1.43 1.41 2.85 2.85-2.85 2.81 1.43 1.41 2.83-2.83 2.83 2.83L22 19.31l-2.83-2.81z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-高数知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-math-la/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-线代知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-eng-write/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.54 3.5 4.96 4.97-1.43 1.41-4.95-4.95zM3.5 19.78l6.5-6.47c-.1-.31-.03-.7.23-.96.39-.39 1.03-.39 1.42 0 .39.4.39 1.03 0 1.42-.26.26-.65.33-.96.23l-6.47 6.5 10.61-3.55 3.53-6.36-4.94-4.95-6.37 3.53z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-作文写作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%80%83%E7%A0%94%E6%A0%B8%E5%BF%83926%E8%AF%8D%E6%B1%87%E5%8F%8A%E6%8B%93%E5%B1%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2zm0 2h2v2H3m12-.5V9a2 2 0 0 0-2-2H9v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M13 15h-2v-2h2zm0-4h-2V9h2m6-2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1h-2v1h-2V9h2v1h2V9a2 2 0 0 0-2-2Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-核心词汇926词
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-1.27 0-2.4.8-2.82 2H3v2h1.95L2 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3L6.05 7h3.12c.33.85.98 1.5 1.83 1.83V20H2v2h20v-2h-9V8.82c.85-.32 1.5-.97 1.82-1.82h3.13L15 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3l-2.95-7H21V5h-6.17C14.4 3.8 13.27 3 12 3m0 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-6.5 5.25L7 14H4zm13 0L20 14h-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研政治-知识点笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%87%AA%E6%8E%A7-%E6%A0%B9%E8%BD%A8%E8%BF%B9%E6%B3%95%E5%88%99/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.96 11.31C10.82 8.1 11.5 6 13 6s2.18 2.1 3.04 5.31C17 14.92 18.1 19 22 19v-2c-2.2 0-3-2.46-4.03-6.2C17.08 7.46 16.15 4 13 4s-4.08 3.46-4.97 6.8C7.03 14.54 6.2 17 4 17V2H2v20h20v-2H4v-1c3.9 0 5-4.08 5.96-7.69"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    自动控制原理-根轨迹法则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    技术开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技术开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Markdown/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12c.79 0 1.44.63 1.44 1.41v9.18c0 .78-.65 1.41-1.44 1.41M6.81 15.19v-3.66l1.92 2.35 1.92-2.35v3.66h1.93V8.81h-1.93l-1.92 2.35-1.92-2.35H4.89v6.38zM19.69 12h-1.92V8.81h-1.92V12h-1.93l2.89 3.28z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown相关
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Markdown相关
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/markdown-in-5min/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4zm10 14.5-4-4-4 4V20h8zm-4-5 4-4V4H8v3.5zM10 6h4v.75l-2 2-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 5 分钟上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/LaTeX-math/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 6H8.83l6 6-6 6H18v2H6v-2l6-6-6-6V4h12z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在Markdown中编写数学公式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/zensical-markdown/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5zm2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63s2.59.23 3.5.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Zensical 中使用 Markdown 高效写作
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/markdown-typora/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7V5h2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L18 9V2h1c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7zm4 4H5v2h2zm0-4V5H5v2zm0 12v-2H5v2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 与 Typora 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/typora-theme/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 12a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 17.5 9a1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-3-4A1.5 1.5 0 0 1 13 6.5 1.5 1.5 0 0 1 14.5 5 1.5 1.5 0 0 1 16 6.5 1.5 1.5 0 0 1 14.5 8m-5 0A1.5 1.5 0 0 1 8 6.5 1.5 1.5 0 0 1 9.5 5 1.5 1.5 0 0 1 11 6.5 1.5 1.5 0 0 1 9.5 8m-3 4A1.5 1.5 0 0 1 5 10.5 1.5 1.5 0 0 1 6.5 9 1.5 1.5 0 0 1 8 10.5 1.5 1.5 0 0 1 6.5 12M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9 1.5 1.5 0 0 0 1.5-1.5c0-.39-.15-.74-.39-1-.23-.27-.38-.62-.38-1a1.5 1.5 0 0 1 1.5-1.5H16a5 5 0 0 0 5-5c0-4.42-4.03-8-9-8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Typora 软件主题分享与记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/WebDev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.19 14.19 6 18l3.81-8.19L18 6m-6-4A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 8.9a1.1 1.1 0 0 0-1.1 1.1 1.1 1.1 0 0 0 1.1 1.1 1.1 1.1 0 0 0 1.1-1.1 1.1 1.1 0 0 0-1.1-1.1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Web 相关开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web 相关开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%BD%BF%E7%94%A8EO-Pages%E6%89%98%E7%AE%A1Zensical%E7%AB%99%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83s-2.05.78-2.83 0m-5.66 7.07-1.41-1.41zM6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 EdgeOne Pages 托管 Zensical 站点
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E8%A1%A8%E5%8D%95%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.13c-.15.01-.29.06-.39.17l-1 1 2.05 2 1-1c.22-.21.22-.56 0-.77l-1.24-1.23a.56.56 0 0 0-.38-.17m-2 1.75L13 19.94V22h2.06l6.06-6.07M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7v-.89l8.24-8.22c.47-.49 1.12-.76 1.8-.76.34 0 .68.06 1 .19V6c0-1.12-.92-2-2.04-2m0 4-8 5-8-5V6l8 5 8-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加邮件表单功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E5%9F%BA%E4%BA%8EEO-Pages%E5%AE%9E%E7%8E%B0%E7%AB%99%E7%82%B9%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于 EdgeOne Pages 实现站点访问统计功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0AI%E9%97%AE%E7%AD%94%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-1.26 2.75L15 5l2.74 1.26L19 9l1.25-2.74L23 5l-2.75-1.25M9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5M19 15l-1.26 2.74L15 19l2.74 1.25L19 23l1.25-2.75L23 19l-2.75-1.26"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加 AI 问答功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加音乐播放器功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Embedded/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E5%9B%9B%E8%BD%AE%E7%A7%BB%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 0 0 5 15.5 2.5 2.5 0 0 0 7.5 18a2.5 2.5 0 0 0 2.5-2.5A2.5 2.5 0 0 0 7.5 13m9 0a2.5 2.5 0 0 0-2.5 2.5 2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于STM32的四轮移动机器人设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ERFID%E7%9A%84%E6%99%BA%E8%83%BD%E4%BB%93%E5%82%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h2v2H6zm6-16L2 8v13h2v-8h16v8h2V8zm-4 8H4V9h4zm6 0h-4V9h4zm6 0h-4V9h4zM6 15h2v2H6zm4 0h2v2h-2zm0 4h2v2h-2zm4 0h2v2h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于RFID的智能仓储管理系统设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/2024%E7%94%B5%E8%B5%9BH%E9%A2%98%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2c-.9 0-2 1-2 2H8c0-1-1.1-2-2-2H2v9c0 1 1 2 2 2h2.2c.4 2 1.7 3.7 4.8 4v2.08C8 19.54 8 22 8 22h8s0-2.46-3-2.92V17c3.1-.3 4.4-2 4.8-4H20c1 0 2-1 2-2V2zM6 11H4V4h2zm14 0h-2V4h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024电赛H题参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/2024%E8%A5%BF%E9%97%A8%E5%AD%90%E6%9D%AF%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4v2l5.81 4.36a7.004 7.004 0 0 0-4.46 8.84 6.996 6.996 0 0 0 8.84 4.46 7 7 0 0 0 0-13.3L20 4zm-5.06 17.5L12 17.78 9.06 19.5l.78-3.33-2.59-2.24 3.41-.29L12 10.5l1.34 3.14 3.41.29-2.59 2.24z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024西门子杯参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    蓝桥杯嵌入式与STM32学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/PCB%E8%AE%BE%E8%AE%A1%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0 3 7l1.63 1.27L12 14l7.36-5.73L21 7zm7.37 10.73L12 16.47l-7.38-5.73L3 12l9 7 9-7zm0 5L12 21.47l-7.38-5.73L3 17l9 7 9-7z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PCB设计注意事项
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ECD4017%E7%9A%84%E7%AE%80%E6%98%93%E5%AF%86%E7%A0%81%E5%99%A8%E6%8E%A7%E5%88%B6%E8%A3%85%E7%BD%AE/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m5.6-4c-.8-2.3-3-4-5.6-4-3.3 0-6 2.7-6 6s2.7 6 6 6c2.6 0 4.8-1.7 5.6-4H16v4h4v-4h3v-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于CD4017的简易密码器控制装置
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Software/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v10H4m16 2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    软件程序开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件程序开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/%E5%9F%BA%E4%BA%8EAST%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E7%9A%84Python%E6%96%87%E4%BB%B6%E6%9F%A5%E9%87%8D/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18H6v-2h4zm0-4H6v-2h4zm0-13v1H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h4v1h2V1zm10 7v12c0 1.11-.89 2-2 2h-4v-2h4v-9h-4V9h4.5L14 4.5V2zm-4 6h-2v-2h2zm0 4h-2v-2h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于AST语义分析的Python文件查重
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/%E6%97%8B%E8%BD%AC%E9%9F%B3%E5%BE%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m0 2v12h16V6zm3.24.58 11.59 3.11-2.07 7.73-11.59-3.11z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于Pyside6与ffmpeg的旋转音律视频稳定工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/Turbot4%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Turbot4机器人开发记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55 6.28-3.63-.58-1.01-6.28 3.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+     Python 下一代包管理器 uv 上手指南
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Tools/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.8 3.8 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.8 3.8 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    工具与资源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具与资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Tools/%E5%8D%A1%E8%A5%BF%E6%AC%A7fx-991%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4zm0 6v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    卡西欧fx-991使用技巧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/guest-board/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 12V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14l4-4h10a1 1 0 0 0 1-1m4-6h-2v9H6v2a1 1 0 0 0 1 1h11l4 4V7a1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    留言板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    友链
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    友链
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 17q.86 0 1.45.6t.58 1.4L14 22l-7-2v-9h1.95l7.27 2.69q.78.31.78 1.12 0 .47-.34.82t-.86.37H13l-1.75-.67-.33.94L13 17zM16 3.23Q17.06 2 18.7 2q1.36 0 2.3 1t1 2.3q0 1.03-1 2.46t-1.97 2.39T16 13q-2.08-1.89-3.06-2.85t-1.97-2.39T10 5.3q0-1.36.97-2.3t2.34-1q1.6 0 2.69 1.23M.984 11H5v11H.984z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    朋友们
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links-guide/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 14c-2.67 0-8 1.33-8 4v2h16v-2c0-2.67-5.33-4-8-4m-9-4V7H4v3H1v2h3v3h2v-3h3v-2m6 2a4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4 4 4 0 0 0 4 4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    友链申请指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/contact-form/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 8V7l-3 2-3-2v1l3 2m4-7H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M8 6a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m6 12H2v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1m8-5h-8V6h8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    联系表单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nav.sufine.top" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网址导航
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        传感器的基本特性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="传感器的基本特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        迟滞误差
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="迟滞误差">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        迟滞误差的一般表达式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重复性误差
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="重复性误差">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最大偏差法求重复性误差的步骤与公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最小二乘法拟合直线
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最小二乘法拟合直线">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线性度（非线性误差）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        灵敏度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动态误差
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="动态误差">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tau_0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时间常数（\(\tau_0\)）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一阶系统微分方程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选填简答题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电阻式传感器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="电阻式传感器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        应变片工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        应力 - 应变关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        温度与热膨胀系数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        应变片测量电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电感式传感器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="电感式传感器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电感线圈的阻抗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四臂等阻抗电桥的平衡条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选填简答题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电容式传感器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="电容式传感器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平板电容的工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平板电容的基本公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        压电式传感器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="压电式传感器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选填简答题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        霍尔式传感器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="霍尔式传感器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选填简答题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    关于本站
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    课程学习
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    理工科专业课程
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/weigo6/suffine-hub/edit/main/docs/college-study/STEM/传感器与检测技术.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/weigo6/suffine-hub/raw/main/docs/college-study/STEM/传感器与检测技术.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+<h1 id="_1">传感器与检测技术<a class="headerlink" href="#_1" title="跳转至本节的锚点链接">&para;</a></h1>
+<p>《传感器与检测技术》是自动化、测控技术与仪器、电气工程及其自动化、机械电子工程等相关专业的一门重要专业基础课程。该课程旨在使学生掌握传感器的基本原理、结构特性、典型应用及检测系统的设计方法。</p>
+<p>课程主要内容包括：传感器的基本概念与性能指标（如灵敏度、线性度、重复性、迟滞等）、常用传感器的工作原理（如电阻式、电感式、电容式、压电式、热电式、光电式、霍尔式、超声波及气体传感器等）、信号调理电路（如电桥、放大、滤波、A/D转换等）、典型检测系统构成，以及现代传感技术的发展趋势（如智能传感器、MEMS、无线传感网络等）。</p>
+<p>通过本课程的学习，学生能够理解各类物理量（如位移、力、压力、温度、流量、速度等）的检测方法，具备初步的传感器选型、信号处理与检测系统分析能力，为后续专业课程（如自动控制原理、过程控制、机电一体化系统设计等）及工程实践奠定坚实基础。</p>
+<h2 id="_2">传感器的基本特性<a class="headerlink" href="#_2" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_3">迟滞误差<a class="headerlink" href="#_3" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><strong>迟滞误差（Hysteresis Error）</strong> 是指传感器在输入量递增（正行程）和递减（反行程）的过程中，对于同一输入量所得到的输出量之间存在的差异。这种误差反映了传感器在测量过程中对输入信号变化方向的依赖性，本质上是由于传感器内部结构（如弹性元件的弹性滞后、磁性材料的磁滞现象、机械摩擦等）导致的非理想特性。</p>
+<p>迟滞误差的存在会使得传感器的输出特性曲线在正、反行程时不重合，形成类似于 “滞环” 的现象。它是衡量传感器静态特性的重要指标之一，直接影响测量的准确性和重复性。</p>
+<h4 id="_4">迟滞误差的一般表达式<a class="headerlink" href="#_4" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>迟滞误差的计算公式为：<span class="arithmatex">\(\gamma_H = \frac{\Delta H_{\max}}{y_{\mathrm{FS}}}\times 100\%\)</span></p>
+<ul>
+<li><span class="arithmatex">\(\Delta H_{\text{max}}\)</span> 为全量程范围内正、反行程输出值的最大差值；</li>
+<li><span class="arithmatex">\(Y_{\text{FS}}\)</span> 为传感器的满量程输出值（Full Scale Output）</li>
+</ul>
+<h3 id="_5">重复性误差<a class="headerlink" href="#_5" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><strong>重复性误差（Repeatability Error）</strong> 是指传感器在相同测量条件下（相同环境、相同输入方向、相同操作方法），对同一输入量进行多次重复测量时，其输出值之间的最大差异。该误差反映了传感器输出特性的一致性和稳定性。</p>
+<p>迟滞误差体现正 / 反行程的差异，重复性误差体现同方向多次测量的差异。</p>
+<p>对某温度传感器重复测量 25℃的环境温度 10 次，输出电压分别为 2.51V、2.49V、2.53V、2.50V… 其中最大值与最小值的差异即为重复性误差的体现。</p>
+<h4 id="_6">最大偏差法求重复性误差的步骤与公式<a class="headerlink" href="#_6" title="跳转至本节的锚点链接">&para;</a></h4>
+<ol>
+<li><strong>控制测量条件</strong>：保持环境温度、湿度、供电电压等条件不变，对同一输入量进行<strong>n 次（n≥3）</strong> 重复测量（输入方向一致，如均为递增或均为递减）。</li>
+<li><strong>记录输出值</strong>：记录每次测量的输出值 <span class="arithmatex">\(y_1, y_2, \dots, y_n\)</span>。</li>
+<li><strong>计算单次偏差</strong>：对每次测量值，计算其与平均输出值 <span class="arithmatex">\(\bar{y}\)</span> 的偏差 <span class="arithmatex">\(\Delta y_i = y_i - \bar{y}\)</span>。</li>
+<li><strong>确定最大偏差</strong>：找出所有偏差中的绝对值最大值 <span class="arithmatex">\(\Delta y_{\text{max}} = \max(|\Delta y_1|, |\Delta y_2|, \dots, |\Delta y_n|)\)</span>。</li>
+<li><strong>计算重复性误差</strong>：以相对误差形式表示，公式如下：<span class="arithmatex">\(\text{重复性误差}\gamma_R = \frac{\Delta y_{\text{max}}}{Y_{\text{FS}}} \times 100\%\)</span>，其中 <span class="arithmatex">\(Y_{\text{FS}}\)</span> 为传感器的满量程输出值。</li>
+</ol>
+<p>示例计算</p>
+<p>假设某压力传感器满量程输出为 5V（<span class="arithmatex">\(Y_{\text{FS}}=5\text{V}\)</span>），对 10kPa 压力重复测量 5 次，输出值为：<span class="arithmatex">\(2.01\text{V}, 1.98\text{V}, 2.03\text{V}, 2.00\text{V}, 1.99\text{V}\)</span></p>
+<ul>
+<li>平均输出值：<span class="arithmatex">\(\bar{y} = \frac{2.01+1.98+2.03+2.00+1.99}{5} = 2.002\text{V}\)</span></li>
+<li>单次偏差：<span class="arithmatex">\(\Delta y_1 = 2.01-2.002=0.008\text{V}\)</span>,<span class="arithmatex">\(\Delta y_2 = 1.98-2.002=-0.022\text{V}\)</span>,<span class="arithmatex">\(\Delta y_3 = 2.03-2.002=0.028\text{V}\)</span>,<span class="arithmatex">\(\Delta y_4 = 2.00-2.002=-0.002\text{V}\)</span>,<span class="arithmatex">\(\Delta y_5 = 1.99-2.002=-0.012\text{V}\)</span></li>
+<li>最大偏差绝对值：<span class="arithmatex">\(\Delta y_{\text{max}} = 0.028\text{V}\)</span></li>
+<li>重复性误差：<span class="arithmatex">\(\frac{0.028}{5} \times 100\% = 0.56\%\)</span></li>
+</ul>
+<h3 id="_7">最小二乘法拟合直线<a class="headerlink" href="#_7" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>用线性模型 <span class="arithmatex">\(y = kx + b\)</span> 逼近测量数据，使 “残差平方和最小”，见例题2。</p>
+<p>联立方程组求解斜率 k、截距 b： <span class="arithmatex">\(\begin{cases} k = \frac{n\sum xy - \sum x \sum y}{n\sum x^2 - (\sum x)^2} \\ b = \frac{\sum y - k\sum x}{n} \end{cases}\)</span> </p>
+<h4 id="_8">线性度（非线性误差）<a class="headerlink" href="#_8" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>实际曲线与拟合直线的最大偏差程度。实际输出与拟合直线的最大偏差，占满量程输出的比例，反映线性程度。</p>
+<p><span class="arithmatex">\(\delta_L = \frac{\Delta y_{\text{max}}}{y_{\text{FS}}} \times 100\%\)</span>，<span class="arithmatex">\(\Delta y_{\text{max}}\)</span> 是最大残差绝对值，<span class="arithmatex">\(y_{\text{FS}}\)</span> 是满量程输出。</p>
+<h4 id="_9">灵敏度<a class="headerlink" href="#_9" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>拟合直线的斜率，反映输入输出的比例关系。<span class="arithmatex">\(k = \frac{\Delta y}{\Delta x}\)</span>（线性模型中为常数）</p>
+<h3 id="_10">动态误差<a class="headerlink" href="#_10" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>动态误差是指检测系统在被测量随时间变化时，输出量与被测量真实值之间的差值。</p>
+<h4 id="tau_0">时间常数（<span class="arithmatex">\(\tau_0\)</span>）<a class="headerlink" href="#tau_0" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>时间常数是反映传感器响应速度的重要参数，它表示传感器在阶跃输入下，输出值从初始值变化到最终值的<span class="arithmatex">\(63.2\%\)</span>所需的时间。时间常数越大，传感器响应越慢，达到稳定所需时间越长，动态误差持续的时间和幅度也可能越大 。</p>
+<h4 id="_11">一阶系统微分方程<a class="headerlink" href="#_11" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>例3题目中给出的<span class="arithmatex">\(t_{1}=t_{2}+\tau_{0} \frac{d t_{2}}{d \tau}\)</span>是描述一阶测温系统（很多简单的测温传感器可近似为一阶系统，其热传递等过程符合一阶线性微分方程的规律）动态特性的微分方程。其中<span class="arithmatex">\(t_1\)</span>是被测介质真实温度（输入量），<span class="arithmatex">\(t_2\)</span>是传感器示值温度（输出量），<span class="arithmatex">\(\tau\)</span>是时间变量，该方程体现了输入、输出以及输出变化率之间的关系，用于分析传感器在温度突变等动态过程中的响应情况。</p>
+<h3 id="_12">选填简答题<a class="headerlink" href="#_12" title="跳转至本节的锚点链接">&para;</a></h3>
+<ol>
+<li>什么是传感器的静态特性，描述传感器静态特性的主要指标有哪些？</li>
+</ol>
+<p>指传感器在输入量的变化率为零（输入静态信号）时的输出与输入关系，反映传感器在静态条件下的测量精度。</p>
+<p><strong>主要指标</strong>：</p>
+<ul>
+<li><strong>线性度</strong>：输出与输入的线性程度，用实际曲线与拟合直线的最大偏差表示。</li>
+<li><strong>灵敏度</strong>：输出变化量与输入变化量的比值，反映传感器对输入量的敏感程度。</li>
+<li><strong>迟滞</strong>：正向行程与反向行程输出特性的差异，由机械摩擦、材料滞后等引起。</li>
+<li><strong>重复性</strong>：在相同条件下重复测量时，输出的一致性程度。</li>
+<li>
+<p><strong>漂移</strong>：在输入不变时，输出随时间或环境温度的缓慢变化，包括温漂和时漂。</p>
+</li>
+<li>
+<p>什么是传感器的动态特性，描述传感器静态特性的主要指标有哪些？如何分析传感器动态特性？</p>
+</li>
+</ul>
+<p>指传感器对随时间变化的输入信号（动态信号）的响应能力，反映传感器跟踪输入信号变化的速度和准确性。</p>
+<p><strong>主要指标</strong>：</p>
+<ul>
+<li><strong>时间常数（τ）</strong>：一阶系统中表征响应速度，τ 越小，响应越快。</li>
+<li><strong>固有频率（ωₙ）</strong>、<strong>阻尼比（ζ）</strong>：二阶系统的关键参数，影响系统的振荡特性和稳定性。</li>
+<li><strong>上升时间</strong>：输出从终值的 10% 上升到 90% 所需的时间，反映响应速度。</li>
+<li><strong>超调量</strong>：输出超过终值的百分比，体现系统的振荡幅度。</li>
+<li><strong>稳态误差</strong>：动态过程结束后，输出与理想值的偏差，反映测量精度。</li>
+</ul>
+<p><strong>动态特性分析方法</strong>：</p>
+<ul>
+<li><strong>时域分析</strong>：通过阶跃响应等典型输入信号，分析上升时间、超调量等时域指标。</li>
+<li>
+<p><strong>频域分析</strong>：利用正弦输入信号，绘制幅频特性和相频特性曲线，分析传感器的频率响应范围和相位失真。</p>
+</li>
+<li>
+<p>试解释线性时不变系统的叠加性和频率保持性特性的含义及其意义。</p>
+</li>
+</ul>
+<p><strong>叠加性</strong>：</p>
+<ul>
+<li><strong>含义</strong>：若系统对输入信号 x₁(t) 的响应为 y₁(t)，对 x₂(t) 的响应为 y₂(t)，则对输入 a・x₁(t)+b・x₂(t) 的响应为 a・y₁(t)+b・y₂(t)（a、b 为常数）。</li>
+<li><strong>意义</strong>：简化复杂输入信号的响应计算，可将复杂信号分解为简单信号的叠加，分别求解后再叠加。</li>
+</ul>
+<p><strong>频率保持性</strong>：</p>
+<ul>
+<li><strong>含义</strong>：当输入信号包含某一频率成分时，系统的稳态响应也仅包含相同频率的成分，不会产生新的频率分量。</li>
+<li><strong>意义</strong>：在信号测量中，可通过输出信号的频率分析确定输入信号的频率，排除干扰频率的影响，保证测量准确性。</li>
+</ul>
+<h3 id="_13">例题<a class="headerlink" href="#_13" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><strong>1.</strong>某压力传感器的三次测试数据如下表所示求该传感器三次测试的<strong>迟滞误差</strong>井使用最大偏差法求该传感器的<strong>重复性误差</strong></p>
+<p>(保留小数点后两位)</p>
+<table>
+<thead>
+<tr>
+<th>行 程</th>
+<th>输出电压(mV) （1）</th>
+<th>（2）</th>
+<th>（3）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正行程 输入压力（<span class="arithmatex">\(×10^5Pa\)</span>）</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>190.9</td>
+<td>191.1</td>
+<td>191.3</td>
+</tr>
+<tr>
+<td>4.0</td>
+<td>382.8</td>
+<td>383.2</td>
+<td>383.5</td>
+</tr>
+<tr>
+<td>6.0</td>
+<td>575.8</td>
+<td>576.1</td>
+<td>576.6</td>
+</tr>
+<tr>
+<td>8.0</td>
+<td>769.4</td>
+<td>769.8</td>
+<td>770.4</td>
+</tr>
+<tr>
+<td>10.0</td>
+<td>963.9</td>
+<td>964.6</td>
+<td>965.2</td>
+</tr>
+<tr>
+<td>反行程 输入压力（<span class="arithmatex">\(×10^5Pa\)</span>）</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10.0</td>
+<td>964.4</td>
+<td>965.1</td>
+<td>965.7</td>
+</tr>
+<tr>
+<td>8.0</td>
+<td>770.6</td>
+<td>771.0</td>
+<td>771.4</td>
+</tr>
+<tr>
+<td>6.0</td>
+<td>577.3</td>
+<td>577.4</td>
+<td>578.4</td>
+</tr>
+<tr>
+<td>4.0</td>
+<td>384.1</td>
+<td>384.2</td>
+<td>384.7</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>191.6</td>
+<td>191.6</td>
+<td>192.0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>答：</strong></p>
+<p>（1）迟滞误差的计算公式为：<span class="arithmatex">\(\gamma_H = \frac{\Delta H_{\max}}{y_{\mathrm{FS}}}\times 100\%\)</span></p>
+<p>第一次测量：由所给数据可得：<span class="arithmatex">\(\Delta H_{\max} = 1.5\)</span>，<span class="arithmatex">\(y_{\mathrm{FS}} = 964.4\)</span>，(<span class="arithmatex">\(577.3 - 575.8 = 1.5\)</span>)</p>
+<p>所以，<span class="arithmatex">\(\gamma_{H1} = \frac{\Delta H_{\max}}{y_{\mathrm{FS}}}\times 100\% = \frac{1.5}{964.4}\times 100\% = 0.16\%\)</span></p>
+<p>第二次测量：由所给数据可得：<span class="arithmatex">\(\Delta H_{\max} = 1.3\)</span>，<span class="arithmatex">\(y_{\mathrm{FS}} = 965.1\)</span>，(<span class="arithmatex">\(577.4 - 576.1 = 1.3\)</span>)</p>
+<p>所以，<span class="arithmatex">\(\gamma_{H2} = \frac{\Delta H_{\max}}{y_{\mathrm{FS}}}\times 100\% = \frac{1.3}{965.1}\times 100\% = 0.13\%\)</span></p>
+<p>第三次测量：由所给数据可得：<span class="arithmatex">\(\Delta H_{\max} = 1.8\)</span>，<span class="arithmatex">\(y_{\mathrm{FS}} = 965.7\)</span>，(<span class="arithmatex">\(578.4 - 576.6 = 1.8\)</span>)</p>
+<p>所以，<span class="arithmatex">\(\gamma_{H3} = \frac{\Delta H_{\max}}{y_{\mathrm{FS}}}\times 100\% = \frac{1.8}{965.7}\times 100\% = 0.19\%\)</span></p>
+<p>（2）由所给数据可得，</p>
+<p>正行程：<span class="arithmatex">\(\Delta R_{1_{\max}} = 1.3\)</span>，反行程：<span class="arithmatex">\(\Delta R_{2_{\max}} = 1.3\)</span></p>
+<p>所以，<span class="arithmatex">\(\Delta R_{\max} = \max(\Delta R_{1_{\max}}, \Delta R_{2_{\max}}) = 1.3\)</span></p>
+<p>又 <span class="arithmatex">\(y_{\mathrm{FS}} = 965.7\)</span></p>
+<blockquote>
+<p>由于题目未给出满量程输出值，故直接从表格中取最大值计算。</p>
+</blockquote>
+<p>所以，重复性误差为：</p>
+<div class="arithmatex">\[
+\gamma_R = \pm\frac{\Delta R_{\max}}{y_{\mathrm{FS}}}\times 100\% = \pm\frac{1.3}{965.7}\times 100\% = \pm0.13\%
+\]</div>
+<p><strong>2.</strong>通过某检测装置测得的一组输入输出数据如表 1 所示。试用最小二乘法拟合直线，并求其线性度和灵敏度。</p>
+<center>表 1 某检测装置获取的一组测量数据</center>
+
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>y</td>
+<td>2.2</td>
+<td>4.1</td>
+<td>5.8</td>
+<td>8.0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>答：</strong></p>
+<p>拟合直线目标：找线性模型 <span class="arithmatex">\(y = kx + b\)</span>，使残差 <span class="arithmatex">\(e_i = y_i - (kx_i + b)\)</span> 的平方和最小，即 <span class="arithmatex">\(S = \sum e_i^2 = \sum (y_i - kx_i - b)^2\)</span> 最小。</p>
+<p>推导过程：</p>
+<p>对 S 分别求 <span class="arithmatex">\(k、b\)</span> 的偏导并令其为 0，联立得方程组：<span class="arithmatex">\(\begin{cases}  \frac{\partial S}{\partial b} = -2\sum (y_i - kx_i - b) = 0 \\  \frac{\partial S}{\partial k} = -2\sum x_i(y_i - kx_i - b) = 0  \end{cases}\)</span></p>
+<p>化简后得到<strong>计算 <span class="arithmatex">\(k、b\)</span> 的公式</strong>（n 为数据点数，本题 <span class="arithmatex">\(n=4\)</span>）：<span class="arithmatex">\(k = \frac{n\sum xy - \sum x \sum y}{n\sum x^2 - (\sum x)^2}, \quad b = \frac{\sum y - k\sum x}{n}\)</span></p>
+<p>代入题目数据计算：</p>
+<ul>
+<li>先算基础求和项：</li>
+<li><span class="arithmatex">\(\sum x = 1+2+3+4 = 10\)</span></li>
+<li><span class="arithmatex">\(\sum y = 2.2+4.1+5.8+8.0 = 20.1\)</span></li>
+<li><span class="arithmatex">\(\sum xy = 1×2.2 + 2×4.1 + 3×5.8 + 4×8.0 = 59.8\)</span></li>
+<li><span class="arithmatex">\(\sum x^2 = 1^2+2^2+3^2+4^2 = 30\)</span></li>
+<li>计算 k：<span class="arithmatex">\(k = \frac{4×59.8 - 10×20.1}{4×30 - 10^2} = \frac{239.2 - 201}{120 - 100} = \frac{38.2}{20} = 1.91\)</span></li>
+<li>计算 b：<span class="arithmatex">\(b = \frac{20.1 - 1.91×10}{4} = \frac{20.1 - 19.1}{4} = \frac{1}{4} = 0.25\)</span></li>
+</ul>
+<p><strong>拟合直线方程：</strong><span class="arithmatex">\(y = 1.91x + 0.25\)</span></p>
+<p>非线性误差计算：</p>
+<ol>
+<li>计算每个数据点的<strong>残差</strong> <span class="arithmatex">\(e_i = y_i - (kx_i + b)\)</span>（实际值与拟合值的差）</li>
+<li>找残差的<strong>最大绝对值</strong> <span class="arithmatex">\(\Delta y_{\text{max}}\)</span>；</li>
+<li>计算<strong>满量程输出 <span class="arithmatex">\(y_{\text{FS}}\)</span></strong>：最大输出 - 最小输出（本题不确定最小输出，取最大输出值8.0作为满量程输出值）；</li>
+<li>代入公式：<span class="arithmatex">\(\delta_L = \frac{\Delta y_{\text{max}}}{y_{\text{FS}}} \times 100\%\)</span></li>
+</ol>
+<p>代入题目数据计算：</p>
+<ul>
+<li>计算各点残差：</li>
+<li><span class="arithmatex">\(x=1\)</span>: <span class="arithmatex">\(e_1 = 2.2 - (1.91×1 + 0.25) = 0.04\)</span></li>
+<li><span class="arithmatex">\(x=2\)</span>: <span class="arithmatex">\(e_2 = 4.1 - (1.91×2 + 0.25) = 0.03\)</span></li>
+<li><span class="arithmatex">\(x=3\)</span>: <span class="arithmatex">\(e_3 = 5.8 - (1.91×3 + 0.25) = -0.18\)</span></li>
+<li><span class="arithmatex">\(x=4\)</span>: <span class="arithmatex">\(e_4 = 8.0 - (1.91×4 + 0.25) = 0.1\)</span></li>
+<li>最大残差绝对值：<span class="arithmatex">\(\Delta y_{\text{max}} = |-0.18| = 0.18\)</span></li>
+<li><strong>线性度：</strong><span class="arithmatex">\(\delta_L = \frac{0.18}{8} \times 100\% \approx 2.25\%\)</span></li>
+</ul>
+<p>灵敏度计算：输入变化引起输出变化的比例，线性模型中等于拟合直线的斜率 k（非线性模型中是变化率，本题因线性拟合，直接取 k）。</p>
+<p><span class="arithmatex">\(k = \frac{\Delta y}{\Delta x}\)</span></p>
+<p>拟合直线斜率 <span class="arithmatex">\(k = 1.91\)</span>，即<strong>灵敏度为 1.91</strong>（物理意义：输入 x 每变化 1 单位，输出 y 平均变化 1.91 单位）。</p>
+<p><strong>3.</strong>当被测介质温度为 <span class="arithmatex">\(t_{1}\)</span>，测温传感器示值温度为 <span class="arithmatex">\(t_{2}\)</span> 时，有下列方程式成立:
+$$
+t_{1}=t_{2}+\tau_{0} \frac{d t_{2}}{d \tau}
+$$</p>
+<p>当被测介质温度从 <span class="arithmatex">\(25^{\circ} \mathrm{C}\)</span> 突然变化到 <span class="arithmatex">\(300^{\circ} \mathrm{C}\)</span> 时，测温传感器时间常数 <span class="arithmatex">\(\tau_{0}=120 \mathrm{~s}\)</span>，试确定经过 <span class="arithmatex">\(480 \mathrm{~s}\)</span> 后的动态误差。</p>
+<blockquote>
+<p>自动控制原理的典型题目</p>
+</blockquote>
+<ul>
+<li>1.<strong>建立系统传递函数</strong></li>
+</ul>
+<p><span class="arithmatex">\(\because \tau_{0} \frac{d t_{2}}{d \tau} +t_{2}=t_{1} \leftrightarrow\)</span> <span class="arithmatex">\(\left(\tau_{0} s+1\right) t_{2} s=t_{1}(s)\)</span></p>
+<p>确定一阶系统传递函数<span class="arithmatex">\(H(s)=1/(\tau_0 s + 1)\)</span>，其中<span class="arithmatex">\(\tau_0=120\text{ s}\)</span>。</p>
+<ul>
+<li>2.<strong>求解阶跃响应</strong></li>
+</ul>
+<p>输入信号的拉氏变换为: <span class="arithmatex">\(X(s)=\frac{275}{s}\)</span></p>
+<p><span class="arithmatex">\(\therefore Y(s)=H(s) X(s)=\frac{1}{\tau_{0} s+1} \cdot \frac{275}{s}\)</span></p>
+<p>进行拉氏反变换后，有 <span class="arithmatex">\(y(t)=275 \left(1-e^{-\frac{t}{120}}\right)\)</span></p>
+<ul>
+<li>
+<p>3.<strong>计算动态误差</strong></p>
+<p>在控制系统中，误差通常定义为<span class="arithmatex">\(e(t) = r(t) - y(t)\)</span>，
+<span class="arithmatex">\(\therefore\)</span> 动态误差 <span class="arithmatex">\(\Delta=275-y(480)=275 e^{-\frac{480}{120}}=5.04\left({ }^{\circ} \mathrm{C}\right)\)</span></p>
+</li>
+<li>
+<p>某传感器为一阶系统，当受阶跃函数作用时，在 <span class="arithmatex">\(t=0\)</span> 时，输出为 <span class="arithmatex">\(10 \mathrm{mV}\)</span>; 在 <span class="arithmatex">\(t=5 \mathrm{~s}\)</span>时输出为 <span class="arithmatex">\(50 \mathrm{mV}\)</span>; 在 <span class="arithmatex">\(t \rightarrow \infty\)</span> 时, 输出为 <span class="arithmatex">\(100 \mathrm{mV}\)</span> 。试求该传感器的时间常数。</p>
+</li>
+</ul>
+<p><strong>答：</strong></p>
+<ol>
+<li>一阶系统阶跃响应公式：<span class="arithmatex">\(y(t)=y(\infty)(1 - e^{-\frac{t}{\tau}})+y(0)e^{-\frac{t}{\tau}}\)</span>（这里<span class="arithmatex">\(y(0) = 10 mV\)</span>，<span class="arithmatex">\(y(\infty)=100 mV\)</span> ），也可简化为 <span class="arithmatex">\(y(t)-y(0)=[y(\infty)-y(0)](1 - e^{-\frac{t}{\tau}})\)</span> 。</li>
+<li>代入<span class="arithmatex">\(t = 5s\)</span>，<span class="arithmatex">\(y(5) = 50 mV\)</span> ，<span class="arithmatex">\(y(0) = 10 mV\)</span>，<span class="arithmatex">\(y(\infty)=100 mV\)</span>：</li>
+<li><span class="arithmatex">\(50 - 10=(100 - 10)(1 - e^{-\frac{5}{\tau}})\)</span></li>
+<li><span class="arithmatex">\(40 = 90(1 - e^{-\frac{5}{\tau}})\)</span></li>
+<li><span class="arithmatex">\(1 - e^{-\frac{5}{\tau}}=\frac{4}{9}\)</span></li>
+<li><span class="arithmatex">\(e^{-\frac{5}{\tau}} = 1-\frac{4}{9}=\frac{5}{9}\)</span></li>
+<li>两边取自然对数：<span class="arithmatex">\(-\frac{5}{\tau}=\ln\frac{5}{9}\)</span></li>
+<li>计算得<span class="arithmatex">\(\tau=\frac{5}{-\ln\frac{5}{9}}=\frac{5}{\ln\frac{9}{5}}\approx 8.51s\)</span></li>
+</ol>
+<h2 id="_14">电阻式传感器<a class="headerlink" href="#_14" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_15">应变片工作原理<a class="headerlink" href="#_15" title="跳转至本节的锚点链接">&para;</a></h3>
+<ul>
+<li><strong>应变效应</strong>：导体或半导体材料在受力产生应变时，其电阻值会发生变化，称为应变效应。电阻变化率与应变的关系为：<span class="arithmatex">\(\frac{\Delta R}{R} = K \cdot \varepsilon\)</span></li>
+<li><strong>灵敏系数 K</strong>：反映单位应变引起的电阻变化率，由材料特性和几何结构决定，公式为：<span class="arithmatex">\(K = \frac{\Delta R/R}{\varepsilon}\)</span> 对于金属应变片，K 主要由几何变形（尺寸效应）决定；对于半导体应变片，K 主要由压阻效应（电阻率变化）决定。</li>
+</ul>
+<h3 id="-">应力 - 应变关系<a class="headerlink" href="#-" title="跳转至本节的锚点链接">&para;</a></h3>
+<ul>
+<li><strong>胡克定律</strong>：弹性范围内，应力与应变成正比，是力学量检测的基础，公式为：<span class="arithmatex">\(\sigma = E \cdot \varepsilon \quad (\text{或} \quad \varepsilon = \frac{\sigma}{E})\)</span> 其中，<span class="arithmatex">\(\sigma\)</span> 为应力（单位：<span class="arithmatex">\(\text{N/m}^2\)</span>），E 为弹性模量（单位：<span class="arithmatex">\(\text{Pa}\)</span>）。</li>
+</ul>
+<h3 id="_16">温度与热膨胀系数<a class="headerlink" href="#_16" title="跳转至本节的锚点链接">&para;</a></h3>
+<ul>
+<li><strong>温度对电阻的直接影响</strong>：由电阻温度系数 <span class="arithmatex">\(\alpha\)</span> 引起的电阻变化为：<span class="arithmatex">\(\frac{\Delta R_1}{R} = \alpha \cdot \Delta T\)</span> 其中，<span class="arithmatex">\(\alpha\)</span> 为材料的电阻温度系数（本题中康铜丝 <span class="arithmatex">\(\alpha = 20 \times 10^{-6} \, \Omega/\Omega/^\circ\text{C}\)</span>），<span class="arithmatex">\(\Delta T\)</span> 为温度变化量。</li>
+<li><strong>热膨胀不匹配引起的附加应变</strong>：当应变片与基体材料的热膨胀系数不同时，温度变化会导致应变片产生附加应变 <span class="arithmatex">\(\varepsilon_T\)</span>：<span class="arithmatex">\(\varepsilon_T = (\alpha_{\text{基体}} - \alpha_{\text{应变片}}) \cdot \Delta T\)</span> </li>
+</ul>
+<h3 id="_17">应变片测量电路<a class="headerlink" href="#_17" title="跳转至本节的锚点链接">&para;</a></h3>
+<ul>
+<li><strong>惠斯通电桥</strong>：常用测量电路，可将电阻变化转换为电压输出，具有灵敏度高、温度补偿能力强的特点。</li>
+<li><strong>电桥输出公式</strong>：对于等臂电桥，当应变片电阻变化为 <span class="arithmatex">\(\Delta R\)</span> 时，输出电压 <span class="arithmatex">\(U_o\)</span> 为：<span class="arithmatex">\(U_o = \frac{U_i}{4} \cdot K \cdot \varepsilon\)</span> 其中，<span class="arithmatex">\(U_i\)</span> 为电桥供电电压。</li>
+</ul>
+<h3 id="_18">例题<a class="headerlink" href="#_18" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><span class="arithmatex">\(\text { 有一个电阻为 } 120 \Omega, \mathrm{~K}=2 \text { 的应变片, 弹性极限为 }\)</span> <span class="arithmatex">\(400 \mathrm{MN} / \mathrm{m}^{2} \text {, 弹性模量为 } 200 \mathrm{GN} / \mathrm{m}^{2} \text { 的钢件上: }\)</span> </p>
+<p>1）当应力等于弹性范围的 1/10时; </p>
+<p>2）如果应变片材料为康铜丝 <span class="arithmatex">\(\left(\alpha=20 \times 10^{-6} \Omega / \Omega /{ }^{\circ} \mathrm{C}\right.\)</span>, 膨胀系数为 <span class="arithmatex">\(\left.12 \times 10^{-6} \mathrm{~m} / \mathrm{m} /{ }^{\circ} \mathrm{C}\right.\)</span>, 钢膨胀系数为 <span class="arithmatex">\(\left.16 \times 10^{-6} \mathrm{~m} / \mathrm{m} /{ }^{\circ} \mathrm{C}\right)\)</span>,温度变化 <span class="arithmatex">\(20^{\circ} \mathrm{C}\)</span>; 试<strong>分别</strong>计算此应变片的电阻变化。</p>
+<p><strong>答：</strong></p>
+<p>（1）已知弹性极限为 <span class="arithmatex">\(400 \, \text{MN/m}^2\)</span>，应力为弹性范围的 1/10 时：<span class="arithmatex">\(\sigma = \frac{1}{10} \times 400 \, \text{MN/m}^2 = 40 \, \text{MN/m}^2 = 40 \times 10^6 \, \text{N/m}^2\)</span></p>
+<p>由胡克定律计算应变：</p>
+<div class="arithmatex">\[
+\varepsilon = \frac{\sigma}{E} = \frac{40 \times 10^6}{200 \times 10^9} = 2 \times 10^{-4}
+\]</div>
+<p>代入应变效应公式计算电阻变化：</p>
+<div class="arithmatex">\[
+\Delta R = R \cdot K \cdot \varepsilon = 120 \, \Omega \times 2 \times 2 \times 10^{-4} = 0.048 \, \Omega
+\]</div>
+<p>（2）温度直接引起的电阻变化：</p>
+<div class="arithmatex">\[
+\Delta R_1 = R \cdot \alpha \cdot \Delta T = 120 \, \Omega \times 20 \times 10^{-6} \times 20 = 0.048 \, \Omega
+\]</div>
+<p>热膨胀不匹配引起的附加应变：</p>
+<div class="arithmatex">\[
+\varepsilon_T = (16 \times 10^{-6} - 12 \times 10^{-6}) \times 20 = 4 \times 10^{-6} \times 20 = 8 \times 10^{-5}
+\]</div>
+<p>附加应变引起的电阻变化：</p>
+<div class="arithmatex">\[
+\Delta R_2 = R \cdot K \cdot \varepsilon_T = 120 \, \Omega \times 2 \times 8 \times 10^{-5} = 0.0192 \, \Omega
+\]</div>
+<p>总电阻变化：</p>
+<div class="arithmatex">\[
+\Delta R = \Delta R_1 + \Delta R_2 = 0.048 + 0.0192 = 0.0672 \, \Omega
+\]</div>
+<h2 id="_19">电感式传感器<a class="headerlink" href="#_19" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_20">电感线圈的阻抗<a class="headerlink" href="#_20" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>电感线圈在交流电路中表现为<strong>复阻抗</strong>，由电阻 R 和感抗 <span class="arithmatex">\(X_L\)</span> 组成，公式为：<span class="arithmatex">\(Z = R + j\omega L\)</span>，其模值为：<span class="arithmatex">\(|Z| = \sqrt{R^2 + X_L^2}\)</span></p>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(\omega = 2\pi f\)</span> 是角频率（f 为电源频率）；</li>
+<li>j 是虚数单位，体现电感的 “无功” 特性（电流滞后电压 90°）。</li>
+</ul>
+<h3 id="_21">四臂等阻抗电桥的平衡条件<a class="headerlink" href="#_21" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>当电桥平衡时，相对桥臂的电阻值乘积相等。等阻抗电桥，桥臂阻抗模值相等。对于差动电感传感器，<span class="arithmatex">\(R_1 = R_2 = R\)</span>、<span class="arithmatex">\(L_1 = L_2 = L\)</span>（初始平衡状态，见例题图），要求匹配电阻 <span class="arithmatex">\(R_3、R_4\)</span> 与线圈阻抗 Z 满足：<span class="arithmatex">\(Z_1 Z_4 = Z_2 Z_3\)</span></p>
+<h3 id="_22">选填简答题<a class="headerlink" href="#_22" title="跳转至本节的锚点链接">&para;</a></h3>
+<ol>
+<li>
+<p>对于差动变压器，采用交流电压表测量输出电压时，既不能反映位移的方向，也不能消除零点残余电压。</p>
+</li>
+<li>
+<p>电感式传感器采用变压器式交流电桥测量电路时，根据输出的指示<strong>不</strong>可以判断位移的方向。</p>
+</li>
+<li>
+<p>变磁阻电感式传感器的基本测量原理是：利用磁导或磁阻的变化</p>
+</li>
+<li>
+<p>以下哪一项通常是变磁阻电感式传感器的核心结构组成？<u>线圈、铁芯和衔铁</u></p>
+</li>
+<li>
+<p>变磁阻电感式传感器常用于测量以下哪种物理量？<u>微小位移</u></p>
+</li>
+<li>
+<p>电感式传感器是建立在 <u>电磁感应</u> 基础上的，电感式传感器可以把输入的物理量转换为 <u>线圈的自感系数</u> 或 <u>互感系数</u> 的变化，并通过测量电路进一步转换为电量的变化，进而实现对非电量的测量。</p>
+</li>
+<li>
+<p>变磁阻式传感器的敏感元件由线圈、<u>铁芯</u> 与 <u>衔铁</u> 三部分组成。</p>
+</li>
+<li>
+<p>在磁路中电感的表达式为：</p>
+<div class="arithmatex">\[
+  L = \frac{N^{2} \mu A}{l}
+\]</div>
+<p>其中，<span class="arithmatex">\(N\)</span>表示表示 <u>线圈匝数</u> ，<span class="arithmatex">\(μ\)</span>表示 <u>磁导率</u> ，<span class="arithmatex">\(A\)</span>表示 <u>磁路截面积</u> ，<span class="arithmatex">\(l\)</span>表示 <u>磁路长度</u> 。</p>
+</li>
+<li>
+<p>变磁阻传感器的灵敏度主要取决于 <u>磁阻变换</u> 对电感的影响程度。</p>
+</li>
+<li>
+<p>对于变气隙式自感传感器，当街铁移动靠近铁芯时，铁芯上的线圈电感量减少。（X）</p>
+</li>
+<li>
+<p>差动式比单线圈式结构的变磁阻式传感器在灵敏度方面高了一倍。（√）</p>
+</li>
+<li>
+<p>变磁阻电感式传感器适合用于测量微小位移、角度等机械量。（√）</p>
+</li>
+<li>
+<p>当磁阻变大时，线圈的电感值也会随之变大。（X）（磁阻变大 → 磁导变小 → 电感变小）</p>
+</li>
+<li>
+<p>变磁阻电感式传感器一般使用直流信号作为激励源。 （X）（一般使用交流激励源，因为直流无法检测电感变化）</p>
+</li>
+<li>
+<p>根据工作原理的不同，电感式传感器可分为哪些种类？</p>
+<p>根据工作原理的不同，电感式传感器可分为变磁阻式（自感式）、变压器式和涡流式（互感式）等种类。</p>
+</li>
+<li>
+<p>试分析变气隙厚度变磁阻式电感传感器的工作原理</p>
+<p>变磁阻式传感由线圈、铁心和衔铁三部分组成。在铁心和衔铁间有气隙，当衔铁移动时气息厚度发生变化，引起磁路中磁阻变化，从而导致线圈的电感值变化。通过测量电感量的变化就能确定先贴位移量的大小和方向。</p>
+</li>
+</ol>
+<p><img alt="image-20250615234849805" src="../传感器与检测技术.assets/image-20250615234849805.png" /></p>
+<ol>
+<li>
+<p>差动式比单线圈式结构的变磁阻式传感器在灵敏度和线性度方面有什么优势？</p>
+<p>差动式比单线圈的灵敏度高一倍。</p>
+</li>
+<li>
+<p>试分析变压器式交流电桥测量电路的工作原理。见书P69-70。要写成公式(4-38)、(4-39)、(4-40)</p>
+</li>
+</ol>
+<h3 id="_23">例题<a class="headerlink" href="#_23" title="跳转至本节的锚点链接">&para;</a></h3>
+<p><strong>1.</strong>如下图所示, 有一只差动电感位移传感器, 已知电源电压 <span class="arithmatex">\(\vec{U}=4\)</span> V, <span class="arithmatex">\(f=400\)</span> Hz, 传感器线圈电阻与电感分别为 <span class="arithmatex">\(R=40 \Omega\)</span>, <span class="arithmatex">\(L=30 \mathrm{mH}\)</span>, 用两只匹配电阻设计成四臂等阻抗电桥。试求匹配电阻 <span class="arithmatex">\(R_3\)</span> 和 <span class="arithmatex">\(R_4\)</span> 的值为多少？</p>
+<p><img alt="image-20250616153409326" src="../传感器与检测技术.assets/image-20250616153409326.png" /></p>
+<p><strong>答：</strong></p>
+<p>题目要求设计成四臂等阻抗电桥, 因此有: <span class="arithmatex">\(Z_{1}=Z_{2}=Z_{3}=Z_{4}\)</span> 。</p>
+<p><span class="arithmatex">\(Z_{1}=Z_{2}=R+j \omega L=R+j 2 \pi f L \quad\)</span></p>
+<p>因此有 <span class="arithmatex">\(Z_{3}=Z_{4}=R+j 2 \pi f L \quad\)</span></p>
+<p>所以有:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+R_{3} &amp;= R_{4} = \left|Z_{3}\right| = \left|Z_{4}\right| = |R + j 2 \pi f L| = \sqrt{R^{2} + (2 \pi f L)^{2}} \\
+&amp;= \sqrt{40^{2} + \left(2 \pi \times 400 \times 30 \times 10^{-3}\right)^{2}} \\
+&amp;= 85.34(\Omega)
+\end{aligned}
+\]</div>
+<p><strong>2.</strong>对于如下图所示自感传感器，试写出磁路总磁阻表达式，并分析当动铁心左右移动时，自感L的变化情况。（已知空气隙的长度为x1和x2，空气隙的面积为S，磁导率为μ，线圈匝数W不变）</p>
+<p><img alt="image-20250615234738333" src="../传感器与检测技术.assets/image-20250615234738333.png" /></p>
+<p><strong>答：</strong></p>
+<p>线圈中自感量： <span class="arithmatex">\(L=\frac{W^{2}}{R_{\mathrm{m}}}\)</span></p>
+<p>磁路总磁阻: <span class="arithmatex">\(\mathrm{R}_{\mathrm{m}} \approx \frac{2 \delta}{\mu_{0} \mathrm{~A}_{0}}=\frac{2 \mathrm{x}_{1}}{\mu S}+\frac{2 \mathrm{x}_{2}}{\mu S}\)</span></p>
+<p>空气隙 <span class="arithmatex">\(\mathrm{x} 1\)</span> 和 <span class="arithmatex">\(\mathrm{x} 2\)</span> 各自变而其和不变, 其他变量都不变, 所以自感量 <span class="arithmatex">\(L\)</span> 不变。</p>
+<h2 id="_24">电容式传感器<a class="headerlink" href="#_24" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_25">平板电容的工作原理<a class="headerlink" href="#_25" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>通过极板相对位移改变有效重叠面积 A，从而引起电容 C 变化。当极板沿长度方向平移时，重叠面积与位移量成线性关系，进而实现位移 - 电容的转换。</p>
+<h3 id="_26">平板电容的基本公式<a class="headerlink" href="#_26" title="跳转至本节的锚点链接">&para;</a></h3>
+<div class="arithmatex">\[
+K_0 = \frac{\Delta C / C_0}{\Delta x}
+\]</div>
+<div class="arithmatex">\[
+C = \frac{\varepsilon_0 \varepsilon_r A}{d}
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(\varepsilon_0 = 8.854 \times 10^{-12} \, \text{F/m}\)</span> 为真空介电常数；</li>
+<li><span class="arithmatex">\(\varepsilon_r = 1\)</span> 为空气的相对介电常数（无量纲，由介质绝对介电常数/真空介电常数得到）；</li>
+<li>A 为两极板的有效重叠面积（<span class="arithmatex">\(\text{m}^2\)</span>）；</li>
+<li>
+<p>d 为极板间距（<span class="arithmatex">\(\text{m}\)</span>）。</p>
+</li>
+<li>
+<p><strong>电容变化量</strong>：当极板有效面积变化时，电容变化量为：</p>
+</li>
+</ul>
+<p><span class="arithmatex">\(\Delta C = C_1 - C_0 = \frac{\varepsilon_0 \varepsilon_r}{d} (A_1 - A_0)\)</span></p>
+<ul>
+<li><strong>电容相对变化量</strong>：</li>
+</ul>
+<p><span class="arithmatex">\(\frac{\Delta C}{C_0} = \frac{A_1 - A_0}{A_0}\)</span></p>
+<ul>
+<li><strong>位移相对灵敏度</strong>：单位位移引起的电容相对变化量，定义为：</li>
+</ul>
+<p><span class="arithmatex">\(K_0 = \frac{\Delta C / C_0}{\Delta x}\)</span></p>
+<h3 id="_27">例题<a class="headerlink" href="#_27" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>已知空气的相对介电常数 <span class="arithmatex">\(\varepsilon_{r}=1\)</span>，真空时的介电常数 <span class="arithmatex">\(\varepsilon_{0}=8.854 \times 10^{-12} F / m\)</span>。一个以空气为介质的平板电容式传感器结构如下图所示，其中 <span class="arithmatex">\(a=10 \mathrm{~mm}, b=16 \mathrm{~mm}\)</span>，两极板间距 <span class="arithmatex">\(d=1 \mathrm{~mm}\)</span> 。测量时，若上极板在原始位置（<span class="arithmatex">\(\Delta x=0 \mathrm{~mm}\)</span>）上向左平移了 <span class="arithmatex">\(2 \mathrm{~mm}\)</span> （即 <span class="arithmatex">\(\Delta x=2 \mathrm{~mm}\)</span>），求该传感器的<strong>电容变化量</strong>、<strong>电容相对变化量</strong>和<strong>位移相对灵敏度 </strong><span class="arithmatex">\(K_{0}\)</span>。</p>
+<p><img alt="image-20250616153249561" src="../传感器与检测技术.assets/image-20250616153249561.png" /></p>
+<p><strong>答：</strong></p>
+<p>电容变化量为：
+<span class="arithmatex">\(\begin{aligned} \Delta C &amp; =C-C_{0}=\frac{\varepsilon_{r} \varepsilon_{0}(a-\Delta x) b}{d}-\frac{\varepsilon_{r} \varepsilon_{0} a b}{d}\\ &amp;=-\frac{\varepsilon_{r} \varepsilon_{0} \Delta x b}{d} =-2.83 \times 10^{-13}(F) \end{aligned}\)</span></p>
+<p>即电容减小了 <span class="arithmatex">\(2.83 \times 10^{-13} F\quad\)</span></p>
+<p>电容相对变化量为: <span class="arithmatex">\(\frac{\Delta C}{C_0} = \frac{A_1 - A_0}{A_0} = \frac{-\Delta x \cdot b}{a \cdot b} = -\frac{\Delta x}{a}=-0.2\)</span></p>
+<p>位移相对灵敏度为: </p>
+<ul>
+<li>由 <span class="arithmatex">\(K_{0}=\frac{\Delta C}{C_0} = \frac{A_1 - A_0}{A_0} = \frac{-\Delta x \cdot b}{a \cdot b} = -\frac{\Delta x}{a}\)</span>，得：<span class="arithmatex">\(K_0 = \frac{\Delta C / C_0}{\Delta x} = -\frac{1}{a}\)</span></li>
+<li>代入数值：<span class="arithmatex">\(K_0 = -\frac{1}{0.01 \, \text{m}} = -100 \, \text{m}^{-1} \quad (-0.1 \text{mm}^{-1})\)</span></li>
+</ul>
+<h2 id="_28">压电式传感器<a class="headerlink" href="#_28" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_29">选填简答题<a class="headerlink" href="#_29" title="跳转至本节的锚点链接">&para;</a></h3>
+<ol>
+<li>
+<p>对石英晶体，沿光轴方向施加作用力，不会产生压电效应，也没有电荷产生。</p>
+</li>
+<li>
+<p>石英晶体和压电陶瓷的压电效应对比：压电陶瓷比石英晶体的压电效应明显，稳定性不如石英晶体好。</p>
+</li>
+<li>
+<p>两个压电元件相并联与单片时相比，并联时电荷量增加了一倍，输出电容为单片时的2倍。</p>
+</li>
+<li>
+<p>两个压电元件相串联与单片时相比，串联时输出电压增大一倍，电荷量与单片时相同。</p>
+</li>
+<li>
+<p>陶瓷传感器与压电石英晶体传感器的比较，前者比后者灵敏度高。</p>
+</li>
+<li>
+<p>电石英晶体表面上产生的电荷密度与作用在晶片上的压力成正比。</p>
+</li>
+<li>
+<p>电式传感器目前多用于测量动态的力或压力。</p>
+</li>
+<li>
+<p>英晶体在沿机械轴y方向的力作用下会产生横向压电效应。</p>
+</li>
+<li>
+<p>英晶体在沿电轴X方向的力作用下会产生纵向压电效应。</p>
+</li>
+<li>
+<p>压电式传感器中压电元件的连接，与单片相比，并联时电荷量增加1倍、电容量增加1倍、输出电压不变。</p>
+</li>
+<li>
+<p>在选择合适的压电材料时必须考虑的有：<u>转换性能 电性能 时间稳定性 温度稳定性</u></p>
+</li>
+<li>
+<p>具有压电效应的材料有：<u>钛酸钡  锆钛酸铅  石英</u></p>
+</li>
+<li>
+<p>压电式传感器是以某些介质的 <u>压电效应</u> 作为工作基础的。</p>
+</li>
+<li>
+<p>将电能转变为机械能的压电效应称为 <u>逆压电效应</u> 。</p>
+</li>
+<li>
+<p>石英晶体沿 <u>z轴/光轴</u> 方向施加作用力不会产生压电效应，没有点电荷产生。</p>
+</li>
+<li>
+<p>压电陶瓷需要有 <u>外电场</u> 和 <u>压力</u> 的共同作用才会具有压电效应。</p>
+</li>
+<li>
+<p>压电式传感器可等效为一个 <u>电荷源Q</u> 和一个 <u>电容器C</u> 并联，也可等效为一个与 <u>电容</u> 相串联的电压源。</p>
+</li>
+<li>
+<p>电式传感器是一种典型的 <u>有源</u> 传感器（或发电型传感器），其以某些电介质的 <u>压电效应</u> 为基础，来实现非电量电测的目的。</p>
+</li>
+<li>
+<p>电式传感器的工作原理是基于某些 <u>压电</u> 材料的压电效应</p>
+</li>
+<li>
+<p>沿着压电陶瓷极化方向加力时，其 <u>晶粒的极化方向</u> 发生变化，引起垂直于极化方向的平面上 <u>压电特性</u> 的变化而产生压电效应。</p>
+</li>
+<li>
+<p>压电式传感器具有体积小、结构简单等优点，但不能测量 <u>随时间变化缓慢</u> 的被测量。特别是不能测量 <u>静态量</u> 。</p>
+</li>
+<li>
+<p>某些电介质当沿一定方向对其施力而变形时内部产生极化现象，同时在它的表面产生符号相反的电荷，当外力去掉后又恢复不带电的状态，这种现象称为 <u>正压电效应</u> 效应；在介质极化方向施加电场时电介质会产生形变，这种效应又称 <u>逆压电效应</u> 效应。</p>
+</li>
+<li>
+<p>石英晶体的X轴称为 <u>电轴</u> ，垂直于X轴的平面上 <u>压电效应</u> 最强；Y轴称为 <u>机械轴</u> ，沿Y轴的 <u>机械变形</u> 最明显；Z轴称为光轴或中性轴，Z轴方向上无压电效应。</p>
+</li>
+<li>
+<p>压电效应将 <u>机械能</u> 转变为 <u>电能</u> ，逆压电效应将 <u>电能</u> 转化为 <u>机械能</u> 。</p>
+</li>
+<li>
+<p>压电材料的主要特性参数有：<u>压电系数、弹性系数、介电常数、机电耦合系数、居里点、电阻。</u></p>
+</li>
+<li>
+<p>什么叫正压电效应？</p>
+<p>正压电效应就是对某些电介质沿一定方向施以外力使其变形时，其内部将产生极化现象而使其出现电荷集聚的现象。</p>
+</li>
+<li>
+<p>什么是逆压电效应？</p>
+<p>当在片状压电材料的两个电极面上加上交流电压，那么压电片将产生机械振动，即压电片在电极方向上产生伸缩变形，压电材料的这种现象称为电致伸缩效应，也称为逆压电效应。</p>
+</li>
+<li>
+<p>石英晶体x、y、z轴的名称及其特点是什么？</p>
+<p>石英晶体的x轴：称为电轴，压电效应只在该轴的两个表面产生电荷集聚。沿电轴方向的力作用于晶体时所产生的电荷量的大小与切片的几何尺寸无关。</p>
+<p>石英晶体的y轴：是机械轴，沿机械轴方向的力作用于晶体时产生的电荷量大小q，与晶体切片的几何尺寸有关。</p>
+<p>石英晶体的z轴：是纵向轴，称为光轴，沿该方向受力不会产生压电效应。</p>
+</li>
+<li>
+<p>画出压电元件的两种等效电路。</p>
+<p><img alt="image-20250616114230999" src="../传感器与检测技术.assets/image-20250616114230999.png" /></p>
+</li>
+<li>
+<p>压电元件在使用时常采用多片串接或并接的结构形式。试述在不同接法下输出电压、电荷、电容的关系，它们分别适用于何种应用场合？</p>
+<p>并联接法在外力作用下正负电极上的电荷量增加了1倍，电容量也增加了1倍，输出电压与单片时相同。适宜测量慢变信号且以电荷作为输出量的场合。</p>
+<p>串联接法上、 下极板的电荷量与单片时相同，总电容量为单片的一半，输出电压增大了1倍。 适宜以电压作输出信号且测量电路输入阻抗很高的场合。</p>
+</li>
+<li>
+<p>为什么压电传感器通常都用来测量动态或瞬态参量？</p>
+<p>如作用在压电组件上的力是静态力，则电荷会泄露，无法进行测量。所以压电传感器通常都用来测量动态或瞬态参量。</p>
+</li>
+</ol>
+<h2 id="_30">霍尔式传感器<a class="headerlink" href="#_30" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_31">选填简答题<a class="headerlink" href="#_31" title="跳转至本节的锚点链接">&para;</a></h3>
+<ol>
+<li>
+<p>制造霍尔元件的半导体材料中，目前用的较多的是锗、锑化铟、砷化铟，其原因是这些N型半导体材料较适宜制造灵敏度较高的霍尔元件</p>
+</li>
+<li>
+<p>霍尔电势与 <u>霍尔器件长度</u> 成反比。</p>
+</li>
+<li>
+<p>霍尔元件不等位电势产生的主要原因不包括 <u>周围环境温度变化</u> 。</p>
+</li>
+<li>
+<p>磁电作用主要分为 <u>电磁感应</u> 、 <u>霍尔效应</u> 。</p>
+</li>
+<li>
+<p>霍尔式传感器可用于测量 <u>转速</u> 、<u>加速度</u> 、<u>微位移</u> 、<u>压力</u></p>
+</li>
+<li>
+<p>磁电感应式传感器是利用导体和磁场发生相对运动而在导体两端输出 <u>感应电动势</u> 的原理进行工作的。</p>
+</li>
+<li>
+<p>当载流导体或半导体处于与电流相垂直的磁场中时，在其两端将产生电位差，这一现象被称为 <u>霍尔效应</u>  。</p>
+</li>
+<li>
+<p>霍尔效应的产生是由于运动电荷受 <u>磁场中洛伦兹力</u> 作用的结果。</p>
+</li>
+<li>
+<p>霍尔元件的灵敏度与 <u>元件的厚度</u> 和 <u>载流子的浓度</u> 有关。</p>
+</li>
+<li>
+<p>霍尔效应是导体中的载流子在磁场中受 <u>洛伦兹力</u> 作用发生 <u>运动</u> 的结果。</p>
+</li>
+<li>
+<p>霍尔传感器的灵敏度与霍尔系数成正比而与 <u>霍尔片厚度</u> 成反比。</p>
+</li>
+<li>
+<p>简述霍尔电势产生的原理。</p>
+<p>霍尔电势的产生基于<strong>霍尔效应</strong>，其本质是带电粒子在磁场中受<strong>洛伦兹力</strong>作用而发生偏转，导致电荷在导体两侧积累，从而形成电势差。</p>
+</li>
+<li>
+<p>磁电感应式传感器的工作原理</p>
+<p>恒磁通式传感器是指在测量过程中使导体（线圈）位置相对于恒定磁通变化而实现测量的一类磁电感应式传感器。</p>
+<p>变磁通式磁电传感器主要是靠改变磁路的磁通大小来进行测量，即通过改变测量磁路中气隙的大小，从而改变磁路的磁阻来实现测量的。</p>
+</li>
+<li>
+<p>图2是 <u>霍尔</u> 元件的基本测量电路。</p>
+<p>图2中各编号名称：</p>
+<p>①和②是 <u>霍尔电极</u> ；</p>
+<p>③和④是 <u>激励电极（控制电极）</u> 。</p>
+<p>图2电路中的被测量是 <u>磁感应强度</u> 。</p>
+<p><img alt="image-20250616151951327" src="../传感器与检测技术.assets/image-20250616151951327.png" /></p>
+</li>
+<li>
+<p>霍尔元件能够测量哪些物理参数？</p>
+<p>霍尔元件可测量磁场、电流、位移、压力、振动、转速等。</p>
+</li>
+<li>
+<p>霍尔元件的不等位电势的概念是什么？</p>
+<p>霍尔组件的不等位电势是霍尔组件在额定控制电流作用下，在无外加磁场时，两输出电极之间的空载电势，可用输出的电压表示。</p>
+</li>
+<li>
+<p>什么是霍尔效应？</p>
+<p>当载流导体或半导体处于与电流相垂直的磁场中时，在其两端将产生电位差，这一现象被称为霍尔效应。</p>
+</li>
+<li>
+<p>霍尔电势与哪些因素有关？</p>
+<p>霍尔电势：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+U_H &amp;= E_H b = v B b \\
+    &amp;= -\frac{IB}{ned} = R_H \frac{IB}{d} \\
+    &amp;= K_H IB
+\end{aligned}
+\]</div>
+<p>霍尔电势与霍尔电场 <span class="arithmatex">\(E_{\text{H}}\)</span> 、载流导体或半导体的宽度 <span class="arithmatex">\(b\)</span>、载流导体或半导体的厚度 <span class="arithmatex">\(d\)</span>、电子平均运动速度 <span class="arithmatex">\(v\)</span>、磁场感应强度 <span class="arithmatex">\(B\)</span>、电流 <span class="arithmatex">\(I\)</span> 有关。</p>
+<p><img alt="image-20250616153135957" src="../传感器与检测技术.assets/image-20250616153135957.png" /></p>
+</li>
+</ol>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">本科课程笔记</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">传感器与检测技术</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面有帮助" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面可以改进" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢您的反馈!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+                感谢您的反馈! 笔者将努力改进此页面
+  </br>您可以使用<a href="/basic/contact-form/">反馈表单</a>来帮助我
+
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <!-- 头部区域：左对齐聚合布局 -->
+  <div class="comments-header">
+    <h2 id="__comments">评论</h2>
+    
+    <!-- 切换按钮容器 -->
+    <div class="comment-switch-wrapper" id="switch-wrapper" data-tip="当前正在使用 GitHub 登录评论">
+      <button id="comment-switch-btn" onclick="toggleCommentSystem()">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path fill="currentColor" d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+        </svg>
+        <span>切换模式</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Giscus 容器 -->
+  <div id="giscus-container">
+    <script src="https://giscus.app/client.js"
+            data-repo="weigo6/sufine-giscus"
+            data-repo-id="R_kgDOQvA4xA"
+            data-category="General"
+            data-category-id="DIC_kwDOQvA4xM4C0P1S"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+
+  <!-- Twikoo 容器 (默认隐藏) -->
+  <div id="twikoo-container" style="display: none;">
+    <div id="twikoo"></div>
+  </div>
+
+  <!-- 样式与逻辑 -->
+  <style>
+    /* 1. 头部布局：保持左对齐和分割线 */
+    .comments-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--md-typeset-color--lighter);
+    }
+
+    .comments-header h2 {
+        margin: 0 !important;
+        line-height: 1.2;
+    }
+
+    /* 2. 按钮样式：保持 SVG 图标和 flex 布局 */
+    #comment-switch-btn {
+        background: transparent;
+        border: 1px solid var(--md-typeset-color--lighter);
+        color: var(--md-typeset-color--light);
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 28px;
+        line-height: 1;
+    }
+    
+    #comment-switch-btn:hover {
+        border-color: var(--md-accent-fg-color);
+        color: var(--md-accent-fg-color);
+        background: var(--md-accent-bg-color--transparent);
+    }
+
+    /* 3. Tooltip 样式重构：圆润玻璃磨砂风 */
+    .comment-switch-wrapper {
+        position: relative;
+    }
+
+    .comment-switch-wrapper::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: 115%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px); /* 初始下沉一点，用于浮动动画 */
+        
+        /* 核心：玻璃磨砂效果 */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        
+        /* 亮色模式默认：半透明白底 + 黑字 (柔和灰黑) */
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(0, 0, 0, 0.05); /* 极细微的边界线 */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* 柔和的漫反射投影 */
+        
+        padding: 6px 14px;
+        border-radius: 20px; /* 大圆角，胶囊形状 */
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        
+        /* 动画与可见性 */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* 4. 暗色模式适配：半透明黑底 + 白字 */
+    [data-md-color-scheme="slate"] .comment-switch-wrapper::after {
+        background: rgba(20, 20, 20, 0.7);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 悬浮交互：上浮并淡入 */
+    .comment-switch-wrapper:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Twikoo 容器样式 */
+    #twikoo-container {
+        margin-top: 1rem;
+    }
+    [data-md-color-scheme="slate"] .tk-content {
+        color: var(--md-typeset-color) !important;
+    }
+  </style>
+
+  <script>
+    var isTwikooLoaded = false;
+
+    function toggleCommentSystem() {
+      var giscusContainer = document.getElementById('giscus-container');
+      var twikooContainer = document.getElementById('twikoo-container');
+      var wrapper = document.getElementById('switch-wrapper');
+      
+      if (twikooContainer.style.display === 'none') {
+        // === 切换到 Twikoo ===
+        giscusContainer.style.display = 'none';
+        twikooContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 Twikoo 匿名评论');
+        
+        if (!isTwikooLoaded) {
+          loadTwikooScript();
+        }
+      } else {
+        // === 切换回 Giscus ===
+        twikooContainer.style.display = 'none';
+        giscusContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 GitHub 登录评论');
+      }
+    }
+
+    function loadTwikooScript() {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/twikoo@latest/dist/twikoo.all.min.js";
+      script.async = true;
+      script.onload = function() {
+        twikoo.init({
+          envId: 'https://twikoo.sufine.top',
+          el: '#twikoo',
+          lang: 'zh-CN'
+        }).catch(console.error);
+        isTwikooLoaded = true;
+      };
+      document.body.appendChild(script);
+    }
+  </script>
+
+  <!-- Giscus 主题同步 -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+          var frame = document.querySelector(".giscus-frame")
+          if (frame) {
+            frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app")
+          }
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    
+      
+      <nav
+        class="md-footer__inner md-grid"
+        aria-label="页脚"
+        
+      >
+
+        <!-- Link to previous page -->
+        
+          
+          <a
+            href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+            class="md-footer__link md-footer__link--prev"
+            aria-label="上一页: 计算机网络课程"
+          >
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                计算机网络课程
+              </div>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          
+          <a
+            href="../%E4%BA%A4%E9%80%9A%E8%8B%B1%E8%AF%AD%E7%AD%94%E8%BE%A9%E8%AE%B2%E7%A8%BF/"
+            class="md-footer__link md-footer__link--next"
+            aria-label="下一页: 专业外语课程-交通英语"
+          >
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                专业外语课程-交通英语
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Luwei
+    </div>
+  
+  
+</div>
+
+      <!-- Site Visits -->
+      <style>
+      .site-visit-count {
+        padding: 0 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.65rem;
+        color: var(--md-default-fg-color);
+      }
+      </style>
+      <div class="site-visit-count">
+        本站访问量：<span id="site_pv">--</span>&nbsp;| 当前页浏览量：<span id="page_pv">--</span>
+      </div>
+
+      <!-- Social links -->
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://bucket.rutno.com/d?sid=eqtRzdKfuGlmIm2wX3IwXffreqnr&e=1769434119&sig=aca3206c8defbfd303f1c5b6b36f51416243315723ae7e667fc98f7a5bf29111" target="_blank" rel="noopener" title="关注微信公众号" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/fSvCWA9say" target="_blank" rel="noopener" title="加入 Discord 服务器" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/weigo6" target="_blank" rel="noopener" title="访问 GitHub 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://gitee.com/weigo6" target="_blank" rel="noopener" title="访问 Gitee 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.15a.59.59 0 0 1-.592-.592v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://space.bilibili.com/512710834" target="_blank" rel="noopener" title="访问 Bilibili 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M488.6 104.1c16.7 18.1 24.4 39.7 23.3 65.7v202.4c-.4 26.4-9.2 48.1-26.5 65.1-17.2 17-39.1 25.9-65.5 26.7H92c-26.4-.8-48.2-9.8-65.3-27.2S.7 396.5 0 368.2V169.8c.8-26 9.7-47.6 26.7-65.7C43.8 87.8 65.5 78.8 92 78h29.4L96 52.2c-5.7-5.7-8.6-13-8.6-21.8S90.3 14.3 96 8.6 109 0 117.9 0s16.1 2.9 21.9 8.6L213.1 78h88l74.5-69.4C381.7 2.9 389.2 0 398 0s16.1 2.9 21.9 8.6c5.7 5.7 8.6 13 8.6 21.8s-2.9 16.1-8.6 21.8L394.6 78h29.3c26.4.8 48 9.8 64.7 26.1m-38.8 69.7c-.4-9.6-3.7-17.4-10.7-23.5-5.2-6.1-14-9.4-22.7-9.8H96c-9.6.4-17.4 3.7-23.6 9.8-6.1 6.1-9.4 13.9-9.8 23.5v194.4c0 9.2 3.3 17 9.8 23.5s14.4 9.8 23.6 9.8h320.4c9.2 0 17-3.3 23.3-9.8s9.7-14.3 10.1-23.5zm-264.3 42.7c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.2 6.3-14 9.5-23.6 9.5s-17.5-3.2-23.6-9.5-9.4-14-9.8-23.2v-33.3c.4-9.1 3.8-16.9 10.1-23.2s13.2-9.6 23.3-10c9.2.4 17 3.7 23.3 10m191.5 0c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2s-14 9.5-23.6 9.5-17.4-3.2-23.6-9.5c-7-6.3-9.4-14-9.7-23.2v-33.3c.3-9.1 3.7-16.9 10-23.2s14.1-9.6 23.3-10c9.2.4 17 3.7 23.3 10"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yang92636@qq.com" target="_blank" rel="noopener" title="通过电子邮件联系我" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["navigation.instant","navigation.instant.progress","navigation.tracking","navigation.tabs","navigation.tabs.sticky","navigation.sections","navigation.path","navigation.indexes","navigation.top","toc.follow","search.highlight","content.action.edit","content.action.view","navigation.footer","content.code.copy","content.code.select","content.code.annotate","content.footnote.tooltips","content.tooltips"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+        <script src="../../../javascripts/feedback.js"></script>
+      
+        <script src="../../../javascripts/count.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+      
+        <script src="../../../javascripts/ask_ai.js"></script>
+      
+        <script src="../../../javascripts/APlayer.min.js"></script>
+      
+        <script src="../../../javascripts/Meting.min.js"></script>
+      
+        <script src="../../../javascripts/music_player.js"></script>
+      
+        <script src="../../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

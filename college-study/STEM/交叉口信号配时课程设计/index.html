@@ -1,0 +1,6638 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="不必倾城倾国色，斜阳影里自婷婷。">
+      
+      
+        <meta name="author" content="Luwei">
+      
+      
+        <link rel="canonical" href="https://sufine.top/college-study/STEM/%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%BF%A1%E5%8F%B7%E9%85%8D%E6%97%B6%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">
+      
+      
+        <link rel="prev" href="../PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">
+      
+      
+        <link rel="next" href="../%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8C%E9%9D%A2%E9%95%9C%E6%B5%8B%E7%A3%81%E8%87%B4%E4%BC%B8%E7%BC%A9%E7%B3%BB%E6%95%B0%E5%AE%9E%E9%AA%8C/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/logo.webp">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>交叉口信号配时优化VISSIM仿真课程设计 - Suffine Hub</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/ask_ai.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/APlayer.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/music_player.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+  <!-- Umami Analytics 集成脚本，支持即时导航（SPA单页应用）模式，屏蔽navigation.tracking (滚动锚点变化) 干扰 -->
+<!-- 1. 基础统计脚本 -->
+<!-- 使用 defer 异步加载，data-auto-track="false" 关闭自动上报，交由下方手动接管 -->
+<script defer 
+  src="https://cloud.umami.is/script.js" 
+  data-website-id="c53576ff-f759-4495-b8ec-bb653e56ce58"
+  data-auto-track="false" 
+></script>
+
+<!-- 2. 逻辑控制脚本 -->
+<script>
+  /* Umami Analytics Integration for MkDocs Material */
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    // 封装上报函数：统一处理，强制使用 pathname (剔除 #hash)
+    var trackPageview = function() {
+      // 忽略本地开发环境
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        console.log("Umami tracking disabled on localhost"); //方便调试确认
+        return;
+      }
+
+      if (typeof umami !== "undefined") {
+        umami.track(function(props) { 
+          return { ...props, url: window.location.pathname } 
+        });
+      }
+    };
+
+    // A. 首次加载时的手动上报
+    // 页面刚打开时，script (defer) 执行完毕且 DOM 准备好后执行
+    trackPageview();
+
+    // B. 监听 MkDocs 的 SPA 导航事件 (Instant Loading)
+    // document$ 是一个 Observable，仅在 DOM 内容被替换时触发
+    var isFirstEmit = true;
+    
+    document$.subscribe(function() {
+      // document$ 在订阅瞬间会发射一次当前页面的信号
+      // 我们通过标志位跳过这一次，避免与步骤 A 重复统计
+      if (isFirstEmit) {
+        isFirstEmit = false;
+        return;
+      }
+      
+      // 只有真正的页面跳转（内容替换）才会执行到这里
+      // 单纯的 Hash 变化（目录跳转/滚动）不会触发 document$
+      trackPageview();
+    });
+  });
+</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vissim" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Suffine Hub" class="md-header__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Suffine Hub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              交叉口信号配时优化VISSIM仿真课程设计
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  关于本站
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  课程学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tech-dev/" class="md-tabs__link">
+          
+  
+  技术开发
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../basic/guest-board/" class="md-tabs__link">
+        
+  
+  留言板
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../basic/friendly-links/" class="md-tabs__link">
+          
+  
+  友链
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://nav.sufine.top" class="md-tabs__link">
+        
+  
+  网址导航
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Suffine Hub" class="md-nav__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    Suffine Hub
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    关于本站
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    课程学习
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../RailSig/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 2h7c.8 0 1.56.32 2.12.88S15 4.2 15 5v1h-2V4H4v7h5v5H8l-3 3H4v-2l1-1c-.8 0-1.56-.32-2.12-.88S2 13.8 2 13V5c0-.8.32-1.56.88-2.12S4.2 2 5 2m.71 10.29C5.5 12.11 5.27 12 5 12c-.26 0-.5.11-.71.29-.18.21-.29.45-.29.71 0 .27.11.5.29.71.21.19.45.29.71.29.27 0 .5-.1.71-.29.19-.21.29-.44.29-.71 0-.26-.1-.5-.29-.71M11 11c0-1.66 1-3 4-3h3c3 0 4 1.34 4 3v7c0 .74-.4 1.39-1 1.73V21c0 .55-.45 1-1 1s-1-.45-1-1v-1h-5v1c0 .55-.45 1-1 1s-1-.45-1-1v-1.27c-.6-.34-1-.99-1-1.73zm2-1v4h7v-4zm1 8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1m6-1c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号与控制
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    轨道交通信号与控制
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E6%A6%82%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-5V6h5m-1.5 11a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5M11 11H6V6h5M7.5 17A1.5 1.5 0 0 1 6 15.5 1.5 1.5 0 0 1 7.5 14 1.5 1.5 0 0 1 9 15.5 1.5 1.5 0 0 1 7.5 17M12 2c-4.42 0-8 .5-8 4v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5v.5h12v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.58-4-8-4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通概论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%B8%80/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m8-9h-3V8.86c1.72-.45 3-2 3-3.86h-3V4a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1H4c0 1.86 1.28 3.41 3 3.86V10H4c0 1.86 1.28 3.41 3 3.86V15H4c0 1.86 1.28 3.41 3 3.86V20a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1.14c1.72-.45 3-2 3-3.86h-3v-1.14c1.72-.45 3-2 3-3.86"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号基础一
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%BA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.67 10.5c-1.27 0-2.4.8-2.82 2h-1.68V7.77l3.49 2.09 1-1.72L14.11 6l3.57-2.14-1-1.72-3.51 2.09V2h-2v2.23L7.68 2.14l-1 1.72L10.23 6 6.66 8.14l1 1.72 3.51-2.09v4.73H9.5c-1.14-3.18-5.84-2.37-5.84 1s4.7 4.18 5.84 1h1.67V20a2 2 0 0 0-2 2h6a2 2 0 0 0-2-2v-5.5h1.68c.81 2.3 3.88 2.72 5.28.73s-.03-4.73-2.46-4.73m-11 4c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1m11 0c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通基础二
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E5%8C%BA%E9%97%B4%E4%BF%A1%E5%8F%B7%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-3.18C14.4 9.84 13.3 9 12 9s-2.4.84-2.82 2H6c-.33 0-2-.1-2-2V8c0-1.83 1.54-2 2-2h10.18C16.6 7.16 17.7 8 19 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3c-1.3 0-2.4.84-2.82 2H6C4.39 4 2 5.06 2 8v1c0 2.94 2.39 4 4 4h3.18c.42 1.16 1.52 2 2.82 2s2.4-.84 2.82-2H18c.33 0 2 .1 2 2v1c0 1.83-1.54 2-2 2H7.82C7.4 16.84 6.3 16 5 16a3 3 0 0 0-3 3 3 3 0 0 0 3 3c1.3 0 2.4-.84 2.82-2H18c1.61 0 4-1.07 4-4v-1c0-2.93-2.39-4-4-4m1-7a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1M5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    区间信号自动控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RailSig/%E8%BD%A6%E7%AB%99%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 16V4H3v12zm0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v2h2v2H8v-2h2v-2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2zM5 6h9v5H5zm10 0h4v2h-4zm4 3v5h-4V9zM5 12h4v2H5zm5 0h4v2h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    车站信号控制系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    理工科专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    理工科专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matlab-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v2h3v12h-3v2h5V4M4 4v16h5v-2H6V6h3V4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Matlab入门学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC-S7-200-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    西门子PLC S7-200
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC-ModbusRTU/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 3h10v2h2v3h-3v6H8V8H5V5h2zm10 6h2v5h-2zm-6 6h2v7h-2zM5 9h2v5H5z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC ModbusRTU 学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h1v2H2v2h4v2H5c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2zm0 2h4v3h-4zM5 17h4v3H5zm10 0h4v3h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BC%A0%E6%84%9F%E5%99%A8%E4%B8%8E%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与检测技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%A4%E9%80%9A%E8%8B%B1%E8%AF%AD%E7%AD%94%E8%BE%A9%E8%AE%B2%E7%A8%BF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    专业外语课程-交通英语
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 22a3 3 0 0 1-3-3c0-.6.18-1.16.5-1.63L9 7.81V6a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1v1.81l5.5 9.56c.32.47.5 1.03.5 1.63a3 3 0 0 1-3 3zm-1-3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1c0-.21-.07-.41-.18-.57l-2.29-3.96L14 17l-5.07-5.07-3.75 6.5c-.11.16-.18.36-.18.57m8-9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理实验报告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8B%8F%E5%B7%9E%E8%AF%84%E5%BC%B9%E9%89%B4%E8%B5%8F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 5a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c2.67 0 8 1.34 8 4v2H1v-2c0-2.66 5.33-4 8-4m7.76-9.64c2.02 2.2 2.02 5.25 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89zM20.07 2c3.93 4.05 3.9 10.11 0 14l-1.63-1.63c2.77-3.18 2.77-7.72 0-10.74z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    苏州评弹鉴赏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%AF%9B%E6%A6%82%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h2v20H7zm12 7-8 5.6V3.4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    毛概复习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E5%AD%97%E7%94%B5%E5%8E%8B%E8%A1%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    数字电压表制作课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.9 18.45c1.35 0 2.45-1.1 2.45-2.45s-1.1-2.45-2.45-2.45c-1.36 0-2.45 1.1-2.45 2.45s1.09 2.45 2.45 2.45m5.2-1.77 1.48 1.16c.13.11.17.29.08.45l-1.4 2.42a.35.35 0 0 1-.43.15l-1.74-.7c-.36.28-.76.51-1.18.69l-.27 1.85c-.02.17-.17.3-.34.3h-2.8c-.18 0-.32-.13-.35-.3l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.75.7c-.15.06-.34 0-.42-.15l-1.4-2.42a.35.35 0 0 1 .08-.45l1.48-1.16-.05-.68.05-.69-1.48-1.15a.35.35 0 0 1-.08-.45l1.4-2.42c.08-.16.27-.22.42-.16l1.75.71c.36-.28.75-.52 1.18-.69l.26-1.86c.03-.16.17-.29.35-.29h2.8c.17 0 .32.13.34.29l.27 1.86c.42.17.82.41 1.18.69l1.74-.71c.17-.06.34 0 .43.16l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.15.05.69zM6.69 8.07c.87 0 1.57-.7 1.57-1.57s-.7-1.58-1.57-1.58A1.58 1.58 0 0 0 5.11 6.5c0 .87.71 1.57 1.58 1.57m3.34-1.13.97.74c.07.07.09.19.03.29l-.9 1.56c-.05.1-.17.14-.27.1l-1.12-.45-.74.44-.19 1.19c-.02.11-.11.19-.22.19h-1.8c-.12 0-.21-.08-.23-.19L5.4 9.62l-.76-.44-1.14.45c-.09.04-.2 0-.26-.1l-.9-1.56c-.06-.1-.03-.22.05-.29l.95-.74-.03-.44.03-.44-.95-.74a.23.23 0 0 1-.05-.29l.9-1.56c.06-.1.17-.14.26-.1l1.13.45.77-.44.16-1.19c.02-.11.11-.19.23-.19h1.8c.11 0 .2.08.22.19L8 3.38l.74.44 1.12-.45c.1-.04.22 0 .27.1l.9 1.56c.06.1.04.22-.03.29l-.97.74.03.44z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC综合实训课程设计
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.1 4.8c-.1-.5-.5-.8-1-.8H13l.2 3h-2.4l.2-3H6.8c-.5 0-.9.4-1 .8l-2.7 14c-.1.6.4 1.2 1 1.2H10l.3-5h3.4l.3 5h5.8c.6 0 1.1-.6 1-1.2zM10.4 13l.2-4h2.6l.2 4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    交叉口信号配时课程设计
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.1 4.8c-.1-.5-.5-.8-1-.8H13l.2 3h-2.4l.2-3H6.8c-.5 0-.9.4-1 .8l-2.7 14c-.1.6.4 1.2 1 1.2H10l.3-5h3.4l.3 5h5.8c.6 0 1.1-.6 1-1.2zM10.4 13l.2-4h2.6l.2 4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    交叉口信号配时课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        摘要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        课程设计目的
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交通调查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="交通调查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交叉口几何条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交叉口交通流量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原信号配时方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时优化设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号配时优化设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交叉口复杂性分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时原理及流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时基本参数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号配时基本参数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号相位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号周期
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号周期">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短信号周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实用信号周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Webster信号周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号总损失时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        黄灯时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全红时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        绿灯间隔时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交通量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        饱和流率、流率比、关键流率比、关键流率比总和
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="饱和流率、流率比、关键流率比、关键流率比总和">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        饱和流率
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        流率比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键流率比、关键流率比总和
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有效绿灯时间与显示绿灯时间
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="有效绿灯时间与显示绿灯时间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有效绿灯时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        显示绿灯时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        绿信比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时评价指标
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号配时评价指标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车辆平均延误时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车辆排队长度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时基本流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时相位方案设计及参数计算
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号配时相位方案设计及参数计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        确定信号相位方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算绿灯间隔时间和信号总损失时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        确定各车道饱和流率
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算当量交通量和流率比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        确定各相位关键流率比并计算关键流率比之和
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算信号周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算总有效绿灯时间和各相位有效绿灯时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算各相位绿信比和显示绿灯时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各信号相位配时图
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vissim_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于VISSIM仿真的配时方案比选
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基于VISSIM仿真的配时方案比选">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vissim_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VISSIM仿真软件概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真模拟
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真数据及分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="仿真数据及分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原方案的仿真数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二相位仿真数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三相位仿真数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四相位仿真数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真数据分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="仿真数据分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不同行进方向的平均车辆延误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真评估平均指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三种设计方案与原方案的仿真评估数据对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        方案评价和比选
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="方案评价和比选">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二信号相位方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三信号相位方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四信号相位方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原始方案与优化后的二相位方案对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        方案评估与选择
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8C%E9%9D%A2%E9%95%9C%E6%B5%8B%E7%A3%81%E8%87%B4%E4%BC%B8%E7%BC%A9%E7%B3%BB%E6%95%B0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.29 10.28 3.24-3.25 1.06 1.06-3.24 3.25zm.41 4.33 5.66-5.66L15.42 10l-5.66 5.67zM18 3v18H6V3zm2-2H4v22h16z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    菲涅尔双面镜测磁致伸缩系数实验
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Kaoyan/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研相关科目
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    考研相关科目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-math-hm/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.42 5.29c-1.1-.1-2.07.71-2.17 1.82L10 10h2.82v2h-3l-.44 5.07A4.001 4.001 0 0 1 2 18.83l1.5-1.5c.33 1.05 1.46 1.64 2.5 1.3.78-.24 1.33-.93 1.4-1.74L7.82 12h-3v-2H8l.27-3.07a4.01 4.01 0 0 1 4.33-3.65c1.26.11 2.4.81 3.06 1.89l-1.5 1.5c-.25-.77-.93-1.31-1.74-1.38M22 13.65l-1.41-1.41-2.83 2.83-2.83-2.83-1.43 1.41 2.85 2.85-2.85 2.81 1.43 1.41 2.83-2.83 2.83 2.83L22 19.31l-2.83-2.81z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-高数知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-math-la/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-线代知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/kaoyan-eng-write/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.54 3.5 4.96 4.97-1.43 1.41-4.95-4.95zM3.5 19.78l6.5-6.47c-.1-.31-.03-.7.23-.96.39-.39 1.03-.39 1.42 0 .39.4.39 1.03 0 1.42-.26.26-.65.33-.96.23l-6.47 6.5 10.61-3.55 3.53-6.36-4.94-4.95-6.37 3.53z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-作文写作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%80%83%E7%A0%94%E6%A0%B8%E5%BF%83926%E8%AF%8D%E6%B1%87%E5%8F%8A%E6%8B%93%E5%B1%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2zm0 2h2v2H3m12-.5V9a2 2 0 0 0-2-2H9v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M13 15h-2v-2h2zm0-4h-2V9h2m6-2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1h-2v1h-2V9h2v1h2V9a2 2 0 0 0-2-2Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-核心词汇926词
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-1.27 0-2.4.8-2.82 2H3v2h1.95L2 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3L6.05 7h3.12c.33.85.98 1.5 1.83 1.83V20H2v2h20v-2h-9V8.82c.85-.32 1.5-.97 1.82-1.82h3.13L15 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3l-2.95-7H21V5h-6.17C14.4 3.8 13.27 3 12 3m0 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-6.5 5.25L7 14H4zm13 0L20 14h-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研政治-知识点笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Kaoyan/%E8%87%AA%E6%8E%A7-%E6%A0%B9%E8%BD%A8%E8%BF%B9%E6%B3%95%E5%88%99/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.96 11.31C10.82 8.1 11.5 6 13 6s2.18 2.1 3.04 5.31C17 14.92 18.1 19 22 19v-2c-2.2 0-3-2.46-4.03-6.2C17.08 7.46 16.15 4 13 4s-4.08 3.46-4.97 6.8C7.03 14.54 6.2 17 4 17V2H2v20h20v-2H4v-1c3.9 0 5-4.08 5.96-7.69"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    自动控制原理-根轨迹法则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    技术开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技术开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Markdown/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12c.79 0 1.44.63 1.44 1.41v9.18c0 .78-.65 1.41-1.44 1.41M6.81 15.19v-3.66l1.92 2.35 1.92-2.35v3.66h1.93V8.81h-1.93l-1.92 2.35-1.92-2.35H4.89v6.38zM19.69 12h-1.92V8.81h-1.92V12h-1.93l2.89 3.28z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown相关
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Markdown相关
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/markdown-in-5min/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4zm10 14.5-4-4-4 4V20h8zm-4-5 4-4V4H8v3.5zM10 6h4v.75l-2 2-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 5 分钟上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/LaTeX-math/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 6H8.83l6 6-6 6H18v2H6v-2l6-6-6-6V4h12z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在Markdown中编写数学公式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/zensical-markdown/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5zm2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63s2.59.23 3.5.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Zensical 中使用 Markdown 高效写作
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/markdown-typora/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7V5h2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L18 9V2h1c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7zm4 4H5v2h2zm0-4V5H5v2zm0 12v-2H5v2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 与 Typora 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Markdown/typora-theme/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 12a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 17.5 9a1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-3-4A1.5 1.5 0 0 1 13 6.5 1.5 1.5 0 0 1 14.5 5 1.5 1.5 0 0 1 16 6.5 1.5 1.5 0 0 1 14.5 8m-5 0A1.5 1.5 0 0 1 8 6.5 1.5 1.5 0 0 1 9.5 5 1.5 1.5 0 0 1 11 6.5 1.5 1.5 0 0 1 9.5 8m-3 4A1.5 1.5 0 0 1 5 10.5 1.5 1.5 0 0 1 6.5 9 1.5 1.5 0 0 1 8 10.5 1.5 1.5 0 0 1 6.5 12M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9 1.5 1.5 0 0 0 1.5-1.5c0-.39-.15-.74-.39-1-.23-.27-.38-.62-.38-1a1.5 1.5 0 0 1 1.5-1.5H16a5 5 0 0 0 5-5c0-4.42-4.03-8-9-8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Typora 软件主题分享与记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/WebDev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.19 14.19 6 18l3.81-8.19L18 6m-6-4A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 8.9a1.1 1.1 0 0 0-1.1 1.1 1.1 1.1 0 0 0 1.1 1.1 1.1 1.1 0 0 0 1.1-1.1 1.1 1.1 0 0 0-1.1-1.1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Web 相关开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web 相关开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%BD%BF%E7%94%A8EO-Pages%E6%89%98%E7%AE%A1Zensical%E7%AB%99%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83s-2.05.78-2.83 0m-5.66 7.07-1.41-1.41zM6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 EdgeOne Pages 托管 Zensical 站点
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E8%A1%A8%E5%8D%95%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.13c-.15.01-.29.06-.39.17l-1 1 2.05 2 1-1c.22-.21.22-.56 0-.77l-1.24-1.23a.56.56 0 0 0-.38-.17m-2 1.75L13 19.94V22h2.06l6.06-6.07M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7v-.89l8.24-8.22c.47-.49 1.12-.76 1.8-.76.34 0 .68.06 1 .19V6c0-1.12-.92-2-2.04-2m0 4-8 5-8-5V6l8 5 8-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加邮件表单功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E5%9F%BA%E4%BA%8EEO-Pages%E5%AE%9E%E7%8E%B0%E7%AB%99%E7%82%B9%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于 EdgeOne Pages 实现站点访问统计功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0AI%E9%97%AE%E7%AD%94%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-1.26 2.75L15 5l2.74 1.26L19 9l1.25-2.74L23 5l-2.75-1.25M9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5M19 15l-1.26 2.74L15 19l2.74 1.25L19 23l1.25-2.75L23 19l-2.75-1.26"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加 AI 问答功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加音乐播放器功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Embedded/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E5%9B%9B%E8%BD%AE%E7%A7%BB%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 0 0 5 15.5 2.5 2.5 0 0 0 7.5 18a2.5 2.5 0 0 0 2.5-2.5A2.5 2.5 0 0 0 7.5 13m9 0a2.5 2.5 0 0 0-2.5 2.5 2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于STM32的四轮移动机器人设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ERFID%E7%9A%84%E6%99%BA%E8%83%BD%E4%BB%93%E5%82%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h2v2H6zm6-16L2 8v13h2v-8h16v8h2V8zm-4 8H4V9h4zm6 0h-4V9h4zm6 0h-4V9h4zM6 15h2v2H6zm4 0h2v2h-2zm0 4h2v2h-2zm4 0h2v2h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于RFID的智能仓储管理系统设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/2024%E7%94%B5%E8%B5%9BH%E9%A2%98%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2c-.9 0-2 1-2 2H8c0-1-1.1-2-2-2H2v9c0 1 1 2 2 2h2.2c.4 2 1.7 3.7 4.8 4v2.08C8 19.54 8 22 8 22h8s0-2.46-3-2.92V17c3.1-.3 4.4-2 4.8-4H20c1 0 2-1 2-2V2zM6 11H4V4h2zm14 0h-2V4h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024电赛H题参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/2024%E8%A5%BF%E9%97%A8%E5%AD%90%E6%9D%AF%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4v2l5.81 4.36a7.004 7.004 0 0 0-4.46 8.84 6.996 6.996 0 0 0 8.84 4.46 7 7 0 0 0 0-13.3L20 4zm-5.06 17.5L12 17.78 9.06 19.5l.78-3.33-2.59-2.24 3.41-.29L12 10.5l1.34 3.14 3.41.29-2.59 2.24z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024西门子杯参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    蓝桥杯嵌入式与STM32学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/PCB%E8%AE%BE%E8%AE%A1%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0 3 7l1.63 1.27L12 14l7.36-5.73L21 7zm7.37 10.73L12 16.47l-7.38-5.73L3 12l9 7 9-7zm0 5L12 21.47l-7.38-5.73L3 17l9 7 9-7z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PCB设计注意事项
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ECD4017%E7%9A%84%E7%AE%80%E6%98%93%E5%AF%86%E7%A0%81%E5%99%A8%E6%8E%A7%E5%88%B6%E8%A3%85%E7%BD%AE/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m5.6-4c-.8-2.3-3-4-5.6-4-3.3 0-6 2.7-6 6s2.7 6 6 6c2.6 0 4.8-1.7 5.6-4H16v4h4v-4h3v-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于CD4017的简易密码器控制装置
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Software/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v10H4m16 2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    软件程序开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件程序开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/%E5%9F%BA%E4%BA%8EAST%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E7%9A%84Python%E6%96%87%E4%BB%B6%E6%9F%A5%E9%87%8D/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18H6v-2h4zm0-4H6v-2h4zm0-13v1H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h4v1h2V1zm10 7v12c0 1.11-.89 2-2 2h-4v-2h4v-9h-4V9h4.5L14 4.5V2zm-4 6h-2v-2h2zm0 4h-2v-2h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于AST语义分析的Python文件查重
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/%E6%97%8B%E8%BD%AC%E9%9F%B3%E5%BE%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m0 2v12h16V6zm3.24.58 11.59 3.11-2.07 7.73-11.59-3.11z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于Pyside6与ffmpeg的旋转音律视频稳定工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/Turbot4%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Turbot4机器人开发记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Software/uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55 6.28-3.63-.58-1.01-6.28 3.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+     Python 下一代包管理器 uv 上手指南
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tech-dev/Tools/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.8 3.8 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.8 3.8 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    工具与资源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具与资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-dev/Tools/%E5%8D%A1%E8%A5%BF%E6%AC%A7fx-991%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4zm0 6v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    卡西欧fx-991使用技巧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/guest-board/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 12V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14l4-4h10a1 1 0 0 0 1-1m4-6h-2v9H6v2a1 1 0 0 0 1 1h11l4 4V7a1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    留言板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    友链
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    友链
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 17q.86 0 1.45.6t.58 1.4L14 22l-7-2v-9h1.95l7.27 2.69q.78.31.78 1.12 0 .47-.34.82t-.86.37H13l-1.75-.67-.33.94L13 17zM16 3.23Q17.06 2 18.7 2q1.36 0 2.3 1t1 2.3q0 1.03-1 2.46t-1.97 2.39T16 13q-2.08-1.89-3.06-2.85t-1.97-2.39T10 5.3q0-1.36.97-2.3t2.34-1q1.6 0 2.69 1.23M.984 11H5v11H.984z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    朋友们
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links-guide/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 14c-2.67 0-8 1.33-8 4v2h16v-2c0-2.67-5.33-4-8-4m-9-4V7H4v3H1v2h3v3h2v-3h3v-2m6 2a4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4 4 4 0 0 0 4 4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    友链申请指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/contact-form/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 8V7l-3 2-3-2v1l3 2m4-7H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M8 6a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m6 12H2v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1m8-5h-8V6h8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    联系表单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nav.sufine.top" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网址导航
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        摘要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        课程设计目的
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交通调查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="交通调查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交叉口几何条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交叉口交通流量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原信号配时方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时优化设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号配时优化设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交叉口复杂性分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时原理及流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时基本参数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号配时基本参数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号相位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号周期
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号周期">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短信号周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实用信号周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Webster信号周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号总损失时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        黄灯时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全红时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        绿灯间隔时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交通量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        饱和流率、流率比、关键流率比、关键流率比总和
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="饱和流率、流率比、关键流率比、关键流率比总和">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        饱和流率
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        流率比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键流率比、关键流率比总和
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有效绿灯时间与显示绿灯时间
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="有效绿灯时间与显示绿灯时间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有效绿灯时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        显示绿灯时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        绿信比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时评价指标
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号配时评价指标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车辆平均延误时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        车辆排队长度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时基本流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信号配时相位方案设计及参数计算
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号配时相位方案设计及参数计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        确定信号相位方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算绿灯间隔时间和信号总损失时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        确定各车道饱和流率
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算当量交通量和流率比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        确定各相位关键流率比并计算关键流率比之和
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算信号周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算总有效绿灯时间和各相位有效绿灯时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算各相位绿信比和显示绿灯时间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各信号相位配时图
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vissim_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于VISSIM仿真的配时方案比选
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基于VISSIM仿真的配时方案比选">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vissim_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VISSIM仿真软件概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真模拟
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真数据及分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="仿真数据及分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原方案的仿真数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二相位仿真数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三相位仿真数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四相位仿真数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真数据分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="仿真数据分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不同行进方向的平均车辆延误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真评估平均指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三种设计方案与原方案的仿真评估数据对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        方案评价和比选
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="方案评价和比选">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二信号相位方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三信号相位方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四信号相位方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原始方案与优化后的二相位方案对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        方案评估与选择
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    关于本站
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    课程学习
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    理工科专业课程
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/weigo6/suffine-hub/edit/main/docs/college-study/STEM/交叉口信号配时课程设计.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/weigo6/suffine-hub/raw/main/docs/college-study/STEM/交叉口信号配时课程设计.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+<h1 id="vissim">交叉口信号配时优化VISSIM仿真课程设计<a class="headerlink" href="#vissim" title="跳转至本节的锚点链接">&para;</a></h1>
+<p>本文是笔者本科期间轨道交通信号综合系统实验的课程设计报告。</p>
+<h2 id="_1">摘要<a class="headerlink" href="#_1" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>本课程设计围绕城市道路交叉口的信号配时优化问题展开，基于VISSIM微观交通仿真平台，结合实际交通调查数据，对某典型十字交叉口进行了多相位信号配时方案的设计与比选。通过分析交叉口几何条件、交通流量特征及原信号配时方案的不足，分别设计了两相位、三相位和四相位（双向左转专用相位）三种优化方案，并依据信号配时基本原理计算各相位关键参数（如周期时长、绿信比、有效绿灯时间等）。利用VISSIM软件构建仿真模型，以平均延误、排队长度、停车次数等作为评价指标，对各方案进行仿真对比与分析。结果表明，优化后的二相位方案在整体通行效率方面表现最优，但四相位方案在安全性方面更具优势。本设计体现了信号配时理论在实际工程中的应用，为交叉口信号控制优化提供了科学依据和方法支持。</p>
+<p><strong>关键词：</strong>VISSIM交通仿真；交叉口信号配时</p>
+<h2 id="_2">课程设计目的<a class="headerlink" href="#_2" title="跳转至本节的锚点链接">&para;</a></h2>
+<ol>
+<li>
+<p><strong>掌握交叉口信号配时优化的基本理论与方法</strong>：通过本设计，深入理解交通信号配时的基本原理、核心参数（如信号相位、周期、饱和流率、流率比等）的计算方法，理解信号配时在解决交叉口交通冲突、提升通行效率中的作用。学会基于交通调查数据（几何条件、交通流量等）进行信号相位方案设计，能够针对不同相位组合（两相位、三相位、四相位）开展参数计算与方案优化。</p>
+</li>
+<li>
+<p><strong>熟悉VISSIM仿真软件的基本操作与应用</strong>：学习 VISSIM 仿真软件进行交叉口建模、交通流输入、信号控制设置及仿真结果分析。掌握通过仿真数据（平均延误、排队长度等）评价信号配时方案优劣的方法，培养从仿真结果反推方案改进方向的能力。</p>
+</li>
+<li><strong>培养分析与解决实际交通问题的能力</strong>：通过数据收集、方案设计、仿真验证与结果分析的全过程训练，提升对交叉口运行状态的诊断与优化能力。</li>
+<li><strong>理解不同信号相位方案的适用性与优劣</strong>：结合实际案例理解原信号配时方案的局限性，通过对比不同优化方案的效果，建立 “问题分析 - 方案设计 - 仿真验证 - 优化迭代” 的解决思路，提升交通工程实践能力。</li>
+<li><strong>为今后从事交通规划、设计与管理实践打下基础</strong>：深化对交叉口交通流特性的认识，明确信号配时与交通需求、道路几何条件的匹配关系，为今后从事交通规划与信号控制相关工作奠定理论与实践基础。</li>
+</ol>
+<h2 id="_3">交通调查<a class="headerlink" href="#_3" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_4">交叉口几何条件<a class="headerlink" href="#_4" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本交叉口信号配时优化VISSIM仿真课程设计使用如下样式的交叉口进行设计。</p>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250902184212784.png" alt="image-20250902184212784" style="zoom: 67%;" /></p>
+<p>交叉口的进口道设置和车道宽度如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>进口道</th>
+<th>转向</th>
+<th>车道宽度(m)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>东进口</td>
+<td>左</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>直1</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>直2</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td>西进口</td>
+<td>左1</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>左2</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>直1</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>直2</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td>南进口</td>
+<td>左</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>直</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td>北进口</td>
+<td>左</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>直1</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>直2</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td><span class="arithmatex">\(3.5\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">交叉口交通流量<a class="headerlink" href="#_5" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>在交通工程中，交叉口交通流量是描述单位时间内通过交叉口特定位置（如进口道、出口道、冲突点等）的车辆、行人或非机动车数量的核心指标，是交叉口规划设计、信号配时优化、拥堵治理及通行效率评估的基础数据。</p>
+<p>交叉口交通流量通常由实际调研得到，这里采用给定的数据源。</p>
+<p><img alt="image-20250902185142952" src="../交叉口信号配时课程设计.assets/image-20250902185142952.png" /></p>
+<p>交叉口交通流量是交通工程实践的 “数据基石”，是信号配时优化的重要基础，通过分流向流量数据，确定信号相位（如左转流量大则设单独左转相位）、绿灯时长（流量比高的方向绿灯更长）、信号周期（高峰流量大则周期更长，减少启停损失）。</p>
+<h3 id="_6">原信号配时方案<a class="headerlink" href="#_6" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>需要进行优化的原信号配时方案为二相位。</p>
+<p><img alt="image-20250902191417955" src="../交叉口信号配时课程设计.assets/image-20250902191417955.png" /></p>
+<p>原方案的相位时间（需要优化）如下：</p>
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>南北直、左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>绿灯时长（s）</td>
+<td>17</td>
+<td>21</td>
+</tr>
+<tr>
+<td>黄灯时长（s）</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>全红时长（s）</td>
+<td>3</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>原方案信号相位配时图如下：</p>
+<p><img alt="image-20250902191851094" src="../交叉口信号配时课程设计.assets/image-20250902191851094.png" /></p>
+<h2 id="_7">信号配时优化设计<a class="headerlink" href="#_7" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_8">交叉口复杂性分析<a class="headerlink" href="#_8" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>交通信号是一种从时间上分离交通流的交通管控措施，通过从时间上给不同方向的交通流分配通行权，从而实现不同方向的交通流分离，以达到减少交通流冲突的目的。</p>
+<p>交叉口的复杂性 <span class="arithmatex">\(A\)</span> 可以用以下式子表达：</p>
+<p>$ A = n_{B} + 3n_{M} + 5n_{C} $</p>
+<p>式中：<span class="arithmatex">\(n_{B}\)</span>、<span class="arithmatex">\(n_{M}\)</span>、<span class="arithmatex">\(n_{C}\)</span>——分别为交通流在交叉口内的分流冲突点数、合流冲突点数和交叉冲突点数。</p>
+<p>对于对称布局的交叉口，随着交叉口进口道车道条数的增加，机动车冲突点数可由下式计算：</p>
+<p><span class="arithmatex">\(n_{c} = n_{lc} + n_{nc} = (8n + 4) + 4n^{2}\)</span>
+<span class="arithmatex">\(n_{lc}\)</span> — 交叉口左转机动车交叉冲突点数；包含: 左转与直行的冲突 8n；左转与左转的冲突 4
+<span class="arithmatex">\(n_{nc}\)</span> — 交叉口非左转机动车交叉冲突点数；包含: 直行与直行的冲突 4n；直行与左转的冲突 4n
+<span class="arithmatex">\(n\)</span> — 交叉口进口道机动车车道条数。</p>
+<p>由于本课程设计所分析的交叉口为非对称布局，交叉口复杂度计算使用公式 $ A = n_{B} + 3n_{M} + 5n_{C} $</p>
+<p><img alt="image-20250905145646335" src="../交叉口信号配时课程设计.assets/image-20250905145646335.png" /></p>
+<p>通过绘图，数得交叉口内的合流冲突点数 <span class="arithmatex">\(n_{M}\)</span>为 4，,交叉冲突点数 <span class="arithmatex">\(n_{C}\)</span>为 36，没有分流冲突点数 <span class="arithmatex">\(n_{B}\)</span>。</p>
+<p>计算得到的交叉口复杂度为 192。</p>
+<h3 id="_9">信号配时原理及流程<a class="headerlink" href="#_9" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>交通信号配时的核心目标是通过合理安排信号灯的切换时序和时长，在安全的前提下提高路口通行效率，减少车辆延误和排队长度。基本原则包括：</p>
+<ol>
+<li>安全性：避免冲突，预留安全清空时间。</li>
+<li>高效性：提高道路通行能力，减少平均延误。</li>
+<li>公平性：兼顾各方向交通需求，避免长期不均衡。</li>
+<li>适应性：根据流量变化灵活调整信号配时（定时控制或自适应控制）。</li>
+</ol>
+<p><strong>信号配时的基本流程</strong>：</p>
+<ol>
+<li>交通调查与数据收集</li>
+<li>路口交通量、车流组成、车速、车道数、转向比例等。</li>
+<li>确定信号相位方案</li>
+<li>根据交通流冲突关系，确定直行、左转、右转的相位组合。</li>
+<li>计算关键流率比总和</li>
+<li>分析各相位的流量，确定关键流率比，计算总和。</li>
+<li>确定信号周期</li>
+<li>根据关键流率比总和及经验公式（如Webster公式）计算推荐周期。</li>
+<li>分配有效绿灯时长</li>
+<li>按各相位流率比占比，合理分配有效绿灯时间。</li>
+<li>计算损失时间与过渡时间</li>
+<li>设置黄灯、全红时间，确保安全。</li>
+<li>形成完整配时方案</li>
+<li>包括周期长度、各相位绿信比和绿灯时长。</li>
+<li>效果评价</li>
+<li>分析延误、排队长度、通行能力。</li>
+<li>必要时进行优化调整。</li>
+</ol>
+<h3 id="_10">信号配时基本参数<a class="headerlink" href="#_10" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_11">信号相位<a class="headerlink" href="#_11" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>定义</strong>： 一个信号相位是指同时获得通行权的一股或几股交通流（如直行、左转）所对应的信号灯状态序列（绿-&gt;黄-&gt;红-&gt;绿）。</p>
+<p><strong>理解</strong>： 相位是信号配时的基本单元，它将复杂的交通流冲突在时间上进行分离。一个标准的十字路口通常需要4个相位（东西直行、东西左转、南北直行、南北左转），有时会采用更复杂的多相位设计。</p>
+<p><strong>示例</strong>： “相位A” 可能专用于东西方向的直行和右转车辆，此时东西左转和南北方向所有车辆均为红灯。</p>
+<p>常用的信号相位选择如下：</p>
+<p><img alt="image-20250901235426055" src="../交叉口信号配时课程设计.assets/image-20250901235426055.png" /></p>
+<h4 id="_12">信号周期<a class="headerlink" href="#_12" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>定义</strong>：信号灯从一个状态开始至再次回到相同状态所经历的总时间（所有相位的绿灯时间、黄灯时间、全红时间以及损失时间的总和）。</p>
+<p><strong>公式</strong>：信号周期 = 各相位有效绿灯时间 + 损失时间</p>
+<p><strong>意义</strong>：周期过长会增加次要道路车辆的等待时间导致延误增加，周期过短则难以协调相邻路口，绿灯利用率低（损失时间占比高），且可能无法清空排队车辆。常用范围一般在40秒至180秒之间。</p>
+<p>目前，应用最广泛的单点交叉口信号周期有三种，分别是最短信号周期、实用信号周期以Webster信号周期。</p>
+<h5 id="_13">最短信号周期<a class="headerlink" href="#_13" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>既然较长的信号周期有利于交叉口的通行能力，那么就一定存在一个信号周期，使其刚好能够满足交叉口的通行需求，任何小于该信号周期时长的周期都会导致通行能力不足。在理想条件下，当信号周期时长为最短信号周期时，一个信号周期内到达交叉口的车流量恰好能够全部通过交叉口，即无滞留车辆，又无富余绿灯时间。因此，最短信号周期应当恰好等于一个周期内各相位的关键车流通过交叉口所需的有效绿灯时间与总的信号损失时间之和。</p>
+<p>计算公式如下：</p>
+<p><span class="arithmatex">\(C_{m}=L+C_{m} \frac{q_{1}}{S_{1}}+C_{m} \frac{q_{2}}{S_{2}}+\cdots+C_{m} \frac{q_{n}}{S_{n}}\)</span></p>
+<p>式中: 
+  <span class="arithmatex">\(L\)</span>——信号总损失时间, 按下式计算:
+  <span class="arithmatex">\(L=\sum_{i=1}^{n}\left(l+I_{i}-A_{i}\right)\)</span></p>
+<p>式中: 
+  <span class="arithmatex">\(l\)</span>——启动损失时间, 实测获得, 无实测数据时可取 <span class="arithmatex">\(3s\)</span>;
+  <span class="arithmatex">\(I_{i}\)</span>——第 <span class="arithmatex">\(i\)</span> 相位末的绿灯间隔时间，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(A_{i}\)</span>——第 <span class="arithmatex">\(i\)</span> 相位末的黄灯时间，<span class="arithmatex">\(s\)</span>。</p>
+<p>整理可得:</p>
+<p><span class="arithmatex">\(C_{m}=\frac{L}{1-\sum_{i=1}^{n} \frac{q_{i}}{S_{i}}}=\frac{L}{1-\sum_{i=1}^{n} \gamma_{i}}=\frac{L}{1-Y}\)</span></p>
+<p>式中: 
+  <span class="arithmatex">\(q_{i}\)</span>——第 <span class="arithmatex">\(i\)</span> 相位的关键车流量, <span class="arithmatex">\(\mathrm{pcu} / \mathrm{h}\)</span>;
+  <span class="arithmatex">\(S_{i}\)</span>——第 <span class="arithmatex">\(i\)</span> 相位的关键车道组饱和流率, <span class="arithmatex">\(\mathrm{pcu} / \mathrm{h}\)</span>;
+  <span class="arithmatex">\(\gamma_{i}\)</span>——第 <span class="arithmatex">\(i\)</span> 相位的关键车道组流率比;
+  <span class="arithmatex">\(Y\)</span>——周期内所有相位的关键车道组的流率比之和。</p>
+<p>以上最短信号周期公式要求关键流率比之和 <span class="arithmatex">\(Y\)</span> 必须小于 1。关键流率比之和 <span class="arithmatex">\(Y\)</span> 在一定程度上反映了交叉口的整体交通负荷水平, <span class="arithmatex">\(Y\)</span> 值越接近于 1 则意味着该交叉口的交通负荷水平越接近饱和状态。在实际应用时, 通常要求 <span class="arithmatex">\(Y \leqslant 0.9\)</span>。当 <span class="arithmatex">\(Y\)</span> 值不满足要求时, 应当重新考虑交叉口的渠化方案以及相位设计方案, 以降低 <span class="arithmatex">\(Y\)</span> 值。</p>
+<h5 id="_14">实用信号周期<a class="headerlink" href="#_14" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>采用最短信号周期控制的交叉口刚好能够满足高峰小时设计交通量的通行需求，周期内没有任何富余的绿灯时间，缺少通行能力储备。为克服这一问题，人们提出按照高峰小时交叉口饱和度控制目标进行信号周期设计的方法。</p>
+<div class="arithmatex">\[\begin{aligned}&amp; C_{\mathrm{p}}=\frac{L}{1-\frac{Y}{(v / c)}}\end{aligned}\]</div>
+<p>式中: 
+  <span class="arithmatex">\(C_{\mathrm{p}}\)</span> 一实用信号周期;
+  <span class="arithmatex">\(v / c\)</span> 一一交叉口设计饱和度。</p>
+<p>当设计关键车流量考虑高峰小时流量系数时，实用信号周期公式有以下表达形式:</p>
+<p><span class="arithmatex">\(\mathrm{C}_{\mathrm{p}}=\frac{\mathrm{I}}{1-\frac{\mathrm{Y}}{\overline{\mathrm{P}} \mathrm{H} \overline{\mathrm{F}} \cdot(\bar{v} / \mathrm{c})}}\)</span></p>
+<p>式中: 
+  PHF—高峰小时流量系数。</p>
+<p>上述公式中 <span class="arithmatex">\(v / c\)</span> 一般小于 1 ,因此实用信号周期通常应大于最短信号周期。当交叉口设计饱和度为 1 时，实用信号周期即为最短信号周期。这说明最短信号周期本质上是实用信号周期的一个特例，或者说在最短信号周期控制下，高峰小时交叉口处于或接近完全饱和状态。</p>
+<h5 id="webster">Webster信号周期<a class="headerlink" href="#webster" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>Webster 提出的信号控制交叉口延误计算模型包含了均衡相位平均延误和随机平均延误两部分。注意到，Webster 延误模型是一个关于信号周期时长的函数。将 Webster 延误公式对信号周期时长 <span class="arithmatex">\(C\)</span> 求导，并令一阶导数为 0，即可解出使延误值最小的信号周期时长，这里称该信号周期为最佳信号周期，整理后的最佳信号周期表达式如下:</p>
+<div class="arithmatex">\[C_{\mathrm{o}}=\frac{1.5 L+5}{1-Y}\]</div>
+<p>式中: 
+  <span class="arithmatex">\(C_{\mathrm{o}}\)</span> ——最佳信号周期，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(L\)</span> ——信号总损失时间，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(Y\)</span> ——周期内所有相位的关键车道组的流率比之和。</p>
+<h4 id="_15">信号总损失时间<a class="headerlink" href="#_15" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>定义</strong>： 在每个信号周期内，由于相位切换（绿灯间隔时间）和车辆启动反应，所有相位中无法被有效利用的时间总和，记为 <span class="arithmatex">\(L\)</span>。</p>
+<p><strong>公式</strong>：一个周期的信号损失时间由所有相位的启动损失及全红时间组成。在没有实测数据的情况下，一般启动损失取3s</p>
+<p><span class="arithmatex">\(L=\sum_{i=1}^{n}\left(l+I_{i}-A_{i}\right)\)</span></p>
+<p>式中: 
+  <span class="arithmatex">\(l\)</span> ——启动损失时间, 实测获得, 无实测数据时可取 3 <span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(I_{i}\)</span>——第<span class="arithmatex">\(i\)</span> 相位末的绿灯间隔时间，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(A_{i}\)</span>——第<span class="arithmatex">\(i\)</span> 相位末的黄灯时间，<span class="arithmatex">\(s\)</span>。</p>
+<h4 id="_16">黄灯时间<a class="headerlink" href="#_16" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>定义</strong>： 绿灯结束后、红灯亮起前，显示黄色信号灯的时间，记为 <span class="arithmatex">\(Y\)</span>。</p>
+<p><strong>意义</strong>： 警告驾驶员信号即将变为红灯，为已进入交叉口的车辆提供安全驶离的时间。
+通常根据交叉口的接近速度、驾驶员反应时间、道路坡度等因素确定。一般取值范围为 3~5 秒。鉴于黄灯期间仍允许距离交叉口很近却又无法安全制动的车辆驶过停车线进入交叉口，因此黄灯时长的确定应当满足如下最不利情况，即当绿灯信号结束、黄灯开启时刻，驾驶员处于最小制动距离处时，恰好能够在黄灯结束时驶离停车线。</p>
+<p><strong>公式</strong>：安全起见，实际应用中通常使用第 <span class="arithmatex">\(85\)</span> 百分位车速 <span class="arithmatex">\(v_{85}\)</span>，黄灯时长的表达式如下：</p>
+<p><span class="arithmatex">\(A = t + \frac{v_{85}}{2a + 19.6g}\)</span></p>
+<p>式中：
+  <span class="arithmatex">\(A\)</span>——黄灯信号时长，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(t\)</span>——驾驶员反应时间，s，一般取值为 <span class="arithmatex">\(1s\)</span>；
+  <span class="arithmatex">\(v_{85}\)</span>——<span class="arithmatex">\(85\%\)</span> 车速，或合理的速度限制值，<span class="arithmatex">\(m/s\)</span>；
+  <span class="arithmatex">\(a\)</span>——汽车减速度，<span class="arithmatex">\(m/s^2\)</span>；
+  <span class="arithmatex">\(g\)</span>——坡度，用小数表示；</p>
+<h4 id="_17">全红时间<a class="headerlink" href="#_17" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>定义</strong>： 一个相位红灯亮起后，下一个相位绿灯亮起前，所有方向均显示红灯的短暂清空时间，记为 <span class="arithmatex">\(AR\)</span>。</p>
+<p><strong>意义</strong>： 为黄灯期间进入交叉口却又无法完全驶离交叉口的车辆提供时间补偿, 以便在下一信号相位开启前清空交叉口，确保在上一相位黄灯期间进入交叉口的车辆能够完全清空，避免与下一相位首车发生冲突。</p>
+<p><strong>公式</strong>：为安全起见, 实际应用中通常采用第 15 百分位车速 <span class="arithmatex">\(v_{15}\)</span> 替换式中的车速 <span class="arithmatex">\(v_{0}\)</span>, 全红时长的表达式为:</p>
+<p><span class="arithmatex">\(r=\frac{w+L}{v_{15}} \quad\)</span></p>
+<p>式中:
+  <span class="arithmatex">\(r\)</span>——全红信号时长, <span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(w\)</span>——从停车线到远端对向冲突车道的距离, <span class="arithmatex">\(m\)</span>;
+  $  L  $——汽车标准长度, 通常取 5 ~ 6m;
+  <span class="arithmatex">\(v_{15}\)</span>——15% 车速, <span class="arithmatex">\(m/s\)</span>。</p>
+<p>当存在明显的行人过街交通流，或者存在行人过街保护相位时，全红时长宜采用下式计算：</p>
+<p><span class="arithmatex">\(\quad r=\frac{P+L}{v_{15}}\)</span></p>
+<p>式中: <span class="arithmatex">\(P\)</span> ——从停车线到远端冲突行人过街横道的距离，<span class="arithmatex">\(m\)</span>。</p>
+<p>当有行人过街横道，行人过街交通流量中等时，全红时长采用下式计算:</p>
+<p><span class="arithmatex">\(\quad r=\max \left(\frac{w+L}{v_{15}}, \frac{P}{v_{15}}\right)\)</span></p>
+<h4 id="_18">绿灯间隔时间<a class="headerlink" href="#_18" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>定义</strong>： 一个相位绿灯结束到下一个相位绿灯开始之间的总时间，即黄灯时间 + 全红时间。</p>
+<p><strong>意义</strong>： 实现相位间的安全过渡，保证行车安全与流向切换的平稳性。</p>
+<p><strong>公式</strong>：绿灯间隔时间表达式为： <span class="arithmatex">\(I = A + AR\)</span> </p>
+<p>式中：
+  <span class="arithmatex">\(I\)</span>——绿灯间隔时间，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(A\)</span>——黄灯时间，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(AR\)</span>——全红时间，<span class="arithmatex">\(s\)</span>。</p>
+<h4 id="_19">交通量<a class="headerlink" href="#_19" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>确定设计交通量时，应按交叉口每天交通量的时变规律，分为早高峰时段、下午高峰时段、晚高峰时段、早晚低峰时段、中午低峰时段及一般平峰时段等各时段，然后确定相应的设计交通量。</p>
+<p>已选定时段的设计交通量，须按该时段内交叉口各进口道不同流向分别确定，其计算公式如下：</p>
+<div class="arithmatex">\[ q_{dmn} = 4 \times Q_{15mn} \]</div>
+<p>式中: <span class="arithmatex">\( q_{dmn} \)</span> ——配时时段中，进口道 <span class="arithmatex">\(m\)</span> 、流向 <span class="arithmatex">\(n\)</span> 的设计交通量，pcu/h；</p>
+<p><span class="arithmatex">\(Q_{15 m n}\)</span> 一配时时段中, 进口道 <span class="arithmatex">\(m\)</span> 、流向 <span class="arithmatex">\(n\)</span> 的高峰小时中最高 <span class="arithmatex">\(15 \mathrm{~min}\)</span> 的流率, <span class="arithmatex">\(\mathrm{pcu} / 15 \mathrm{~min}\)</span> 。无最高 <span class="arithmatex">\(15 \mathrm{~min}\)</span> 流率的实测数据时, 可按下式估算:</p>
+<p><span class="arithmatex">\(q_{d m n}=\frac{Q_{m n}}{(\mathrm{PHF})_{m n}}\)</span></p>
+<p>式中: 
+  <span class="arithmatex">\(Q_{m n}\)</span> ——配时时段中, 进口道 <span class="arithmatex">\(m\)</span> 、流向 <span class="arithmatex">\(n\)</span> 的高峰小时交通量, <span class="arithmatex">\(\mathrm{pcu} / \mathrm{h}\)</span>;
+  <span class="arithmatex">\((\mathrm{PHF})_{m n}\)</span> ——配时时段中, 进口道 <span class="arithmatex">\(m\)</span> 、流向 <span class="arithmatex">\(n\)</span> 的高峰小时系数; 主要进口道可取 0.75 , 次要进口道可取 0.8 。</p>
+<h4 id="_20">饱和流率、流率比、关键流率比、关键流率比总和<a class="headerlink" href="#_20" title="跳转至本节的锚点链接">&para;</a></h4>
+<h5 id="_21">饱和流率<a class="headerlink" href="#_21" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><strong>定义</strong>： 在连续绿灯条件下，单一车道上一小时内能够通过停车线的最大车辆数（pcu/h，标准小客车单位/小时）。</p>
+<p><strong>理解</strong>： 衡量一条车道通行能力的指标。通常是一个相对固定的值，受车道宽度、车型、坡度等因素影响。</p>
+<p>饱和流量随交叉口几何因素、渠化方式及各流向交通冲突等情况而异，比较复杂。因此，应尽量采用实测数据，实在无法取得实测数据时，如新建交叉口设计时，才考虑用以下估算方法。</p>
+<p>交叉口进口道经划分车道并加渠化以后，进口道饱和流量随进口道车道数及渠化方案而异，所以必须分别计算各条进口车道的饱和流量，然后再把各条车道的饱和流量累计成进口道的饱和流量。</p>
+<p>饱和流量用实测平均基本饱和流量乘以各影响因素校正系数的方法估算，即进口车道的设计饱和流量：</p>
+<p><span class="arithmatex">\(\mathrm{~S~}_{\mathrm{~f~}}=\mathrm{~S~}_{\mathrm{~b~i~}}\times f(\mathrm{~F~}_{\mathrm{~i~}})\)</span></p>
+<p>式中: 
+  <span class="arithmatex">\(S_{\mathrm{~f~}}\)</span>——进口车道的设计饱和流量，<span class="arithmatex">\(pcu/h\)</span>； 
+  <span class="arithmatex">\(S_{\mathrm{~b~i~}}\)</span>——第<span class="arithmatex">\(\mathrm{i}\)</span>条进口车道基本饱和流量，<span class="arithmatex">\(pcu/h\)</span>,<span class="arithmatex">\(\mathrm{i}\)</span>取<span class="arithmatex">\(\mathrm{T}\)</span>、<span class="arithmatex">\(\mathrm{L}\)</span>或<span class="arithmatex">\(\mathrm{R}\)</span>，分别表示相应的直行、左转或右转；
+  <span class="arithmatex">\(f(\mathrm{~F~}_{\mathrm{~i~}})\)</span>——各类进口车道各类校正系数。</p>
+<p>各类进口车道各有其专用相位时的基本饱和流量 <span class="arithmatex">\(S_{bi}\)</span>，可采用下表数值。</p>
+<table>
+<thead>
+<tr>
+<th>车道</th>
+<th><span class="arithmatex">\(S_{bi}\)</span></th>
+<th>车道</th>
+<th><span class="arithmatex">\(S_{bi}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直行车道</td>
+<td><span class="arithmatex">\(1550 \sim 1750\)</span></td>
+<td>右转车道</td>
+<td><span class="arithmatex">\(1350 \sim 1550\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>平均 <span class="arithmatex">\(1650\)</span></td>
+<td></td>
+<td>平均 <span class="arithmatex">\(1450\)</span></td>
+</tr>
+<tr>
+<td>左转车道</td>
+<td><span class="arithmatex">\(1450 \sim 1650\)</span></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>平均 <span class="arithmatex">\(1550\)</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>注：进口车道宽度为 <span class="arithmatex">\(3.0 \sim 3.5 \mathrm{~m}\)</span>。</p>
+<h5 id="_22">流率比<a class="headerlink" href="#_22" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><strong>定义</strong>： 某一车道组（或相位）的实际交通流量（<span class="arithmatex">\(q\)</span>）与其饱和流率（<span class="arithmatex">\(s\)</span>）的比值， <span class="arithmatex">\(y = q / s\)</span>。</p>
+<p><strong>理解</strong>： 表示该车道组对绿灯时间的需求程度。y值越大，说明该方向交通压力越大，需要的绿灯时间越长。</p>
+<p>简单来说，它衡量的是 “交通需求” 与 “通行能力” 之间的关系。</p>
+<ul>
+<li>交通需求：实际有多少车想要通过（流率）。</li>
+<li>通行能力上限：在理想情况下，一条车道一小时最多能通过多少辆车（饱和流率）。</li>
+</ul>
+<h5 id="_23">关键流率比、关键流率比总和<a class="headerlink" href="#_23" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><strong>关键流率比</strong></p>
+<p>关键流率比是指在一个信号相位中，所有受控车道组（或交通流）的流率比（<span class="arithmatex">\(y\)</span>）中的最大值。</p>
+<p>一个相位通常服务于多个车道（如直行+左转），但通行能力受限于其中最拥挤、需求最大的那个车道组。这个最大需求就是该相位的“瓶颈”，即关键流率比。</p>
+<p><strong>关键流率比总和</strong></p>
+<p>一个信号周期内，所有相位的关键流率比（<span class="arithmatex">\(y_{crit}\)</span>）之和，$ Y = Σ (y_{crit}) $。Y值反映了整个交叉口的总交通负荷。它是计算最小周期和分配绿灯时间的关键输入。</p>
+<h4 id="_24">有效绿灯时间与显示绿灯时间<a class="headerlink" href="#_24" title="跳转至本节的锚点链接">&para;</a></h4>
+<h5 id="_25">有效绿灯时间<a class="headerlink" href="#_25" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><strong>定义</strong>：有效绿灯时间是指在一个信号周期内，某一相位中车辆能够有效利用的绿灯时长。
+ 换句话说，就是真正能用于车辆通行的时间，扣除了起步延迟、清空损失等无效时间。</p>
+<p><strong>意义</strong>：有效绿灯时间是交通能力计算的基础参数。决定了该相位在一个信号周期内能通过多少车辆。在信号配时时，常通过关键流率比分配有效绿灯时间，使绿灯分配与交通需求相匹配。与饱和流率配合使用，可以计算该相位的最大通行能力：<span class="arithmatex">\(Q=s \cdot \frac{g_{e}}{C}\)</span>（其中 <span class="arithmatex">\(s\)</span> 为饱和流率， <span class="arithmatex">\(C\)</span> 为信号周期）。</p>
+<p>相位的有效绿灯时间与该相位的关键车道组流率比成正比，各相位的有效绿灯时间按照关键车道组流率比的比例在周期内共享。于是, 第 <span class="arithmatex">\(j\)</span> 相位的有效绿灯时间为：</p>
+<p><span class="arithmatex">\(g_{ej}=(C-L) \frac{y_{j}}{Y}\)</span></p>
+<p>式中:
+  <span class="arithmatex">\(g_{ej}\)</span>——第 <span class="arithmatex">\(j\)</span> 个相位的有效绿灯时间，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(C\)</span>——信号周期，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(L\)</span>——信号总损失时间，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(y_j\)</span>——第 <span class="arithmatex">\(j\)</span> 相位的关键车道组流率比;
+  <span class="arithmatex">\(Y\)</span>——关键流率比之和（即所有相位的关键流率比之和）</p>
+<p>式中，<span class="arithmatex">\(y_j\)</span>、<span class="arithmatex">\(Y\)</span>的计算公式如下：</p>
+<div class="arithmatex">\[y_j = \frac{q_j}{s_j}\]</div>
+<p>其中，<span class="arithmatex">\(q_j\)</span> 为第 <span class="arithmatex">\(j\)</span> 相位关键车道组的交通流量（veh/h），<span class="arithmatex">\(s_j\)</span> 为该车道组的饱和流率（veh/h）。<br />
+表示该相位的交通需求与能力的比值。</p>
+<div class="arithmatex">\[Y = \sum_j y_j\]</div>
+<h5 id="_26">显示绿灯时间<a class="headerlink" href="#_26" title="跳转至本节的锚点链接">&para;</a></h5>
+<p><strong>定义</strong>：现实绿灯时间是指信号灯实际显示为绿色的时长，也就是驾驶员在路口看到的绿灯时间。</p>
+<p><strong>意义</strong>：显示绿灯时间是信号机设置的直接参数，用于控制灯色显示。包含了有效绿灯时间，但还需要修正损失时间与过渡时间，才能形成最终显示时间。不同于有效绿灯，现实绿灯对驾驶人而言是“直观的放行时间”。</p>
+<p><strong>公式</strong>：各相位的有效绿灯时间分配完成后, 即可根据下式确定各相位的绿灯显示时间。以第 <span class="arithmatex">\(j\)</span> 相位为例, 绿灯显示时间:</p>
+<p><span class="arithmatex">\(g_{j}=g_{ej}+l_{j}-A_{j}\)</span></p>
+<p>式中：
+  <span class="arithmatex">\(g_j\)</span>——第 <span class="arithmatex">\(j\)</span> 相位的绿灯显示时间，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(g_{ej}\)</span>——第 <span class="arithmatex">\(j\)</span> 相位的有效绿灯时间，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(l_j\)</span>——第 <span class="arithmatex">\(j\)</span> 相位的损失时间，包括该相位的启动损失、清空时间等，<span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(A_j\)</span>——第 <span class="arithmatex">\(j\)</span> 相位的调整因子。主要用于修正实际情况与理论计算之间的差异，例如考虑到相位末尾仍可能有部分车辆通过，或考虑黄灯与全红分配的修正。</p>
+<h4 id="_27">绿信比<a class="headerlink" href="#_27" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>定义</strong>：一个相位的有效绿灯时长在整个信号周期中的比例。</p>
+<p><strong>意义</strong>：衡量各方向获得的通行权分配程度。绿信比表示了一个相位在单个周期中所分配到的通行时间比例。绿灯时间的分配本质上就是确定各相位的绿信比。</p>
+<p><strong>公式</strong>：绿信比 = 有效绿灯时长 / 信号周期。</p>
+<p><span class="arithmatex">\(\lambda=\frac{g_{e j}}{C}\)</span> </p>
+<p>式中：
+  <span class="arithmatex">\(\lambda\)</span>——绿信比;
+  <span class="arithmatex">\(g_{e j}\)</span> ——有效绿灯时长，单位 <span class="arithmatex">\(s\)</span>;
+  <span class="arithmatex">\(C\)</span> ——信号周期，单位 <span class="arithmatex">\(s\)</span>。</p>
+<h3 id="_28">信号配时评价指标<a class="headerlink" href="#_28" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_29">车辆平均延误时间<a class="headerlink" href="#_29" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>定义</strong>： 所有车辆在交叉口受信号灯影响而产生的平均等待时间（秒/辆）。</p>
+<p><strong>意义</strong>： 是评价信号配时方案优劣的最核心指标，直接反映了出行者的体验和通行效率，延误越小，配时越合理。</p>
+<p><strong>影响因素</strong>：车辆平均延误时间由均匀延误（在均匀到达的理想情况下，车辆因周期性红灯而产生的固定延误）随机延误（由于车辆到达的随机性（有时多有时少）而引发的额外排队延误）过饱和延误（当交通需求超过交叉口通行能力时，排队持续增长带来的严重延误）组成。</p>
+<h4 id="_30">车辆排队长度<a class="headerlink" href="#_30" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>定义</strong>： 在红灯期间或绿灯开始时，在停车线后等待通行的车辆形成的队列长度（米或车辆数）。</p>
+<p><strong>意义</strong>：反映路口通行能力和饱和情况。过长的排队会导致溢流，排队清空需要时间，影响本相位绿灯时间的有效利用率。用于确定进口道左转、直行待行区的长度。</p>
+<p><strong>类型</strong>：车辆排队长度可以分为最大排队长度（一个周期内出现的排队最大值）平均排队长度（一个周期内排队长度的平均值）二次排队（在过饱和状态下，上一个周期未清空的排队会延续到下一个周期，导致排队持续增长）等类型。</p>
+<h3 id="_31">信号配时基本流程<a class="headerlink" href="#_31" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>改建、治理交叉口时信号配时设计流程如下：</p>
+<p><img src="../交叉口信号配时课程设计.assets/信号配时流程图.png" alt="信号配时流程图" style="zoom: 50%;" /></p>
+<p>需要指出的是，信号相位必须同交叉口进口道车道渠化(即车道功能划分)方案同时设定。有专用转弯相位时必须相应地设置专用车道。有左转专用车道时，根据左转流向设计交通量计算的左转车每周期平均到达 3 辆时，宜用左转专用相位。同一相位各相关进口道左转车每周期平均到达量相近时，宜用双向左转专用相位，否则宜用单向左转专用相位。</p>
+<p>在本课程设计过程中，采用给定的交叉口进口道车道渠化方案（详见交叉口几何条件节），不做另行设计，并对部分设计流程进行简化处理。</p>
+<p>本次交叉口信号配时优化VISSIM仿真课程设计的流程图如下所示：</p>
+<pre class="mermaid"><code>%%{init: {"flowchart": {"nodeSpacing": 20, "rankSpacing": 18}}}%%
+flowchart TD
+    %% 样式定义
+    classDef startend fill:#8fd3f4,stroke:#1c5d99,color:#000
+    classDef process fill:#d0f0c0,stroke:#2d6a4f,color:#000
+    classDef decision fill:#fff3b0,stroke:#ff8800,color:#000
+    classDef io fill:#fcd5ce,stroke:#d62828,color:#000
+    classDef sim fill:#fde2e4,stroke:#b5179e,color:#000
+
+    %% 开始节点
+    A["确定信号配时的时段划分"]:::startend
+
+    %% 阶段一：交通参数计算
+    subgraph S1[" "]
+        B["确定信号相位方案"]:::process --&gt; C["计算绿灯间隔时间和信号总损失时间"]:::process
+        C --&gt; D["确定各车道饱和流率"]:::process
+        D --&gt; E["计算当量交通量和流率比"]:::process
+        E --&gt; F["确定各相位关键流率比"]:::process
+        F --&gt; G["计算关键流率比之和 Y"]:::process
+    end
+
+    %% 决策点
+    G --&gt; H{"Y &lt; 0.9 ?"}:::decision
+    H -- 是 --&gt; J["调整相位方案或检查输入数据"]:::io
+    J --&gt; F
+    H -- 否 --&gt; I["计算信号周期 C"]:::process
+
+    %% 阶段二：周期与绿灯分配
+    subgraph S2[" "]
+        I --&gt; K["分配总有效绿灯时间"]:::process
+        K --&gt; L["计算各相位有效绿灯时间"]:::process
+        L --&gt; M["计算各相位绿信比和显示绿灯时间"]:::process
+    end
+
+    %% 阶段三：仿真比选
+    subgraph S3[" "]
+        M --&gt; N["绘制各相位配时图"]:::process
+        N --&gt; O["导入 VISSIM 进行仿真比选"]:::sim
+        O --&gt; P["评价指标对比（平均排队长度、平均延误、停车次数）"]:::sim
+        P --&gt; Q["选取最优相位方案"]:::startend
+    end
+
+    %% 整体连接
+    A --&gt; B</code></pre>
+<h3 id="_32">信号配时相位方案设计及参数计算<a class="headerlink" href="#_32" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="_33">确定信号相位方案<a class="headerlink" href="#_33" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>在本课程设计中，设计使用两相位、三相位、四相位（双向左转）进行信号配时设计。</p>
+<blockquote>
+<p>在本课程设计中，由于不考虑行人道的影响，并根据交叉口几何条件确定右转车道不存在与直行和左转车道的冲突，故在相位设计中，确定<strong>右转车道不设信号灯进行控制，始终拥有通行权</strong>。</p>
+<p>故下文计算相位有效绿灯时间等参数时，忽略右转车道的流率比数据。</p>
+</blockquote>
+<p>两相位设计描述如下：</p>
+<ul>
+<li>相位1：东西方向直行、左转同时放行（绿灯）。</li>
+<li>相位2：南北方向直行、左转同时放行（绿灯）。</li>
+</ul>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250904143251291.png" alt="image-20250904143251291" style="zoom:80%;" /></p>
+<p>三相位设计描述如下：</p>
+<ul>
+<li>相位1：南北方向左转放行（绿灯）。</li>
+<li>相位2：南北方向直行、左转同时放行（绿灯）。</li>
+<li>相位3：东西方向直行、左转同时放行（绿灯）。</li>
+</ul>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250904143331734.png" alt="image-20250904143331734" style="zoom:80%;" /></p>
+<p>四相位设计（双向左转）描述如下：</p>
+<ul>
+<li>相位1：南北方向左转放行（绿灯）。</li>
+<li>相位2：南北方向直行、左转同时放行（绿灯）。</li>
+<li>相位3：东西方向左转放行（绿灯）。</li>
+<li>相位4：东西方向直行、左转同时放行（绿灯）。</li>
+</ul>
+<p><img alt="image-20250904143421017" src="../交叉口信号配时课程设计.assets/image-20250904143421017.png" /></p>
+<h4 id="_34">计算绿灯间隔时间和信号总损失时间<a class="headerlink" href="#_34" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>绿灯间隔时间</strong>是指一个方向的绿灯结束后，到下一个交叉方向绿灯开始前，中间设置的一段安全过渡时间，主要包括黄灯时间和全红灯时间。</p>
+<p>绿灯间隔时间 <span class="arithmatex">\(I = A + AR\)</span> ，<span class="arithmatex">\(A\)</span> 指黄灯时间，本课程设计取 3<span class="arithmatex">\(s\)</span>，<span class="arithmatex">\(AR\)</span> 指全红灯间隔，这里取 3<span class="arithmatex">\(s\)</span>。</p>
+<p>在本课程设计中，绿灯间隔时间取 6<span class="arithmatex">\(s\)</span>。</p>
+<p><strong>信号总损失时间</strong>，按下式计算</p>
+<p><span class="arithmatex">\(L = \sum_{k}(L_s + I - A)_k\)</span></p>
+<p>式中：
+  <span class="arithmatex">\(L_s\)</span> - - 起动损失时间，应实测，无实测数据时可取 <span class="arithmatex">\(3s\)</span>;
+  <span class="arithmatex">\(A\)</span> - - 黄灯时长, s, 常取为 3s, 或根据实际情况按式计算;
+  <span class="arithmatex">\(I\)</span> - - 绿灯间隔时间，如上计算得 6<span class="arithmatex">\(s\)</span>。
+  <span class="arithmatex">\(k\)</span> - - 一个周期内的绿灯间隔数。</p>
+<p>在本课程设计中，仅考虑前损失时间和全红时间，一个周期内的绿灯间隔数与相位数相同。</p>
+<p>计算可得信号总损失时间为 <span class="arithmatex">\(6 s * \text{相位数}\)</span>。</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>两相位</th>
+<th>三相位</th>
+<th>四相位（双向左转）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>信号总损失时间（s）</td>
+<td>12</td>
+<td>18</td>
+<td>24</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_35">确定各车道饱和流率<a class="headerlink" href="#_35" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>在本课程设计中，饱和流率采用基本值，不修正。</p>
+<p>直行车道取 <span class="arithmatex">\(1650 \, \text{pcu/h}\)</span> ，左转车道取 <span class="arithmatex">\(1550 \, \text{pcu/h}\)</span> ，右转车道取 <span class="arithmatex">\(1450 \, \text{pcu/h}\)</span> 。</p>
+<p>合用车道则取两者的均值，例如直行左转合用车道取 <span class="arithmatex">\(0.5 \times (1650 + 1550) = 1600 \, \text{pcu/h}\)</span> 。</p>
+<h4 id="_36">计算当量交通量和流率比<a class="headerlink" href="#_36" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>当量交通量（ETV）</strong> 是交通工程领域中，为统一衡量不同类型车辆（如小汽车、公交车、货车等）对道路通行能力、交通流特性及交通负荷的影响，将各类车辆换算成某一标准车型（通常为小客车）的交通量数值。</p>
+<p>当量交通量的计算公式非常明确，即通过 “各车型的实际数量 × 对应 PCE 值”，再将所有结果求和，得到标准化的 “小客车当量交通量”。</p>
+<p><strong>计算公式</strong>： <span class="arithmatex">\(ETV = \sum_{i=1}^{n} (Q_i \times PCE_i)\)</span> 其中：</p>
+<ul>
+<li>ETV：当量交通量（单位：pcu/h，即 “辆小客车 / 小时”）；</li>
+<li><span class="arithmatex">\(Q_i\)</span>：第i种车型的实际交通量（单位：辆 /h）；</li>
+<li><span class="arithmatex">\(PCE_i\)</span>：第i种车型对应的小客车当量系数；</li>
+<li>n：统计的车辆类型总数（如小客车、公交车、货车等）。</li>
+</ul>
+<p><strong>流率比</strong>指的是：在信号周期内，某一信号相位所对应的车道的实际交通流率与该车道的饱和流率的比值。</p>
+<p><strong>计算公式为：</strong>流率比 (y) = 交通流率 (q) / 饱和流率 (s)</p>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(y\)</span>： 流率比（无量纲，是一个比值）</li>
+<li><span class="arithmatex">\(q\)</span>： 交通流率（单位：辆/小时，或 pcu/h - 标准小客车当量/小时）</li>
+<li><span class="arithmatex">\(s\)</span>： 饱和流率（单位：辆/小时/车道，或 pcu/h/ln）</li>
+</ul>
+<p>这里给出本课程设计采用的数据：</p>
+<table>
+<thead>
+<tr>
+<th>进口道</th>
+<th>转向</th>
+<th>大 (veh/15min)</th>
+<th>中 (veh/15min)</th>
+<th>小 (veh/15min)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>东进口</td>
+<td>左</td>
+<td>1</td>
+<td>9</td>
+<td>23</td>
+</tr>
+<tr>
+<td></td>
+<td>直1</td>
+<td>4</td>
+<td>13</td>
+<td>40</td>
+</tr>
+<tr>
+<td></td>
+<td>直2</td>
+<td>4</td>
+<td>13</td>
+<td>39</td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td>4</td>
+<td>14</td>
+<td>41</td>
+</tr>
+<tr>
+<td>西进口</td>
+<td>左1</td>
+<td>1</td>
+<td>8</td>
+<td>22</td>
+</tr>
+<tr>
+<td></td>
+<td>左2</td>
+<td>1</td>
+<td>9</td>
+<td>24</td>
+</tr>
+<tr>
+<td></td>
+<td>直1</td>
+<td>4</td>
+<td>15</td>
+<td>45</td>
+</tr>
+<tr>
+<td></td>
+<td>直2</td>
+<td>5</td>
+<td>15</td>
+<td>46</td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td>2</td>
+<td>11</td>
+<td>30</td>
+</tr>
+<tr>
+<td>南进口</td>
+<td>左</td>
+<td>2</td>
+<td>10</td>
+<td>27</td>
+</tr>
+<tr>
+<td></td>
+<td>直</td>
+<td>5</td>
+<td>16</td>
+<td>50</td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td>1</td>
+<td>7</td>
+<td>18</td>
+</tr>
+<tr>
+<td>北进口</td>
+<td>左</td>
+<td>2</td>
+<td>11</td>
+<td>30</td>
+</tr>
+<tr>
+<td></td>
+<td>直1</td>
+<td>3</td>
+<td>11</td>
+<td>33</td>
+</tr>
+<tr>
+<td></td>
+<td>直2</td>
+<td>2</td>
+<td>11</td>
+<td>31</td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td>2</td>
+<td>9</td>
+<td>25</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>车辆类型</th>
+<th>大</th>
+<th>中</th>
+<th>小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>车辆换算系数</td>
+<td>2.0</td>
+<td>1.5</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>计算所得当量交通量和流率比如下：</p>
+<table>
+<thead>
+<tr>
+<th>进口道</th>
+<th>转向</th>
+<th>小时当量交通量</th>
+<th>车道流率比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>东进口</td>
+<td>左</td>
+<td>154</td>
+<td>0.099355</td>
+</tr>
+<tr>
+<td></td>
+<td>直1</td>
+<td>270</td>
+<td>0.163636</td>
+</tr>
+<tr>
+<td></td>
+<td>直2</td>
+<td>266</td>
+<td>0.161212</td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td>280</td>
+<td>0.193103</td>
+</tr>
+<tr>
+<td>西进口</td>
+<td>左1</td>
+<td>144</td>
+<td>0.092903</td>
+</tr>
+<tr>
+<td></td>
+<td>左2</td>
+<td>158</td>
+<td>0.101935</td>
+</tr>
+<tr>
+<td></td>
+<td>直1</td>
+<td>302</td>
+<td>0.18303</td>
+</tr>
+<tr>
+<td></td>
+<td>直2</td>
+<td>314</td>
+<td>0.190303</td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td>202</td>
+<td>0.13931</td>
+</tr>
+<tr>
+<td>南进口</td>
+<td>左</td>
+<td>184</td>
+<td>0.11871</td>
+</tr>
+<tr>
+<td></td>
+<td>直</td>
+<td>336</td>
+<td>0.203636</td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td>122</td>
+<td>0.084138</td>
+</tr>
+<tr>
+<td>北进口</td>
+<td>左</td>
+<td>202</td>
+<td>0.130323</td>
+</tr>
+<tr>
+<td></td>
+<td>直1</td>
+<td>222</td>
+<td>0.134545</td>
+</tr>
+<tr>
+<td></td>
+<td>直2</td>
+<td>206</td>
+<td>0.124848</td>
+</tr>
+<tr>
+<td></td>
+<td>右</td>
+<td>170</td>
+<td>0.117241</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_37">确定各相位关键流率比并计算关键流率比之和<a class="headerlink" href="#_37" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>关键流率比</strong>是指在交叉口信号控制中，某一相位中流率比最大的车道组的流率比。它是确定信号周期和各相位绿灯时长的关键参数。</p>
+<p><strong>关键流率比总和</strong> (关键流量比总和) 是指组成周期的全部信号相位的关键流率比之和。 <span class="arithmatex">\(Y=\sum_{j=1}^{j} \max \left(y_{j}, y_{j}^{\prime}, \ldots\right)=\sum_{j=1}^{j} \max \left[\left(\frac{q_{d}}{S_{d}}\right)_{i},\left(\frac{q_{d}}{S_{d}}\right)_{j}^{\prime}, \cdots(Y&gt;0.9)\right]\)</span></p>
+<p><span class="arithmatex">\(q_{d}\)</span> ——设计交通量 , <span class="arithmatex">\(\mathrm{pcu} / \mathrm{h} ; \quad S_{\mathrm{d}}\)</span> 一设计饱和流量 , <span class="arithmatex">\(\mathrm{pcu} / \mathrm{h}\)</span> 。</p>
+<p>式中：
+  <span class="arithmatex">\(Y\)</span> ——组成周期的全部信号相位的各个最大流量比 <span class="arithmatex">\(y_{j}\)</span> 或 <span class="arithmatex">\(y_{j}^{\prime}\)</span> 值之和; 
+  <span class="arithmatex">\(j\)</span> ——一个周期内的相位数；<span class="arithmatex">\(y_{j} 、 y_{j}^{\prime}\)</span> 一第 <span class="arithmatex">\(j\)</span> 相的流量比。</p>
+<p>计算 <span class="arithmatex">\(Y\)</span> 值大于 0.9 时, 须改进进口道设计或/和信号相位方案, 重新设计。</p>
+<p>简单来说，假设某相位的关键流率比为<span class="arithmatex">\(yi\)</span>，交叉口所有相位的关键流率比之和用Y表示，即<span class="arithmatex">\(Y = \sum_{i} y_i\)</span>。</p>
+<p>根据上表可得各相位关键流率比并计算关键流率比之和如下：</p>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>东西左转</th>
+<th>东西右转</th>
+<th>东西直行</th>
+<th>南北左转</th>
+<th>南北右转</th>
+<th>南北直行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关键流率比</td>
+<td><span class="arithmatex">\(0.101935\)</span></td>
+<td><span class="arithmatex">\(0.193103\)</span></td>
+<td><span class="arithmatex">\(0.190303\)</span></td>
+<td><span class="arithmatex">\(0.130323\)</span></td>
+<td><span class="arithmatex">\(0.117241\)</span></td>
+<td><span class="arithmatex">\(0.203636\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>各信号相位方案的关键流率比</strong>计算如下：</p>
+<ul>
+<li>两相位设计方案</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北直、左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关键流率比</td>
+<td>0.203636364</td>
+<td>0.19030303</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>三相位设计方案</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北左</th>
+<th>南北直、左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关键流率比</td>
+<td>0.130322581</td>
+<td>0.203636364</td>
+<td>0.19030303</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>四相位设计方案（双向左转）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北左</th>
+<th>南北直、左</th>
+<th>东西左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关键流率比</td>
+<td>0.130322581</td>
+<td>0.203636364</td>
+<td>0.101935484</td>
+<td>0.19030303</td>
+</tr>
+</tbody>
+</table>
+<p><strong>各信号方案的关键流率比之和 Y</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>两相位</th>
+<th>三相位</th>
+<th>四相位（双向左转）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关键流率比之和Y</td>
+<td>0.393939394</td>
+<td>0.524261975</td>
+<td>0.626197458</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_38">计算信号周期<a class="headerlink" href="#_38" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>本课程设计中，考虑高峰小时系数和交叉口设计饱和度的周期计算公式:</p>
+<p><span class="arithmatex">\(C=\frac{L}{1-\frac{Y}{P H F(v / c)}}\)</span></p>
+<p><span class="arithmatex">\(P H F=\frac{\text { 高峰小 } L v z \text { 交通量 }}{4 \times \text { 最大 } 15 \text { 分钟交通量 }} \quad \mathrm{PHF}-\)</span> 高峰小时系数; <span class="arithmatex">\(v / c\)</span> 一交叉口设计饱和度。</p>
+<p>本课程设计中 <span class="arithmatex">\(\mathrm{PHF}\)</span> 取 0.9 , <span class="arithmatex">\(v / c\)</span> 取 <span class="arithmatex">\(0.9\)</span></p>
+<blockquote>
+<p>理想的信号周期时间在 40-180 s 之间，根据公式计算得到的信号周期不足 40 s 的，取 40 s 作为该信号方案的信号周期。</p>
+</blockquote>
+<p><strong>各信号方案的信号周期C计算如下</strong></p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>两相位</th>
+<th>三相位</th>
+<th>四相位（双向左转）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>信号周期时长C</td>
+<td>40</td>
+<td>51.02576032</td>
+<td>105.7656757</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_39">计算总有效绿灯时间和各相位有效绿灯时间<a class="headerlink" href="#_39" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>总有效绿灯时间 <span class="arithmatex">\(Ge\)</span>，每周期的总有效绿灯时间按下式计算：</p>
+<p><span class="arithmatex">\(G_{e}=C-L\)</span></p>
+<p>各相位有效绿灯时间，按下式计算：</p>
+<p><span class="arithmatex">\(g_{ej}={G_{e}}\frac{\max(y_{j},y'_{j},\cdots)}{Y}\)</span></p>
+<p><strong>各方案的总有效绿灯时间 Ge</strong></p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>两相位</th>
+<th>三相位</th>
+<th>四相位（双向左转）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>总有效绿灯时间Ge</td>
+<td>28</td>
+<td>33.02576032</td>
+<td>81.76567569</td>
+</tr>
+</tbody>
+</table>
+<p><strong>各方案不同相位的有效绿灯时间 <span class="arithmatex">\(g_{ej}\)</span></strong></p>
+<ul>
+<li>两相位</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北直、左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有效绿灯时间</td>
+<td>14.47384615</td>
+<td>13.52615385</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>三相位</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北左</th>
+<th>南北直、左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有效绿灯时间</td>
+<td>8.20964045</td>
+<td>12.82802504</td>
+<td>11.98809483</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>四相位（双向左转）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北左</th>
+<th>南北直、左</th>
+<th>东西左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有效绿灯时间</td>
+<td>17.01685901</td>
+<td>26.5897995</td>
+<td>13.31021645</td>
+<td>24.84880072</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_40">计算各相位绿信比和显示绿灯时间<a class="headerlink" href="#_40" title="跳转至本节的锚点链接">&para;</a></h4>
+<p><strong>绿信比 <span class="arithmatex">\(\lambda\)</span></strong> 指的是一个相位的有效绿灯时长在整个信号周期中的比例。</p>
+<p><span class="arithmatex">\(\lambda=\frac{g_{e j}}{C}\)</span> </p>
+<p>式中： <span class="arithmatex">\(g_{e j}\)</span> ——有效绿灯时长，单位 <span class="arithmatex">\(s\)</span>;
+         <span class="arithmatex">\(C\)</span> ——信号周期，单位 <span class="arithmatex">\(s\)</span>。</p>
+<p><strong>各方案不同相位的绿信比 <span class="arithmatex">\(\lambda\)</span></strong></p>
+<ul>
+<li>两相位</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北直、左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>绿信比</td>
+<td>0.361846154</td>
+<td>0.338153846</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>三相位</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北左</th>
+<th>南北直、左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>绿信比</td>
+<td>0.160892075</td>
+<td>0.251402918</td>
+<td>0.234942013</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>四相位（双向左转）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北左</th>
+<th>南北直、左</th>
+<th>东西左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>绿信比</td>
+<td>0.160892075</td>
+<td>0.251402918</td>
+<td>0.125846276</td>
+<td>0.234942013</td>
+</tr>
+</tbody>
+</table>
+<p><strong>显示绿灯时间 <span class="arithmatex">\(g_j\)</span></strong> 指信号灯实际显示为绿色的时长。</p>
+<p><span class="arithmatex">\(g_{j} = g_{e j} - A_{j} + l_{j}\)</span> </p>
+<p><span class="arithmatex">\(l_{j}\)</span> ——第 <span class="arithmatex">\(j\)</span> 相位起动损失时间，各相位起动损失均取 <span class="arithmatex">\(3 s\)</span>;
+<span class="arithmatex">\(A_j\)</span> ——第 <span class="arithmatex">\(j\)</span> 相位的调整因子，这里各相位均取 <span class="arithmatex">\(3s\)</span>。</p>
+<p><strong>各方案不同相位的显示绿灯时间 <span class="arithmatex">\(g_j\)</span></strong></p>
+<ul>
+<li>两相位</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北直、左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>显示绿灯时间</td>
+<td>14.47384615</td>
+<td>13.52615385</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>三相位</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北左</th>
+<th>南北直、左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>显示绿灯时间</td>
+<td>8.20964045</td>
+<td>12.82802504</td>
+<td>11.98809483</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>四相位（双向左转）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>相位</th>
+<th>南北左</th>
+<th>南北直、左</th>
+<th>东西左</th>
+<th>东西直、左</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>显示绿灯时间</td>
+<td>17.01685901</td>
+<td>26.5897995</td>
+<td>13.31021645</td>
+<td>24.84880072</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_41">各信号相位配时图<a class="headerlink" href="#_41" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>取前损失3s，忽略后损失，取黄灯时间3s，全红时间3s。</p>
+<p>根据计算所得的显示绿灯时间，进行取整，最终绘制的信号相位配时图如下：</p>
+<ul>
+<li>两相位配时图</li>
+</ul>
+<p><img alt="二相位配时图" src="../交叉口信号配时课程设计.assets/二相位配时图.png" /></p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>相位1——南北直行、左转        相位2——东西直行、左转
+</code></pre></div>
+<ul>
+<li>三相位配时图</li>
+</ul>
+<p><img alt="三相位配时图" src="../交叉口信号配时课程设计.assets/三相位配时图.png" /></p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>相位1——南北左转   相位2——南北直行、左转    相位3——东西直行、左转
+</code></pre></div>
+<ul>
+<li>四相位配时图</li>
+</ul>
+<p><img alt="四相位配时图" src="../交叉口信号配时课程设计.assets/四相位配时图.png" /></p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>相位1——南北左转                   相位2——南北直行、左转
+<span class="linenos" data-linenos="2 "></span>相位3——东西左转                   相位4——东西直行、左转
+</code></pre></div>
+<h2 id="vissim_1">基于VISSIM仿真的配时方案比选<a class="headerlink" href="#vissim_1" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="vissim_2">VISSIM仿真软件概述<a class="headerlink" href="#vissim_2" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>VISSIM是由德国PTV集团开发的一款先进的交通微观仿真软件，最初应用于城市交通网络的详细仿真分析。多年来，VISSIM不断更新迭代，逐步发展为一款集交通流仿真、交通信号控制、公共交通和行人流动分析于一体的多功能工具。在国内外众多交通工程项目和研究中，VISSIM凭借其高精度和灵活性赢得了广泛的认可。</p>
+<p>VISSIM采用微观仿真方法，对每辆车、每位行人进行逐一建模和行为模拟。该软件利用连续时间仿真技术，结合随机因素的引入，实现交通流中个体行为与整体流特征的真实描述，使得整个交通系统的运行情况能够细致展现。除了车辆仿真，VISSIM还可以对行人、公共交通以及非机动交通等多种交通参与者的动态行为进行建模。不同交通方式之间的交互作用、冲突与协调调控可以通过软件中的详细规则进行预设和调节，从而为交叉口信号配时及道路规划提供科学依据。</p>
+<p>VISSIM仿真软件拥有灵活的场景构建与参数调整能力。用户可以根据实际需求建立从单一交叉口到整个城市交通网络的仿真模型。软件界面友好，支持参数灵活调节，能够深入设定车辆行驶行为、加速减速特性、车道变换等多种因素。同时，借助预处理数据与实时分析，研究人员能够通过多次仿真来评估不同信号配时方案和交通管理措施的效果。</p>
+<p>VISSIM在城市交通管理、信号配时优化、交通事故分析、环境影响评估、公共交通运行优化以及智能交通系统（ITS）试验等多个领域发挥了重要作用。对于交叉口信号配时优化研究来说，VISSIM不仅能够精确模拟车辆在交叉口处的动态行驶状态，还能够量化不同信号方案下的延误、排队长度及通行能力，从而帮助设计者找到最佳调控策略。</p>
+<p>作为一款功能强大、应用广泛的交通仿真工具，VISSIM在交叉口信号配时优化研究中发挥着不可替代的作用。通过对其模型原理、应用特点和优势的全面了解，我们可以更好地利用该软件对复杂交通环境下的信号控制策略进行仿真验证与优化分析，为城市交通管理提供科学依据和决策支持。</p>
+<h3 id="_42">仿真模拟<a class="headerlink" href="#_42" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>首先根据调查所得的道路基本数据比如车道宽度和车道数量等，绘制交叉口，并用连接器将交叉口各路段连接起来，最后为交叉口创建信号控制机，设置信号灯，得到的交叉口仿真图如图所示。</p>
+<p><img alt="image-20250904213001382" src="../交叉口信号配时课程设计.assets/image-20250904213001382.png" /></p>
+<p>建立完交叉口后，输入交通量数据、交叉口信号配时方案、设置冲突区让行规则，对交叉口的交通运行状况进行仿真模拟。</p>
+<p>各车道路段交通量输入数据如下：</p>
+<p><img alt="image-20250904211902148" src="../交叉口信号配时课程设计.assets/image-20250904211902148.png" /></p>
+<p><strong>原方案</strong>的交叉口信号配时方案：</p>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250905101134397.png" alt="image-20250905101134397" style="zoom: 48%;" /></p>
+<p>经过<strong>优化设计</strong>的交叉口信号配时方案：</p>
+<p>设置的二相位配时图如下：</p>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250904211204811.png" alt="image-20250904211204811" style="zoom:80%;" /></p>
+<p>设置的三相位配时图如下：</p>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250904215153408.png" alt="image-20250904215153408" style="zoom:80%;" /></p>
+<p>设置的四相位配时图如下：</p>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250904221337198.png" alt="image-20250904221337198" style="zoom:80%;" /></p>
+<h3 id="_43">仿真数据及分析<a class="headerlink" href="#_43" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>运用VISSIM软件的评估功能对各方案进行节点评估，选取平均排队长度、车辆平均延误以及停车次数作为评价指标，并输出节点结果。</p>
+<h4 id="_44">原方案的仿真数据<a class="headerlink" href="#_44" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>仿真模拟获得的数据如下：</p>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250905102908766.png" alt="image-20250905102908766" style="zoom:75%;" /></p>
+<h4 id="_45">二相位仿真数据<a class="headerlink" href="#_45" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>此处的二相位仿真数据为优化后的数据，非原始方案。</p>
+<p>仿真模拟获得的数据如下：</p>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250904211036123.png" alt="image-20250904211036123" style="zoom:90%;" /></p>
+<h4 id="_46">三相位仿真数据<a class="headerlink" href="#_46" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>仿真模拟获得的数据如下：</p>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250904215040155.png" alt="image-20250904215040155" style="zoom:90%;" /></p>
+<h4 id="_47">四相位仿真数据<a class="headerlink" href="#_47" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>仿真模拟获得的数据如下：</p>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250904221134327.png" alt="image-20250904221134327" style="zoom:80%;" /></p>
+<h4 id="_48">仿真数据分析<a class="headerlink" href="#_48" title="跳转至本节的锚点链接">&para;</a></h4>
+<h5 id="_49">不同行进方向的平均车辆延误<a class="headerlink" href="#_49" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>设计确定的三种信号相位数据列表如下：</p>
+<table>
+<thead>
+<tr>
+<th>不同行进方向的平均车辆延误</th>
+<th>二信号相位</th>
+<th>三信号相位</th>
+<th>四信号相位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>东西进口左转</td>
+<td>20.65191233</td>
+<td>44.1814745</td>
+<td>21.8519165</td>
+</tr>
+<tr>
+<td>南北进口左转</td>
+<td>39.40930175</td>
+<td>13.24281675</td>
+<td>17.730289</td>
+</tr>
+<tr>
+<td>东西方向直行</td>
+<td>8.61948575</td>
+<td>17.20090838</td>
+<td>30.93528925</td>
+</tr>
+<tr>
+<td>南北方向直行</td>
+<td>8.03023</td>
+<td>15.78263017</td>
+<td>26.18790867</td>
+</tr>
+</tbody>
+</table>
+<p><img src="../交叉口信号配时课程设计.assets/image-20250905094524149.png" alt="image-20250905094524149" style="zoom:67%;" /></p>
+<h5 id="_50">仿真评估平均指标<a class="headerlink" href="#_50" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>设计确定的三种信号相位数据列表如下：</p>
+<table>
+<thead>
+<tr>
+<th>仿真平均数据</th>
+<th>平均排队长度</th>
+<th>平均车辆延误</th>
+<th>平均停车次数</th>
+<th>最大排队长度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二信号相位</td>
+<td>3.203145</td>
+<td>11.2844395</td>
+<td>0.6262695</td>
+<td>42.357986</td>
+</tr>
+<tr>
+<td>三信号相位</td>
+<td>5.2749665</td>
+<td>16.4712445</td>
+<td>0.683885</td>
+<td>58.0842455</td>
+</tr>
+<tr>
+<td>四信号相位</td>
+<td>7.0602625</td>
+<td>20.713212</td>
+<td>0.4993005</td>
+<td>57.9602805</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="image-20250905140155747" src="../交叉口信号配时课程设计.assets/image-20250905140155747.png" /></p>
+<h5 id="_51">三种设计方案与原方案的仿真评估数据对比<a class="headerlink" href="#_51" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>各方案不同进口方向的平均排队长度与车辆平均延误数据列表如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>二相位（原方案）</th>
+<th></th>
+<th>二相位（优化后）</th>
+<th></th>
+<th>三相位</th>
+<th></th>
+<th>四相位</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>进口方向</td>
+<td>平均排队长度</td>
+<td>车辆平均延误</td>
+<td>平均排队长度</td>
+<td>车辆平均延误</td>
+<td>平均排队长度</td>
+<td>车辆平均延误</td>
+<td>平均排队长度</td>
+<td>车辆平均延误</td>
+</tr>
+<tr>
+<td>东进口</td>
+<td>3.55045375</td>
+<td>12.78111875</td>
+<td>2.56012275</td>
+<td>11.5246535</td>
+<td>7.50635863</td>
+<td>23.0166815</td>
+<td>6.401585125</td>
+<td>19.27317825</td>
+</tr>
+<tr>
+<td>西进口</td>
+<td>2.2309106</td>
+<td>8.8548747</td>
+<td>2.294747667</td>
+<td>10.31540944</td>
+<td>6.6318499</td>
+<td>22.0425165</td>
+<td>8.495688</td>
+<td>21.54171878</td>
+</tr>
+<tr>
+<td>南进口</td>
+<td>6.3249465</td>
+<td>18.48380717</td>
+<td>7.841983833</td>
+<td>22.5226195</td>
+<td>4.4657415</td>
+<td>11.153486</td>
+<td>7.275771833</td>
+<td>14.88574233</td>
+</tr>
+<tr>
+<td>北进口</td>
+<td>2.760540875</td>
+<td>12.65482288</td>
+<td>1.453848375</td>
+<td>8.8411345</td>
+<td>1.95438888</td>
+<td>10.09904225</td>
+<td>4.8811115</td>
+<td>17.347545</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="image-20250905120217654" src="../交叉口信号配时课程设计.assets/image-20250905120217654.png" /></p>
+<p><img alt="image-20250905120246989" src="../交叉口信号配时课程设计.assets/image-20250905120246989.png" /></p>
+<h4 id="_52">方案评价和比选<a class="headerlink" href="#_52" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>在VISSIM模拟仿真中，所有的冲突区域均设置左转车辆需让行直行车辆，这是下文分析中左转延迟偏高的主要原因，左转车辆需要避让直行车流，导致通行效率偏低。</p>
+<p>根据上述图表和数据，分析不同信号相位方案的优劣。</p>
+<h5 id="_53">二信号相位方案<a class="headerlink" href="#_53" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>优化过的二信号相位综合延误最低，平均车辆延误（11.28秒）远低于其他两个方案，通行效率最高。排队长度最短，平均排队长度（3.20米）和最大排队长度（42.36米）都是最小的，说明路口车辆积压情况最轻。相位少，相位周期长度短，车辆等待红灯的时间相对较短。</p>
+<p>二信号相位的问题在于道路通行存在冲突点，左转车流与对向直行车流存在严重冲突，南北向左转延误极高（39.41秒），安全性是最大问题，在车流量大时容易引发事故。通行权不明确，左转车需要自行寻找间隙通过，驾驶体验差。</p>
+<h5 id="_54">三信号相位方案<a class="headerlink" href="#_54" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>相较于二信号相位，三信号相位方案设置了独立的南北左转相位，消除了对向车流冲突，使得南北左转延误大幅降低至13.24秒，安全性高。</p>
+<p>但是由于独立相位增加了周期长度，导致东西向左转延误异常高（44.18秒），东西向车流需要等待一个完整的南北向周期才能通行，效率低下。</p>
+<p>分析可得三信号相位的整体性能差，平均延误、平均排队长度和最大排队长度均比二相位差，整体通行效率不高。</p>
+<h5 id="_55">四信号相位方案<a class="headerlink" href="#_55" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>在本课程设计所设计的各种信号相位方案中，四信号相位安全性最高，其为两个方向的左转车都设置了专用相位，完全消除了左转车与对向直行车的冲突。两个左转方向的延误都处于中等且均衡的水平（东西21.85秒，南北17.73秒）。</p>
+<p>四信号相位规则清晰，通行权分配明确，驾驶体验好。</p>
+<p>四信号相位的缺点在于其相位最多，周期最长，导致两个直行方向的延误显著增加（东西31秒，南北26秒），成为所有方案中直行延误最高的。平均排队长度和最大排队长度都很大，路口容易产生长排队。</p>
+<h5 id="_56">原始方案与优化后的二相位方案对比<a class="headerlink" href="#_56" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>在保证各方向交通流畅的前提下，选择使车辆总延误最小、整体排队长度最短的方案。通常，“车辆平均延误”是衡量信号配时方案优劣的最核心指标。</p>
+<p>优化后的二相位方案，平均排队长度与平均延误原方案相差不大。但由数据分析可得，二相位优化后，以牺牲部分南进口的通行效率（主要是南进口左转）换来东进口和北进口的排队和延误的显著下降，并保障了主干道（东西向）的通行能力。</p>
+<p>因此，优化后的二相位方案更优。</p>
+<h5 id="_57">方案评估与选择<a class="headerlink" href="#_57" title="跳转至本节的锚点链接">&para;</a></h5>
+<p>在平均车辆延误、平均排队长度和最大排队长度这三个衡量交叉口效率的最关键指标上，二相位方案均显著优于其他两者。这意味着在仿真环境下，该方案的整体通行能力最强，车辆积压最少。</p>
+<p>信号配时设计是在 “效率” 和 “安全” 之间做权衡。四相位方案用“效率”换取了绝对的“安全”（该方案拥有最低的平均停车次数）。三相位方案则设计不平衡，牺牲了一部分车的效率来保护另一部分，异常高的东西向左转延误（44.18秒）在现实中无法接受，因而舍弃了该方案。而二相位方案在仿真中展现了最高的效率，但在现实实践中存在安全问题（左转车流与对向直行车流存在严重冲突）。</p>
+<p>由于本次课程设计更侧重于车辆通行效率的仿真优化。在这种情况下，二信号相位方案因其卓越的通行效率（延误最低、排队最短）而成为最合理的选择。如果考虑通行安全因素和左转向车道车辆的驾驶体验，应选择更安全但效率稍低的四相位方案。</p>
+<h2 id="_58">总结<a class="headerlink" href="#_58" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>本次交叉口信号配时优化 VISSIM 仿真课程设计以特定几何布局的交叉口为研究载体，围绕信号配时优化的核心目标，完成了从交通数据收集到方案设计、参数计算、仿真验证的全流程实践。通过对交叉口几何条件、交通流量的系统分析，明确了原二相位配时方案的局限性，并针对二相位、三相位、四相位（双向左转）三种相位组合，系统计算了饱和流率、流率比、信号周期、有效绿灯时间等关键参数，形成了多套优化方案。最终借助 VISSIM 仿真工具，通过平均延误、排队长度等指标对比，验证了优化方案对提升交叉口通行效率的实际效果，达成了课程设计的预期目标。</p>
+<p>仿真实验结果表明，不同相位方案在效率与安全性方面各有优劣：优化后的二相位方案在平均延误、排队长度等效率指标上表现最佳；四相位方案虽周期较长，但在消除左转冲突、提升通行安全性方面具有明显优势；三相位方案则因相位结构不均衡，未能较好地兼顾各流向交通需求。最终方案的选择需结合实际路口条件、交通组成与管理目标，在效率与安全之间寻求平衡。</p>
+<p>通过本次实践，不仅深化了对交通信号配时原理的理解，掌握了关键参数的计算方法与相位方案设计逻辑，更通过仿真软件的应用实现多方案比选，认识不同相位结构对交叉口通行效率、安全性、公平性的影响，形成系统的交通控制设计思维。同时，设计中存在的不足，如交通量数据的简化处理、行人与非机动车流的忽略等，也为后续进一步研究与优化提供了方向。总体而言，本次课程设计增强了我们将理论知识应用于工程实践的能力，为今后应对复杂交通场景下的信号控制问题积累了宝贵经验。</p>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">本科课程笔记</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">实践设计</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面有帮助" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面可以改进" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢您的反馈!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+                感谢您的反馈! 笔者将努力改进此页面
+  </br>您可以使用<a href="/basic/contact-form/">反馈表单</a>来帮助我
+
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <!-- 头部区域：左对齐聚合布局 -->
+  <div class="comments-header">
+    <h2 id="__comments">评论</h2>
+    
+    <!-- 切换按钮容器 -->
+    <div class="comment-switch-wrapper" id="switch-wrapper" data-tip="当前正在使用 GitHub 登录评论">
+      <button id="comment-switch-btn" onclick="toggleCommentSystem()">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path fill="currentColor" d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+        </svg>
+        <span>切换模式</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Giscus 容器 -->
+  <div id="giscus-container">
+    <script src="https://giscus.app/client.js"
+            data-repo="weigo6/sufine-giscus"
+            data-repo-id="R_kgDOQvA4xA"
+            data-category="General"
+            data-category-id="DIC_kwDOQvA4xM4C0P1S"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+
+  <!-- Twikoo 容器 (默认隐藏) -->
+  <div id="twikoo-container" style="display: none;">
+    <div id="twikoo"></div>
+  </div>
+
+  <!-- 样式与逻辑 -->
+  <style>
+    /* 1. 头部布局：保持左对齐和分割线 */
+    .comments-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--md-typeset-color--lighter);
+    }
+
+    .comments-header h2 {
+        margin: 0 !important;
+        line-height: 1.2;
+    }
+
+    /* 2. 按钮样式：保持 SVG 图标和 flex 布局 */
+    #comment-switch-btn {
+        background: transparent;
+        border: 1px solid var(--md-typeset-color--lighter);
+        color: var(--md-typeset-color--light);
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 28px;
+        line-height: 1;
+    }
+    
+    #comment-switch-btn:hover {
+        border-color: var(--md-accent-fg-color);
+        color: var(--md-accent-fg-color);
+        background: var(--md-accent-bg-color--transparent);
+    }
+
+    /* 3. Tooltip 样式重构：圆润玻璃磨砂风 */
+    .comment-switch-wrapper {
+        position: relative;
+    }
+
+    .comment-switch-wrapper::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: 115%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px); /* 初始下沉一点，用于浮动动画 */
+        
+        /* 核心：玻璃磨砂效果 */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        
+        /* 亮色模式默认：半透明白底 + 黑字 (柔和灰黑) */
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(0, 0, 0, 0.05); /* 极细微的边界线 */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* 柔和的漫反射投影 */
+        
+        padding: 6px 14px;
+        border-radius: 20px; /* 大圆角，胶囊形状 */
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        
+        /* 动画与可见性 */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* 4. 暗色模式适配：半透明黑底 + 白字 */
+    [data-md-color-scheme="slate"] .comment-switch-wrapper::after {
+        background: rgba(20, 20, 20, 0.7);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 悬浮交互：上浮并淡入 */
+    .comment-switch-wrapper:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Twikoo 容器样式 */
+    #twikoo-container {
+        margin-top: 1rem;
+    }
+    [data-md-color-scheme="slate"] .tk-content {
+        color: var(--md-typeset-color) !important;
+    }
+  </style>
+
+  <script>
+    var isTwikooLoaded = false;
+
+    function toggleCommentSystem() {
+      var giscusContainer = document.getElementById('giscus-container');
+      var twikooContainer = document.getElementById('twikoo-container');
+      var wrapper = document.getElementById('switch-wrapper');
+      
+      if (twikooContainer.style.display === 'none') {
+        // === 切换到 Twikoo ===
+        giscusContainer.style.display = 'none';
+        twikooContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 Twikoo 匿名评论');
+        
+        if (!isTwikooLoaded) {
+          loadTwikooScript();
+        }
+      } else {
+        // === 切换回 Giscus ===
+        twikooContainer.style.display = 'none';
+        giscusContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 GitHub 登录评论');
+      }
+    }
+
+    function loadTwikooScript() {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/twikoo@latest/dist/twikoo.all.min.js";
+      script.async = true;
+      script.onload = function() {
+        twikoo.init({
+          envId: 'https://twikoo.sufine.top',
+          el: '#twikoo',
+          lang: 'zh-CN'
+        }).catch(console.error);
+        isTwikooLoaded = true;
+      };
+      document.body.appendChild(script);
+    }
+  </script>
+
+  <!-- Giscus 主题同步 -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+          var frame = document.querySelector(".giscus-frame")
+          if (frame) {
+            frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app")
+          }
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    
+      
+      <nav
+        class="md-footer__inner md-grid"
+        aria-label="页脚"
+        
+      >
+
+        <!-- Link to previous page -->
+        
+          
+          <a
+            href="../PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"
+            class="md-footer__link md-footer__link--prev"
+            aria-label="上一页: PLC综合实训课程设计"
+          >
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                PLC综合实训课程设计
+              </div>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          
+          <a
+            href="../%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8C%E9%9D%A2%E9%95%9C%E6%B5%8B%E7%A3%81%E8%87%B4%E4%BC%B8%E7%BC%A9%E7%B3%BB%E6%95%B0%E5%AE%9E%E9%AA%8C/"
+            class="md-footer__link md-footer__link--next"
+            aria-label="下一页: 菲涅尔双面镜测磁致伸缩系数实验"
+          >
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                菲涅尔双面镜测磁致伸缩系数实验
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Luwei
+    </div>
+  
+  
+</div>
+
+      <!-- Site Visits -->
+      <style>
+      .site-visit-count {
+        padding: 0 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.65rem;
+        color: var(--md-default-fg-color);
+      }
+      </style>
+      <div class="site-visit-count">
+        本站访问量：<span id="site_pv">--</span>&nbsp;| 当前页浏览量：<span id="page_pv">--</span>
+      </div>
+
+      <!-- Social links -->
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://bucket.rutno.com/d?sid=eqtRzdKfuGlmIm2wX3IwXffreqnr&e=1769434119&sig=aca3206c8defbfd303f1c5b6b36f51416243315723ae7e667fc98f7a5bf29111" target="_blank" rel="noopener" title="关注微信公众号" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/fSvCWA9say" target="_blank" rel="noopener" title="加入 Discord 服务器" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/weigo6" target="_blank" rel="noopener" title="访问 GitHub 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://gitee.com/weigo6" target="_blank" rel="noopener" title="访问 Gitee 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.15a.59.59 0 0 1-.592-.592v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://space.bilibili.com/512710834" target="_blank" rel="noopener" title="访问 Bilibili 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M488.6 104.1c16.7 18.1 24.4 39.7 23.3 65.7v202.4c-.4 26.4-9.2 48.1-26.5 65.1-17.2 17-39.1 25.9-65.5 26.7H92c-26.4-.8-48.2-9.8-65.3-27.2S.7 396.5 0 368.2V169.8c.8-26 9.7-47.6 26.7-65.7C43.8 87.8 65.5 78.8 92 78h29.4L96 52.2c-5.7-5.7-8.6-13-8.6-21.8S90.3 14.3 96 8.6 109 0 117.9 0s16.1 2.9 21.9 8.6L213.1 78h88l74.5-69.4C381.7 2.9 389.2 0 398 0s16.1 2.9 21.9 8.6c5.7 5.7 8.6 13 8.6 21.8s-2.9 16.1-8.6 21.8L394.6 78h29.3c26.4.8 48 9.8 64.7 26.1m-38.8 69.7c-.4-9.6-3.7-17.4-10.7-23.5-5.2-6.1-14-9.4-22.7-9.8H96c-9.6.4-17.4 3.7-23.6 9.8-6.1 6.1-9.4 13.9-9.8 23.5v194.4c0 9.2 3.3 17 9.8 23.5s14.4 9.8 23.6 9.8h320.4c9.2 0 17-3.3 23.3-9.8s9.7-14.3 10.1-23.5zm-264.3 42.7c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.2 6.3-14 9.5-23.6 9.5s-17.5-3.2-23.6-9.5-9.4-14-9.8-23.2v-33.3c.4-9.1 3.8-16.9 10.1-23.2s13.2-9.6 23.3-10c9.2.4 17 3.7 23.3 10m191.5 0c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2s-14 9.5-23.6 9.5-17.4-3.2-23.6-9.5c-7-6.3-9.4-14-9.7-23.2v-33.3c.3-9.1 3.7-16.9 10-23.2s14.1-9.6 23.3-10c9.2.4 17 3.7 23.3 10"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yang92636@qq.com" target="_blank" rel="noopener" title="通过电子邮件联系我" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["navigation.instant","navigation.instant.progress","navigation.tracking","navigation.tabs","navigation.tabs.sticky","navigation.sections","navigation.path","navigation.indexes","navigation.top","toc.follow","search.highlight","content.action.edit","content.action.view","navigation.footer","content.code.copy","content.code.select","content.code.annotate","content.footnote.tooltips","content.tooltips"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+        <script src="../../../javascripts/feedback.js"></script>
+      
+        <script src="../../../javascripts/count.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+      
+        <script src="../../../javascripts/ask_ai.js"></script>
+      
+        <script src="../../../javascripts/APlayer.min.js"></script>
+      
+        <script src="../../../javascripts/Meting.min.js"></script>
+      
+        <script src="../../../javascripts/music_player.js"></script>
+      
+        <script src="../../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

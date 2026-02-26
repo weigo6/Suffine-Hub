@@ -1,0 +1,4460 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="不必倾城倾国色，斜阳影里自婷婷。">
+      
+      
+        <meta name="author" content="Luwei">
+      
+      
+        <link rel="canonical" href="https://sufine.top/tech-dev/WebDev/%E5%9F%BA%E4%BA%8EEO-Pages%E5%AE%9E%E7%8E%B0%E7%AB%99%E7%82%B9%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/">
+      
+      
+        <link rel="prev" href="../%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E8%A1%A8%E5%8D%95%E5%8A%9F%E8%83%BD/">
+      
+      
+        <link rel="next" href="../%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0AI%E9%97%AE%E7%AD%94%E5%8A%9F%E8%83%BD/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/logo.webp">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>基于 EdgeOne Pages 实现站点访问统计功能 - Suffine Hub</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/ask_ai.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/APlayer.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/music_player.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+  <!-- Umami Analytics 集成脚本，支持即时导航（SPA单页应用）模式，屏蔽navigation.tracking (滚动锚点变化) 干扰 -->
+<!-- 1. 基础统计脚本 -->
+<!-- 使用 defer 异步加载，data-auto-track="false" 关闭自动上报，交由下方手动接管 -->
+<script defer 
+  src="https://cloud.umami.is/script.js" 
+  data-website-id="c53576ff-f759-4495-b8ec-bb653e56ce58"
+  data-auto-track="false" 
+></script>
+
+<!-- 2. 逻辑控制脚本 -->
+<script>
+  /* Umami Analytics Integration for MkDocs Material */
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    // 封装上报函数：统一处理，强制使用 pathname (剔除 #hash)
+    var trackPageview = function() {
+      // 忽略本地开发环境
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        console.log("Umami tracking disabled on localhost"); //方便调试确认
+        return;
+      }
+
+      if (typeof umami !== "undefined") {
+        umami.track(function(props) { 
+          return { ...props, url: window.location.pathname } 
+        });
+      }
+    };
+
+    // A. 首次加载时的手动上报
+    // 页面刚打开时，script (defer) 执行完毕且 DOM 准备好后执行
+    trackPageview();
+
+    // B. 监听 MkDocs 的 SPA 导航事件 (Instant Loading)
+    // document$ 是一个 Observable，仅在 DOM 内容被替换时触发
+    var isFirstEmit = true;
+    
+    document$.subscribe(function() {
+      // document$ 在订阅瞬间会发射一次当前页面的信号
+      // 我们通过标志位跳过这一次，避免与步骤 A 重复统计
+      if (isFirstEmit) {
+        isFirstEmit = false;
+        return;
+      }
+      
+      // 只有真正的页面跳转（内容替换）才会执行到这里
+      // 单纯的 Hash 变化（目录跳转/滚动）不会触发 document$
+      trackPageview();
+    });
+  });
+</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#edgeone-pages" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Suffine Hub" class="md-header__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Suffine Hub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              基于 EdgeOne Pages 实现站点访问统计功能
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  关于本站
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../college-study/" class="md-tabs__link">
+          
+  
+  课程学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  技术开发
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../basic/guest-board/" class="md-tabs__link">
+        
+  
+  留言板
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../basic/friendly-links/" class="md-tabs__link">
+          
+  
+  友链
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://nav.sufine.top" class="md-tabs__link">
+        
+  
+  网址导航
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Suffine Hub" class="md-nav__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/logo.webp" alt="logo">
+
+    </a>
+    Suffine Hub
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    关于本站
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../college-study/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    课程学习
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../college-study/RailSig/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 2h7c.8 0 1.56.32 2.12.88S15 4.2 15 5v1h-2V4H4v7h5v5H8l-3 3H4v-2l1-1c-.8 0-1.56-.32-2.12-.88S2 13.8 2 13V5c0-.8.32-1.56.88-2.12S4.2 2 5 2m.71 10.29C5.5 12.11 5.27 12 5 12c-.26 0-.5.11-.71.29-.18.21-.29.45-.29.71 0 .27.11.5.29.71.21.19.45.29.71.29.27 0 .5-.1.71-.29.19-.21.29-.44.29-.71 0-.26-.1-.5-.29-.71M11 11c0-1.66 1-3 4-3h3c3 0 4 1.34 4 3v7c0 .74-.4 1.39-1 1.73V21c0 .55-.45 1-1 1s-1-.45-1-1v-1h-5v1c0 .55-.45 1-1 1s-1-.45-1-1v-1.27c-.6-.34-1-.99-1-1.73zm2-1v4h7v-4zm1 8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1m6-1c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号与控制
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    轨道交通信号与控制
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/RailSig/%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E6%A6%82%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-5V6h5m-1.5 11a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5M11 11H6V6h5M7.5 17A1.5 1.5 0 0 1 6 15.5 1.5 1.5 0 0 1 7.5 14 1.5 1.5 0 0 1 9 15.5 1.5 1.5 0 0 1 7.5 17M12 2c-4.42 0-8 .5-8 4v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5v.5h12v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.58-4-8-4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通概论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%B8%80/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m8-9h-3V8.86c1.72-.45 3-2 3-3.86h-3V4a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1H4c0 1.86 1.28 3.41 3 3.86V10H4c0 1.86 1.28 3.41 3 3.86V15H4c0 1.86 1.28 3.41 3 3.86V20a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1.14c1.72-.45 3-2 3-3.86h-3v-1.14c1.72-.45 3-2 3-3.86"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    轨道交通信号基础一
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%BA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.67 10.5c-1.27 0-2.4.8-2.82 2h-1.68V7.77l3.49 2.09 1-1.72L14.11 6l3.57-2.14-1-1.72-3.51 2.09V2h-2v2.23L7.68 2.14l-1 1.72L10.23 6 6.66 8.14l1 1.72 3.51-2.09v4.73H9.5c-1.14-3.18-5.84-2.37-5.84 1s4.7 4.18 5.84 1h1.67V20a2 2 0 0 0-2 2h6a2 2 0 0 0-2-2v-5.5h1.68c.81 2.3 3.88 2.72 5.28.73s-.03-4.73-2.46-4.73m-11 4c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1m11 0c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    城市轨道交通基础二
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/RailSig/%E5%8C%BA%E9%97%B4%E4%BF%A1%E5%8F%B7%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-3.18C14.4 9.84 13.3 9 12 9s-2.4.84-2.82 2H6c-.33 0-2-.1-2-2V8c0-1.83 1.54-2 2-2h10.18C16.6 7.16 17.7 8 19 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3c-1.3 0-2.4.84-2.82 2H6C4.39 4 2 5.06 2 8v1c0 2.94 2.39 4 4 4h3.18c.42 1.16 1.52 2 2.82 2s2.4-.84 2.82-2H18c.33 0 2 .1 2 2v1c0 1.83-1.54 2-2 2H7.82C7.4 16.84 6.3 16 5 16a3 3 0 0 0-3 3 3 3 0 0 0 3 3c1.3 0 2.4-.84 2.82-2H18c1.61 0 4-1.07 4-4v-1c0-2.93-2.39-4-4-4m1-7a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1M5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    区间信号自动控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/RailSig/%E8%BD%A6%E7%AB%99%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 16V4H3v12zm0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v2h2v2H8v-2h2v-2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2zM5 6h9v5H5zm10 0h4v2h-4zm4 3v5h-4V9zM5 12h4v2H5zm5 0h4v2h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    车站信号控制系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../college-study/STEM/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    理工科专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    理工科专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/matlab-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v2h3v12h-3v2h5V4M4 4v16h5v-2H6V6h3V4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Matlab入门学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/PLC-S7-200-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    西门子PLC S7-200
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/PLC-ModbusRTU/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 3h10v2h2v3h-3v6H8V8H5V5h2zm10 6h2v5h-2zm-6 6h2v7h-2zM5 9h2v5H5z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC ModbusRTU 学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h1v2H2v2h4v2H5c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2zm0 2h4v3h-4zM5 17h4v3H5zm10 0h4v3h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E4%BC%A0%E6%84%9F%E5%99%A8%E4%B8%8E%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与检测技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E4%BA%A4%E9%80%9A%E8%8B%B1%E8%AF%AD%E7%AD%94%E8%BE%A9%E8%AE%B2%E7%A8%BF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    专业外语课程-交通英语
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 22a3 3 0 0 1-3-3c0-.6.18-1.16.5-1.63L9 7.81V6a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1v1.81l5.5 9.56c.32.47.5 1.03.5 1.63a3 3 0 0 1-3 3zm-1-3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1c0-.21-.07-.41-.18-.57l-2.29-3.96L14 17l-5.07-5.07-3.75 6.5c-.11.16-.18.36-.18.57m8-9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    通信原理实验报告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E8%8B%8F%E5%B7%9E%E8%AF%84%E5%BC%B9%E9%89%B4%E8%B5%8F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 5a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c2.67 0 8 1.34 8 4v2H1v-2c0-2.66 5.33-4 8-4m7.76-9.64c2.02 2.2 2.02 5.25 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89zM20.07 2c3.93 4.05 3.9 10.11 0 14l-1.63-1.63c2.77-3.18 2.77-7.72 0-10.74z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    苏州评弹鉴赏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E6%AF%9B%E6%A6%82%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h2v20H7zm12 7-8 5.6V3.4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    毛概复习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E6%95%B0%E5%AD%97%E7%94%B5%E5%8E%8B%E8%A1%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    数字电压表制作课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.9 18.45c1.35 0 2.45-1.1 2.45-2.45s-1.1-2.45-2.45-2.45c-1.36 0-2.45 1.1-2.45 2.45s1.09 2.45 2.45 2.45m5.2-1.77 1.48 1.16c.13.11.17.29.08.45l-1.4 2.42a.35.35 0 0 1-.43.15l-1.74-.7c-.36.28-.76.51-1.18.69l-.27 1.85c-.02.17-.17.3-.34.3h-2.8c-.18 0-.32-.13-.35-.3l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.75.7c-.15.06-.34 0-.42-.15l-1.4-2.42a.35.35 0 0 1 .08-.45l1.48-1.16-.05-.68.05-.69-1.48-1.15a.35.35 0 0 1-.08-.45l1.4-2.42c.08-.16.27-.22.42-.16l1.75.71c.36-.28.75-.52 1.18-.69l.26-1.86c.03-.16.17-.29.35-.29h2.8c.17 0 .32.13.34.29l.27 1.86c.42.17.82.41 1.18.69l1.74-.71c.17-.06.34 0 .43.16l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.15.05.69zM6.69 8.07c.87 0 1.57-.7 1.57-1.57s-.7-1.58-1.57-1.58A1.58 1.58 0 0 0 5.11 6.5c0 .87.71 1.57 1.58 1.57m3.34-1.13.97.74c.07.07.09.19.03.29l-.9 1.56c-.05.1-.17.14-.27.1l-1.12-.45-.74.44-.19 1.19c-.02.11-.11.19-.22.19h-1.8c-.12 0-.21-.08-.23-.19L5.4 9.62l-.76-.44-1.14.45c-.09.04-.2 0-.26-.1l-.9-1.56c-.06-.1-.03-.22.05-.29l.95-.74-.03-.44.03-.44-.95-.74a.23.23 0 0 1-.05-.29l.9-1.56c.06-.1.17-.14.26-.1l1.13.45.77-.44.16-1.19c.02-.11.11-.19.23-.19h1.8c.11 0 .2.08.22.19L8 3.38l.74.44 1.12-.45c.1-.04.22 0 .27.1l.9 1.56c.06.1.04.22-.03.29l-.97.74.03.44z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PLC综合实训课程设计
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%BF%A1%E5%8F%B7%E9%85%8D%E6%97%B6%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.1 4.8c-.1-.5-.5-.8-1-.8H13l.2 3h-2.4l.2-3H6.8c-.5 0-.9.4-1 .8l-2.7 14c-.1.6.4 1.2 1 1.2H10l.3-5h3.4l.3 5h5.8c.6 0 1.1-.6 1-1.2zM10.4 13l.2-4h2.6l.2 4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    交叉口信号配时课程设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8C%E9%9D%A2%E9%95%9C%E6%B5%8B%E7%A3%81%E8%87%B4%E4%BC%B8%E7%BC%A9%E7%B3%BB%E6%95%B0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.29 10.28 3.24-3.25 1.06 1.06-3.24 3.25zm.41 4.33 5.66-5.66L15.42 10l-5.66 5.67zM18 3v18H6V3zm2-2H4v22h16z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    菲涅尔双面镜测磁致伸缩系数实验
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../college-study/Kaoyan/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研相关科目
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    考研相关科目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/kaoyan-math-hm/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.42 5.29c-1.1-.1-2.07.71-2.17 1.82L10 10h2.82v2h-3l-.44 5.07A4.001 4.001 0 0 1 2 18.83l1.5-1.5c.33 1.05 1.46 1.64 2.5 1.3.78-.24 1.33-.93 1.4-1.74L7.82 12h-3v-2H8l.27-3.07a4.01 4.01 0 0 1 4.33-3.65c1.26.11 2.4.81 3.06 1.89l-1.5 1.5c-.25-.77-.93-1.31-1.74-1.38M22 13.65l-1.41-1.41-2.83 2.83-2.83-2.83-1.43 1.41 2.85 2.85-2.85 2.81 1.43 1.41 2.83-2.83 2.83 2.83L22 19.31l-2.83-2.81z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-高数知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/kaoyan-math-la/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研数二-线代知识点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/kaoyan-eng-write/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.54 3.5 4.96 4.97-1.43 1.41-4.95-4.95zM3.5 19.78l6.5-6.47c-.1-.31-.03-.7.23-.96.39-.39 1.03-.39 1.42 0 .39.4.39 1.03 0 1.42-.26.26-.65.33-.96.23l-6.47 6.5 10.61-3.55 3.53-6.36-4.94-4.95-6.37 3.53z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-作文写作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/%E8%80%83%E7%A0%94%E6%A0%B8%E5%BF%83926%E8%AF%8D%E6%B1%87%E5%8F%8A%E6%8B%93%E5%B1%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2zm0 2h2v2H3m12-.5V9a2 2 0 0 0-2-2H9v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M13 15h-2v-2h2zm0-4h-2V9h2m6-2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1h-2v1h-2V9h2v1h2V9a2 2 0 0 0-2-2Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研英二-核心词汇926词
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-1.27 0-2.4.8-2.82 2H3v2h1.95L2 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3L6.05 7h3.12c.33.85.98 1.5 1.83 1.83V20H2v2h20v-2h-9V8.82c.85-.32 1.5-.97 1.82-1.82h3.13L15 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3l-2.95-7H21V5h-6.17C14.4 3.8 13.27 3 12 3m0 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-6.5 5.25L7 14H4zm13 0L20 14h-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    考研政治-知识点笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/%E8%87%AA%E6%8E%A7-%E6%A0%B9%E8%BD%A8%E8%BF%B9%E6%B3%95%E5%88%99/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.96 11.31C10.82 8.1 11.5 6 13 6s2.18 2.1 3.04 5.31C17 14.92 18.1 19 22 19v-2c-2.2 0-3-2.46-4.03-6.2C17.08 7.46 16.15 4 13 4s-4.08 3.46-4.97 6.8C7.03 14.54 6.2 17 4 17V2H2v20h20v-2H4v-1c3.9 0 5-4.08 5.96-7.69"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    自动控制原理-根轨迹法则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    技术开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技术开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Markdown/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12c.79 0 1.44.63 1.44 1.41v9.18c0 .78-.65 1.41-1.44 1.41M6.81 15.19v-3.66l1.92 2.35 1.92-2.35v3.66h1.93V8.81h-1.93l-1.92 2.35-1.92-2.35H4.89v6.38zM19.69 12h-1.92V8.81h-1.92V12h-1.93l2.89 3.28z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown相关
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Markdown相关
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Markdown/markdown-in-5min/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4zm10 14.5-4-4-4 4V20h8zm-4-5 4-4V4H8v3.5zM10 6h4v.75l-2 2-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 5 分钟上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Markdown/LaTeX-math/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 6H8.83l6 6-6 6H18v2H6v-2l6-6-6-6V4h12z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在Markdown中编写数学公式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Markdown/zensical-markdown/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5zm2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63s2.59.23 3.5.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Zensical 中使用 Markdown 高效写作
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Markdown/markdown-typora/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7V5h2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L18 9V2h1c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7zm4 4H5v2h2zm0-4V5H5v2zm0 12v-2H5v2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown 与 Typora 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Markdown/typora-theme/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 12a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 17.5 9a1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-3-4A1.5 1.5 0 0 1 13 6.5 1.5 1.5 0 0 1 14.5 5 1.5 1.5 0 0 1 16 6.5 1.5 1.5 0 0 1 14.5 8m-5 0A1.5 1.5 0 0 1 8 6.5 1.5 1.5 0 0 1 9.5 5 1.5 1.5 0 0 1 11 6.5 1.5 1.5 0 0 1 9.5 8m-3 4A1.5 1.5 0 0 1 5 10.5 1.5 1.5 0 0 1 6.5 9 1.5 1.5 0 0 1 8 10.5 1.5 1.5 0 0 1 6.5 12M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9 1.5 1.5 0 0 0 1.5-1.5c0-.39-.15-.74-.39-1-.23-.27-.38-.62-.38-1a1.5 1.5 0 0 1 1.5-1.5H16a5 5 0 0 0 5-5c0-4.42-4.03-8-9-8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Typora 软件主题分享与记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.19 14.19 6 18l3.81-8.19L18 6m-6-4A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 8.9a1.1 1.1 0 0 0-1.1 1.1 1.1 1.1 0 0 0 1.1 1.1 1.1 1.1 0 0 0 1.1-1.1 1.1 1.1 0 0 0-1.1-1.1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Web 相关开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web 相关开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8EO-Pages%E6%89%98%E7%AE%A1Zensical%E7%AB%99%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83s-2.05.78-2.83 0m-5.66 7.07-1.41-1.41zM6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 EdgeOne Pages 托管 Zensical 站点
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E8%A1%A8%E5%8D%95%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.13c-.15.01-.29.06-.39.17l-1 1 2.05 2 1-1c.22-.21.22-.56 0-.77l-1.24-1.23a.56.56 0 0 0-.38-.17m-2 1.75L13 19.94V22h2.06l6.06-6.07M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7v-.89l8.24-8.22c.47-.49 1.12-.76 1.8-.76.34 0 .68.06 1 .19V6c0-1.12-.92-2-2.04-2m0 4-8 5-8-5V6l8 5 8-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加邮件表单功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于 EdgeOne Pages 实现站点访问统计功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于 EdgeOne Pages 实现站点访问统计功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+      
+        
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#eo-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌟 EO-Counter 的优势是什么？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edgeone-pages_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 第一步：后端部署 (EdgeOne Pages)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zensicalmkdocs-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 第二步：前端集成（Zensical/Mkdocs-material）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💻 第二步：前端集成（Zensical&#x2f;Mkdocs-material）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 引入统计脚本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 修改配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 插入展示 HTML
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 第三步：管理与维护
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎉 结语
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloudflare-workers-zensical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        番外：使用 Cloudflare Workers 为 Zensical 站点引入访问统计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="番外：使用 Cloudflare Workers 为 Zensical 站点引入访问统计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接入步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        提示事项
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0AI%E9%97%AE%E7%AD%94%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-1.26 2.75L15 5l2.74 1.26L19 9l1.25-2.74L23 5l-2.75-1.25M9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5M19 15l-1.26 2.74L15 19l2.74 1.25L19 23l1.25-2.75L23 19l-2.75-1.26"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加 AI 问答功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    为 Zensical 站点添加音乐播放器功能
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Embedded/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Embedded/%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E5%9B%9B%E8%BD%AE%E7%A7%BB%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 0 0 5 15.5 2.5 2.5 0 0 0 7.5 18a2.5 2.5 0 0 0 2.5-2.5A2.5 2.5 0 0 0 7.5 13m9 0a2.5 2.5 0 0 0-2.5 2.5 2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于STM32的四轮移动机器人设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Embedded/%E5%9F%BA%E4%BA%8ERFID%E7%9A%84%E6%99%BA%E8%83%BD%E4%BB%93%E5%82%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h2v2H6zm6-16L2 8v13h2v-8h16v8h2V8zm-4 8H4V9h4zm6 0h-4V9h4zm6 0h-4V9h4zM6 15h2v2H6zm4 0h2v2h-2zm0 4h2v2h-2zm4 0h2v2h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于RFID的智能仓储管理系统设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Embedded/2024%E7%94%B5%E8%B5%9BH%E9%A2%98%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2c-.9 0-2 1-2 2H8c0-1-1.1-2-2-2H2v9c0 1 1 2 2 2h2.2c.4 2 1.7 3.7 4.8 4v2.08C8 19.54 8 22 8 22h8s0-2.46-3-2.92V17c3.1-.3 4.4-2 4.8-4H20c1 0 2-1 2-2V2zM6 11H4V4h2zm14 0h-2V4h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024电赛H题参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Embedded/2024%E8%A5%BF%E9%97%A8%E5%AD%90%E6%9D%AF%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4v2l5.81 4.36a7.004 7.004 0 0 0-4.46 8.84 6.996 6.996 0 0 0 8.84 4.46 7 7 0 0 0 0-13.3L20 4zm-5.06 17.5L12 17.78 9.06 19.5l.78-3.33-2.59-2.24 3.41-.29L12 10.5l1.34 3.14 3.41.29-2.59 2.24z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    2024西门子杯参赛记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Embedded/%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    蓝桥杯嵌入式与STM32学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Embedded/PCB%E8%AE%BE%E8%AE%A1%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0 3 7l1.63 1.27L12 14l7.36-5.73L21 7zm7.37 10.73L12 16.47l-7.38-5.73L3 12l9 7 9-7zm0 5L12 21.47l-7.38-5.73L3 17l9 7 9-7z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    PCB设计注意事项
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Embedded/%E5%9F%BA%E4%BA%8ECD4017%E7%9A%84%E7%AE%80%E6%98%93%E5%AF%86%E7%A0%81%E5%99%A8%E6%8E%A7%E5%88%B6%E8%A3%85%E7%BD%AE/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m5.6-4c-.8-2.3-3-4-5.6-4-3.3 0-6 2.7-6 6s2.7 6 6 6c2.6 0 4.8-1.7 5.6-4H16v4h4v-4h3v-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于CD4017的简易密码器控制装置
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Software/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v10H4m16 2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    软件程序开发
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件程序开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Software/%E5%9F%BA%E4%BA%8EAST%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E7%9A%84Python%E6%96%87%E4%BB%B6%E6%9F%A5%E9%87%8D/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18H6v-2h4zm0-4H6v-2h4zm0-13v1H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h4v1h2V1zm10 7v12c0 1.11-.89 2-2 2h-4v-2h4v-9h-4V9h4.5L14 4.5V2zm-4 6h-2v-2h2zm0 4h-2v-2h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于AST语义分析的Python文件查重
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Software/%E6%97%8B%E8%BD%AC%E9%9F%B3%E5%BE%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m0 2v12h16V6zm3.24.58 11.59 3.11-2.07 7.73-11.59-3.11z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    基于Pyside6与ffmpeg的旋转音律视频稳定工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Software/Turbot4%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Turbot4机器人开发记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Software/uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55 6.28-3.63-.58-1.01-6.28 3.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+     Python 下一代包管理器 uv 上手指南
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Tools/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.8 3.8 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.8 3.8 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    工具与资源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具与资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tools/%E5%8D%A1%E8%A5%BF%E6%AC%A7fx-991%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4zm0 6v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    卡西欧fx-991使用技巧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/guest-board/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 12V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14l4-4h10a1 1 0 0 0 1-1m4-6h-2v9H6v2a1 1 0 0 0 1 1h11l4 4V7a1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    留言板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    友链
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    友链
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 17q.86 0 1.45.6t.58 1.4L14 22l-7-2v-9h1.95l7.27 2.69q.78.31.78 1.12 0 .47-.34.82t-.86.37H13l-1.75-.67-.33.94L13 17zM16 3.23Q17.06 2 18.7 2q1.36 0 2.3 1t1 2.3q0 1.03-1 2.46t-1.97 2.39T16 13q-2.08-1.89-3.06-2.85t-1.97-2.39T10 5.3q0-1.36.97-2.3t2.34-1q1.6 0 2.69 1.23M.984 11H5v11H.984z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    朋友们
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links-guide/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 14c-2.67 0-8 1.33-8 4v2h16v-2c0-2.67-5.33-4-8-4m-9-4V7H4v3H1v2h3v3h2v-3h3v-2m6 2a4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4 4 4 0 0 0 4 4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    友链申请指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/contact-form/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 8V7l-3 2-3-2v1l3 2m4-7H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M8 6a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m6 12H2v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1m8-5h-8V6h8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    联系表单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nav.sufine.top" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网址导航
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#eo-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌟 EO-Counter 的优势是什么？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edgeone-pages_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 第一步：后端部署 (EdgeOne Pages)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zensicalmkdocs-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 第二步：前端集成（Zensical/Mkdocs-material）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💻 第二步：前端集成（Zensical&#x2f;Mkdocs-material）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 引入统计脚本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 修改配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 插入展示 HTML
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 第三步：管理与维护
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎉 结语
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloudflare-workers-zensical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        番外：使用 Cloudflare Workers 为 Zensical 站点引入访问统计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="番外：使用 Cloudflare Workers 为 Zensical 站点引入访问统计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接入步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        提示事项
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    关于本站
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    技术开发
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Web 相关开发
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/weigo6/suffine-hub/edit/main/docs/tech-dev/WebDev/基于EO-Pages实现站点访问统计功能.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/weigo6/suffine-hub/raw/main/docs/tech-dev/WebDev/基于EO-Pages实现站点访问统计功能.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+<h1 id="edgeone-pages">用 EdgeOne Pages 零成本搭建博客访问计数器<a class="headerlink" href="#edgeone-pages" title="跳转至本节的锚点链接">&para;</a></h1>
+<p>在搭建个人博客时，我们往往需要一个简单、精准且保护隐私的访问量统计工具。Google Analytics 功能强大但过于臃肿且涉及隐私问题，市面上的商业统计服务又大多收费。</p>
+<p>笔者为了满足自己博客全站访问数及文章页访问数的统计需求，开发了 <strong>EO-Counter</strong> ，这是一个利用 <strong>腾讯云 EdgeOne Pages</strong> 的边缘函数（Edge Functions）和 KV 存储构建的轻量级访问统计方案。它完全免费（在免费额度内）、无需维护服务器、自带可视化后台，并且支持极其灵活的前端集成。</p>
+<p>本文以 Zensical/Mkdocs-material 这类现代静态文档站点为例，讲解如何部署 EO-Counter 项目。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>其他站点的部署及更详细的后端部署细则参考 <strong>EO-Counter</strong> 的 <a href="https://github.com/weigo6/eo-counter">Github README说明</a> 。</p>
+</div>
+<h2 id="eo-counter">🌟 EO-Counter 的优势是什么？<a class="headerlink" href="#eo-counter" title="跳转至本节的锚点链接">&para;</a></h2>
+<ul>
+<li><strong>💸 真正的零成本</strong>：利用 EdgeOne Pages 的免费额度，个人博客绰绰有余。</li>
+<li><strong>⚡ 边缘低延迟</strong>：统计逻辑运行在边缘节点，全球访问速度极快。</li>
+<li><strong>🔒 数据私有化</strong>：数据存储在你自己的腾讯云账号下，安全可控。</li>
+<li><strong>📊 可视化看板</strong>：自带管理后台，支持查看热力图、搜索路径、甚至手动修正数据。</li>
+<li><strong>🧩 完美适配 SSG</strong>：专为 Hexo, Hugo, MkDocs, Zensical 等静态博客设计。</li>
+</ul>
+<h2 id="edgeone-pages_1">🛠️ 第一步：后端部署 (EdgeOne Pages)<a class="headerlink" href="#edgeone-pages_1" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>只需五分钟即可完成服务端的搭建。</p>
+<ol>
+<li>
+<p><strong>获取代码</strong>：
+    登录 GitHub，Fork 或下载 <a href="https://github.com/weigo6/eo-counter">EO-Counter 仓库</a>。</p>
+</li>
+<li>
+<p><strong>创建项目</strong>：
+    前往 <a href="https://console.cloud.tencent.com/edgeone/pages">腾讯云 EdgeOne Pages 控制台</a>，点击“新建项目”，选择你刚才 Fork 的 GitHub 仓库。构建配置保持默认即可。</p>
+</li>
+<li>
+<p><strong>配置数据库 (KV)</strong>：</p>
+<ul>
+<li>在 Pages 控制台创建 KV 命名空间。</li>
+<li>在项目设置中，绑定 KV 命名空间，<strong>变量名必须填写为 <code>BLOG_DB</code></strong>。</li>
+</ul>
+</li>
+<li>
+<p><strong>设置环境变量</strong>：
+    在项目设置中添加以下环境变量：</p>
+<ul>
+<li><code>DASHBOARD_PWD</code>：设置一个复杂的密码，用于登录管理后台。</li>
+<li><code>ALLOWED_ORIGIN</code>：允许跨域的域名。</li>
+<li>调试填：<code>*</code></li>
+<li>上线填：<code>https://你的博客域名.com</code> (多个域名用逗号分隔)</li>
+</ul>
+</li>
+<li>
+<p><strong>部署上线</strong>：
+    保存配置并触发一次重新部署。部署成功后，你会获得一个 <code>*.edgeone.dev</code> (或类似) 的访问地址，这就是你的 <strong>API 服务地址</strong>。</p>
+</li>
+</ol>
+<blockquote>
+<p>需要绑定自己的域名作为 API 地址，Edge One Pages默认提供的域名存在访问期限。未备案域名加速区域请选择全球可用区（不含中国大陆）。</p>
+</blockquote>
+<h2 id="zensicalmkdocs-material">💻 第二步：前端集成（Zensical/Mkdocs-material）<a class="headerlink" href="#zensicalmkdocs-material" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="1">1. 引入统计脚本<a class="headerlink" href="#1" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>针对 <strong>MkDocs-Material</strong> 和 <strong>Zensical</strong> 这类现代静态文档站点，由于它们通常使用了 Instant Loading (PJAX/SPA) 技术，传统的 <code>window.onload</code> 埋点往往会在页面跳转时失效。</p>
+<p>为了确保<strong>无论是首次加载还是站内跳转，都能准确统计 PV</strong>，请在<code>docs/javascripts/</code>路径下创建<code>count.js</code>文件。</p>
+<p>然后将下述代码粘贴进去：</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="c1">// 网站计数器，PV统计</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="c1">// docs/javascripts/count.js</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">  </span><span class="c1">// === ⚠️云端 Worker API 地址，请务必将此处填写为自己的 EdgeOne Pages访问域名/api/visit的形式===</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">WORKER_URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://example.com/api/visit&quot;</span><span class="p">;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">fetchStats</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">siteElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;site_pv&quot;</span><span class="p">);</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">pageElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;page_pv&quot;</span><span class="p">);</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="c1">// 如果页面上找不到这两个元素（比如还没加载完），就不执行</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">siteElem</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="nx">pageElem</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos" data-linenos="14 "></span></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="c1">// 获取当前路径</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><a href="#__codelineno-0-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">currentPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span><span class="p">;</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><a href="#__codelineno-0-17"><span class="linenos" data-linenos="17 "></span></a>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><a href="#__codelineno-0-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">    </span><span class="c1">// 发送请求</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><a href="#__codelineno-0-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">    </span><span class="nx">fetch</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">WORKER_URL</span><span class="si">}</span><span class="sb">/?url=</span><span class="si">${</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">currentPath</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><a href="#__codelineno-0-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">      </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><a href="#__codelineno-0-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">      </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><a href="#__codelineno-0-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">        </span><span class="c1">// 更新页面数字</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><a href="#__codelineno-0-23"><span class="linenos" data-linenos="23 "></span></a><span class="w">        </span><span class="nx">siteElem</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">total</span><span class="p">;</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><a href="#__codelineno-0-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">        </span><span class="nx">pageElem</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">page</span><span class="p">;</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><a href="#__codelineno-0-25"><span class="linenos" data-linenos="25 "></span></a><span class="w">      </span><span class="p">})</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><a href="#__codelineno-0-26"><span class="linenos" data-linenos="26 "></span></a><span class="w">      </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><a href="#__codelineno-0-27"><span class="linenos" data-linenos="27 "></span></a><span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;访问统计出错:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">);</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><a href="#__codelineno-0-28"><span class="linenos" data-linenos="28 "></span></a><span class="w">        </span><span class="c1">// 出错时可以显示 &quot;--&quot; 或者隐藏</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><a href="#__codelineno-0-29"><span class="linenos" data-linenos="29 "></span></a><span class="w">        </span><span class="nx">siteElem</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;--&quot;</span><span class="p">;</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><a href="#__codelineno-0-30"><span class="linenos" data-linenos="30 "></span></a><span class="w">        </span><span class="nx">pageElem</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;--&quot;</span><span class="p">;</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><a href="#__codelineno-0-31"><span class="linenos" data-linenos="31 "></span></a><span class="w">      </span><span class="p">});</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><a href="#__codelineno-0-32"><span class="linenos" data-linenos="32 "></span></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><a href="#__codelineno-0-33"><span class="linenos" data-linenos="33 "></span></a>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><a href="#__codelineno-0-34"><span class="linenos" data-linenos="34 "></span></a><span class="w">  </span><span class="c1">// === 关键逻辑：处理 MkDocs Material/Zensical 的加载机制 ===</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><a href="#__codelineno-0-35"><span class="linenos" data-linenos="35 "></span></a>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a><a href="#__codelineno-0-36"><span class="linenos" data-linenos="36 "></span></a><span class="w">  </span><span class="c1">// 检查是否支持 Instant Loading (MkDocs Material 特性)</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><a href="#__codelineno-0-37"><span class="linenos" data-linenos="37 "></span></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nb">document</span><span class="nx">$</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s2">&quot;undefined&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a><a href="#__codelineno-0-38"><span class="linenos" data-linenos="38 "></span></a><span class="w">    </span><span class="c1">// 如果开启了 Instant Loading，RxJS 的 document$ 会负责监听所有跳转（包括首次加载）</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><a href="#__codelineno-0-39"><span class="linenos" data-linenos="39 "></span></a><span class="w">    </span><span class="nb">document</span><span class="nx">$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a><a href="#__codelineno-0-40"><span class="linenos" data-linenos="40 "></span></a><span class="w">      </span><span class="c1">// 这里的 setTimeout 是必须的，等待页面 DOM 替换完成</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a><a href="#__codelineno-0-41"><span class="linenos" data-linenos="41 "></span></a><span class="w">      </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">fetchStats</span><span class="p">,</span><span class="w"> </span><span class="mf">100</span><span class="p">);</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><a href="#__codelineno-0-42"><span class="linenos" data-linenos="42 "></span></a><span class="w">    </span><span class="p">});</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a><a href="#__codelineno-0-43"><span class="linenos" data-linenos="43 "></span></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><a href="#__codelineno-0-44"><span class="linenos" data-linenos="44 "></span></a><span class="w">    </span><span class="c1">// 如果没有开启 Instant Loading，则回退到标准的 DOMContentLoaded</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><a href="#__codelineno-0-45"><span class="linenos" data-linenos="45 "></span></a><span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">fetchStats</span><span class="p">);</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a><a href="#__codelineno-0-46"><span class="linenos" data-linenos="46 "></span></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><a href="#__codelineno-0-47"><span class="linenos" data-linenos="47 "></span></a><span class="p">})();</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>假设你的 EdgeOne Pages 项目的<strong>访问地址</strong>为：https://your-eocount.com，则你需要在前端 js 代码中设置的 WORKER_URL 地址为：https://your-eocount.com/api/visit</p>
+<p><strong>环境变量必须配置</strong>✅</p>
+<p>DASHBOARD_PWD 用于管理员控制台登录密钥，用于 <code>api/admin.js</code> 的身份验证（<code>X-Auth-Token</code>）。</p>
+<p>ALLOWED_ORIGIN 示例场景如下（<strong>请勿遗漏<code>https://</code></strong>）：</p>
+<ul>
+<li>场景 1：仅生产环境
+      ALLOWED_ORIGIN = https://yourblog.com,https://www.yourblog.com</li>
+<li>场景 2：生产环境 + 本地开发
+      ALLOWED_ORIGIN = https://yourblog.com,http://localhost:3000</li>
+<li>场景 3：完全开放 (仅测试用)
+      ALLOWED_ORIGIN = *</li>
+</ul>
+</div>
+<h3 id="2">2. 修改配置文件<a class="headerlink" href="#2" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>编辑 <code>zensical.toml</code>或者<code>mkdocs.yml</code>，引入刚才创建的脚本：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">zensical.toml</label><label for="__tabbed_1_2">mkdocs.yml</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-toml highlight"><span class="filename">TOML</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">[project]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a><span class="n">extra_javascript</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="s2">&quot;javascripts/count.js&quot;</span><span class="w"> </span><span class="c1"># 访问计数脚本</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos="4 "></span></a><span class="p">]</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-yaml highlight"><span class="filename">YAML</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a><span class="nt">extra_javascript</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">assets/js/counter.js</span><span class="w"> </span><span class="c1"># 访问计数脚本</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="3-html">3. 插入展示 HTML<a class="headerlink" href="#3-html" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>为了美观，建议通过 <strong>Overrides</strong> 机制将统计显示在页脚。</p>
+<div class="admonition note">
+<p class="admonition-title">设置模板覆盖</p>
+<p>要添加新模板或覆盖现有模板的部分内容，首先需要配置 custom_dir 设置，使其指向存储模板覆盖文件的目录：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">zensical.toml</label><label for="__tabbed_2_2">mkdocs.yml</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-toml highlight"><span class="filename">TOML</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">[project.theme]</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos="2 "></span></a><span class="n">custom_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;overrides&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-yaml highlight"><span class="filename">YAML</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos="1 "></span></a><span class="nt">theme</span><span class="p">:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">  </span><span class="nt">custom_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">overrides</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p><code>custom_dir</code> 路径相对于您的配置文件进行解析。</p>
+</div>
+<p>创建 <code>overrides/partials/footer.html</code> (如果不存在则新建文件夹)，内容如下：</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="  1 "></span></a><span class="cm">&lt;!--</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos="  2 "></span></a><span class="cm">  Copyright (c) 2016-2025 Martin Donath &lt;martin.donath@squidfunk.com&gt;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos="  3 "></span></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><a href="#__codelineno-5-4"><span class="linenos" data-linenos="  4 "></span></a><span class="cm">  Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><a href="#__codelineno-5-5"><span class="linenos" data-linenos="  5 "></span></a><span class="cm">  of this software and associated documentation files (the &quot;Software&quot;), to</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><a href="#__codelineno-5-6"><span class="linenos" data-linenos="  6 "></span></a><span class="cm">  deal in the Software without restriction, including without limitation the</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><a href="#__codelineno-5-7"><span class="linenos" data-linenos="  7 "></span></a><span class="cm">  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><a href="#__codelineno-5-8"><span class="linenos" data-linenos="  8 "></span></a><span class="cm">  sell copies of the Software, and to permit persons to whom the Software is</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><a href="#__codelineno-5-9"><span class="linenos" data-linenos="  9 "></span></a><span class="cm">  furnished to do so, subject to the following conditions:</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><a href="#__codelineno-5-10"><span class="linenos" data-linenos=" 10 "></span></a>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><a href="#__codelineno-5-11"><span class="linenos" data-linenos=" 11 "></span></a><span class="cm">  The above copyright notice and this permission notice shall be included in</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a><a href="#__codelineno-5-12"><span class="linenos" data-linenos=" 12 "></span></a><span class="cm">  all copies or substantial portions of the Software.</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><a href="#__codelineno-5-13"><span class="linenos" data-linenos=" 13 "></span></a>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><a href="#__codelineno-5-14"><span class="linenos" data-linenos=" 14 "></span></a><span class="cm">  THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><a href="#__codelineno-5-15"><span class="linenos" data-linenos=" 15 "></span></a><span class="cm">  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a><a href="#__codelineno-5-16"><span class="linenos" data-linenos=" 16 "></span></a><span class="cm">  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17"></a><a href="#__codelineno-5-17"><span class="linenos" data-linenos=" 17 "></span></a><span class="cm">  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18"></a><a href="#__codelineno-5-18"><span class="linenos" data-linenos=" 18 "></span></a><span class="cm">  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19"></a><a href="#__codelineno-5-19"><span class="linenos" data-linenos=" 19 "></span></a><span class="cm">  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20"></a><a href="#__codelineno-5-20"><span class="linenos" data-linenos=" 20 "></span></a><span class="cm">  IN THE SOFTWARE.</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21"></a><a href="#__codelineno-5-21"><span class="linenos" data-linenos=" 21 "></span></a><span class="cm">--&gt;</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22"></a><a href="#__codelineno-5-22"><span class="linenos" data-linenos=" 22 "></span></a>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23"></a><a href="#__codelineno-5-23"><span class="linenos" data-linenos=" 23 "></span></a><span class="cm">&lt;!-- Footer --&gt;</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24"></a><a href="#__codelineno-5-24"><span class="linenos" data-linenos=" 24 "></span></a><span class="p">&lt;</span><span class="nt">footer</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25"></a><a href="#__codelineno-5-25"><span class="linenos" data-linenos=" 25 "></span></a>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26"></a><a href="#__codelineno-5-26"><span class="linenos" data-linenos=" 26 "></span></a>  <span class="cm">&lt;!-- Link to previous and/or next page --&gt;</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27"></a><a href="#__codelineno-5-27"><span class="linenos" data-linenos=" 27 "></span></a>  {% if &quot;navigation.footer&quot; in features %}
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28"></a><a href="#__codelineno-5-28"><span class="linenos" data-linenos=" 28 "></span></a>    {% if page.previous_page or page.next_page %}
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29"></a><a href="#__codelineno-5-29"><span class="linenos" data-linenos=" 29 "></span></a>      {% if page.meta and page.meta.hide %}
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30"></a><a href="#__codelineno-5-30"><span class="linenos" data-linenos=" 30 "></span></a>        {% set hidden = &quot;hidden&quot; if &quot;footer&quot; in page.meta.hide %}
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31"></a><a href="#__codelineno-5-31"><span class="linenos" data-linenos=" 31 "></span></a>      {% endif %}
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32"></a><a href="#__codelineno-5-32"><span class="linenos" data-linenos=" 32 "></span></a>      <span class="p">&lt;</span><span class="nt">nav</span>
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33"></a><a href="#__codelineno-5-33"><span class="linenos" data-linenos=" 33 "></span></a>        <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer__inner md-grid&quot;</span>
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34"></a><a href="#__codelineno-5-34"><span class="linenos" data-linenos=" 34 "></span></a>        <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;{{ lang.t(&#39;footer&#39;) }}&quot;</span>
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35"></a><a href="#__codelineno-5-35"><span class="linenos" data-linenos=" 35 "></span></a>        <span class="err">{{</span> <span class="na">hidden</span> <span class="err">}}</span>
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36"></a><a href="#__codelineno-5-36"><span class="linenos" data-linenos=" 36 "></span></a>      <span class="p">&gt;</span>
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37"></a><a href="#__codelineno-5-37"><span class="linenos" data-linenos=" 37 "></span></a>
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38"></a><a href="#__codelineno-5-38"><span class="linenos" data-linenos=" 38 "></span></a>        <span class="cm">&lt;!-- Link to previous page --&gt;</span>
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39"></a><a href="#__codelineno-5-39"><span class="linenos" data-linenos=" 39 "></span></a>        {% if page.previous_page %}
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40"></a><a href="#__codelineno-5-40"><span class="linenos" data-linenos=" 40 "></span></a>          {% set direction = lang.t(&quot;footer.previous&quot;) %}
+</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41"></a><a href="#__codelineno-5-41"><span class="linenos" data-linenos=" 41 "></span></a>          <span class="p">&lt;</span><span class="nt">a</span>
+</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42"></a><a href="#__codelineno-5-42"><span class="linenos" data-linenos=" 42 "></span></a>            <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ page.previous_page.url | url }}&quot;</span>
+</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43"></a><a href="#__codelineno-5-43"><span class="linenos" data-linenos=" 43 "></span></a>            <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer__link md-footer__link--prev&quot;</span>
+</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44"></a><a href="#__codelineno-5-44"><span class="linenos" data-linenos=" 44 "></span></a>            <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;{{ direction }}: {{ page.previous_page.title | e }}&quot;</span>
+</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45"></a><a href="#__codelineno-5-45"><span class="linenos" data-linenos=" 45 "></span></a>          <span class="p">&gt;</span>
+</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46"></a><a href="#__codelineno-5-46"><span class="linenos" data-linenos=" 46 "></span></a>            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer__button md-icon&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47"></a><a href="#__codelineno-5-47"><span class="linenos" data-linenos=" 47 "></span></a>              {% set icon = config.theme.icon.previous or &quot;material/arrow-left&quot; %}
+</span><span id="__span-5-48"><a id="__codelineno-5-48" name="__codelineno-5-48"></a><a href="#__codelineno-5-48"><span class="linenos" data-linenos=" 48 "></span></a>              {% include &quot;.icons/&quot; ~ icon ~ &quot;.svg&quot; %}
+</span><span id="__span-5-49"><a id="__codelineno-5-49" name="__codelineno-5-49"></a><a href="#__codelineno-5-49"><span class="linenos" data-linenos=" 49 "></span></a>            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-5-50"><a id="__codelineno-5-50" name="__codelineno-5-50"></a><a href="#__codelineno-5-50"><span class="linenos" data-linenos=" 50 "></span></a>            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer__title&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-51"><a id="__codelineno-5-51" name="__codelineno-5-51"></a><a href="#__codelineno-5-51"><span class="linenos" data-linenos=" 51 "></span></a>              <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer__direction&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-52"><a id="__codelineno-5-52" name="__codelineno-5-52"></a><a href="#__codelineno-5-52"><span class="linenos" data-linenos=" 52 "></span></a>                {{ direction }}
+</span><span id="__span-5-53"><a id="__codelineno-5-53" name="__codelineno-5-53"></a><a href="#__codelineno-5-53"><span class="linenos" data-linenos=" 53 "></span></a>              <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span><span id="__span-5-54"><a id="__codelineno-5-54" name="__codelineno-5-54"></a><a href="#__codelineno-5-54"><span class="linenos" data-linenos=" 54 "></span></a>              <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-ellipsis&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-55"><a id="__codelineno-5-55" name="__codelineno-5-55"></a><a href="#__codelineno-5-55"><span class="linenos" data-linenos=" 55 "></span></a>                {{ page.previous_page.title }}
+</span><span id="__span-5-56"><a id="__codelineno-5-56" name="__codelineno-5-56"></a><a href="#__codelineno-5-56"><span class="linenos" data-linenos=" 56 "></span></a>              <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-5-57"><a id="__codelineno-5-57" name="__codelineno-5-57"></a><a href="#__codelineno-5-57"><span class="linenos" data-linenos=" 57 "></span></a>            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-5-58"><a id="__codelineno-5-58" name="__codelineno-5-58"></a><a href="#__codelineno-5-58"><span class="linenos" data-linenos=" 58 "></span></a>          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span><span id="__span-5-59"><a id="__codelineno-5-59" name="__codelineno-5-59"></a><a href="#__codelineno-5-59"><span class="linenos" data-linenos=" 59 "></span></a>        {% endif %}
+</span><span id="__span-5-60"><a id="__codelineno-5-60" name="__codelineno-5-60"></a><a href="#__codelineno-5-60"><span class="linenos" data-linenos=" 60 "></span></a>
+</span><span id="__span-5-61"><a id="__codelineno-5-61" name="__codelineno-5-61"></a><a href="#__codelineno-5-61"><span class="linenos" data-linenos=" 61 "></span></a>        <span class="cm">&lt;!-- Link to next page --&gt;</span>
+</span><span id="__span-5-62"><a id="__codelineno-5-62" name="__codelineno-5-62"></a><a href="#__codelineno-5-62"><span class="linenos" data-linenos=" 62 "></span></a>        {% if page.next_page %}
+</span><span id="__span-5-63"><a id="__codelineno-5-63" name="__codelineno-5-63"></a><a href="#__codelineno-5-63"><span class="linenos" data-linenos=" 63 "></span></a>          {% set direction = lang.t(&quot;footer.next&quot;) %}
+</span><span id="__span-5-64"><a id="__codelineno-5-64" name="__codelineno-5-64"></a><a href="#__codelineno-5-64"><span class="linenos" data-linenos=" 64 "></span></a>          <span class="p">&lt;</span><span class="nt">a</span>
+</span><span id="__span-5-65"><a id="__codelineno-5-65" name="__codelineno-5-65"></a><a href="#__codelineno-5-65"><span class="linenos" data-linenos=" 65 "></span></a>            <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ page.next_page.url | url }}&quot;</span>
+</span><span id="__span-5-66"><a id="__codelineno-5-66" name="__codelineno-5-66"></a><a href="#__codelineno-5-66"><span class="linenos" data-linenos=" 66 "></span></a>            <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer__link md-footer__link--next&quot;</span>
+</span><span id="__span-5-67"><a id="__codelineno-5-67" name="__codelineno-5-67"></a><a href="#__codelineno-5-67"><span class="linenos" data-linenos=" 67 "></span></a>            <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;{{ direction }}: {{ page.next_page.title | e }}&quot;</span>
+</span><span id="__span-5-68"><a id="__codelineno-5-68" name="__codelineno-5-68"></a><a href="#__codelineno-5-68"><span class="linenos" data-linenos=" 68 "></span></a>          <span class="p">&gt;</span>
+</span><span id="__span-5-69"><a id="__codelineno-5-69" name="__codelineno-5-69"></a><a href="#__codelineno-5-69"><span class="linenos" data-linenos=" 69 "></span></a>            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer__title&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-70"><a id="__codelineno-5-70" name="__codelineno-5-70"></a><a href="#__codelineno-5-70"><span class="linenos" data-linenos=" 70 "></span></a>              <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer__direction&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-71"><a id="__codelineno-5-71" name="__codelineno-5-71"></a><a href="#__codelineno-5-71"><span class="linenos" data-linenos=" 71 "></span></a>                {{ direction }}
+</span><span id="__span-5-72"><a id="__codelineno-5-72" name="__codelineno-5-72"></a><a href="#__codelineno-5-72"><span class="linenos" data-linenos=" 72 "></span></a>              <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span><span id="__span-5-73"><a id="__codelineno-5-73" name="__codelineno-5-73"></a><a href="#__codelineno-5-73"><span class="linenos" data-linenos=" 73 "></span></a>              <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-ellipsis&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-74"><a id="__codelineno-5-74" name="__codelineno-5-74"></a><a href="#__codelineno-5-74"><span class="linenos" data-linenos=" 74 "></span></a>                {{ page.next_page.title }}
+</span><span id="__span-5-75"><a id="__codelineno-5-75" name="__codelineno-5-75"></a><a href="#__codelineno-5-75"><span class="linenos" data-linenos=" 75 "></span></a>              <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-5-76"><a id="__codelineno-5-76" name="__codelineno-5-76"></a><a href="#__codelineno-5-76"><span class="linenos" data-linenos=" 76 "></span></a>            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-5-77"><a id="__codelineno-5-77" name="__codelineno-5-77"></a><a href="#__codelineno-5-77"><span class="linenos" data-linenos=" 77 "></span></a>            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer__button md-icon&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-78"><a id="__codelineno-5-78" name="__codelineno-5-78"></a><a href="#__codelineno-5-78"><span class="linenos" data-linenos=" 78 "></span></a>              {% set icon = config.theme.icon.next or &quot;material/arrow-right&quot; %}
+</span><span id="__span-5-79"><a id="__codelineno-5-79" name="__codelineno-5-79"></a><a href="#__codelineno-5-79"><span class="linenos" data-linenos=" 79 "></span></a>              {% include &quot;.icons/&quot; ~ icon ~ &quot;.svg&quot; %}
+</span><span id="__span-5-80"><a id="__codelineno-5-80" name="__codelineno-5-80"></a><a href="#__codelineno-5-80"><span class="linenos" data-linenos=" 80 "></span></a>            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-5-81"><a id="__codelineno-5-81" name="__codelineno-5-81"></a><a href="#__codelineno-5-81"><span class="linenos" data-linenos=" 81 "></span></a>          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span><span id="__span-5-82"><a id="__codelineno-5-82" name="__codelineno-5-82"></a><a href="#__codelineno-5-82"><span class="linenos" data-linenos=" 82 "></span></a>        {% endif %}
+</span><span id="__span-5-83"><a id="__codelineno-5-83" name="__codelineno-5-83"></a><a href="#__codelineno-5-83"><span class="linenos" data-linenos=" 83 "></span></a>      <span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+</span><span id="__span-5-84"><a id="__codelineno-5-84" name="__codelineno-5-84"></a><a href="#__codelineno-5-84"><span class="linenos" data-linenos=" 84 "></span></a>    {% endif %}
+</span><span id="__span-5-85"><a id="__codelineno-5-85" name="__codelineno-5-85"></a><a href="#__codelineno-5-85"><span class="linenos" data-linenos=" 85 "></span></a>  {% endif %}
+</span><span id="__span-5-86"><a id="__codelineno-5-86" name="__codelineno-5-86"></a><a href="#__codelineno-5-86"><span class="linenos" data-linenos=" 86 "></span></a>
+</span><span id="__span-5-87"><a id="__codelineno-5-87" name="__codelineno-5-87"></a><a href="#__codelineno-5-87"><span class="linenos" data-linenos=" 87 "></span></a>  <span class="cm">&lt;!-- Further information --&gt;</span>
+</span><span id="__span-5-88"><a id="__codelineno-5-88" name="__codelineno-5-88"></a><a href="#__codelineno-5-88"><span class="linenos" data-linenos=" 88 "></span></a>  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer-meta md-typeset&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-89"><a id="__codelineno-5-89" name="__codelineno-5-89"></a><a href="#__codelineno-5-89"><span class="linenos" data-linenos=" 89 "></span></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-footer-meta__inner md-grid&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-90"><a id="__codelineno-5-90" name="__codelineno-5-90"></a><a href="#__codelineno-5-90"><span class="linenos" data-linenos=" 90 "></span></a>      {% include &quot;partials/copyright.html&quot; %}
+</span><span id="__span-5-91"><a id="__codelineno-5-91" name="__codelineno-5-91"></a><a href="#__codelineno-5-91"><span class="linenos" data-linenos=" 91 "></span></a>
+</span><span id="__span-5-92"><a id="__codelineno-5-92" name="__codelineno-5-92"></a><a href="#__codelineno-5-92"><span class="linenos" data-linenos=" 92 "></span></a>      <span class="cm">&lt;!-- Site Visits --&gt;</span>
+</span><span id="__span-5-93"><a id="__codelineno-5-93" name="__codelineno-5-93"></a><a href="#__codelineno-5-93"><span class="linenos" data-linenos=" 93 "></span></a>      <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span><span id="__span-5-94"><a id="__codelineno-5-94" name="__codelineno-5-94"></a><a href="#__codelineno-5-94"><span class="linenos" data-linenos=" 94 "></span></a><span class="w">      </span><span class="p">.</span><span class="nc">site-visit-count</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-95"><a id="__codelineno-5-95" name="__codelineno-5-95"></a><a href="#__codelineno-5-95"><span class="linenos" data-linenos=" 95 "></span></a><span class="w">        </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">12</span><span class="kt">px</span><span class="p">;</span>
+</span><span id="__span-5-96"><a id="__codelineno-5-96" name="__codelineno-5-96"></a><a href="#__codelineno-5-96"><span class="linenos" data-linenos=" 96 "></span></a><span class="w">        </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span>
+</span><span id="__span-5-97"><a id="__codelineno-5-97" name="__codelineno-5-97"></a><a href="#__codelineno-5-97"><span class="linenos" data-linenos=" 97 "></span></a><span class="w">        </span><span class="k">justify-content</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+</span><span id="__span-5-98"><a id="__codelineno-5-98" name="__codelineno-5-98"></a><a href="#__codelineno-5-98"><span class="linenos" data-linenos=" 98 "></span></a><span class="w">        </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+</span><span id="__span-5-99"><a id="__codelineno-5-99" name="__codelineno-5-99"></a><a href="#__codelineno-5-99"><span class="linenos" data-linenos=" 99 "></span></a><span class="w">        </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">0.65</span><span class="kt">rem</span><span class="p">;</span>
+</span><span id="__span-5-100"><a id="__codelineno-5-100" name="__codelineno-5-100"></a><a href="#__codelineno-5-100"><span class="linenos" data-linenos="100 "></span></a><span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-default-fg-color</span><span class="p">);</span>
+</span><span id="__span-5-101"><a id="__codelineno-5-101" name="__codelineno-5-101"></a><a href="#__codelineno-5-101"><span class="linenos" data-linenos="101 "></span></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-5-102"><a id="__codelineno-5-102" name="__codelineno-5-102"></a><a href="#__codelineno-5-102"><span class="linenos" data-linenos="102 "></span></a><span class="w">      </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span><span id="__span-5-103"><a id="__codelineno-5-103" name="__codelineno-5-103"></a><a href="#__codelineno-5-103"><span class="linenos" data-linenos="103 "></span></a>      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;site-visit-count&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-5-104"><a id="__codelineno-5-104" name="__codelineno-5-104"></a><a href="#__codelineno-5-104"><span class="linenos" data-linenos="104 "></span></a>        本站访问量：<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;site_pv&quot;</span><span class="p">&gt;</span>--<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><span class="ni">&amp;nbsp;</span>| 当前页浏览量：<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;page_pv&quot;</span><span class="p">&gt;</span>--<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span><span id="__span-5-105"><a id="__codelineno-5-105" name="__codelineno-5-105"></a><a href="#__codelineno-5-105"><span class="linenos" data-linenos="105 "></span></a>      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-5-106"><a id="__codelineno-5-106" name="__codelineno-5-106"></a><a href="#__codelineno-5-106"><span class="linenos" data-linenos="106 "></span></a>
+</span><span id="__span-5-107"><a id="__codelineno-5-107" name="__codelineno-5-107"></a><a href="#__codelineno-5-107"><span class="linenos" data-linenos="107 "></span></a>      <span class="cm">&lt;!-- Social links --&gt;</span>
+</span><span id="__span-5-108"><a id="__codelineno-5-108" name="__codelineno-5-108"></a><a href="#__codelineno-5-108"><span class="linenos" data-linenos="108 "></span></a>      {% if config.extra.social %}
+</span><span id="__span-5-109"><a id="__codelineno-5-109" name="__codelineno-5-109"></a><a href="#__codelineno-5-109"><span class="linenos" data-linenos="109 "></span></a>        {% include &quot;partials/social.html&quot; %}
+</span><span id="__span-5-110"><a id="__codelineno-5-110" name="__codelineno-5-110"></a><a href="#__codelineno-5-110"><span class="linenos" data-linenos="110 "></span></a>      {% endif %}
+</span><span id="__span-5-111"><a id="__codelineno-5-111" name="__codelineno-5-111"></a><a href="#__codelineno-5-111"><span class="linenos" data-linenos="111 "></span></a>    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-5-112"><a id="__codelineno-5-112" name="__codelineno-5-112"></a><a href="#__codelineno-5-112"><span class="linenos" data-linenos="112 "></span></a>  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-5-113"><a id="__codelineno-5-113" name="__codelineno-5-113"></a><a href="#__codelineno-5-113"><span class="linenos" data-linenos="113 "></span></a><span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<h2 id="_1">📊 第三步：管理与维护<a class="headerlink" href="#_1" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>部署完成后，直接访问你的 EdgeOne Pages 域名（例如 <code>https://example.edgeone.dev</code>），你将看到一个精美的可视化仪表盘。</p>
+<ol>
+<li><strong>登录</strong>：输入在环境变量中设置的 <code>DASHBOARD_PWD</code>。</li>
+<li><strong>功能</strong>：<ul>
+<li><strong>Dashboard</strong>：查看全站 PV 趋势。</li>
+<li><strong>Pages Management</strong>：搜索特定文章路径，查看单篇阅读量。</li>
+<li><strong>Edit/Delete</strong>：如果某篇文章改名了，你可以手动修改旧路径的 PV 数值，或者删除测试数据。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>💡 设计哲学说明</strong>：
+当你在后台删除某个子页面的数据时，<strong>全站总 PV (<code>site_total_pv</code>) 会同步扣减</strong>。
+但当你<strong>修改</strong>某个子页面的 PV 时，<strong>全站总 PV 不会自动变化</strong>。这是因为全站 PV 代表的是历史累计点击，而子页面 PV 修正通常是为了数据对齐或迁移，两者在逻辑上是解耦的。</p>
+</blockquote>
+<h2 id="_2">🎉 结语<a class="headerlink" href="#_2" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>通过 EO-Counter，我们成功地将博客的访问统计权收回到了自己手中。如果你正在寻找网站统计分析的解决方案，不妨试试这个 <strong>EO-Counter</strong> ！</p>
+<p>欢迎在评论区分享你的部署体验，或在 GitHub 上为项目点星！🌟</p>
+<h2 id="cloudflare-workers-zensical">番外：使用 Cloudflare Workers 为 Zensical 站点引入访问统计<a class="headerlink" href="#cloudflare-workers-zensical" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="_3">接入步骤<a class="headerlink" href="#_3" title="跳转至本节的锚点链接">&para;</a></h3>
+<ol>
+<li>与上文 <a href="#1">引入统计脚本</a>步骤相同，注意将<code>WORKER_URL</code>替换为<code>Cloudflare Worker</code>访问地址。</li>
+<li>与上文 <a href="#2">修改配置文件</a>步骤相同。</li>
+<li>与上文 <a href="#3-html">插入展示 HTML</a>步骤相同。</li>
+<li>创建一个<code>Cloudflare Worker</code>项目，绑定KV存储，KV空间<code>Variable name</code>设置为<code>COUNTER_DB</code>，点击<code>Edit code</code>，清空原有的代码，将以下代码填入：
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="  1 "></span></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="  2 "></span></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="w"> </span><span class="nx">env</span><span class="p">,</span><span class="w"> </span><span class="nx">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos="  3 "></span></a><span class="w">    </span><span class="c1">// === 配置允许的域名 ===</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos" data-linenos="  4 "></span></a><span class="w">    </span><span class="c1">// 建议同时加上 localhost，否则你在本地调试时会报错跨域，或者统计不到数据</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><a href="#__codelineno-6-5"><span class="linenos" data-linenos="  5 "></span></a><span class="w">    </span><span class="c1">// 如果你只想在线上生效，可以去掉 localhost 的那一行</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><a href="#__codelineno-6-6"><span class="linenos" data-linenos="  6 "></span></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">ALLOWED_ORIGINS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><a href="#__codelineno-6-7"><span class="linenos" data-linenos="  7 "></span></a><span class="w">      </span><span class="s2">&quot;https://example.com&quot;</span><span class="p">,</span><span class="w">           </span><span class="c1">// 你的线上博客地址</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a><a href="#__codelineno-6-8"><span class="linenos" data-linenos="  8 "></span></a><span class="w">      </span><span class="s2">&quot;https://www.example.com&quot;</span><span class="p">,</span><span class="w">       </span><span class="c1">// 兼容www</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9"></a><a href="#__codelineno-6-9"><span class="linenos" data-linenos="  9 "></span></a><span class="w">      </span><span class="s2">&quot;http://127.0.0.1:8000&quot;</span><span class="p">,</span><span class="w">         </span><span class="c1">// 本地预览地址</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10"></a><a href="#__codelineno-6-10"><span class="linenos" data-linenos=" 10 "></span></a><span class="w">      </span><span class="s2">&quot;http://localhost:8000&quot;</span><span class="w">          </span><span class="c1">// 备用本地地址</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11"></a><a href="#__codelineno-6-11"><span class="linenos" data-linenos=" 11 "></span></a><span class="w">    </span><span class="p">];</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12"></a><a href="#__codelineno-6-12"><span class="linenos" data-linenos=" 12 "></span></a>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13"></a><a href="#__codelineno-6-13"><span class="linenos" data-linenos=" 13 "></span></a><span class="w">    </span><span class="c1">// 获取请求来源 (Origin 主要是 fetch 请求会自动带上)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14"></a><a href="#__codelineno-6-14"><span class="linenos" data-linenos=" 14 "></span></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">origin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;Origin&quot;</span><span class="p">);</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15"></a><a href="#__codelineno-6-15"><span class="linenos" data-linenos=" 15 "></span></a>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16"></a><a href="#__codelineno-6-16"><span class="linenos" data-linenos=" 16 "></span></a><span class="w">    </span><span class="c1">// === 1. 安全检查与 CORS 设置 ===</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17"></a><a href="#__codelineno-6-17"><span class="linenos" data-linenos=" 17 "></span></a>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18"></a><a href="#__codelineno-6-18"><span class="linenos" data-linenos=" 18 "></span></a><span class="w">    </span><span class="c1">// 默认禁止</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19"></a><a href="#__codelineno-6-19"><span class="linenos" data-linenos=" 19 "></span></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">allowOrigin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20"></a><a href="#__codelineno-6-20"><span class="linenos" data-linenos=" 20 "></span></a>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21"></a><a href="#__codelineno-6-21"><span class="linenos" data-linenos=" 21 "></span></a><span class="w">    </span><span class="c1">// 如果请求携带了 Origin 头，检查它是否在白名单里</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22"></a><a href="#__codelineno-6-22"><span class="linenos" data-linenos=" 22 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">origin</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">ALLOWED_ORIGINS</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">origin</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23"></a><a href="#__codelineno-6-23"><span class="linenos" data-linenos=" 23 "></span></a><span class="w">      </span><span class="nx">allowOrigin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">origin</span><span class="p">;</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24"></a><a href="#__codelineno-6-24"><span class="linenos" data-linenos=" 24 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">origin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25"></a><a href="#__codelineno-6-25"><span class="linenos" data-linenos=" 25 "></span></a><span class="w">      </span><span class="c1">// 部分请求可能没有 Origin (比如直接在浏览器地址栏输入)，</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26"></a><a href="#__codelineno-6-26"><span class="linenos" data-linenos=" 26 "></span></a><span class="w">      </span><span class="c1">// 这里的策略是：如果没有 Origin，为了安全通常可以选择拒绝，</span>
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27"></a><a href="#__codelineno-6-27"><span class="linenos" data-linenos=" 27 "></span></a><span class="w">      </span><span class="c1">// 但为了方便测试，这里暂时放行，或者你可以检查 Referer。</span>
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28"></a><a href="#__codelineno-6-28"><span class="linenos" data-linenos=" 28 "></span></a><span class="w">      </span><span class="c1">// 严格模式下，建议保持 null。</span>
+</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29"></a><a href="#__codelineno-6-29"><span class="linenos" data-linenos=" 29 "></span></a>
+</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30"></a><a href="#__codelineno-6-30"><span class="linenos" data-linenos=" 30 "></span></a><span class="w">      </span><span class="c1">// 简单的防盗链：检查 Referer (引用页)</span>
+</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31"></a><a href="#__codelineno-6-31"><span class="linenos" data-linenos=" 31 "></span></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">referer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;Referer&quot;</span><span class="p">);</span>
+</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32"></a><a href="#__codelineno-6-32"><span class="linenos" data-linenos=" 32 "></span></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">referer</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">referer</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s2">&quot;https://sufine.top&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33"></a><a href="#__codelineno-6-33"><span class="linenos" data-linenos=" 33 "></span></a><span class="w">         </span><span class="c1">// 如果 Referer 是你的域名，也允许，CORS 头设为你的域名</span>
+</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34"></a><a href="#__codelineno-6-34"><span class="linenos" data-linenos=" 34 "></span></a><span class="w">         </span><span class="nx">allowOrigin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://sufine.top&quot;</span><span class="p">;</span>
+</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35"></a><a href="#__codelineno-6-35"><span class="linenos" data-linenos=" 35 "></span></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36"></a><a href="#__codelineno-6-36"><span class="linenos" data-linenos=" 36 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37"></a><a href="#__codelineno-6-37"><span class="linenos" data-linenos=" 37 "></span></a>
+</span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38"></a><a href="#__codelineno-6-38"><span class="linenos" data-linenos=" 38 "></span></a><span class="w">    </span><span class="c1">// 准备返回的 Header</span>
+</span><span id="__span-6-39"><a id="__codelineno-6-39" name="__codelineno-6-39"></a><a href="#__codelineno-6-39"><span class="linenos" data-linenos=" 39 "></span></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">corsHeaders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-40"><a id="__codelineno-6-40" name="__codelineno-6-40"></a><a href="#__codelineno-6-40"><span class="linenos" data-linenos=" 40 "></span></a><span class="w">      </span><span class="c1">// 动态设置 Allow-Origin，如果不在白名单就设为 null 或不返回该头</span>
+</span><span id="__span-6-41"><a id="__codelineno-6-41" name="__codelineno-6-41"></a><a href="#__codelineno-6-41"><span class="linenos" data-linenos=" 41 "></span></a><span class="w">      </span><span class="s2">&quot;Access-Control-Allow-Origin&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">allowOrigin</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s2">&quot;null&quot;</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-6-42"><a id="__codelineno-6-42" name="__codelineno-6-42"></a><a href="#__codelineno-6-42"><span class="linenos" data-linenos=" 42 "></span></a><span class="w">      </span><span class="s2">&quot;Access-Control-Allow-Methods&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;GET,HEAD,POST,OPTIONS&quot;</span><span class="p">,</span>
+</span><span id="__span-6-43"><a id="__codelineno-6-43" name="__codelineno-6-43"></a><a href="#__codelineno-6-43"><span class="linenos" data-linenos=" 43 "></span></a><span class="w">      </span><span class="s2">&quot;Access-Control-Max-Age&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;86400&quot;</span><span class="p">,</span>
+</span><span id="__span-6-44"><a id="__codelineno-6-44" name="__codelineno-6-44"></a><a href="#__codelineno-6-44"><span class="linenos" data-linenos=" 44 "></span></a><span class="w">    </span><span class="p">};</span>
+</span><span id="__span-6-45"><a id="__codelineno-6-45" name="__codelineno-6-45"></a><a href="#__codelineno-6-45"><span class="linenos" data-linenos=" 45 "></span></a>
+</span><span id="__span-6-46"><a id="__codelineno-6-46" name="__codelineno-6-46"></a><a href="#__codelineno-6-46"><span class="linenos" data-linenos=" 46 "></span></a><span class="w">    </span><span class="c1">// 如果不在白名单，且不是 OPTIONS 预检请求，直接拒绝 (返回 403 Forbidden)</span>
+</span><span id="__span-6-47"><a id="__codelineno-6-47" name="__codelineno-6-47"></a><a href="#__codelineno-6-47"><span class="linenos" data-linenos=" 47 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">allowOrigin</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s2">&quot;OPTIONS&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-48"><a id="__codelineno-6-48" name="__codelineno-6-48"></a><a href="#__codelineno-6-48"><span class="linenos" data-linenos=" 48 "></span></a><span class="w">      </span><span class="c1">// 只有当 origin 存在且不在白名单时才拒绝。</span>
+</span><span id="__span-6-49"><a id="__codelineno-6-49" name="__codelineno-6-49"></a><a href="#__codelineno-6-49"><span class="linenos" data-linenos=" 49 "></span></a><span class="w">      </span><span class="c1">// 如果完全没有 origin (比如 curl)，视你的安全需求决定是否拦截。</span>
+</span><span id="__span-6-50"><a id="__codelineno-6-50" name="__codelineno-6-50"></a><a href="#__codelineno-6-50"><span class="linenos" data-linenos=" 50 "></span></a><span class="w">      </span><span class="c1">// 这里为了防止被滥用，如果 origin 存在但不匹配，直接拦截。</span>
+</span><span id="__span-6-51"><a id="__codelineno-6-51" name="__codelineno-6-51"></a><a href="#__codelineno-6-51"><span class="linenos" data-linenos=" 51 "></span></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">origin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-52"><a id="__codelineno-6-52" name="__codelineno-6-52"></a><a href="#__codelineno-6-52"><span class="linenos" data-linenos=" 52 "></span></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Response</span><span class="p">(</span><span class="s2">&quot;Forbidden: Origin not allowed&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="mf">403</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-6-53"><a id="__codelineno-6-53" name="__codelineno-6-53"></a><a href="#__codelineno-6-53"><span class="linenos" data-linenos=" 53 "></span></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-6-54"><a id="__codelineno-6-54" name="__codelineno-6-54"></a><a href="#__codelineno-6-54"><span class="linenos" data-linenos=" 54 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-55"><a id="__codelineno-6-55" name="__codelineno-6-55"></a><a href="#__codelineno-6-55"><span class="linenos" data-linenos=" 55 "></span></a>
+</span><span id="__span-6-56"><a id="__codelineno-6-56" name="__codelineno-6-56"></a><a href="#__codelineno-6-56"><span class="linenos" data-linenos=" 56 "></span></a><span class="w">    </span><span class="c1">// 处理 OPTIONS 预检请求</span>
+</span><span id="__span-6-57"><a id="__codelineno-6-57" name="__codelineno-6-57"></a><a href="#__codelineno-6-57"><span class="linenos" data-linenos=" 57 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;OPTIONS&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-58"><a id="__codelineno-6-58" name="__codelineno-6-58"></a><a href="#__codelineno-6-58"><span class="linenos" data-linenos=" 58 "></span></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Response</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="nx">corsHeaders</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-6-59"><a id="__codelineno-6-59" name="__codelineno-6-59"></a><a href="#__codelineno-6-59"><span class="linenos" data-linenos=" 59 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-60"><a id="__codelineno-6-60" name="__codelineno-6-60"></a><a href="#__codelineno-6-60"><span class="linenos" data-linenos=" 60 "></span></a>
+</span><span id="__span-6-61"><a id="__codelineno-6-61" name="__codelineno-6-61"></a><a href="#__codelineno-6-61"><span class="linenos" data-linenos=" 61 "></span></a><span class="w">    </span><span class="c1">// === 2. 获取文章路径 ===</span>
+</span><span id="__span-6-62"><a id="__codelineno-6-62" name="__codelineno-6-62"></a><a href="#__codelineno-6-62"><span class="linenos" data-linenos=" 62 "></span></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+</span><span id="__span-6-63"><a id="__codelineno-6-63" name="__codelineno-6-63"></a><a href="#__codelineno-6-63"><span class="linenos" data-linenos=" 63 "></span></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">pagePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">searchParams</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">);</span>
+</span><span id="__span-6-64"><a id="__codelineno-6-64" name="__codelineno-6-64"></a><a href="#__codelineno-6-64"><span class="linenos" data-linenos=" 64 "></span></a>
+</span><span id="__span-6-65"><a id="__codelineno-6-65" name="__codelineno-6-65"></a><a href="#__codelineno-6-65"><span class="linenos" data-linenos=" 65 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">pagePath</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-66"><a id="__codelineno-6-66" name="__codelineno-6-66"></a><a href="#__codelineno-6-66"><span class="linenos" data-linenos=" 66 "></span></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Response</span><span class="p">(</span><span class="s2">&quot;Error: Missing url parameter&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+</span><span id="__span-6-67"><a id="__codelineno-6-67" name="__codelineno-6-67"></a><a href="#__codelineno-6-67"><span class="linenos" data-linenos=" 67 "></span></a><span class="w">        </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="mf">400</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-6-68"><a id="__codelineno-6-68" name="__codelineno-6-68"></a><a href="#__codelineno-6-68"><span class="linenos" data-linenos=" 68 "></span></a><span class="w">        </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="nx">corsHeaders</span><span class="w"> </span>
+</span><span id="__span-6-69"><a id="__codelineno-6-69" name="__codelineno-6-69"></a><a href="#__codelineno-6-69"><span class="linenos" data-linenos=" 69 "></span></a><span class="w">      </span><span class="p">});</span>
+</span><span id="__span-6-70"><a id="__codelineno-6-70" name="__codelineno-6-70"></a><a href="#__codelineno-6-70"><span class="linenos" data-linenos=" 70 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-71"><a id="__codelineno-6-71" name="__codelineno-6-71"></a><a href="#__codelineno-6-71"><span class="linenos" data-linenos=" 71 "></span></a>
+</span><span id="__span-6-72"><a id="__codelineno-6-72" name="__codelineno-6-72"></a><a href="#__codelineno-6-72"><span class="linenos" data-linenos=" 72 "></span></a><span class="w">    </span><span class="c1">// === 3. 读取数据库 ===</span>
+</span><span id="__span-6-73"><a id="__codelineno-6-73" name="__codelineno-6-73"></a><a href="#__codelineno-6-73"><span class="linenos" data-linenos=" 73 "></span></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">TOTAL_KEY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TOTAL_VIEWS&quot;</span><span class="p">;</span>
+</span><span id="__span-6-74"><a id="__codelineno-6-74" name="__codelineno-6-74"></a><a href="#__codelineno-6-74"><span class="linenos" data-linenos=" 74 "></span></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">totalViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">env</span><span class="p">.</span><span class="nx">COUNTER_DB</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">TOTAL_KEY</span><span class="p">);</span>
+</span><span id="__span-6-75"><a id="__codelineno-6-75" name="__codelineno-6-75"></a><a href="#__codelineno-6-75"><span class="linenos" data-linenos=" 75 "></span></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">pageViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">env</span><span class="p">.</span><span class="nx">COUNTER_DB</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">pagePath</span><span class="p">);</span>
+</span><span id="__span-6-76"><a id="__codelineno-6-76" name="__codelineno-6-76"></a><a href="#__codelineno-6-76"><span class="linenos" data-linenos=" 76 "></span></a>
+</span><span id="__span-6-77"><a id="__codelineno-6-77" name="__codelineno-6-77"></a><a href="#__codelineno-6-77"><span class="linenos" data-linenos=" 77 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">totalViews</span><span class="p">)</span><span class="w"> </span><span class="nx">totalViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+</span><span id="__span-6-78"><a id="__codelineno-6-78" name="__codelineno-6-78"></a><a href="#__codelineno-6-78"><span class="linenos" data-linenos=" 78 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">pageViews</span><span class="p">)</span><span class="w"> </span><span class="nx">pageViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+</span><span id="__span-6-79"><a id="__codelineno-6-79" name="__codelineno-6-79"></a><a href="#__codelineno-6-79"><span class="linenos" data-linenos=" 79 "></span></a>
+</span><span id="__span-6-80"><a id="__codelineno-6-80" name="__codelineno-6-80"></a><a href="#__codelineno-6-80"><span class="linenos" data-linenos=" 80 "></span></a><span class="w">    </span><span class="c1">// === 4. 数字 +1 ===</span>
+</span><span id="__span-6-81"><a id="__codelineno-6-81" name="__codelineno-6-81"></a><a href="#__codelineno-6-81"><span class="linenos" data-linenos=" 81 "></span></a><span class="w">    </span><span class="nx">totalViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">totalViews</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+</span><span id="__span-6-82"><a id="__codelineno-6-82" name="__codelineno-6-82"></a><a href="#__codelineno-6-82"><span class="linenos" data-linenos=" 82 "></span></a><span class="w">    </span><span class="nx">pageViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">pageViews</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+</span><span id="__span-6-83"><a id="__codelineno-6-83" name="__codelineno-6-83"></a><a href="#__codelineno-6-83"><span class="linenos" data-linenos=" 83 "></span></a>
+</span><span id="__span-6-84"><a id="__codelineno-6-84" name="__codelineno-6-84"></a><a href="#__codelineno-6-84"><span class="linenos" data-linenos=" 84 "></span></a><span class="w">    </span><span class="c1">// === 5. 存回数据库 ===</span>
+</span><span id="__span-6-85"><a id="__codelineno-6-85" name="__codelineno-6-85"></a><a href="#__codelineno-6-85"><span class="linenos" data-linenos=" 85 "></span></a><span class="w">    </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span><span class="nx">env</span><span class="p">.</span><span class="nx">COUNTER_DB</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="nx">TOTAL_KEY</span><span class="p">,</span><span class="w"> </span><span class="nx">totalViews</span><span class="p">.</span><span class="nx">toString</span><span class="p">()));</span>
+</span><span id="__span-6-86"><a id="__codelineno-6-86" name="__codelineno-6-86"></a><a href="#__codelineno-6-86"><span class="linenos" data-linenos=" 86 "></span></a><span class="w">    </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span><span class="nx">env</span><span class="p">.</span><span class="nx">COUNTER_DB</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="nx">pagePath</span><span class="p">,</span><span class="w"> </span><span class="nx">pageViews</span><span class="p">.</span><span class="nx">toString</span><span class="p">()));</span>
+</span><span id="__span-6-87"><a id="__codelineno-6-87" name="__codelineno-6-87"></a><a href="#__codelineno-6-87"><span class="linenos" data-linenos=" 87 "></span></a>
+</span><span id="__span-6-88"><a id="__codelineno-6-88" name="__codelineno-6-88"></a><a href="#__codelineno-6-88"><span class="linenos" data-linenos=" 88 "></span></a><span class="w">    </span><span class="c1">// === 6. 返回结果 ===</span>
+</span><span id="__span-6-89"><a id="__codelineno-6-89" name="__codelineno-6-89"></a><a href="#__codelineno-6-89"><span class="linenos" data-linenos=" 89 "></span></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-90"><a id="__codelineno-6-90" name="__codelineno-6-90"></a><a href="#__codelineno-6-90"><span class="linenos" data-linenos=" 90 "></span></a><span class="w">      </span><span class="nx">total</span><span class="o">:</span><span class="w"> </span><span class="nx">totalViews</span><span class="p">,</span>
+</span><span id="__span-6-91"><a id="__codelineno-6-91" name="__codelineno-6-91"></a><a href="#__codelineno-6-91"><span class="linenos" data-linenos=" 91 "></span></a><span class="w">      </span><span class="nx">page</span><span class="o">:</span><span class="w"> </span><span class="nx">pageViews</span>
+</span><span id="__span-6-92"><a id="__codelineno-6-92" name="__codelineno-6-92"></a><a href="#__codelineno-6-92"><span class="linenos" data-linenos=" 92 "></span></a><span class="w">    </span><span class="p">};</span>
+</span><span id="__span-6-93"><a id="__codelineno-6-93" name="__codelineno-6-93"></a><a href="#__codelineno-6-93"><span class="linenos" data-linenos=" 93 "></span></a>
+</span><span id="__span-6-94"><a id="__codelineno-6-94" name="__codelineno-6-94"></a><a href="#__codelineno-6-94"><span class="linenos" data-linenos=" 94 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Response</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">result</span><span class="p">),</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-95"><a id="__codelineno-6-95" name="__codelineno-6-95"></a><a href="#__codelineno-6-95"><span class="linenos" data-linenos=" 95 "></span></a><span class="w">      </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+</span><span id="__span-6-96"><a id="__codelineno-6-96" name="__codelineno-6-96"></a><a href="#__codelineno-6-96"><span class="linenos" data-linenos=" 96 "></span></a><span class="w">        </span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+</span><span id="__span-6-97"><a id="__codelineno-6-97" name="__codelineno-6-97"></a><a href="#__codelineno-6-97"><span class="linenos" data-linenos=" 97 "></span></a><span class="w">        </span><span class="p">...</span><span class="nx">corsHeaders</span><span class="w"> </span>
+</span><span id="__span-6-98"><a id="__codelineno-6-98" name="__codelineno-6-98"></a><a href="#__codelineno-6-98"><span class="linenos" data-linenos=" 98 "></span></a><span class="w">      </span><span class="p">},</span>
+</span><span id="__span-6-99"><a id="__codelineno-6-99" name="__codelineno-6-99"></a><a href="#__codelineno-6-99"><span class="linenos" data-linenos=" 99 "></span></a><span class="w">    </span><span class="p">});</span>
+</span><span id="__span-6-100"><a id="__codelineno-6-100" name="__codelineno-6-100"></a><a href="#__codelineno-6-100"><span class="linenos" data-linenos="100 "></span></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-6-101"><a id="__codelineno-6-101" name="__codelineno-6-101"></a><a href="#__codelineno-6-101"><span class="linenos" data-linenos="101 "></span></a><span class="p">};</span>
+</span></code></pre></div>
+将自己的站点域名填入 <code>ALLOWED_ORIGINS</code> 变量中。</li>
+</ol>
+<p>至此，所有的步骤都已经完成了，理想情况应该可以在站点页脚看到访问统计数据。</p>
+<h3 id="_4">提示事项<a class="headerlink" href="#_4" title="跳转至本节的锚点链接">&para;</a></h3>
+<div class="admonition note">
+<p>注意，Cloudflare 的 Workers KV API 存在每日1000次的写入限额（免费版）。</p>
+<p>基于 Cloudflare 的站点统计方案未做可视化后台监控屏，数据管理需要使用官网 Workers KV 面板。</p>
+</div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">Web</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">Zensical</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">EdgeOne</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">Cloudflare</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面有帮助" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面可以改进" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢您的反馈!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+                感谢您的反馈! 笔者将努力改进此页面
+  </br>您可以使用<a href="/basic/contact-form/">反馈表单</a>来帮助我
+
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <!-- 头部区域：左对齐聚合布局 -->
+  <div class="comments-header">
+    <h2 id="__comments">评论</h2>
+    
+    <!-- 切换按钮容器 -->
+    <div class="comment-switch-wrapper" id="switch-wrapper" data-tip="当前正在使用 GitHub 登录评论">
+      <button id="comment-switch-btn" onclick="toggleCommentSystem()">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path fill="currentColor" d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+        </svg>
+        <span>切换模式</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Giscus 容器 -->
+  <div id="giscus-container">
+    <script src="https://giscus.app/client.js"
+            data-repo="weigo6/sufine-giscus"
+            data-repo-id="R_kgDOQvA4xA"
+            data-category="General"
+            data-category-id="DIC_kwDOQvA4xM4C0P1S"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+
+  <!-- Twikoo 容器 (默认隐藏) -->
+  <div id="twikoo-container" style="display: none;">
+    <div id="twikoo"></div>
+  </div>
+
+  <!-- 样式与逻辑 -->
+  <style>
+    /* 1. 头部布局：保持左对齐和分割线 */
+    .comments-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--md-typeset-color--lighter);
+    }
+
+    .comments-header h2 {
+        margin: 0 !important;
+        line-height: 1.2;
+    }
+
+    /* 2. 按钮样式：保持 SVG 图标和 flex 布局 */
+    #comment-switch-btn {
+        background: transparent;
+        border: 1px solid var(--md-typeset-color--lighter);
+        color: var(--md-typeset-color--light);
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 28px;
+        line-height: 1;
+    }
+    
+    #comment-switch-btn:hover {
+        border-color: var(--md-accent-fg-color);
+        color: var(--md-accent-fg-color);
+        background: var(--md-accent-bg-color--transparent);
+    }
+
+    /* 3. Tooltip 样式重构：圆润玻璃磨砂风 */
+    .comment-switch-wrapper {
+        position: relative;
+    }
+
+    .comment-switch-wrapper::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: 115%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px); /* 初始下沉一点，用于浮动动画 */
+        
+        /* 核心：玻璃磨砂效果 */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        
+        /* 亮色模式默认：半透明白底 + 黑字 (柔和灰黑) */
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(0, 0, 0, 0.05); /* 极细微的边界线 */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* 柔和的漫反射投影 */
+        
+        padding: 6px 14px;
+        border-radius: 20px; /* 大圆角，胶囊形状 */
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        
+        /* 动画与可见性 */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* 4. 暗色模式适配：半透明黑底 + 白字 */
+    [data-md-color-scheme="slate"] .comment-switch-wrapper::after {
+        background: rgba(20, 20, 20, 0.7);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 悬浮交互：上浮并淡入 */
+    .comment-switch-wrapper:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Twikoo 容器样式 */
+    #twikoo-container {
+        margin-top: 1rem;
+    }
+    [data-md-color-scheme="slate"] .tk-content {
+        color: var(--md-typeset-color) !important;
+    }
+  </style>
+
+  <script>
+    var isTwikooLoaded = false;
+
+    function toggleCommentSystem() {
+      var giscusContainer = document.getElementById('giscus-container');
+      var twikooContainer = document.getElementById('twikoo-container');
+      var wrapper = document.getElementById('switch-wrapper');
+      
+      if (twikooContainer.style.display === 'none') {
+        // === 切换到 Twikoo ===
+        giscusContainer.style.display = 'none';
+        twikooContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 Twikoo 匿名评论');
+        
+        if (!isTwikooLoaded) {
+          loadTwikooScript();
+        }
+      } else {
+        // === 切换回 Giscus ===
+        twikooContainer.style.display = 'none';
+        giscusContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 GitHub 登录评论');
+      }
+    }
+
+    function loadTwikooScript() {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/twikoo@latest/dist/twikoo.all.min.js";
+      script.async = true;
+      script.onload = function() {
+        twikoo.init({
+          envId: 'https://twikoo.sufine.top',
+          el: '#twikoo',
+          lang: 'zh-CN'
+        }).catch(console.error);
+        isTwikooLoaded = true;
+      };
+      document.body.appendChild(script);
+    }
+  </script>
+
+  <!-- Giscus 主题同步 -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+          var frame = document.querySelector(".giscus-frame")
+          if (frame) {
+            frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app")
+          }
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    
+      
+      <nav
+        class="md-footer__inner md-grid"
+        aria-label="页脚"
+        
+      >
+
+        <!-- Link to previous page -->
+        
+          
+          <a
+            href="../%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E8%A1%A8%E5%8D%95%E5%8A%9F%E8%83%BD/"
+            class="md-footer__link md-footer__link--prev"
+            aria-label="上一页: 为 Zensical 站点添加邮件表单功能"
+          >
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                为 Zensical 站点添加邮件表单功能
+              </div>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          
+          <a
+            href="../%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0AI%E9%97%AE%E7%AD%94%E5%8A%9F%E8%83%BD/"
+            class="md-footer__link md-footer__link--next"
+            aria-label="下一页: 为 Zensical 站点添加 AI 问答功能"
+          >
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                为 Zensical 站点添加 AI 问答功能
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Luwei
+    </div>
+  
+  
+</div>
+
+      <!-- Site Visits -->
+      <style>
+      .site-visit-count {
+        padding: 0 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.65rem;
+        color: var(--md-default-fg-color);
+      }
+      </style>
+      <div class="site-visit-count">
+        本站访问量：<span id="site_pv">--</span>&nbsp;| 当前页浏览量：<span id="page_pv">--</span>
+      </div>
+
+      <!-- Social links -->
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://bucket.rutno.com/d?sid=eqtRzdKfuGlmIm2wX3IwXffreqnr&e=1769434119&sig=aca3206c8defbfd303f1c5b6b36f51416243315723ae7e667fc98f7a5bf29111" target="_blank" rel="noopener" title="关注微信公众号" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/fSvCWA9say" target="_blank" rel="noopener" title="加入 Discord 服务器" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/weigo6" target="_blank" rel="noopener" title="访问 GitHub 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://gitee.com/weigo6" target="_blank" rel="noopener" title="访问 Gitee 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.15a.59.59 0 0 1-.592-.592v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://space.bilibili.com/512710834" target="_blank" rel="noopener" title="访问 Bilibili 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M488.6 104.1c16.7 18.1 24.4 39.7 23.3 65.7v202.4c-.4 26.4-9.2 48.1-26.5 65.1-17.2 17-39.1 25.9-65.5 26.7H92c-26.4-.8-48.2-9.8-65.3-27.2S.7 396.5 0 368.2V169.8c.8-26 9.7-47.6 26.7-65.7C43.8 87.8 65.5 78.8 92 78h29.4L96 52.2c-5.7-5.7-8.6-13-8.6-21.8S90.3 14.3 96 8.6 109 0 117.9 0s16.1 2.9 21.9 8.6L213.1 78h88l74.5-69.4C381.7 2.9 389.2 0 398 0s16.1 2.9 21.9 8.6c5.7 5.7 8.6 13 8.6 21.8s-2.9 16.1-8.6 21.8L394.6 78h29.3c26.4.8 48 9.8 64.7 26.1m-38.8 69.7c-.4-9.6-3.7-17.4-10.7-23.5-5.2-6.1-14-9.4-22.7-9.8H96c-9.6.4-17.4 3.7-23.6 9.8-6.1 6.1-9.4 13.9-9.8 23.5v194.4c0 9.2 3.3 17 9.8 23.5s14.4 9.8 23.6 9.8h320.4c9.2 0 17-3.3 23.3-9.8s9.7-14.3 10.1-23.5zm-264.3 42.7c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.2 6.3-14 9.5-23.6 9.5s-17.5-3.2-23.6-9.5-9.4-14-9.8-23.2v-33.3c.4-9.1 3.8-16.9 10.1-23.2s13.2-9.6 23.3-10c9.2.4 17 3.7 23.3 10m191.5 0c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2s-14 9.5-23.6 9.5-17.4-3.2-23.6-9.5c-7-6.3-9.4-14-9.7-23.2v-33.3c.3-9.1 3.7-16.9 10-23.2s14.1-9.6 23.3-10c9.2.4 17 3.7 23.3 10"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yang92636@qq.com" target="_blank" rel="noopener" title="通过电子邮件联系我" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["navigation.instant","navigation.instant.progress","navigation.tracking","navigation.tabs","navigation.tabs.sticky","navigation.sections","navigation.path","navigation.indexes","navigation.top","toc.follow","search.highlight","content.action.edit","content.action.view","navigation.footer","content.code.copy","content.code.select","content.code.annotate","content.footnote.tooltips","content.tooltips"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+        <script src="../../../javascripts/feedback.js"></script>
+      
+        <script src="../../../javascripts/count.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+      
+        <script src="../../../javascripts/ask_ai.js"></script>
+      
+        <script src="../../../javascripts/APlayer.min.js"></script>
+      
+        <script src="../../../javascripts/Meting.min.js"></script>
+      
+        <script src="../../../javascripts/music_player.js"></script>
+      
+        <script src="../../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>
