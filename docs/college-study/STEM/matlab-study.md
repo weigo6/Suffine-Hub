@@ -516,7 +516,7 @@ hold off;  % 释放当前图形
 | 蓝   | b    | 白   | w    |
 | 黄   | y    | 黑   | k    |
 
-<img src="../matlab-study.assets/image-20241015202701368.jpg" alt="image-20241015202701368" style="zoom: 67%;" />
+<img src="./matlab-study.assets/image-20241015202701368.jpg" alt="image-20241015202701368" style="zoom: 67%;" />
 
 #### 图例标注
 
@@ -1101,7 +1101,7 @@ end
 
    如：function B = sortMatrix(A)
    
-   <img src="../matlab-study.assets/image-20241028234959261.png" alt="image-20241028234959261" style="zoom: 50%;" />
+   <img src="./matlab-study.assets/image-20241028234959261.png" alt="image-20241028234959261" style="zoom: 50%;" />
 
 ```matlab
 function B = sortMatrix(A)
@@ -1204,7 +1204,7 @@ yticks(0.95:0.05:1.05);
 
 grid on; % 添加网格
 ```
-实际运行图：<img src="../matlab-study.assets/image17347048482790.png" alt="img" style="zoom:80%;" />
+实际运行图：<img src="./matlab-study.assets/image17347048482790.png" alt="img" style="zoom:80%;" />
 
 2.Stack the horizontal bar chart.堆叠水平条形图。
     ![image-20241118210727014](matlab-study.assets/image-20241118210727014.png)
@@ -1221,11 +1221,11 @@ subplot(1,2,2);
 barh(y,"stacked"); %barh 水平式的bar
 title("Horizontal")
 ```
-实际运行图：<img src="../matlab-study.assets/image-20241118210804379.png" alt="image-20241118210804379" style="zoom: 80%;" />
+实际运行图：<img src="./matlab-study.assets/image-20241118210804379.png" alt="image-20241118210804379" style="zoom: 80%;" />
 
 3.Separate all the pieces in the 3D pie chart
    分离 3D 饼图中的所有部分
-    <img src="../matlab-study.assets/image-20241118210822063.png" alt="image-20241118210822063" style="zoom:67%;" />
+    <img src="./matlab-study.assets/image-20241118210822063.png" alt="image-20241118210822063" style="zoom:67%;" />
 
 ```matlab
 % put your code here
@@ -1238,7 +1238,7 @@ pie(a,[0,0,0,1]);
 subplot(1,3,3);
 pie3(a,[1,1,1,1]); %3代表三维
 ```
-实际运行图：<img src="../matlab-study.assets/image-20241118210948194.png" alt="image-20241118210948194" style="zoom:67%;" />
+实际运行图：<img src="./matlab-study.assets/image-20241118210948194.png" alt="image-20241118210948194" style="zoom:67%;" />
 
 4.Plot a hexagon on a polar chart
    在极坐标图上绘制六边形
@@ -1313,11 +1313,11 @@ yticks(-1:0.2:1);
 grid on;
 ```
 
-实际运行图：<img src="../matlab-study.assets/image-20241118212254167.png" alt="image-20241118212254167" style="zoom:80%;" />
+实际运行图：<img src="./matlab-study.assets/image-20241118212254167.png" alt="image-20241118212254167" style="zoom:80%;" />
 
 6.Various Contour PlotsCombine the contour techniques to generate a figure as shown below.
 各种等高线图将等高线技术相结合，生成如下图所示的图形。
-<img src="../matlab-study.assets/image-20241118212331916.png" alt="image-20241118212331916" style="zoom:80%;" />
+<img src="./matlab-study.assets/image-20241118212331916.png" alt="image-20241118212331916" style="zoom:80%;" />
 
 ```matlab
 % put your code here
@@ -1331,12 +1331,12 @@ colormap(jet); % 设置颜色映射为 jet
 axis square; %axis square 函数用于调整当前坐标轴的比例，使得 x 轴和 y 轴的单位长度相等
 ```
 
-实际运行图：<img src="../matlab-study.assets/image17347049781920.png" alt="img" style="zoom: 80%;" />
+实际运行图：<img src="./matlab-study.assets/image17347049781920.png" alt="img" style="zoom: 80%;" />
 
 7.Consider two electrocardiogram (ECG) signals with different trends. Load the signals and plot them.
 
   考虑两个趋势不同的心电图（ECG）信号。 加载信号并绘制曲线。
-  <img src="../matlab-study.assets/image-20241118212358437.png" alt="image-20241118212358437" style="zoom: 67%;" />
+  <img src="./matlab-study.assets/image-20241118212358437.png" alt="image-20241118212358437" style="zoom: 67%;" />
 
 ```matlab
 % put your code here

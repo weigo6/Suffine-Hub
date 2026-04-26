@@ -816,7 +816,7 @@ document.addEventListener("DOMContentLoaded", function () {
 移动端支持全屏显示 AI 聊天窗口：
 
 <div style="display: flex; justify-content: center; gap: 20px;">
-  <img src="../为Zensical站点添加AI问答功能.assets/image-20260208222347333.png" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Mobile View 1">
-  <img src="../为Zensical站点添加AI问答功能.assets/image-20260208222407631.png" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Mobile View 2">
+  <img src="./为Zensical站点添加AI问答功能.assets/image-20260208222347333.png" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Mobile View 1">
+  <img src="./为Zensical站点添加AI问答功能.assets/image-20260208222407631.png" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Mobile View 2">
 </div>
 ---

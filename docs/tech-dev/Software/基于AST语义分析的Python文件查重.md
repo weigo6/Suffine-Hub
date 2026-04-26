@@ -172,7 +172,7 @@ pip install pandas seaborn matplotlib scikit-learn PySide6
 
 ![image-20250113173602804](基于AST语义分析的Python文件查重.assets/image-20250113173602804.png)
 
-<img src="../基于AST语义分析的Python文件查重.assets/image-20250113173624584.png" alt="image-20250113173624584" style="zoom: 67%;" />
+<img src="./基于AST语义分析的Python文件查重.assets/image-20250113173624584.png" alt="image-20250113173624584" style="zoom: 67%;" />
 
 ## 四、注意事项
 

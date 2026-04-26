@@ -82,7 +82,7 @@ PLC的I/O分配表如表所示。
 
 2. 梯形图程序
    
-   <img src="../PLC综合实训课程设计.assets/image-20250924205104147.png" alt="image-20250924205104147" style="zoom:55%;" /><img src="../PLC综合实训课程设计.assets/image-20250924205126328.png" alt="image-20250924205126328" style="zoom:55%;" /><img src="../PLC综合实训课程设计.assets/image-20250924205146120.png" alt="image-20250924205146120" style="zoom:60%;" /><img src="../PLC综合实训课程设计.assets/image-20250924205221333.png" alt="image-20250924205221333" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924205235754.png" alt="image-20250924205235754" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924205305854.png" alt="image-20250924205305854" style="zoom:67%;" />
+   <img src="./PLC综合实训课程设计.assets/image-20250924205104147.png" alt="image-20250924205104147" style="zoom:55%;" /><img src="./PLC综合实训课程设计.assets/image-20250924205126328.png" alt="image-20250924205126328" style="zoom:55%;" /><img src="./PLC综合实训课程设计.assets/image-20250924205146120.png" alt="image-20250924205146120" style="zoom:60%;" /><img src="./PLC综合实训课程设计.assets/image-20250924205221333.png" alt="image-20250924205221333" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924205235754.png" alt="image-20250924205235754" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924205305854.png" alt="image-20250924205305854" style="zoom:67%;" />
 
 #### PLC控制过程简述
 
@@ -137,17 +137,17 @@ PLC的I/O分配表如表所示。
 
 #### 画出PLC的I/O接线及图
 
-<img src="../PLC综合实训课程设计.assets/image-20250924210314825.png" alt="image-20250924210314825" style="zoom:67%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250924210314825.png" alt="image-20250924210314825" style="zoom:67%;" />
 
 #### 梯形图程序设计
 
 一. 画出描述控制过程的SFC
 
-   <img src="../PLC综合实训课程设计.assets/image-20250924210404363.png" alt="image-20250924210404363" style="zoom:67%;" />
+   <img src="./PLC综合实训课程设计.assets/image-20250924210404363.png" alt="image-20250924210404363" style="zoom:67%;" />
 
 二. 梯形图程序设计
 
-   <img src="../PLC综合实训课程设计.assets/image-20250924210442088.png" alt="image-20250924210442088" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210458004.png" alt="image-20250924210458004" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210519424.png" alt="image-20250924210519424" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210644089.png" alt="image-20250924210644089" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210659827.png" alt="image-20250924210659827" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210708533.png" alt="image-20250924210708533" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210721723.png" alt="image-20250924210721723" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210732740.png" alt="image-20250924210732740" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924210741132.png" alt="image-20250924210741132" style="zoom:67%;" />
+   <img src="./PLC综合实训课程设计.assets/image-20250924210442088.png" alt="image-20250924210442088" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924210458004.png" alt="image-20250924210458004" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924210519424.png" alt="image-20250924210519424" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924210644089.png" alt="image-20250924210644089" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924210659827.png" alt="image-20250924210659827" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924210708533.png" alt="image-20250924210708533" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924210721723.png" alt="image-20250924210721723" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924210732740.png" alt="image-20250924210732740" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924210741132.png" alt="image-20250924210741132" style="zoom:67%;" />
 
 三. 梯形图总体流程总结
 
@@ -313,17 +313,17 @@ PLC的I/O分配表如表所示。
 
 #### 电气原理控制图
 
-<img src="../PLC综合实训课程设计.assets/image-20250924212443980.jpg" alt="image-20250924212443980" style="zoom:67%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250924212443980.jpg" alt="image-20250924212443980" style="zoom:67%;" />
 
-<img src="../PLC综合实训课程设计.assets/image-20250924220654951.png" alt="image-20250924220654951" style="zoom:67%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250924220654951.png" alt="image-20250924220654951" style="zoom:67%;" />
 
 #### 控制过程循环一个周期的顺序功能图（SFC）
 
-<img src="../PLC综合实训课程设计.assets/image-20250924213738809.png" alt="image-20250924213738809" style="zoom:67%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250924213738809.png" alt="image-20250924213738809" style="zoom:67%;" />
 
 #### 梯形图程序设计
 
-<img src="../PLC综合实训课程设计.assets/image-20250924213806461.png" alt="image-20250924213806461" style="zoom:90%;" /><img src="../PLC综合实训课程设计.assets/image-20250924213814021.png" alt="image-20250924213814021" style="zoom:90%;" /><img src="../PLC综合实训课程设计.assets/image-20250924213833877.png" alt="image-20250924213833877" style="zoom:90%;" /><img src="../PLC综合实训课程设计.assets/image-20250924213843407.png" alt="image-20250924213843407" style="zoom:90%;" /><img src="../PLC综合实训课程设计.assets/image-20250924213856819.png" alt="image-20250924213856819" style="zoom:90%;" /><img src="../PLC综合实训课程设计.assets/image-20250924213905688.png" alt="image-20250924213905688" style="zoom:80%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250924213806461.png" alt="image-20250924213806461" style="zoom:90%;" /><img src="./PLC综合实训课程设计.assets/image-20250924213814021.png" alt="image-20250924213814021" style="zoom:90%;" /><img src="./PLC综合实训课程设计.assets/image-20250924213833877.png" alt="image-20250924213833877" style="zoom:90%;" /><img src="./PLC综合实训课程设计.assets/image-20250924213843407.png" alt="image-20250924213843407" style="zoom:90%;" /><img src="./PLC综合实训课程设计.assets/image-20250924213856819.png" alt="image-20250924213856819" style="zoom:90%;" /><img src="./PLC综合实训课程设计.assets/image-20250924213905688.png" alt="image-20250924213905688" style="zoom:80%;" />
 
 #### 实验调试情况及个人心得
 
@@ -392,13 +392,13 @@ PLC的I/O分配表如表所示。
 
 #### 梯形图程序设计
 
-<img src="../PLC综合实训课程设计.assets/image-20250924214622819.png" alt="image-20250924214622819" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924214631091.png" alt="image-20250924214631091" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924214643407.png" alt="image-20250924214643407" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924214652946.png" alt="image-20250924214652946" style="zoom:67%;" /><img src="../PLC综合实训课程设计.assets/image-20250924214706825.png" alt="image-20250924214706825" style="zoom:67%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250924214622819.png" alt="image-20250924214622819" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924214631091.png" alt="image-20250924214631091" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924214643407.png" alt="image-20250924214643407" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924214652946.png" alt="image-20250924214652946" style="zoom:67%;" /><img src="./PLC综合实训课程设计.assets/image-20250924214706825.png" alt="image-20250924214706825" style="zoom:67%;" />
 
 #### HMI的主要界面
 
-<img src="../PLC综合实训课程设计.assets/image-20250924214742520.jpg" alt="image-20250924214742520" style="zoom: 80%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250924214742520.jpg" alt="image-20250924214742520" style="zoom: 80%;" />
 
-<img src="../PLC综合实训课程设计.assets/image-20250924214749367.jpg" alt="image-20250924214749367" style="zoom:80%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250924214749367.jpg" alt="image-20250924214749367" style="zoom:80%;" />
 
 #### 触摸屏和PLC监控过程简述
 
@@ -419,7 +419,7 @@ PLC的I/O分配表如表所示。
 
 一. 实验调试情况
 
-   <img src="../PLC综合实训课程设计.assets/image-20250924215043254.jpg" alt="image-20250924215043254" style="zoom:80%;" />
+   <img src="./PLC综合实训课程设计.assets/image-20250924215043254.jpg" alt="image-20250924215043254" style="zoom:80%;" />
 
 二. 个人心得
 
@@ -479,11 +479,11 @@ PLC的I/O分配表如表所示。
 
 #### 触控屏设计的主要画面
 
-<img src="../PLC综合实训课程设计.assets/image-20250924220845472.png" alt="image-20250924220845472" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924220858233.png" alt="image-20250924220858233" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924220906963.png" alt="image-20250924220906963" style="zoom:80%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250924220845472.png" alt="image-20250924220845472" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924220858233.png" alt="image-20250924220858233" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924220906963.png" alt="image-20250924220906963" style="zoom:80%;" />
 
 #### 梯形图程序设计
 
-<img src="../PLC综合实训课程设计.assets/image-20250924220932596.png" alt="image-20250924220932596" style="zoom:85%;" /><img src="../PLC综合实训课程设计.assets/image-20250924220942742.png" alt="image-20250924220942742" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924220955989.png" alt="image-20250924220955989" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221006288.png" alt="image-20250924221006288" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221027948.png" alt="image-20250924221027948" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221039125.png" alt="image-20250924221039125" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221101308.png" alt="image-20250924221101308" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221120656.png" alt="image-20250924221120656" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221133134.png" alt="image-20250924221133134" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924221143706.png" alt="image-20250924221143706" style="zoom:80%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250924220932596.png" alt="image-20250924220932596" style="zoom:85%;" /><img src="./PLC综合实训课程设计.assets/image-20250924220942742.png" alt="image-20250924220942742" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924220955989.png" alt="image-20250924220955989" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924221006288.png" alt="image-20250924221006288" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924221027948.png" alt="image-20250924221027948" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924221039125.png" alt="image-20250924221039125" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924221101308.png" alt="image-20250924221101308" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924221120656.png" alt="image-20250924221120656" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924221133134.png" alt="image-20250924221133134" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924221143706.png" alt="image-20250924221143706" style="zoom:80%;" />
 
 #### 实验调试情况及心得
 
@@ -505,7 +505,7 @@ PLC的I/O分配表如表所示。
 
 - 停止阶段（S0.5）：按下SF2后跳转S0.5，中速左移至SQ1后完全停止，符合“运回原点”要求。
 
- <img src="../PLC综合实训课程设计.assets/image-20250924221306189.jpg" alt="image-20250924221306189" style="zoom: 80%;" />
+ <img src="./PLC综合实训课程设计.assets/image-20250924221306189.jpg" alt="image-20250924221306189" style="zoom: 80%;" />
 
 HMI三画面功能均正常实现：
 
@@ -660,7 +660,7 @@ flowchart LR
 
 #### 电气控制系统原理图及概述
 
-<img src="../PLC综合实训课程设计.assets/image-20250925000915696.png" alt="image-20250925000915696" style="zoom:80%;" />
+<img src="./PLC综合实训课程设计.assets/image-20250925000915696.png" alt="image-20250925000915696" style="zoom:80%;" />
 
 **输入回路**：SB0（I0.0）、SB1（I0.1）、SQ1（I0.3）、SQ2（I0.4）、SQ3（I0.5）均接入PLC输入端子，
 
@@ -749,29 +749,29 @@ flowchart TD
 
 - **Network 1**：系统初始化，设定默认参数（t1=3s, t2=5s，速度默认值等）；
 
-  <img src="../PLC综合实训课程设计.assets/image-20250924231416373.png" alt="image-20250924231416373" style="zoom:80%;" />
+  <img src="./PLC综合实训课程设计.assets/image-20250924231416373.png" alt="image-20250924231416373" style="zoom:80%;" />
 
 - **Network 2~7**：状态机主逻辑，实现6个状态的转移与控制；
 
-  <img src="../PLC综合实训课程设计.assets/image-20250924231519479.png" alt="image-20250924231519479" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924231642317.png" alt="image-20250924231642317" style="zoom:80%;" />
+  <img src="./PLC综合实训课程设计.assets/image-20250924231519479.png" alt="image-20250924231519479" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924231642317.png" alt="image-20250924231642317" style="zoom:80%;" />
 
 - **Network 8**：故障处理，强制回到状态0；
 
-  <img src="../PLC综合实训课程设计.assets/image-20250924232030484.png" alt="image-20250924232030484" style="zoom:80%;" />
+  <img src="./PLC综合实训课程设计.assets/image-20250924232030484.png" alt="image-20250924232030484" style="zoom:80%;" />
 
 - **Network 9~11**：速度与方向输出控制，根据当前状态和速度设定值激活对应Q点；
 
-  <img src="../PLC综合实训课程设计.assets/image-20250924231935850.png" alt="image-20250924231935850" style="zoom:80%;" />
+  <img src="./PLC综合实训课程设计.assets/image-20250924231935850.png" alt="image-20250924231935850" style="zoom:80%;" />
 
 - **Network 12**：停止逻辑，置位M0.5，确保最终停在SQ2；
 
-  <img src="../PLC综合实训课程设计.assets/image-20250924232004952.png" alt="image-20250924232004952" style="zoom:80%;" />
+  <img src="./PLC综合实训课程设计.assets/image-20250924232004952.png" alt="image-20250924232004952" style="zoom:80%;" />
 
 - **Network 13~15**：位置坐标初始化（VW112），用于HMI动画；
 
-  <img src="../PLC综合实训课程设计.assets/image-20250924232119741.png" alt="image-20250924232119741" style="zoom:80%;" />
+  <img src="./PLC综合实训课程设计.assets/image-20250924232119741.png" alt="image-20250924232119741" style="zoom:80%;" />
 
-- **Network 16~19**：基于不同速度档位生成位置刷新脉冲，并更新VW112（-40=SQ1, 0=SQ2, 40=SQ3），实现平滑动画。<img src="../PLC综合实训课程设计.assets/image-20250924232148829.png" alt="image-20250924232148829" style="zoom:80%;" /><img src="../PLC综合实训课程设计.assets/image-20250924232542036.png" alt="image-20250924232542036" style="zoom:80%;" />
+- **Network 16~19**：基于不同速度档位生成位置刷新脉冲，并更新VW112（-40=SQ1, 0=SQ2, 40=SQ3），实现平滑动画。<img src="./PLC综合实训课程设计.assets/image-20250924232148829.png" alt="image-20250924232148829" style="zoom:80%;" /><img src="./PLC综合实训课程设计.assets/image-20250924232542036.png" alt="image-20250924232542036" style="zoom:80%;" />
 
 ### 变频器参数设置
 
@@ -812,13 +812,13 @@ flowchart TD
 
 ##### 触摸屏主画面设计
 
-<img src="../PLC综合实训课程设计.assets/主界面.png" alt="主界面" style="zoom:67%;" />
+<img src="./PLC综合实训课程设计.assets/主界面.png" alt="主界面" style="zoom:67%;" />
 
 主界面拥有启动、停止、参数页面、状态页面四个功能按钮。
 
 ##### 参数设计画面
 
-<img src="../PLC综合实训课程设计.assets/参数设置界面.png" alt="参数设置界面" style="zoom:67%;" />
+<img src="./PLC综合实训课程设计.assets/参数设置界面.png" alt="参数设置界面" style="zoom:67%;" />
 
 参数设计页面可设置：
 
@@ -830,7 +830,7 @@ flowchart TD
 
 ##### 运行控制与运行状态画面
 
-<img src="../PLC综合实训课程设计.assets/状态显示界面.png" alt="状态显示界面" style="zoom:67%;" />
+<img src="./PLC综合实训课程设计.assets/状态显示界面.png" alt="状态显示界面" style="zoom:67%;" />
 
 运行控制与运行状态画面的内容包括：
 
@@ -850,7 +850,7 @@ flowchart TD
 
 #### 项目调试效果展示
 
-<img src="../PLC综合实训课程设计.assets/shiwu.jpg" alt="shiwu" style="zoom: 25%;" /><img src="../PLC综合实训课程设计.assets/chukong.jpg" alt="chukong" style="zoom: 50%;" /><img src="../PLC综合实训课程设计.assets/jiexian.jpg" alt="jiexian" style="zoom: 50%;" />
+<img src="./PLC综合实训课程设计.assets/shiwu.jpg" alt="shiwu" style="zoom: 25%;" /><img src="./PLC综合实训课程设计.assets/chukong.jpg" alt="chukong" style="zoom: 50%;" /><img src="./PLC综合实训课程设计.assets/jiexian.jpg" alt="jiexian" style="zoom: 50%;" />
 
 - 单周期模式：小车从SQ2出发→左行至SQ1→装料3s→右行至SQ3→卸料5s→高速返回SQ2，动作准确；
 - 自动循环模式：小车在SQ1与SQ3之间循环运料，返回段速度明显快于前进段；
