@@ -316,10 +316,16 @@ hr {
 
 /* 移动端适配 */
 @media screen and (max-width: 768px) {
+    .home-container {
+        padding-left: 0rem;
+        padding-right: 0rem;
+    }
+
     /* 布局调整 */
     .hero-wrapper { 
         flex-direction: column-reverse; 
-        padding: 1.5rem 1rem; 
+        padding: 1.25rem 0.85rem; 
+        background-position: center -3px;
         gap: 1.5rem; 
         text-align: center; 
     }
