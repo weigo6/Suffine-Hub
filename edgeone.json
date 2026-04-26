@@ -1,5 +1,5 @@
 {
-  "installCommand": "python3 get-pip.py && python3 -m pip install zensical --upgrade pip",
+  "installCommand": "python3 get-pip.py && python3 -m pip install --user zensical; export PATH=\"/dev/shm/home/.local/bin:$PATH\"; exit 0",
   "buildCommand": "python3 -m zensical build --clean",
   "outputDirectory": "./site",
   "headers": [
