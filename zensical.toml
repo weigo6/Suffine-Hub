@@ -160,7 +160,7 @@ features = [
     #"navigation.instant", # 启用即时导航
     #"navigation.instant.prefetch", # 启用预加载
     "navigation.instant.progress", # 加载进度条
-    "navigation.tracking", # 滚动时URL锚点自动更新
+    #"navigation.tracking", # 滚动时URL锚点自动更新
     "navigation.tabs", # 一级导航显示为顶部Tab
     #"navigation.tabs.sticky", # 顶部Tab栏粘性显示
     "navigation.sections", # 启用侧边栏章节分组
