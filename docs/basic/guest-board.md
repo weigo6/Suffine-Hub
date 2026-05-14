@@ -67,7 +67,7 @@ comments: false
 </div>
 
 <style>
-/* --- 1. 基础布局保持不变 --- */
+/* --- 1. 基础布局 --- */
 .md-content__button { display: none !important; }
 .pure-excerpt-container {
     max-width: 800px;
@@ -139,30 +139,8 @@ comments: false
     color: var(--md-typeset-color--light);
     opacity: 0.8;
 }
-@media screen and (max-width: 768px) {
-    .pure-h1-title { font-size: 1rem !important; }
-    .pure-main-text { font-size: 1.4rem; }
-    .pure-quote-mark { font-size: 5rem; }
-    .pure-quote-mark.left { left: -10px; }
-    .pure-quote-mark.right { right: -10px; }
 
-    /* 修改容器内边距，给文字腾出更多空间 */
-    .pure-excerpt-container {
-        padding: 0 10px !important; /* 原为 20px，减小左右留白 */
-    }
-    
-    /* 移动端将工具栏换行显示，避免拥挤 */
-    .pure-tips-toolbar {
-        flex-direction: column;
-        gap: 8px !important;
-    }
-    .toolbar-separator {
-        display: none; /* 换行后隐藏分隔符 */
-    }
-}
-
-/* --- 2. 核心修改：整合后的工具栏样式 --- */
-
+/* --- 2. 整合后的工具栏样式 --- */
 .pure-tips-toolbar {
     margin-top: 10px;
     width: 100%;
@@ -215,7 +193,7 @@ comments: false
     opacity: 0.8;
 }
 
-/* --- 3. Tooltip 样式 (保持玻璃磨砂风) --- */
+/* --- 3. Tooltip 样式 (玻璃磨砂风) --- */
 .comment-switch-wrapper {
     position: relative;
     /* 修复 flex 布局下的定位基准 */
@@ -258,6 +236,10 @@ comments: false
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
+[data-md-color-scheme="slate"] .tk-content {
+    color: var(--md-typeset-color) !important;
+}
+
 .comment-switch-wrapper:hover::after {
     opacity: 1;
     visibility: visible;
@@ -270,8 +252,31 @@ comments: false
     margin: 0 auto;
     padding: 0 20px;
 }
-[data-md-color-scheme="slate"] .tk-content {
-    color: var(--md-typeset-color) !important;
+
+@media screen and (max-width: 768px) {
+    .pure-h1-title { font-size: 1rem !important; }
+    .pure-main-text { font-size: 1.4rem; }
+    .pure-quote-mark { font-size: 5rem; }
+    .pure-quote-mark.left { left: -10px; }
+    .pure-quote-mark.right { right: -10px; }
+
+    /* 修改容器内边距，给文字腾出更多空间 */
+    .pure-excerpt-container {
+        padding: 0 10px !important; /* 原为 20px，减小左右留白 */
+    }
+    
+    /* 移动端将工具栏换行显示，避免拥挤 */
+    .pure-tips-toolbar {
+        flex-direction: column;
+        gap: 8px !important;
+    }
+    .toolbar-separator {
+        display: none; /* 换行后隐藏分隔符 */
+    }
+
+    .guestbook-comments-wrapper {
+        padding: 0 0px;
+    }
 }
 </style>
 
