@@ -96,12 +96,18 @@ nav = [
             {"基于AST语义分析的Python文件查重" = "tech-dev/Software/基于AST语义分析的Python文件查重.md"},
             {"基于Pyside6与ffmpeg的旋转音律视频稳定工具" = "tech-dev/Software/旋转音律视频稳定工具.md"},
             {"Turbot4机器人开发记录" = "tech-dev/Software/Turbot4机器人开发记录.md"},
-            {" Python 下一代包管理器 uv 上手指南" = "tech-dev/Software/uv包管理器上手指南.md"}
+            
         ]},
         {"工具与资源" = [
             "tech-dev/Tools/index.md",
+            {"Git网络代理设置教程" = "tech-dev/Tools/Git网络代理设置教程.md"},
             {"卡西欧fx-991使用技巧" = "tech-dev/Tools/卡西欧fx-991使用技巧.md"}
         ]}
+    ]},
+    {"计算机科学" = [
+        # "CS/index.md",
+        {"Python 下一代包管理器 uv 上手指南" = "CS/uv包管理器上手指南.md"},
+        {"MSYS2配置C/C++运行环境" = "CS/MSYS2配置C++运行环境.md"}
     ]},
     {"留言板" = "basic/guest-board.md"},
     {"友链" = [
@@ -109,7 +115,8 @@ nav = [
         {"友链申请指南" = "basic/friendly-links-guide.md"},
         {"联系表单" = "basic/contact-form.md"}
     ]},
-    {"网址导航" = "https://nav.sufine.top"}
+    {"导航站" = "https://nav.sufine.top"},
+    {"笔记本" = "https://009420.xyz"}
 ]
 
 # 站点生成器选项

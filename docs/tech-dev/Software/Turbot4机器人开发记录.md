@@ -118,9 +118,6 @@ ros2 launch turbot4_bringup robot.launch.py
 ros2 launch turbot4_teleop keyboard.launch.py
 ```
 
-键盘控制操作
-<img src="./Turbot机器人开发.assets/image-20241205151915001.png" alt="image-20241205151915001" style="zoom:50%;" />
-
 如果没有意外的话，你应该可以看到机器人跑起来了。
 
 ## 如何让舵机动起来
