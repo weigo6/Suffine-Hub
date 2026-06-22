@@ -112,7 +112,7 @@ EdgeOne Pages 构建系统会优先检测 package.json。虽然我们是 Python 
 - **outputDirectory (输出目录)**:./site: Zensical 默认的生成目录。EdgeOne 会将此目录发布到外网。
 - **headers (可选优化)**:配置 HTTP 响应头，增加安全性（防止点击劫持）并设置缓存策略（2小时缓存），提升访问体验。
 
-更多细节配置详见[官方文档]([edgeone.json](https://edgeone.cloud.tencent.com/pages/document/162936771610066944))。
+更多细节配置详见[官方文档](https://edgeone.cloud.tencent.com/pages/document/162936771610066944)。
 
 ### 4. 推送并部署
 

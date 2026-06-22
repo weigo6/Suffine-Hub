@@ -43,7 +43,7 @@ hr {
     
     -   [:material-subway-variant: 城市轨道交通概论](城市轨道交通概论.md)
     -   [:material-traffic-light: 轨道交通信号基础一](轨道交通信号基础一.md)
-    -   [:material-railroad-light: 城市轨道交通基础二](城市轨道交通基础二.md)
+    -   [:material-railroad-light: 轨道交通信号基础二](轨道交通信号基础二.md)
 
 -   :material-server-network:{ .lg .middle } __信号控制系统__{.middle}
 
