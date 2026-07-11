@@ -20,8 +20,8 @@ comments: true
   .friend-links-block-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-    margin: 1.5em 0;
+    gap: 20px;
+    margin: 1.25em 0 0;
     width: 100%;
     box-sizing: border-box;
   }
@@ -30,7 +30,7 @@ comments: true
   .friend-card-block {
     display: flex;
     align-items: center;
-    padding: 20px;
+    padding: 18px;
     border-radius: 10px;
     text-decoration: none !important;
     cursor: pointer;
@@ -51,7 +51,7 @@ comments: true
     transform: translateY(-2px) scale(1.01);
     border-color: var(--md-primary-fg-color);
     box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.15);
-    z-index: 2;
+    z-index: 1;
   }
 
   /* 暗色模式适配 */
@@ -113,6 +113,50 @@ comments: true
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
+
+  /* 中小屏：保留自动分列，仅适度收紧卡片留白 */
+  @media screen and (max-width: 768px) {
+    .friend-links-block-grid {
+      gap: 14px;
+      margin-top: 1em;
+    }
+
+    .friend-card-block {
+      padding: 14px 16px;
+      border-radius: 8px;
+    }
+
+    .friend-card-block .ava {
+      width: 56px;
+      height: 56px;
+      margin-right: 14px;
+    }
+
+    .block-content .title {
+      margin-bottom: 4px;
+    }
+
+    .block-content .desc {
+      line-height: 1.5;
+    }
+  }
+
+  /* 小屏手机：进一步压缩间距，避免视觉过空 */
+  @media screen and (max-width: 480px) {
+    .friend-links-block-grid {
+      gap: 12px;
+    }
+
+    .friend-card-block {
+      padding: 13px 14px;
+    }
+
+    .friend-card-block .ava {
+      width: 52px;
+      height: 52px;
+      margin-right: 12px;
+    }
+  }
 </style>
 
 # 友情链接
@@ -165,10 +209,18 @@ comments: true
   </a>
 
   <a class="friend-card-block" href="https://www.b23.kim" target="_blank" rel="noopener">
-    <img class="ava" src="https://bucket.rutno.com/d?sid=ao9BQVEVae4qTzr15bRMRqspjIZM&e=1769434858&sig=9dcf3e016a872f1f77feb238874f260c68a062d55265405390df52b7ef826ef4" loading="lazy" alt="b23.kim" />
+    <img class="ava" src="https://cnb.cool/sufine/blog-files/-/git/raw/main/b23kim.jpg" loading="lazy" alt="b23.kim" />
     <div class="block-content">
       <div class="title">b23.kim</div>
       <div class="desc">记住「 黑客是客，博客也是客 」by 请输入内容404</div>
+    </div>
+  </a>
+
+  <a class="friend-card-block" href="https://blog.imikufans.com" target="_blank" rel="noopener">
+    <img class="ava" src="https://blog.imikufans.com/api/v3/objects/avatar/t8jpf1qw2ospuub7o8.png" loading="lazy" alt="Syskuku's Blog" />
+    <div class="block-content">
+      <div class="title">春雪(Syskuku's Blog)</div>
+      <div class="desc">雪落有声，思绪成文。</div>
     </div>
   </a>
 
