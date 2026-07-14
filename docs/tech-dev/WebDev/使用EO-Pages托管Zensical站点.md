@@ -6,7 +6,6 @@ tags:
   - EdgeOne
 icon: material/rocket-launch
 comments: true
-status: new
 ---
 
 # 使用 EdgeOne Pages 托管 Zensical 站点

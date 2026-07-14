@@ -6,7 +6,6 @@ tags:
   - Cloudflare
 icon: material/creation
 comments: true
-status: new
 ---
 
 # 为 Zensical 站点添加 ASK AI 问答功能

@@ -6,7 +6,6 @@ tags:
   - APlayer
 icon: material/music-note
 comments: true
-status: new
 ---
 
 # 为 Zensical 站点添加音乐播放器功能

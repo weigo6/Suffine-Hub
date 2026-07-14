@@ -83,6 +83,7 @@ nav = [
         ]},
         {"嵌入式开发" = [
             "tech-dev/Embedded/index.md",
+            {"基于STM32的便携式信号采集设备研究" = "tech-dev/Embedded/基于STM32的便携式信号采集设备研究.md"},
             {"基于STM32的四轮移动机器人设计" = "tech-dev/Embedded/基于STM32的四轮移动机器人设计.md"},
             {"基于RFID的智能仓储管理系统设计" = "tech-dev/Embedded/基于RFID的智能仓储管理系统设计.md"},
             {"2024电赛H题参赛记录" = "tech-dev/Embedded/2024电赛H题参赛记录.md"},

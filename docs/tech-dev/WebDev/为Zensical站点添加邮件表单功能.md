@@ -6,7 +6,6 @@ tags:
   - Cloudflare
 icon: material/email-edit
 comments: true
-status: new
 ---
 
 # 📝 零成本给 Zensical 博客添加联系表单功能

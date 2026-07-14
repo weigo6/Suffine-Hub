@@ -7,7 +7,6 @@ tags:
   - Cloudflare
 icon: material/web
 comments: true
-status: new
 ---
 
 # 用 EdgeOne Pages 零成本搭建博客访问计数器

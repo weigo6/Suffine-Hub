@@ -508,8 +508,8 @@ Welcome to my blog! 👋
 -   :octicons-code-16:{ .lg .middle } __技术开发__{.middle}
 
     ---
-    -   [Markdown 5 分钟快速上手](tech-dev/Markdown/markdown-in-5min.md)
     -   [蓝桥杯嵌入式与 STM32 学习笔记](tech-dev/Embedded/蓝桥杯嵌入式学习笔记.md)
+    -   [基于 STM32 的便携式信号采集设备研究](tech-dev/Embedded/基于STM32的便携式信号采集设备研究.md)
     -   [基于 AST 语义分析的 Python 文件查重工具](tech-dev/Software/基于AST语义分析的Python文件查重.md)
     -   [基于 Pyside6 与 FFmpeg 的视频旋转稳定工具](tech-dev/Software/旋转音律视频稳定工具.md)
     -   [2024年全国大学生电子设计竞赛H题参赛杂谈](tech-dev/Embedded/2024电赛H题参赛记录.md)
