@@ -22,9 +22,15 @@ hide:
 
 /* 基础容器 */
 .home-container {
-    max-width: 950px;
+    max-width: 920px;
     margin: 0 auto;
     padding: 0 1rem;
+}
+
+@media screen and (min-width: 2000px) {
+    .home-container {
+        max-width: 950px;
+    }
 }
 
 /* 英雄区 */
@@ -32,7 +38,7 @@ hide:
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2.3rem 2.3rem;
+    padding: 2.3rem 2.7rem;
     margin: 0.5rem 0;
     position: relative;
     background-image: radial-gradient(var(--md-default-fg-color--lightest) 1.2px, transparent 1.2px);
@@ -47,7 +53,7 @@ hide:
 }
 
 .hero-title {
-    font-size: 2.3rem !important;
+    font-size: 2.1rem !important;
     font-weight: 800;
     margin: 0;
     color: var(--md-default-fg-color);
@@ -56,8 +62,8 @@ hide:
 
 /* 加上 .md-typeset 确保优先级最高，博客介绍语 */
 .md-typeset .hero-intro {
-    font-size: 1.8rem !important;
-    margin: 0.8rem 0 1.5rem 0 !important;
+    font-size: 1.65rem !important;
+    margin: 0.65rem 0 1.2rem 0 !important;
     color: var(--md-default-fg-color--light);
     font-weight: 500;
 }
@@ -73,13 +79,13 @@ hide:
 /* 打字机样式 */
 .typewriter-container {
     height: 1.8rem;
-    margin: 1.2rem 0;
+    margin: 1rem 0;
     display: flex;
     align-items: center;
 }
 #typewriter-text {
     font-family: 'JetBrains Mono', 'Segoe UI', monospace;
-    font-size: 1.4rem;
+    font-size: 1.28rem;
     font-weight: 700;
     color: var(--md-default-fg-color--light);
 }
@@ -95,14 +101,15 @@ hide:
 
 /* 头像 */
 .avatar-glow {
-    width: 250px;
-    height: 250px;
+    width: 11.9rem;
+    height: 11.9rem;
     border-radius: 50%;
-    padding: 6px;
+    padding: 4px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);   
     box-shadow: 0 10px 30px rgba(118, 75, 162, 0.4);
     flex-shrink: 0;
     margin-right: 0.3rem;
+    transform: translateY(4px);
 }
 .avatar-glow img {
     width: 100%; height: 100%;
@@ -120,10 +127,11 @@ hide:
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 0.5rem 1.0rem;
-    border-radius: 50px;
+    padding: 0.38rem 0.95rem;
+    border-radius: 8px;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
+    line-height: 1.2;
     text-decoration: none !important;
     transition: all 0.2s;
 }
@@ -150,20 +158,22 @@ hide:
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin: 1.5rem 0;
+    gap: 10px;
+    margin: 1.2rem 0 1.35rem;
 }
 
 .grid-card {
     background: var(--md-default-bg-color);
     border: 1px solid var(--md-default-fg-color--lightest);
-    border-radius: 10px;
-    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
     position: relative;
-    transition: all 0.3s ease;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 0.35rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
 }
 
 .grid-card:hover { 
@@ -173,34 +183,34 @@ hide:
 }
 
 .grid-card h3 { 
-    margin: 0 0 0.4rem 0 !important; 
-    font-size: 1.05rem !important; 
+    margin: 0 0 0.1rem 0 !important; 
+    font-size: 1rem !important; 
     display: flex; 
     align-items: center; 
-    gap: 8px; 
+    gap: 6px; 
     color: var(--md-default-fg-color);
 }
 
 .grid-card p { 
     margin: 0 !important; 
-    font-size: 0.85rem; 
-    line-height: 1.4; 
+    font-size: 0.82rem; 
+    line-height: 1.5; 
     color: var(--md-default-fg-color--light); 
-    flex-grow: 1; 
+    flex-grow: 0; 
 }
 
 /* 标签容器 */
 .tag-box { 
     display: flex; 
     flex-wrap: wrap; 
-    gap: 15px;
-    margin-top: 0.8rem; 
+    gap: 10px;
+    margin-top: 0.4rem; 
     align-items: center;
 }
 
 /* --- 普通标签：# 风格 --- */
 .tag-box span { 
-    font-size: 0.75rem; 
+    font-size: 0.72rem; 
     color: var(--md-default-fg-color--light);
     background: none; 
     border: none; 
@@ -226,7 +236,7 @@ hide:
     display: inline-flex;
     align-items: center;
     gap: 2px;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--md-primary-fg-color) !important;
     background: none;
     border: none;
@@ -345,8 +355,8 @@ hr {
     }
     
     .avatar-glow { 
-        width: 160px; 
-        height: 160px;
+        width: 8rem; 
+        height: 8rem;
         margin: 0 auto !important; 
     }
 
@@ -388,7 +398,15 @@ hr {
     /* 磁贴网格适配 */
     .grid-container { 
         grid-template-columns: 1fr; 
-        gap: 0.7rem; 
+        gap: 0.6rem; 
+    }
+
+    .grid-card {
+        padding: 0.85rem 0.95rem;
+    }
+
+    .tag-box {
+        gap: 8px;
     }
 }
 
@@ -434,7 +452,7 @@ Welcome to my blog! 👋
 
 <div class="grid-card" markdown="1">
 ### :octicons-mortar-board-24: 课程学习
-轨道交通信号与控制专业本科生，大学期间考研与理工科课程笔记。
+把书页翻过的声音、草稿纸上的痕迹，写成一段缓慢生长的求学时光。
 <div class="tag-box">
     <!-- 将主要入口设置为链接 -->
     <a href="college-study/" class="tag-link">
@@ -449,7 +467,7 @@ Welcome to my blog! 👋
 
 <div class="grid-card" markdown="1">
 ### :octicons-code-24: 技术开发
-喜欢嵌入式开发与软件程序设计，记录实战经验与开发细节。
+在代码、硬件与灵感交汇的地方，记录每一次实践、踩坑与完成的瞬间。
 <div class="tag-box">
     <a href="tech-dev/" class="tag-link">
         浏览博文
@@ -463,7 +481,7 @@ Welcome to my blog! 👋
 
 <div class="grid-card" markdown="1">
 ### :octicons-people-24: 知行共济
-与志同道合的朋友们共同进步，朝心中热爱的方向笃定前行。
+在广阔的世界里，留存温柔而真诚的相遇，一隅方寸，彼此相伴。
 <div class="tag-box">
     <a href="basic/friendly-links" class="tag-link">
         查看邻居
@@ -511,7 +529,7 @@ Welcome to my blog! 👋
     -   [蓝桥杯嵌入式与 STM32 学习笔记](tech-dev/Embedded/蓝桥杯嵌入式学习笔记.md)
     -   [基于 STM32 的便携式信号采集设备研究](tech-dev/Embedded/基于STM32的便携式信号采集设备研究.md)
     -   [基于 AST 语义分析的 Python 文件查重工具](tech-dev/Software/基于AST语义分析的Python文件查重.md)
-    -   [基于 Pyside6 与 FFmpeg 的视频旋转稳定工具](tech-dev/Software/旋转音律视频稳定工具.md)
+    -   [基于 FFmpeg 的 Rotaeno 视频处理工具](tech-dev/Software/旋转音律视频稳定工具.md)
     -   [2024年全国大学生电子设计竞赛H题参赛杂谈](tech-dev/Embedded/2024电赛H题参赛记录.md)
 
 -   :octicons-mortar-board-16:{ .lg .middle } __课程学习__{.middle}
