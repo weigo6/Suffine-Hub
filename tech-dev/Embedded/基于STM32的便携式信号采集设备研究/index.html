@@ -1,0 +1,5352 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="知行合一，格物致知。">
+      
+      
+        <meta name="author" content="Luwei">
+      
+      
+        <link rel="canonical" href="https://sufine.top/tech-dev/Embedded/%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E4%BE%BF%E6%90%BA%E5%BC%8F%E4%BF%A1%E5%8F%B7%E9%87%87%E9%9B%86%E8%AE%BE%E5%A4%87%E7%A0%94%E7%A9%B6/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E5%9B%9B%E8%BD%AE%E7%A7%BB%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/bird.webp">
+      <meta name="generator" content="zensical-0.0.51">
+    
+    
+      
+        <title>基于STM32的便携式信号采集设备研究 - Suffine Hub</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.62c9b9cc.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+  <!-- Umami Analytics 集成脚本，支持即时导航（SPA单页应用）模式，屏蔽navigation.tracking (滚动锚点变化) 干扰 -->
+<script defer 
+  src="https://cloud.umami.is/script.js" 
+  data-website-id="c53576ff-f759-4495-b8ec-bb653e56ce58"
+  data-exclude-hash="true"
+></script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stm32" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Suffine Hub" class="md-header__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/bird.webp" alt="Suffine Hub">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Suffine Hub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              基于STM32的便携式信号采集设备研究
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  关于本站
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../college-study/" class="md-tabs__link">
+          
+  
+  课程学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  技术开发
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS/uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-tabs__link">
+          
+  
+  计算机科学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../basic/guest-board/" class="md-tabs__link">
+        
+  
+  留言板
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../basic/friendly-links/" class="md-tabs__link">
+          
+  
+  友链
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://nav.sufine.top" class="md-tabs__link">
+        
+  
+  导航站
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://009420.xyz" class="md-tabs__link">
+        
+  
+  笔记本
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Suffine Hub" class="md-nav__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../../images/bird.webp" alt="Suffine Hub">
+
+    </a>
+    Suffine Hub
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  关于本站
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../college-study/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  课程学习
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  课程学习
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../college-study/RailSig/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 2h7c.8 0 1.56.32 2.12.88S15 4.2 15 5v1h-2V4H4v7h5v5H8l-3 3H4v-2l1-1c-.8 0-1.56-.32-2.12-.88S2 13.8 2 13V5c0-.8.32-1.56.88-2.12S4.2 2 5 2m.71 10.29C5.5 12.11 5.27 12 5 12c-.26 0-.5.11-.71.29-.18.21-.29.45-.29.71 0 .27.11.5.29.71.21.19.45.29.71.29.27 0 .5-.1.71-.29.19-.21.29-.44.29-.71 0-.26-.1-.5-.29-.71M11 11c0-1.66 1-3 4-3h3c3 0 4 1.34 4 3v7c0 .74-.4 1.39-1 1.73V21c0 .55-.45 1-1 1s-1-.45-1-1v-1h-5v1c0 .55-.45 1-1 1s-1-.45-1-1v-1.27c-.6-.34-1-.99-1-1.73zm2-1v4h7v-4zm1 8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1m6-1c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  轨道交通信号与控制
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  轨道交通信号与控制
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/RailSig/%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E6%A6%82%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-5V6h5m-1.5 11a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5M11 11H6V6h5M7.5 17A1.5 1.5 0 0 1 6 15.5 1.5 1.5 0 0 1 7.5 14 1.5 1.5 0 0 1 9 15.5 1.5 1.5 0 0 1 7.5 17M12 2c-4.42 0-8 .5-8 4v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5v.5h12v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.58-4-8-4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  城市轨道交通概论
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%B8%80/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m8-9h-3V8.86c1.72-.45 3-2 3-3.86h-3V4a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1H4c0 1.86 1.28 3.41 3 3.86V10H4c0 1.86 1.28 3.41 3 3.86V15H4c0 1.86 1.28 3.41 3 3.86V20a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1.14c1.72-.45 3-2 3-3.86h-3v-1.14c1.72-.45 3-2 3-3.86"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  轨道交通信号基础一
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%BA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.67 10.5c-1.27 0-2.4.8-2.82 2h-1.68V7.77l3.49 2.09 1-1.72L14.11 6l3.57-2.14-1-1.72-3.51 2.09V2h-2v2.23L7.68 2.14l-1 1.72L10.23 6 6.66 8.14l1 1.72 3.51-2.09v4.73H9.5c-1.14-3.18-5.84-2.37-5.84 1s4.7 4.18 5.84 1h1.67V20a2 2 0 0 0-2 2h6a2 2 0 0 0-2-2v-5.5h1.68c.81 2.3 3.88 2.72 5.28.73s-.03-4.73-2.46-4.73m-11 4c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1m11 0c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  城市轨道交通基础二
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/RailSig/%E5%8C%BA%E9%97%B4%E4%BF%A1%E5%8F%B7%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-3.18C14.4 9.84 13.3 9 12 9s-2.4.84-2.82 2H6c-.33 0-2-.1-2-2V8c0-1.83 1.54-2 2-2h10.18C16.6 7.16 17.7 8 19 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3c-1.3 0-2.4.84-2.82 2H6C4.39 4 2 5.06 2 8v1c0 2.94 2.39 4 4 4h3.18c.42 1.16 1.52 2 2.82 2s2.4-.84 2.82-2H18c.33 0 2 .1 2 2v1c0 1.83-1.54 2-2 2H7.82C7.4 16.84 6.3 16 5 16a3 3 0 0 0-3 3 3 3 0 0 0 3 3c1.3 0 2.4-.84 2.82-2H18c1.61 0 4-1.07 4-4v-1c0-2.93-2.39-4-4-4m1-7a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1M5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  区间信号自动控制
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/RailSig/%E8%BD%A6%E7%AB%99%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 16V4H3v12zm0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v2h2v2H8v-2h2v-2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2zM5 6h9v5H5zm10 0h4v2h-4zm4 3v5h-4V9zM5 12h4v2H5zm5 0h4v2h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  车站信号控制系统
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../college-study/STEM/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  理工科专业课程
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  理工科专业课程
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/matlab-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v2h3v12h-3v2h5V4M4 4v16h5v-2H6V6h3V4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Matlab入门学习
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/PLC-S7-200-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  西门子PLC S7-200
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/PLC-ModbusRTU/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 3h10v2h2v3h-3v6H8V8H5V5h2zm10 6h2v5h-2zm-6 6h2v7h-2zM5 9h2v5H5z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  PLC ModbusRTU 学习
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h1v2H2v2h4v2H5c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2zm0 2h4v3h-4zM5 17h4v3H5zm10 0h4v3h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  计算机网络课程
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E4%BC%A0%E6%84%9F%E5%99%A8%E4%B8%8E%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  传感器与检测技术
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E4%BA%A4%E9%80%9A%E8%8B%B1%E8%AF%AD%E7%AD%94%E8%BE%A9%E8%AE%B2%E7%A8%BF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  专业外语课程-交通英语
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  通信原理课程
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 22a3 3 0 0 1-3-3c0-.6.18-1.16.5-1.63L9 7.81V6a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1v1.81l5.5 9.56c.32.47.5 1.03.5 1.63a3 3 0 0 1-3 3zm-1-3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1c0-.21-.07-.41-.18-.57l-2.29-3.96L14 17l-5.07-5.07-3.75 6.5c-.11.16-.18.36-.18.57m8-9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  通信原理实验报告
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E8%8B%8F%E5%B7%9E%E8%AF%84%E5%BC%B9%E9%89%B4%E8%B5%8F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 5a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c2.67 0 8 1.34 8 4v2H1v-2c0-2.66 5.33-4 8-4m7.76-9.64c2.02 2.2 2.02 5.25 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89zM20.07 2c3.93 4.05 3.9 10.11 0 14l-1.63-1.63c2.77-3.18 2.77-7.72 0-10.74z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  苏州评弹鉴赏
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E6%AF%9B%E6%A6%82%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h2v20H7zm12 7-8 5.6V3.4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  毛概复习笔记
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E6%95%B0%E5%AD%97%E7%94%B5%E5%8E%8B%E8%A1%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  数字电压表制作课程设计
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.9 18.45c1.35 0 2.45-1.1 2.45-2.45s-1.1-2.45-2.45-2.45c-1.36 0-2.45 1.1-2.45 2.45s1.09 2.45 2.45 2.45m5.2-1.77 1.48 1.16c.13.11.17.29.08.45l-1.4 2.42a.35.35 0 0 1-.43.15l-1.74-.7c-.36.28-.76.51-1.18.69l-.27 1.85c-.02.17-.17.3-.34.3h-2.8c-.18 0-.32-.13-.35-.3l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.75.7c-.15.06-.34 0-.42-.15l-1.4-2.42a.35.35 0 0 1 .08-.45l1.48-1.16-.05-.68.05-.69-1.48-1.15a.35.35 0 0 1-.08-.45l1.4-2.42c.08-.16.27-.22.42-.16l1.75.71c.36-.28.75-.52 1.18-.69l.26-1.86c.03-.16.17-.29.35-.29h2.8c.17 0 .32.13.34.29l.27 1.86c.42.17.82.41 1.18.69l1.74-.71c.17-.06.34 0 .43.16l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.15.05.69zM6.69 8.07c.87 0 1.57-.7 1.57-1.57s-.7-1.58-1.57-1.58A1.58 1.58 0 0 0 5.11 6.5c0 .87.71 1.57 1.58 1.57m3.34-1.13.97.74c.07.07.09.19.03.29l-.9 1.56c-.05.1-.17.14-.27.1l-1.12-.45-.74.44-.19 1.19c-.02.11-.11.19-.22.19h-1.8c-.12 0-.21-.08-.23-.19L5.4 9.62l-.76-.44-1.14.45c-.09.04-.2 0-.26-.1l-.9-1.56c-.06-.1-.03-.22.05-.29l.95-.74-.03-.44.03-.44-.95-.74a.23.23 0 0 1-.05-.29l.9-1.56c.06-.1.17-.14.26-.1l1.13.45.77-.44.16-1.19c.02-.11.11-.19.23-.19h1.8c.11 0 .2.08.22.19L8 3.38l.74.44 1.12-.45c.1-.04.22 0 .27.1l.9 1.56c.06.1.04.22-.03.29l-.97.74.03.44z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  PLC综合实训课程设计
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%BF%A1%E5%8F%B7%E9%85%8D%E6%97%B6%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.1 4.8c-.1-.5-.5-.8-1-.8H13l.2 3h-2.4l.2-3H6.8c-.5 0-.9.4-1 .8l-2.7 14c-.1.6.4 1.2 1 1.2H10l.3-5h3.4l.3 5h5.8c.6 0 1.1-.6 1-1.2zM10.4 13l.2-4h2.6l.2 4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  交叉口信号配时课程设计
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/STEM/%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8C%E9%9D%A2%E9%95%9C%E6%B5%8B%E7%A3%81%E8%87%B4%E4%BC%B8%E7%BC%A9%E7%B3%BB%E6%95%B0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.29 10.28 3.24-3.25 1.06 1.06-3.24 3.25zm.41 4.33 5.66-5.66L15.42 10l-5.66 5.67zM18 3v18H6V3zm2-2H4v22h16z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  菲涅尔双面镜测磁致伸缩系数实验
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../college-study/Kaoyan/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研相关科目
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  考研相关科目
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/kaoyan-math-hm/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.42 5.29c-1.1-.1-2.07.71-2.17 1.82L10 10h2.82v2h-3l-.44 5.07A4.001 4.001 0 0 1 2 18.83l1.5-1.5c.33 1.05 1.46 1.64 2.5 1.3.78-.24 1.33-.93 1.4-1.74L7.82 12h-3v-2H8l.27-3.07a4.01 4.01 0 0 1 4.33-3.65c1.26.11 2.4.81 3.06 1.89l-1.5 1.5c-.25-.77-.93-1.31-1.74-1.38M22 13.65l-1.41-1.41-2.83 2.83-2.83-2.83-1.43 1.41 2.85 2.85-2.85 2.81 1.43 1.41 2.83-2.83 2.83 2.83L22 19.31l-2.83-2.81z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研数二-高数知识点
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/kaoyan-math-la/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研数二-线代知识点
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/kaoyan-eng-write/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.54 3.5 4.96 4.97-1.43 1.41-4.95-4.95zM3.5 19.78l6.5-6.47c-.1-.31-.03-.7.23-.96.39-.39 1.03-.39 1.42 0 .39.4.39 1.03 0 1.42-.26.26-.65.33-.96.23l-6.47 6.5 10.61-3.55 3.53-6.36-4.94-4.95-6.37 3.53z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研英二-作文写作
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/%E8%80%83%E7%A0%94%E6%A0%B8%E5%BF%83926%E8%AF%8D%E6%B1%87%E5%8F%8A%E6%8B%93%E5%B1%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2zm0 2h2v2H3m12-.5V9a2 2 0 0 0-2-2H9v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M13 15h-2v-2h2zm0-4h-2V9h2m6-2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1h-2v1h-2V9h2v1h2V9a2 2 0 0 0-2-2Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研英二-核心词汇926词
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-1.27 0-2.4.8-2.82 2H3v2h1.95L2 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3L6.05 7h3.12c.33.85.98 1.5 1.83 1.83V20H2v2h20v-2h-9V8.82c.85-.32 1.5-.97 1.82-1.82h3.13L15 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3l-2.95-7H21V5h-6.17C14.4 3.8 13.27 3 12 3m0 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-6.5 5.25L7 14H4zm13 0L20 14h-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研政治-知识点笔记
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../college-study/Kaoyan/%E8%87%AA%E6%8E%A7-%E6%A0%B9%E8%BD%A8%E8%BF%B9%E6%B3%95%E5%88%99/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.96 11.31C10.82 8.1 11.5 6 13 6s2.18 2.1 3.04 5.31C17 14.92 18.1 19 22 19v-2c-2.2 0-3-2.46-4.03-6.2C17.08 7.46 16.15 4 13 4s-4.08 3.46-4.97 6.8C7.03 14.54 6.2 17 4 17V2H2v20h20v-2H4v-1c3.9 0 5-4.08 5.96-7.69"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  自动控制原理-根轨迹法则
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  技术开发
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  技术开发
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Markdown/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12c.79 0 1.44.63 1.44 1.41v9.18c0 .78-.65 1.41-1.44 1.41M6.81 15.19v-3.66l1.92 2.35 1.92-2.35v3.66h1.93V8.81h-1.93l-1.92 2.35-1.92-2.35H4.89v6.38zM19.69 12h-1.92V8.81h-1.92V12h-1.93l2.89 3.28z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Markdown相关
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Markdown相关
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Markdown/markdown-in-5min/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4zm10 14.5-4-4-4 4V20h8zm-4-5 4-4V4H8v3.5zM10 6h4v.75l-2 2-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Markdown 5 分钟上手
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Markdown/LaTeX-math/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 6H8.83l6 6-6 6H18v2H6v-2l6-6-6-6V4h12z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  在Markdown中编写数学公式
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Markdown/zensical-markdown/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5zm2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63s2.59.23 3.5.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  在 Zensical 中使用 Markdown 高效写作
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Markdown/markdown-typora/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7V5h2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L18 9V2h1c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7zm4 4H5v2h2zm0-4V5H5v2zm0 12v-2H5v2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Markdown 与 Typora 学习笔记
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Markdown/typora-theme/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 12a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 17.5 9a1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-3-4A1.5 1.5 0 0 1 13 6.5 1.5 1.5 0 0 1 14.5 5 1.5 1.5 0 0 1 16 6.5 1.5 1.5 0 0 1 14.5 8m-5 0A1.5 1.5 0 0 1 8 6.5 1.5 1.5 0 0 1 9.5 5 1.5 1.5 0 0 1 11 6.5 1.5 1.5 0 0 1 9.5 8m-3 4A1.5 1.5 0 0 1 5 10.5 1.5 1.5 0 0 1 6.5 9 1.5 1.5 0 0 1 8 10.5 1.5 1.5 0 0 1 6.5 12M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9 1.5 1.5 0 0 0 1.5-1.5c0-.39-.15-.74-.39-1-.23-.27-.38-.62-.38-1a1.5 1.5 0 0 1 1.5-1.5H16a5 5 0 0 0 5-5c0-4.42-4.03-8-9-8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Typora 软件主题分享与记录
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../WebDev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.19 14.19 6 18l3.81-8.19L18 6m-6-4A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 8.9a1.1 1.1 0 0 0-1.1 1.1 1.1 1.1 0 0 0 1.1 1.1 1.1 1.1 0 0 0 1.1-1.1 1.1 1.1 0 0 0-1.1-1.1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Web 相关开发
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Web 相关开发
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../WebDev/%E4%BD%BF%E7%94%A8EO-Pages%E6%89%98%E7%AE%A1Zensical%E7%AB%99%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83s-2.05.78-2.83 0m-5.66 7.07-1.41-1.41zM6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  使用 EdgeOne Pages 托管 Zensical 站点
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E8%A1%A8%E5%8D%95%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.13c-.15.01-.29.06-.39.17l-1 1 2.05 2 1-1c.22-.21.22-.56 0-.77l-1.24-1.23a.56.56 0 0 0-.38-.17m-2 1.75L13 19.94V22h2.06l6.06-6.07M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7v-.89l8.24-8.22c.47-.49 1.12-.76 1.8-.76.34 0 .68.06 1 .19V6c0-1.12-.92-2-2.04-2m0 4-8 5-8-5V6l8 5 8-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  为 Zensical 站点添加邮件表单功能
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../WebDev/%E5%9F%BA%E4%BA%8EEO-Pages%E5%AE%9E%E7%8E%B0%E7%AB%99%E7%82%B9%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于 EdgeOne Pages 实现站点访问统计功能
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0AI%E9%97%AE%E7%AD%94%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-1.26 2.75L15 5l2.74 1.26L19 9l1.25-2.74L23 5l-2.75-1.25M9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5M19 15l-1.26 2.74L15 19l2.74 1.25L19 23l1.25-2.75L23 19l-2.75-1.26"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  为 Zensical 站点添加 AI 问答功能
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  为 Zensical 站点添加音乐播放器功能
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  嵌入式开发
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  嵌入式开发
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于STM32的便携式信号采集设备研究
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于STM32的便携式信号采集设备研究
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+      
+        
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        摘要
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第一章 绪论
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第一章 绪论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1.1 研究背景
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1.2 现有测量方法及局限性
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1.3 本文研究内容及章节安排
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 本文研究内容及章节安排">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1.3.1 本文研究内容
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1.3.2 论文章节安排
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第二章 系统总体方案设计
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第二章 系统总体方案设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.1 被测轨道信号特征分析
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.2 系统设计目标与主要性能指标
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.3 关键技术方案选型
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.4 系统总体架构
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第三章 系统硬件电路设计
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第三章 系统硬件电路设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.1 接口配置与人机交互电路
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.2 模拟前端调理电路
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.3 滞回比较器测频电路
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.4 综合电源管理电路
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第四章 下位机嵌入式软件系统设计
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第四章 下位机嵌入式软件系统设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.1 前后台系统架构设计
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-dma" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.2 高速数据采集与 DMA 传输优化
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.3 波形捕获与实时渲染算法
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.4 USB 数据通讯协议设计
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第五章 上位机数据分析系统设计
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第五章 上位机数据分析系统设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.1 数据接收与预处理管线
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.2 可视化交互界面设计
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.3 轨道信号处理专用算法实现
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 轨道信号处理专用算法实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-zpw-2000a" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.3.1 ZPW-2000A移频信号解调算法
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-25hz" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.3.2 25Hz相敏轨道电路检测算法
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第六章 系统测试与总结展望
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第六章 系统测试与总结展望">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6.1 系统基础测量与通讯性能综合测试
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6.2 轨道专用功能验证
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6.3 总结与展望
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        END 致谢
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E5%9B%9B%E8%BD%AE%E7%A7%BB%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 0 0 5 15.5 2.5 2.5 0 0 0 7.5 18a2.5 2.5 0 0 0 2.5-2.5A2.5 2.5 0 0 0 7.5 13m9 0a2.5 2.5 0 0 0-2.5 2.5 2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于STM32的四轮移动机器人设计
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9F%BA%E4%BA%8ERFID%E7%9A%84%E6%99%BA%E8%83%BD%E4%BB%93%E5%82%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h2v2H6zm6-16L2 8v13h2v-8h16v8h2V8zm-4 8H4V9h4zm6 0h-4V9h4zm6 0h-4V9h4zM6 15h2v2H6zm4 0h2v2h-2zm0 4h2v2h-2zm4 0h2v2h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于RFID的智能仓储管理系统设计
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2024%E7%94%B5%E8%B5%9BH%E9%A2%98%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2c-.9 0-2 1-2 2H8c0-1-1.1-2-2-2H2v9c0 1 1 2 2 2h2.2c.4 2 1.7 3.7 4.8 4v2.08C8 19.54 8 22 8 22h8s0-2.46-3-2.92V17c3.1-.3 4.4-2 4.8-4H20c1 0 2-1 2-2V2zM6 11H4V4h2zm14 0h-2V4h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  2024电赛H题参赛记录
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2024%E8%A5%BF%E9%97%A8%E5%AD%90%E6%9D%AF%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4v2l5.81 4.36a7.004 7.004 0 0 0-4.46 8.84 6.996 6.996 0 0 0 8.84 4.46 7 7 0 0 0 0-13.3L20 4zm-5.06 17.5L12 17.78 9.06 19.5l.78-3.33-2.59-2.24 3.41-.29L12 10.5l1.34 3.14 3.41.29-2.59 2.24z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  2024西门子杯参赛记录
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  蓝桥杯嵌入式与STM32学习笔记
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PCB%E8%AE%BE%E8%AE%A1%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0 3 7l1.63 1.27L12 14l7.36-5.73L21 7zm7.37 10.73L12 16.47l-7.38-5.73L3 12l9 7 9-7zm0 5L12 21.47l-7.38-5.73L3 17l9 7 9-7z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  PCB设计注意事项
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9F%BA%E4%BA%8ECD4017%E7%9A%84%E7%AE%80%E6%98%93%E5%AF%86%E7%A0%81%E5%99%A8%E6%8E%A7%E5%88%B6%E8%A3%85%E7%BD%AE/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m5.6-4c-.8-2.3-3-4-5.6-4-3.3 0-6 2.7-6 6s2.7 6 6 6c2.6 0 4.8-1.7 5.6-4H16v4h4v-4h3v-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于CD4017的简易密码器控制装置
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Software/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v10H4m16 2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  软件程序开发
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  软件程序开发
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Software/%E5%9F%BA%E4%BA%8EAST%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E7%9A%84Python%E6%96%87%E4%BB%B6%E6%9F%A5%E9%87%8D/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18H6v-2h4zm0-4H6v-2h4zm0-13v1H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h4v1h2V1zm10 7v12c0 1.11-.89 2-2 2h-4v-2h4v-9h-4V9h4.5L14 4.5V2zm-4 6h-2v-2h2zm0 4h-2v-2h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于AST语义分析的Python文件查重
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Software/%E6%97%8B%E8%BD%AC%E9%9F%B3%E5%BE%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m0 2v12h16V6zm3.24.58 11.59 3.11-2.07 7.73-11.59-3.11z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于Pyside6与ffmpeg的旋转音律视频稳定工具
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Software/Turbot4%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Turbot4机器人开发记录
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Tools/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.8 3.8 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.8 3.8 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  工具与资源
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  工具与资源
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tools/Git%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-git-merge" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Git网络代理设置教程
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tools/%E5%8D%A1%E8%A5%BF%E6%AC%A7fx-991%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4zm0 6v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  卡西欧fx-991使用技巧
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  计算机科学
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  计算机科学
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CS/uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55 6.28-3.63-.58-1.01-6.28 3.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Python 下一代包管理器 uv 上手指南
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CS/MSYS2%E9%85%8D%E7%BD%AEC++%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 19v-3h8v3zm-4.5-6L2.47 7h4.24l4.96 4.95c.58.59.58 1.55 0 2.12L6.74 19H2.5z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  MSYS2配置C/C++运行环境
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/guest-board/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 12V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14l4-4h10a1 1 0 0 0 1-1m4-6h-2v9H6v2a1 1 0 0 0 1 1h11l4 4V7a1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  留言板
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  友链
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  友链
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 17q.86 0 1.45.6t.58 1.4L14 22l-7-2v-9h1.95l7.27 2.69q.78.31.78 1.12 0 .47-.34.82t-.86.37H13l-1.75-.67-.33.94L13 17zM16 3.23Q17.06 2 18.7 2q1.36 0 2.3 1t1 2.3q0 1.03-1 2.46t-1.97 2.39T16 13q-2.08-1.89-3.06-2.85t-1.97-2.39T10 5.3q0-1.36.97-2.3t2.34-1q1.6 0 2.69 1.23M.984 11H5v11H.984z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  朋友们
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/friendly-links-guide/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 14c-2.67 0-8 1.33-8 4v2h16v-2c0-2.67-5.33-4-8-4m-9-4V7H4v3H1v2h3v3h2v-3h3v-2m6 2a4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4 4 4 0 0 0 4 4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  友链申请指南
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/contact-form/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 8V7l-3 2-3-2v1l3 2m4-7H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M8 6a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m6 12H2v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1m8-5h-8V6h8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  联系表单
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nav.sufine.top" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  导航站
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://009420.xyz" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  笔记本
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录 On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录 On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        摘要
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第一章 绪论
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第一章 绪论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1.1 研究背景
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1.2 现有测量方法及局限性
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1.3 本文研究内容及章节安排
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 本文研究内容及章节安排">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1.3.1 本文研究内容
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1.3.2 论文章节安排
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第二章 系统总体方案设计
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第二章 系统总体方案设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.1 被测轨道信号特征分析
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.2 系统设计目标与主要性能指标
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.3 关键技术方案选型
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.4 系统总体架构
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第三章 系统硬件电路设计
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第三章 系统硬件电路设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.1 接口配置与人机交互电路
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.2 模拟前端调理电路
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.3 滞回比较器测频电路
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.4 综合电源管理电路
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第四章 下位机嵌入式软件系统设计
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第四章 下位机嵌入式软件系统设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.1 前后台系统架构设计
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-dma" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.2 高速数据采集与 DMA 传输优化
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.3 波形捕获与实时渲染算法
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.4 USB 数据通讯协议设计
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第五章 上位机数据分析系统设计
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第五章 上位机数据分析系统设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.1 数据接收与预处理管线
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.2 可视化交互界面设计
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.3 轨道信号处理专用算法实现
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 轨道信号处理专用算法实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-zpw-2000a" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.3.1 ZPW-2000A移频信号解调算法
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-25hz" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.3.2 25Hz相敏轨道电路检测算法
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        第六章 系统测试与总结展望
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第六章 系统测试与总结展望">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6.1 系统基础测量与通讯性能综合测试
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6.2 轨道专用功能验证
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6.3 总结与展望
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        END 致谢
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  
+  <span class="md-ellipsis">
+    关于本站
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    技术开发
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    嵌入式开发
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/weigo6/suffine-hub/edit/main/docs/tech-dev/Embedded/基于STM32的便携式信号采集设备研究.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/weigo6/suffine-hub/raw/main/docs/tech-dev/Embedded/基于STM32的便携式信号采集设备研究.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+<h1 id="stm32">基于STM32的便携式信号采集设备研究<a class="headerlink" href="#stm32" title="跳转至本节的锚点链接">&para;</a></h1>
+<h2 id="_1">摘要<a class="headerlink" href="#_1" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>随着我国铁路及轨道交通网络的快速扩容，列车运行控制系统的可靠性直接关系到运营效率与乘客安全。针对当前现场维护中，测试设备便携性差、功能单一及智能化程度不足的痛点，本文设计并实现了一款基于STM32的便携式多功能轨道交通信号采集与分析系统，实现对轨道交通ZPW-2000A移频信号和25Hz相敏轨道电路信号的高精度波形采集、特征参数解调与干扰定量评估，旨在为现场设备的日常维护与故障初判提供智能化测试手段。</p>
+<p>该系统以STM32F103C8T6微控制器为核心，构建了嵌入式前端基础测量与上位机深度分析相协同的系统架构。硬件设计上，搭建了具备宽电压前端调理与双通道同步采样能力的便携式终端，实现了现场信号的高保真数字化；软件实现上，下位机结合前后台调度与DMA传输保障了实时性，而基于Python开发的上位机则深度集成了轨道专用算法。具体而言，针对ZPW-2000A移频信号，提出基于希尔伯特变换的解调与频谱重心校正算法，精准提取载频与低频信息；针对25Hz相敏信号，采用互相关与单频点DFT算法，有效克服了低采样率限制与栅栏效应，实现高精度相位测量与工频干扰评估。</p>
+<p>系统综合测试结果表明：在基础测量中，系统可稳定捕获10kHz以内典型波形，USB通讯链路支持100kS/s数据流稳定吞吐；在轨道专用功能测试中，ZPW-2000A载频测量误差控制在±0.3Hz以内，低频解调误差保持在±0.1Hz范围内并能准确识别码位与行车逻辑；25Hz相敏信号在叠加11%工频干扰下仍能实现高精度相位差测量与干扰分离。该系统具备便携、低成本及专用分析能力强的优势，能够满足轨道交通信号设备的日常维护与精准“状态修”需求，具有重要的工程应用价值。</p>
+<p><strong>关键词：</strong> 嵌入式系统；STM32；信号采集；ZPW-2000A；25Hz相敏轨道电路；故障诊断</p>
+<h2 id="_2">第一章 绪论<a class="headerlink" href="#_2" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="11">1.1 研究背景<a class="headerlink" href="#11" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>随着我国铁路及轨道交通网络的快速扩容，列车运行控制系统作为保障行车安全的核心，其可靠性直接关系到运营效率与行车安全。轨道电路作为列车位置检测与行车许可传递的关键设备，其信号的实时采集与分析是日常维护与故障诊断的基础。</p>
+<p>ZPW-2000A无绝缘轨道电路自动闭塞系统与25Hz相敏轨道电路是我国铁路系统广泛采用的两种关键轨道电路制式。ZPW-2000A主要承担着轨道区段占用检测与机车信号信息传输的重任；25Hz相敏轨道电路则在复杂电磁环境下（如50Hz工频牵引电流干扰）承担高可靠的轨道占用检测。</p>
+<p>对这两类关键信号进行精确测量的需求，来源于行车安全的刚性约束。信号的质量（如载频精度、低频信息完整性及相位偏差等）直接关系到列车的行车许可与安全，参数一旦超限便可能导致机车信号误显示、继电器误动作，甚至引发“红光带”故障或列车冒进。在维护作业层面，现场信号工需要定期巡检轨道电路发送端与接收端的电压、频率及相位参数，判断设备是否工作在正常范围。</p>
+<p>然而，当前轨道交通现场维护面临的突出矛盾是：一方面，传统的人工记录方式效率低下，且无法捕捉瞬态干扰或偶发性波形畸变。尤其是在面对“闪红”或“掉码”等间歇性故障时，由于缺乏有效的波形记录与回溯手段，维护人员难以精准分析是否存在工频干扰、电缆绝缘不良或调谐单元失效等深层问题；另一方面，现有测量设备在便携性、专用分析能力以及设备成本之间往往难以兼顾，导致现场作业人员缺乏能够高效、全面评估信号质量的智能化综合测试工具。</p>
+<p>因此，突破传统测量局限，实现信号特征的完整采集与分析，研发一款高性价比、便携化、智能化的专用信号采集设备，能够辅助完成信号质量评估与故障初判，对于提升"天窗期"内的作业效率、实现信号设备的精准"状态修"（即基于设备实际运行状态而非固定周期的精准维修）具有重要的工程应用价值。</p>
+<h3 id="12">1.2 现有测量方法及局限性<a class="headerlink" href="#12" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>当前，信号采集与分析设备的技术发展呈现明显的分层格局，针对轨道交通信号的测量手段主要包括以下几类，但均存在不同程度的适用性局限：</p>
+<p>在高端通用仪器领域，以 Keysight、Tektronix 为代表的台式示波器虽具备 GHz 级带宽与深存储深度，但其性能指标远超轨道交通低频控制信号（基波小于 3kHz）的实际需求，造成资源与成本的冗余。此外，受限于体积、市电依赖及接地要求等物理约束，此类设备难以部署于隧道、高架等空间受限且环境复杂的现场作业场景。</p>
+<p>在便携式通用仪器领域，国产手持示波表虽解决了便携与供电问题，但多为通用型设计，缺乏针对铁路信号特征的专用分析功能。例如，传统设备仅能提供时域波形与基础 FFT 频谱，无法直接解调 ZPW-2000A 的载频与低频信息，也不能精确计算 25Hz 相敏信号的双通道相位差；同时在瞬态波形捕捉、长时数据记录及智能化故障研判方面仍存在不足，依赖人工经验，大大降低了诊断效率。</p>
+<p>在行业专用测试工具领域，现有设备往往功能单一，呈现“一表一功能”的碎片化特征。部分 ZPW-2000A 测试仪仅能读取解调后的数值，无法显示原始波形，当出现干扰或畸变时难以追溯根源；25Hz 相位测试仪虽能测量相位，但缺乏对 50Hz 工频干扰强度的同步评估能力。这种功能割裂增加了现场作业的设备携带负担与数据综合研判难度。</p>
+<p>从信号处理算法实现角度分析，现有测量方法存在若干关键局限性。由于 ZPW-2000A 信号的能量分布于两个边频（<span class="arithmatex">\(f_{c}  ± 11 Hz\)</span> ，<span class="arithmatex">\(f_c\)</span> 为中心载频），传统基于 FFT 峰值搜索的测频算法容易锁定边频而非载频中心，若不加修正将引入原理性偏差。相位测量受栅栏效应制约是 25Hz 相敏信号检测的技术瓶颈，标准 FFT 算法将频谱离散化为等间距频点，当信号频率（如 25Hz）无法与频点对齐时，能量会通过频谱泄露分散到多个频点，导致峰值频点处的相位值严重偏离真实初相位。在采样率受限的嵌入式系统中，实现整周期采样或高精度插值算法的复杂度较高。抗干扰能力弱是现场测量的突出挑战。轨道交通现场电磁环境复杂，牵引电流谐波、开关电源噪声及无线电信号交织，传统线性滤波器在抑制噪声的同时往往会模糊信号边缘特征，导致 FSK 跳变沿失真或相位测量偏差。如何在去噪与保真之间取得平衡，是算法设计的关键难点。</p>
+<p>近年来，嵌入式技术的发展为低成本专用仪表提供了新路径。基于 ARM Cortex-M 系列微控制器（如 STM32）的高集成度方案，配合针对性的模拟调理电路与优化算法，已具备在有限资源下实现精确采集的潜力。特别是其内置的多通道同步 ADC 与 DMA 机制，为双通道相位差测量与高采样率数据吞吐提供了硬件基础，使得研发一款集便携性、专用性与智能化于一体的现场维护设备成为可能。</p>
+<h3 id="13">1.3 本文研究内容及章节安排<a class="headerlink" href="#13" title="跳转至本节的锚点链接">&para;</a></h3>
+<h4 id="131">1.3.1 本文研究内容<a class="headerlink" href="#131" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>为解决上述现场测量手段存在的诸多局限性，本文旨在研发一套基于嵌入式架构的便携式多功能信号采集与分析系统。研究遵循“硬件便携化—采集高精度化—算法专用化—软硬协同化”的技术路线，通过嵌入式前端基础测量与上位机深度分析相协同的系统架构，实现通用示波器功能与行业专用分析能力的有机融合。本文的研究工作主要围绕便携式采集终端的硬件构建、嵌入式下位机的底层软件与算法实现、可视化上位机的综合分析软件开发，以及系统的整体联调与性能评估层层展开。</p>
+<p>在硬件终端的设计上，本文以嵌入式微控制器为核心构建了紧凑型的电路架构。为了适应现场复杂的电磁环境，设计重点攻克了宽电压信号调理难题，搭建了高精度的双通道同步采样链路，并辅以液晶显示与人机交互模块，最终实现了设备的小型化与低功耗运行。</p>
+<p>在软件层面，下位机的开发聚焦于底层驱动的稳定性与高速数据传输链路的优化。针对嵌入式平台资源受限的特点，本文在下位机中实现了基础的数字信号处理与高精度测频算法，切实保障了ZPW-2000A与25Hz相敏信号等轨道交通典型信号采集的实时性与准确性。同时，为了进一步提升系统的数据分析能力，本文基于跨平台框架开发了桌面端可视化综合分析软件。该上位机程序不仅实现了与下位机的高速数据协同，还深度集成了希尔伯特变换、互相关分析等高级算法，能够对特定轨道信号进行深度解调与特征提取，并为现场作业人员提供直观友好的图形化交互界面。</p>
+<p>最后，为验证系统设计的可靠性与实用性，本文搭建了标准信号源测试环境，对系统的各项功能模块与整体性能进行了严谨的联调与测试评估，以确保设备能够充分满足现场维护与故障诊断的实际需求。</p>
+<h4 id="132">1.3.2 论文章节安排<a class="headerlink" href="#132" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>本文围绕便携式信号采集设备的设计与实现展开，共分为六章，具体安排如下：</p>
+<ul>
+<li>第一章 绪论：阐述课题的研究背景与工程意义，分析现有轨道交通信号测量方法的局限性，明确本文的研究目标与主要内容，并介绍论文的章节组织结构。</li>
+<li>第二章 系统总体方案设计：根据现场测试需求制定系统的主要性能指标，提出嵌入式前端基础测量与上位机深度分析相协同的总体架构，并对核心主控芯片、信号调理及通信策略等关键技术方案进行初步选型与论证。</li>
+<li>第三章 系统硬件电路设计：详细介绍下位机采集终端的硬件实现，包括核心控制器电路、接口与人机交互电路以及宽电压模拟前端调理电路的设计原理与参数计算。</li>
+<li>第四章 下位机嵌入式软件系统设计：详细阐述下位机嵌入式软件的控制流与数据流设计，重点分析多通道同步采样、DMA数据传输、软硬件协同测频等关键程序的代码实现。</li>
+<li>第五章 上位机数据分析系统设计：阐述基于Python的上位机分析软件架构，重点论述通信解析、ZPW-2000A信号的包络解调与测频、以及25Hz相敏信号相位提取等高级处理算法的数学原理与实现过程。</li>
+<li>第六章 系统测试与总结展望：展示系统的实物原型，分别对设备各项基础测量功能及轨道交通专用分析功能进行测试与评估，对全文研究工作进行总结，并提出后续改进方向。</li>
+</ul>
+<h2 id="_3">第二章 系统总体方案设计<a class="headerlink" href="#_3" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="21">2.1 被测轨道信号特征分析<a class="headerlink" href="#21" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本系统主要针对 ZPW-2000A 移频信号与 25Hz 相敏轨道电路信号这两种信号的物理特征进行深度解析与参数测量。为了实现精准的采集与分析，首先需要明确这两种被测信号的核心特征。</p>
+<p>ZPW-2000A 是一种无绝缘轨道电路自动闭塞系统，主要用于实现轨道区段占用检测和机车信号信息传输。其核心机制是以频率参数作为控制信息载体，采用频移键控（FSK）调制方式。具体而言，系统将低频控制信号（信息码）“搬移”到较高的载频上，形成一种振幅恒定、频率随低频信号周期性变化的调频信号。实际发送的信号是以载频为中心、按低频周期在两个边频之间交替切换的移频信号，频偏 <span class="arithmatex">\(\Delta f\)</span> 为 <span class="arithmatex">\(\pm 11\text{ Hz}\)</span>。</p>
+<p>如图 2-1 所示，该移频信号的特征主要体现在两个方面：首先，上方子图展示了瞬时频率的低频方波特性，即中心频率受低频信号调制，在上下边频间作周期性跳变；其次，下方子图呈现了载波时域波形，局部放大表明在频率切换时刻，载波振幅保持连续恒定，仅周期发生改变。该调频机制构成了后续数字信号处理链路的解调基础。</p>
+<p><img alt="image-20260415005336687" src="../基于STM32的便携式信号采集设备研究.assets/image-20260415005336687.png" /></p>
+<center>图 2-1 ZPW2000A移频信号原理示意图</center>
+
+<p>在载频特性方面，ZPW-2000A 拥有 4 种中心频率（1700 Hz、2000 Hz、2300 Hz、2600 Hz）。为了实现相邻轨道区段的电气隔离，系统为每种中心频率设置了“-1”（中心频率 +1.4Hz）和“-2”（中心频率 -1.3Hz）两种偏移版本，从而形成两组共 8 种实际使用的载频信号，分别用于上下行方向，具体规定如下表所示：</p>
+<center>表 2-1 ZPW2000A中的8种载频信号</center>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">下行</th>
+<th style="text-align: center;">信号频率（Hz）</th>
+<th style="text-align: center;">上行</th>
+<th style="text-align: center;">信号频率（Hz）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1700-1</td>
+<td style="text-align: center;">1701.4</td>
+<td style="text-align: center;">2000-1</td>
+<td style="text-align: center;">2001.4</td>
+</tr>
+<tr>
+<td style="text-align: center;">1700-2</td>
+<td style="text-align: center;">1698.7</td>
+<td style="text-align: center;">2000-2</td>
+<td style="text-align: center;">1998.7</td>
+</tr>
+<tr>
+<td style="text-align: center;">2300-1</td>
+<td style="text-align: center;">2301.4</td>
+<td style="text-align: center;">2600-1</td>
+<td style="text-align: center;">2601.4</td>
+</tr>
+<tr>
+<td style="text-align: center;">2300-2</td>
+<td style="text-align: center;">2298.7</td>
+<td style="text-align: center;">2600-2</td>
+<td style="text-align: center;">2598.7</td>
+</tr>
+</tbody>
+</table>
+<p>ZPW-2000A 定义了 18 种标准低频信息码（10.3Hz 至 29Hz，步长 1.1Hz）。在本系统的采集与分析中，重点关注这18种低频调制频率的精确解调以及载波中心频率的识别，以验证被测信号的物理特性是否达标。</p>
+<p>25Hz 相敏轨道电路是一种广泛应用于中国铁路系统中的轨道占用检测系统。该系统以 25Hz 交流电源作为激励信号，通过检测钢轨回路中信号的幅值与相位特性，实现对轨道区段状态的可靠判别。</p>
+<p><img alt="image-20260419224737177" src="../基于STM32的便携式信号采集设备研究.assets/image-20260419224737177.png" /></p>
+<center>图 2-2 25Hz相敏轨道电路信号原理图</center>
+
+<p>其核心优势在于引入了相位敏感机制。该机制不仅依赖信号的幅值强度，更依据局部线圈电压与轨道线圈电压之间的固定相位关系（理想状态下为 90°）来进行状态判断。此外，在电气化铁路环境中，牵引电流（如 50Hz 工频及其高次谐波）极易对轨道电路造成干扰。25Hz 相敏轨道电路正是通过 25Hz 频率分离与 90° 相位鉴别的双重机制，有效抑制了此类工频干扰。</p>
+<p>针对 25Hz 相敏信号的特征，本采集系统需具备高精度的 25Hz 基波幅值测量能力、精确的 90° 相位差检测能力，以及对 50Hz 等工频干扰谐波的评估分析能力，从而保障信号特征分析的全面性与准确性。</p>
+<p>上述针对两种核心轨道信号物理特性的深度剖析，为整个系统的软硬件架构设计提供了直接的理论依据。以此需求为导向，本课题进一步确立了如下的总体设计目标与各项关键性能指标。</p>
+<h3 id="22">2.2 系统设计目标与主要性能指标<a class="headerlink" href="#22" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本课题的总体设计目标是面向轨道交通信号维护需求，构建一款“前端便携采集+后端深度分析”相协同的低成本、智能化信号测试系统。在硬件采集层面，系统需实现对现场复杂交直流信号的宽电压接入与双通道同步高速采集（最高采样率目标 500kSps ），以充分捕获低频控制信号及其高次谐波特征。在系统集成与便携性层面，终端设备需配备可视化人机交互界面，并内置独立电池供电与电源管理系统，以保障外场作业的续航与脱机使用能力；同时，系统需提供高速稳定的通信链路，支撑波形数据向上位机的实时透传。</p>
+<p>在专业信号分析能力上，系统需针对轨道交通核心信号实现高精度的特征提取与状态评估。借助上下位机协同处理架构，系统在完成基础波形参数测量的同时，需重点攻克 ZPW-2000A 移频信号的高精度载频识别与低频解调（精度分别需达 ±0.3Hz 与 ±0.1Hz ），以及 25Hz 相敏轨道电路信号的基波幅值测量与高精度相位差检测（相位精度±1°），并具备对 50Hz 工频干扰的定量分析能力。通过上述设计，系统最终旨在为现场设备的日常维护与故障初判提供高度集成的专业测试手段。</p>
+<h3 id="23">2.3 关键技术方案选型<a class="headerlink" href="#23" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>主控芯片选用 STM32F103C8T6 芯片，该选型主要基于其独特的双 ADC 架构与 DMA 支持。该芯片内置的两个 12 位 ADC 支持"双重规则同步模式"，这是实现双通道信号严格相位同步采集的关键技术基础，对于 25Hz 相敏轨道电路相位差的精确测量至关重要。同时，其支持的 DMA 传输机制，能够在不占用 CPU 资源的情况下将 ADC 数据高速搬运至内存，有效保证了高采样率下系统的实时响应能力。此外，Cortex-M3 内核 72MHz 的主频配合丰富的开发资料与低廉的成本，使其成为本设计的最佳性价比选择。</p>
+<p>模拟前端采用了"分压衰减 + 运算放大器"的组合架构以适应现场复杂的电磁环境与信号特征。设计中通过分压网络构建了 1MΩ的输入阻抗，以匹配标准示波器探头，最大限度减小接入对被测电路的负载效应。针对轨道交通信号多为含负半周的交流信号这一特点，设计采用了反相加法电路引入直流偏置，将双极性信号平移至单电源 MCU ADC 的线性区间（0-3.3V）。同时，为运放提供±5V 双电源供电，确保了信号在过零点附近的线性度，有效避免了单电源运放常见的轨对轨失真问题。</p>
+<p>在数据通信与处理策略方面，系统采用了 USB CDC 协议作为通信接口。该方案将 STM32 的 USB 接口模拟为标准串口，实现了即插即用且无需专用驱动，同时提供了远高于传统 UART 串口的传输速率，满足了实时波形传输的带宽需求。处理策略上，系统采取了“上下位机协同”的计算模式：下位机（MCU）专注于处理采样控制、触发判定及基础波形绘制等高实时性任务；上位机（PC）则承担长点数 FFT、希尔伯特变换解调等高算力需求任务。这种任务分配机制既保证了手持设备的运行流畅度，又实现了复杂的专业分析功能，达成了便携性与高性能的平衡。</p>
+<h3 id="24">2.4 系统总体架构<a class="headerlink" href="#24" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>系统整体采用嵌入式前端基础测量与上位机深度分析相协同的分层架构设计。下位机作为前端感知节点，主要负责信号的模拟调理、高速数字化采集、本地波形显示及数据上传；上位机作为后端处理中心，负责接收原始数据流，运行复杂的数字信号处理算法，并提供可视化交互与数据管理功能。</p>
+<p>下位机硬件平台以 STM32F103C8T6 微控制器为核心，集成了模拟前端、测频模块、主控单元、人机交互及电源管理等关键模块。模拟前端通过交直流耦合切换、精密电阻分压衰减、阻抗匹配及信号放大与电平平移电路，将现场的高压或负压信号调理为 ADC 可识别的 0-3.3V 标准信号。测频模块利用滞回比较器将模拟信号整形为方波，进而通过 MCU 定时器捕获单元实现频率的精确测量。主控单元充分利用 STM32 内部的双 ADC 资源，在 DMA 驱动下执行双重规则同步采样，从硬件层面保证了双通道数据的相位一致性。人机交互模块通过 TFT 屏幕实时刷新波形，并利用编码器和按键完成时基、电压档位等参数的配置。电源管理模块则负责将单节锂电池电压转换为系统所需的数字 3.3V、模拟±5V 及高精度 ADC 参考电压，确保各模块稳定运行。</p>
+<p>上位机软件基于 Python 语言开发。其通信模块通过 USB 虚拟串口接收下位机上传的实时采样数据流；数据处理模块对原始数据进行去噪处理与物理量还原；专业算法模块集成了希尔伯特变换、FFT、互相关分析等高级算法，专门用于 ZPW-2000A 信号解调及 25Hz 相敏信号分析；GUI 界面模块则提供了波形视窗、频谱视窗、仪表盘及数据记录等丰富的功能组件，构建了完整的信号分析环境。</p>
+<p>系统整体架构如图 2-3 所示。</p>
+<p><img alt="系统总体框架图.drawio" src="../基于STM32的便携式信号采集设备研究.assets/系统总体框架图.drawio.svg" /></p>
+<center>图 2-3 系统总体架构图</center>
+
+<h2 id="_4">第三章 系统硬件电路设计<a class="headerlink" href="#_4" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>在明确了系统的总体架构与关键技术选型后，本章将详细阐述下位机便携式采集终端的具体硬件实现方案。硬件电路是获取高质量信号的基础，其设计的核心在于如何在有限的体积与功耗约束下，实现对复杂现场信号的高精度调理与稳定采集。本章将从硬件整体资源分配出发，依次对人机交互接口、模拟前端调理电路、核心测频电路以及电源管理系统进行深入剖析。</p>
+<h3 id="31">3.1 接口配置与人机交互电路<a class="headerlink" href="#31" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本设计以 STM32F103C8T6 为控制核心，构建了完整的嵌入式测量系统。硬件架构主要由模拟前端调理与滞回比较测频电路、人机交互电路（集成显示屏、按键及编码器）、系统支撑电路（核心控制器电路、电源管理电路）以及通用通信接口组成。</p>
+<p>在具体的引脚分配策略上，系统优先保障了对实时性与精度要求极高的双路 ADC 采样与输入捕获通道；同时，将 SPI 显示与按键输入等数字外设合理穿插于剩余的 GPIO 引脚，以尽量避开可能的高频数字干扰。具体的 MCU 引脚功能分配情况如下表所示：</p>
+<center>表 3-1 MCU引脚功能分配表</center>
+
+<table>
+<thead>
+<tr>
+<th><strong>功能模块</strong></th>
+<th><strong>引脚名称</strong></th>
+<th><strong>硬件连接/协议</strong></th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1.8" TFT 显示屏</strong></td>
+<td>PA5, PA7, PB5-PB8</td>
+<td>SPI (SCK/MOSI) + GPIO</td>
+<td>控制显示及背光</td>
+</tr>
+<tr>
+<td><strong>信号采集 (ADC)</strong></td>
+<td>PA3, PA4</td>
+<td>ADC1_CH3, ADC2_CH4</td>
+<td>双路同步采样</td>
+</tr>
+<tr>
+<td><strong>频率捕获</strong></td>
+<td>PA6, PA1</td>
+<td>TIM3_CH1, TIM2_CH2</td>
+<td>定时器输入捕获</td>
+</tr>
+<tr>
+<td><strong>交互输入</strong></td>
+<td>PB13-PB15, PA8</td>
+<td>GPIO（外部中断）</td>
+<td>独立按键</td>
+</tr>
+<tr>
+<td><strong>旋转编码器</strong></td>
+<td>PB4, PB3, PB9</td>
+<td>GPIO（外部中断）</td>
+<td>EC11 调节参数</td>
+</tr>
+<tr>
+<td><strong>通讯/调试</strong></td>
+<td>PA11, PA12, PA9/10</td>
+<td>USB CDC / UART1</td>
+<td>数据传输与调试</td>
+</tr>
+</tbody>
+</table>
+<p>在完成了核心控制器的资源分配后，为提升便携式设备的易用性与扩展性，系统首先设计了必要的外围接口与人机交互模块，这包括 USB Type-C 接口、TFT 液晶显示屏、按键输入及编码器模块。这些模块共同构成了用户与设备之间信息交互的桥梁。</p>
+<p>如图3-1所示，系统采用USB Type-C接口兼顾供电与数据通讯功能。硬件设计上遵循标准规范，配置了相应的下拉识别电阻及差分信号线阻抗匹配，以确保与上位机通信的可靠性。</p>
+<p><img alt="type-c接口电路图" src="../基于STM32的便携式信号采集设备研究.assets/image-20260314121256501.png" /></p>
+<center>图 3-1 Type-C 接口电路图</center>
+
+<p>如图3-2所示，系统选用1.8寸TFT LCD屏幕（分辨率128x160），驱动芯片为ST7735。该屏幕通过SPI接口与MCU通信，用于实时显示系统状态、参数设置菜单及测量数据。</p>
+<p><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314121326756.png" alt="显示屏电路原理图" style="zoom:67%;" /></p>
+<center>图 3-2 显示屏接口电路图</center>
+
+<p>如图3-3所示，系统通过四个独立按键与一个旋转编码器（EC11）结合的方式构建输入模块，连接至微控制器的外部中断引脚，用于实现菜单导航、时基切换与功能确认等快捷操作。</p>
+<table>
+  <tr>
+    <td align="center"><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314121421186.png" width="400" alt="按键与LED原理图"></td>
+    <td align="center"><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314121444992.png" width="400" alt="旋钮五向开关原理图"></td>
+  </tr>
+</table>
+<center>图 3-3 按键与编码器输入电路图</center>
+
+<p>如图3-4所示，系统预留了PWM输出接口，连接至定时器通道PA2。该接口可用于输出占空比可调的PWM波形，用于便携式信号采集设备的波形自检功能。</p>
+<p><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314121538230.png" alt="PWM输出接口" style="zoom:67%;" /></p>
+<center>图 3-4 PWM 输出接口电路图</center>
+
+<p>在保障了良好的人机交互体验与基础接口功能之后，系统面临的最核心挑战是如何在复杂电磁环境下准确获取真实的物理信号。这就要求系统具备高性能的模拟前端处理能力。</p>
+<h3 id="32">3.2 模拟前端调理电路<a class="headerlink" href="#32" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>模拟前端的设计直接决定了系统的测量精度与动态范围。由于轨道交通现场信号具有电压波动范围大、含负半周、叠加高频干扰等复杂特征，因此模拟前端调理电路必须完成衰减、耦合、电平平移及滤波四项核心功能，将待测信号平滑地处理至 STM32 ADC 引脚可接受的电压范围（0~3.3V）。模拟前端调理流程如图 3-5 所示，具体电路如图 3-6 所示。</p>
+<p><img alt="模拟前端调理流程图.drawio" src="../基于STM32的便携式信号采集设备研究.assets/模拟前端调理流程图.drawio.svg" /></p>
+<center>图 3-5 模拟前端调理流程图</center>
+
+<p><img alt="前端调理电路" src="../基于STM32的便携式信号采集设备研究.assets/image-20260228225142620.png" /></p>
+<center>图 3-6 模拟前端调理电路图</center>
+
+<p>（1）输入耦合方式选择</p>
+<p>为了实现上述调理流程，信号首先需要经过耦合选择与分压衰减网络。如图3-6所示在硬件设备上可以通过拨动开关 SW1 选择信号进入方式。DC 耦合方式将信号直连，保留直流分量。AC 耦合则用于测量交流电，通过串联电容 <span class="arithmatex">\(C_1\)</span> 与后级分压电阻网络（总阻抗约 <span class="arithmatex">\(1\text{M}\Omega\)</span>）构成高通滤波器，滤除直流。</p>
+<p>（2）1MΩ精密电压衰减网络</p>
+<p>为了测量高电压信号，电路设计了由 <span class="arithmatex">\(R_1, R_7, R_{13}, R_{18}, R_{22}, R_{26}\)</span> 构成的精密电阻分压网络，由 SW2 旋转开关决定信号的衰减倍数，共设计四个档位。设前端电路在特定档位下的整体衰减倍数为 <span class="arithmatex">\(K_{att}\)</span>，其值由该档位分压节点到地的等效电阻与总阻抗之比决定。同时，为了补偿分布电容对高频信号的影响，在不同衰减档位并联了相应的频率补偿电容（<span class="arithmatex">\(C_3, C_6, C_8\)</span>），以确保全频带内的幅频特性平坦。各档位的详细参数配置（包括对地电阻与对应的 <span class="arithmatex">\(K_{att}\)</span> 值）详见表 3-2。</p>
+<p>（3）电压跟随器</p>
+<p>信号经过上述无源分压网络后，由于其输出阻抗显著增加，若直接接入后级处理电路，极易引发严重的负载效应并导致测量失真。为此，本设计在分压网络之后引入了由 TL072CDR 构成的电压跟随器（U14.1），以实现关键的阻抗变换。其核心原理基于运算放大器的“虚短”与“虚断”特性，同相输入端（Pin 3）的信号电压直接“传递”到了反相输入端（Pin 2）。因为输出端（Pin 1）与反相输入端短接，故有 <span class="arithmatex">\(V_out=V_in\)</span>。TL072 作为 JFET 输入型双运放，相比于普通的双极型运放，其输入阻抗高达 <span class="arithmatex">\(10^{12}\Omega\)</span>，输入偏置电流极低，“虚断”特性更接近理想状态，有利于高阻抗信号源的采集。</p>
+<p>（4）反向比例放大</p>
+<p>经过跟随器的高保真缓冲后，信号已具备足够的驱动能力。然而，由于 STM32 的 ADC 仅能采集 <span class="arithmatex">\(0 \sim 3.3\text{V}\)</span> 的正电压，而前级跟随器输出的信号 <span class="arithmatex">\(V_{out1}\)</span> 可能包含负压成分且幅值范围较大，因此必须通过比例放大电路进行缩放与平移。本设计采用由 TL072（U14.2）构成的反相加法/比例放大拓扑。</p>
+<p>在该线性电路中，输出电压 <span class="arithmatex">\(V_{ADC}\)</span> 是输入信号 <span class="arithmatex">\(V_{out1}\)</span> 与同相端偏置电压 <span class="arithmatex">\(V_+\)</span> 共同作用的结果。由于该比例放大电路工作于线性区，依据线性叠加原理，其输出端响应可分解为直流偏置响应与交流信号响应两部分。</p>
+<p>首先，分析直流偏置回路。同相输入端由 <span class="arithmatex">\(+5\text{V}\)</span> 参考电源经 <span class="arithmatex">\(R_{20}\)</span> 与 <span class="arithmatex">\(R_{21}\)</span> 分压网络建立 <span class="arithmatex">\(V_+ \approx 1.667\text{V}\)</span> 的偏置电压。当仅考虑直流激励时，电路等效为同相放大拓扑，其静态输出基准 <span class="arithmatex">\(V_{ADC1}\)</span> 可表示为：</p>
+<div class="arithmatex">\[
+V_{ADC1} = V_+ \cdot \left(1 + \frac{R_9}{R_{15}}\right) = 1.667\text{V} \cdot \left(1 + \frac{10\text{k}\Omega}{20\text{k}\Omega}\right) = 2.5\text{V}
+\]</div>
+<p>其次，分析交流信号传输通路。当输入信号 <span class="arithmatex">\(V_{out1}\)</span> 单独激励时，电路等效为反相衰减器，其动态输出响应 <span class="arithmatex">\(V_{ADC2}\)</span> 为：</p>
+<div class="arithmatex">\[
+V_{ADC2} = -V_{out1} \cdot \left(\frac{R_9}{R_{15}}\right) = -0.5 \cdot V_{out1}
+\]</div>
+<p>综合上述交、直流响应，可推导出模拟前端调理电路的完整传递函数：</p>
+<div class="arithmatex">\[
+V_{ADC} = V_{ADC1} + V_{ADC2} = 2.5\text{V} - 0.5 \cdot V_{out1}
+\]</div>
+<p>考虑到微控制器内部 12 位 ADC 的量化特性（参考电压 <span class="arithmatex">\(V_{ref} = 3.3\text{V}\)</span>），量化后的数字值 <span class="arithmatex">\(ADC_{raw}\)</span> 与实际输入电压满足线性映射关系。结合前级分压网络的衰减系数 <span class="arithmatex">\(K_{att}\)</span>，可建立从 ADC 采样值至原始待测信号 <span class="arithmatex">\(V_{in}\)</span> 的逆向重构模型：</p>
+<div class="arithmatex">\[
+V_{in} = \frac{1}{K_{att}} \cdot V_{out1} = \frac{1}{K_{att}} \cdot \left[ 5 - 2 \cdot \left( \frac{ADC_{raw}}{4095} \cdot 3.3 \right) \right]
+\]</div>
+<p>为确保硬件电路运行的安全边界及模数转换的线性度，ADC 端口的输入电压 <span class="arithmatex">\(V_{ADC}\)</span> 必须被严格钳位在 <span class="arithmatex">\(0\text{V} \sim 3.3\text{V}\)</span> 区间。将该约束条件代入上述传递函数的逆映射中，可解算得前级电压跟随器的安全输出动态范围为 <span class="arithmatex">\([-1.6\text{V}, +5\text{V}]\)</span>。基于该动态边界与各档位的衰减系数 <span class="arithmatex">\(K_{att}\)</span>，系统在不同增益配置下的理论测量量程得以确定，具体参数详见表 3-2。</p>
+<center>表 3-2 前端分压网络各衰减档位参数及测量范围</center>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">档位选择</th>
+<th style="text-align: center;">采样节点 (对地电阻)</th>
+<th style="text-align: center;">衰减倍数 <span class="arithmatex">\(K_{att}\)</span></th>
+<th style="text-align: center;">补偿电容</th>
+<th style="text-align: center;">理论测量范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1x (SW2 Pin 1)</td>
+<td style="text-align: center;">直接输入 (<span class="arithmatex">\(1\text{M}\Omega\)</span>)</td>
+<td style="text-align: center;"><span class="arithmatex">\(1\)</span></td>
+<td style="text-align: center;">无</td>
+<td style="text-align: center;"><span class="arithmatex">\(-1.6\text{V} \sim +5\text{V}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">10x (SW2 Pin 2)</td>
+<td style="text-align: center;"><span class="arithmatex">\(R_{13}\)</span> 下端 (<span class="arithmatex">\(100\text{k}\Omega\)</span>)</td>
+<td style="text-align: center;"><span class="arithmatex">\(1/10\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(C_3\)</span> (<span class="arithmatex">\(10\text{pF}\)</span>)</td>
+<td style="text-align: center;"><span class="arithmatex">\(-16\text{V} \sim +50\text{V}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">50x (SW2 Pin 5)</td>
+<td style="text-align: center;"><span class="arithmatex">\(R_{18}\)</span> 下端 (<span class="arithmatex">\(20\text{k}\Omega\)</span>)</td>
+<td style="text-align: center;"><span class="arithmatex">\(1/50\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(C_6\)</span> (<span class="arithmatex">\(82\text{pF}\)</span>)</td>
+<td style="text-align: center;"><span class="arithmatex">\(-80\text{V} \sim +250\text{V}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">100x (SW2 Pin 6)</td>
+<td style="text-align: center;"><span class="arithmatex">\(R_{22}\)</span> 下端 (<span class="arithmatex">\(10\text{k}\Omega\)</span>)</td>
+<td style="text-align: center;"><span class="arithmatex">\(1/100\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(C_8\)</span> (<span class="arithmatex">\(470\text{pF}\)</span>)</td>
+<td style="text-align: center;"><span class="arithmatex">\(-160\text{V} \sim +500\text{V}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>经过上述模拟前端的线性调理，复杂的外部模拟信号已安全平移并缩放至 ADC 的合法采样区间。除了幅度测量，轨道信号的频率参数同样至关重要。若仅依靠软件对 ADC 采样序列进行过零点提取来计算频率，不仅会大幅增加 MCU 的算法开销，且容易受限于采样率和高频残余噪声的干扰。为此，系统在前端调理电路的输出端并联了一级专用的硬件波形整形网络，将测频任务从数字软件层面前置到模拟硬件底层。</p>
+<h3 id="33">3.3 滞回比较器测频电路<a class="headerlink" href="#33" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>滞回比较器测频电路专门用于测量采集信号的精确频率。为了精确测量频率，信号经前端调理处理后进入 LM393 滞回比较器被整形为标准方波。由于常规比较器在信号含有微小噪声时容易在过零点产生多次翻转，从而导致定时器捕获产生误计数，本电路巧妙地引入了正反馈网络（如 <span class="arithmatex">\(R_{10}\)</span> 等）构建了滞回特性。滞回比较器的核心在于通过正反馈将输出端的电平状态回馈至同相输入端，从而动态改变比较器的基准电压。电路中通过引入高阻值的正反馈电阻 <span class="arithmatex">\(R_{5}\)</span> (<span class="arithmatex">\(510\text{k}\Omega\)</span>)，构成了极窄的弱滞回区间，有效平衡了抗噪能力与微弱信号的捕获灵敏度。</p>
+<p><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260313235621264.png" alt="滞回比较器测频电路" style="zoom:67%;" /></p>
+<center>图 3-7 滞回比较器测频电路</center>
+
+<p>在不考虑反馈时，同相输入端（Pin 3）的电压由 <span class="arithmatex">\(R_{4}\)</span> (<span class="arithmatex">\(10\text{k}\Omega\)</span>) 和 <span class="arithmatex">\(R_{11}\)</span> (<span class="arithmatex">\(20\text{k}\Omega\)</span>) 对 <span class="arithmatex">\(3.3\text{V}\)</span> 电源分压决定。其戴维南等效电压为：</p>
+<div class="arithmatex">\[
+V_{th} = 3.3\text{V} \cdot \frac{R_{11}}{R_{4} + R_{11}} = 3.3 \cdot \frac{20\text{k}}{30\text{k}} = 2.2\text{V}
+\]</div>
+<p>等效电阻为：<span class="arithmatex">\(R_{eq\_div} = 10\text{k} // 20\text{k} \approx 6.67\text{k}\Omega\)</span>。由于中间串联了 <span class="arithmatex">\(R_{10}\)</span> (<span class="arithmatex">\(10\text{k}\Omega\)</span>)，同相端的总等效输入电阻为 <span class="arithmatex">\(R_{eq} = 16.67\text{k}\Omega\)</span>。</p>
+<p>当比较器输出高电平时，LM393 内部输出管截止，输出端通过 <span class="arithmatex">\(R_{2}\)</span> (<span class="arithmatex">\(1\text{k}\Omega\)</span>) 上拉。此时 <span class="arithmatex">\(3.3\text{V}\)</span> 经由反馈支路对同相端产生微弱的拉升作用。</p>
+<p>计算等效上拉电阻 <span class="arithmatex">\(R_{up}\)</span>：</p>
+<div class="arithmatex">\[
+R_{up} = R_{4} // (R_{2} + R_{5} + R_{10}) = \frac{10\text{k} \cdot 521\text{k}}{10\text{k} + 521\text{k}} \approx 9.812\text{k}\Omega
+\]</div>
+<p>利用分压公式计算上限阈值：</p>
+<div class="arithmatex">\[
+V_{THH} = 3.3\text{V} \cdot \frac{R_{11}}{R_{up} + R_{11}} = 3.3 \cdot \frac{20\text{k}}{9.812\text{k} + 20\text{k}} \approx 2.214\text{V}
+\]</div>
+<p>当比较器输出为低电平时，LM393 内部输出管饱和导通，输出端（Pin 1）近似接地（0V）。此时，反馈支路变为下拉状态。</p>
+<p>计算等效下拉电阻 <span class="arithmatex">\(R_{down}\)</span>：</p>
+<div class="arithmatex">\[
+R_{down} = R_{11} // (R_{10} + R_{5}) = \frac{20\text{k} \cdot 520\text{k}}{20\text{k} + 520\text{k}} \approx 19.259\text{k}\Omega
+\]</div>
+<p>利用分压公式计算下限阈值：</p>
+<div class="arithmatex">\[
+V_{THL} = 3.3\text{V} \cdot \frac{R_{down}}{R_{4} + R_{down}} = 3.3 \cdot \frac{19.259\text{k}}{10\text{k} + 19.259\text{k}} \approx 2.172\text{V}
+\]</div>
+<p>滞回电压宽度 <span class="arithmatex">\(\Delta V\)</span> 为：</p>
+<div class="arithmatex">\[
+\Delta V = V_{THH} - V_{THL} = 2.214\text{V} - 2.172\text{V} = 42\text{mV}
+\]</div>
+<p>本电路设计的 <span class="arithmatex">\(42\text{mV}\)</span> 滞回窗口能够有效滤除信号中的微小高频噪声，防止在过零点附近产生误触发。由于回差极小，该电路能够对峰峰值仅为 <span class="arithmatex">\(50\text{mV}\)</span> 左右的微弱信号进行准确的频率捕获，兼顾了测量精度与稳定性。<span class="arithmatex">\(2.2\text{V}\)</span> 左右的阈值中心与前级 AFE 在处理正向摆动信号时的动态区间高度匹配，保证了信号在宽量程下的测量可靠性。</p>
+<h3 id="34">3.4 综合电源管理电路<a class="headerlink" href="#34" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本设计对电源的稳定性、噪声水平以及多电压轨的需求较高，专门设计了一套包含锂电池充电、过放保护、开关升降压及多级线性稳压的综合电源管理系统。整个系统的电源流向清晰地划分为：为数字电路供电的大电流 3.3V 轨道、为模拟运放供电的高精度 ±5V 对称轨道，以及为 ADC 采样提供极低噪声的独立参考基准源。</p>
+<p>在电源输入的源头，系统采用单节 <span class="arithmatex">\(3.7 \mathrm{~V}\)</span> 锂电池供电，通过 USB Type-C 接口结合 TP4056 线性充电芯片及 DW01A 保护电路实现充放电管理。为实现 USB 供电与电池供电的无缝切换，设计了基于 PMOS 和肖特基二极管的路径切换电路，确保系统在拔插外部电源的过程中不掉电。</p>
+<table>
+  <tr>
+    <td align="center"><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314125219023.png" width="700" alt="TP4056锂电池充放电电路"></td>
+    <td align="center"><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314124344458.png" width="450" alt="DW01A锂电池保护电路"></td>
+  </tr>
+</table>
+<center>图 3-8 锂电池充放电与保护电路图</center>
+
+<p><img alt="电源路径切换电路" src="../基于STM32的便携式信号采集设备研究.assets/image-20260314125256304.png" /></p>
+<center>图 3-9 电源路径切换电路图</center>
+
+<p>在确立了稳定的供电来源后，为满足不同模块的特殊电压需求，系统进一步设计了多轨电压变换网络。系统中的模拟运算放大器需要对称的 ±5V 供电， 因此设计了升压与电荷泵倒相电路。采用 MT3608 升压芯片将电池电压或 USB 电压提升至 7.2V。利用电荷泵芯片 MC7660 将升压后的正压转换为负压，为后续产生负线性稳压提供基础电压。</p>
+<p><img alt="负压产生电路" src="../基于STM32的便携式信号采集设备研究.assets/image-20260314130016481.png" /></p>
+<center>图 3-10 正负偏置电源产生电路图</center>
+
+<p>为了降低电源纹波对模拟信号的干扰，系统采用了多路 LDO 进行二次稳压。AMS1117-3.3 电路负责单片机、显示屏等数字模块供电，电流驱动能力强。MIC5219-5.0 电路具有低噪声、低压差特性，专门为模拟放大电路供电。TPS7A30 电路作为高精度负压 LDO，将电荷泵输出的负压稳压至 -5V，确保模拟电路电源的对称性与稳定性。LP2985-33 电路专门用于提供超低噪声的 3.3V 电压，作为 ADC 采集的基准源。</p>
+<table>
+  <tr>
+    <td align="center"><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314130538229.png" width="350" alt="MC5219"></td>
+    <td align="center"><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314130558532.png" width="350" alt="TPS7A30"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314130619837.png" width="350" alt="AMS1117"></td>
+    <td align="center"><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314130638318.png" width="350" alt="LP2985"></td>
+  </tr>
+</table>
+<center>图 3-11 各路 LDO 稳压电路图</center>
+
+<p>尽管上述多路 LDO 能够提供良好的二次稳压能力，但在开关电源向 LDO 级联的过程中，由于系统采用了 <span class="arithmatex">\(\mathrm{MT}3608\)</span> 开关型 <span class="arithmatex">\(\mathrm{DC}-\mathrm{DC}\)</span> 升压芯片，其在工作时会产生较大的高频开关噪声。为了防止该噪声耦合至后端的敏感模拟电路 (如 ADC 基准和运放电源)，在升压输出端设计了多级 <span class="arithmatex">\(\pi\)</span> 型滤波电路 (见图 3-12 中的 <span class="arithmatex">\(L_{3} 、 C_{41} 、 L_{4} 、 C_{42}\)</span>组成的网络)。</p>
+<p>这种结构利用电容对电压突变的吸收作用和电感/磁珠对高频电流的阻碍作用，形成低通滤波特性，从而显著降低开关噪声。通过 <span class="arithmatex">\(\pi\)</span> 型滤波器初次滤除高频噪声后，再经过 MIC5219 和 TPS7A30 这种具有高电源抑制比 (PSRR) 的 LDO 进行二次稳压，最终为模拟电路提供极度平滑的“纯净”电源。</p>
+<p><img alt="MT3608" src="../基于STM32的便携式信号采集设备研究.assets/image-20260314130215289.png" /></p>
+<center>图 3-12 MT3608 及 π 型滤波器电路图</center>
+
+<p>为了最大程度发挥电路设计的性能，在 PCB 布局时进行了数模分区与单点接地处理。在 PCB 上将数字电路（Type-C、TP4056、AMS1117）与模拟电路（运放、TPS7A30、LP2985）进行物理分区。模拟地与数字地两地之间通过磁珠进行单点连接。这种做法能防止数字电路的高频回流噪声干扰模拟信号的参考电平。</p>
+<h2 id="_5">第四章 下位机嵌入式软件系统设计<a class="headerlink" href="#_5" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>在完成了硬件采集平台的搭建之后，如何通过软件调度充分释放硬件潜力、实现高效的数据采集与流畅的交互体验，成为了系统设计的另一大核心。本章将详细阐述下位机嵌入式软件的整体控制流与数据流设计，重点剖析前后台架构调度机制、基于 DMA 的高速数据传输链路优化，以及针对屏幕显示的渲染算法和波形触发机制。</p>
+<h3 id="41">4.1 前后台系统架构设计<a class="headerlink" href="#41" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>为了在有限的微控制器计算资源内，完美兼顾高采样率下的数据吞吐与复杂的 UI 交互逻辑处理，下位机软件在整体设计上采用了经典且高效的“前后台系统（裸机）架构”。该架构依托 STM32 HAL 库，将程序的执行流清晰地划分为两个协同工作的维度：负责繁重业务处理的“前台主循环”与负责高实时性硬件响应的“后台中断服务”。</p>
+<p>系统架构如图 4-1 所示。系统主函数 <code>main()</code> 在完成各项硬件外设与系统时钟的初始化后，便会进入无限轮询的前台主循环。前台主循环则承担了复杂的业务逻辑与人机交互任务。程序会持续轮询检测 ADC 数据就绪标志。当数据就绪时，系统在缓冲区中执行软件触发算法，寻找满足触发电平的边沿以锁定波形显示的起始点，并遍历数据计算各通道的峰峰值。若 USB 连接已开启，系统会调用传输函数将原始数据打包发送至上位机。在用户交互方面，主循环会检查输入标志，若检测到按键或编码器动作，则调用相应接口执行功能逻辑，例如切换时基、调整电压档位或切换耦合模式。最后，系统根据处理完毕的波形数据与当前设置参数，重新绘制示波器网格、波形曲线及参数数值，并通过 SPI 接口将显存数据刷写至 TFT 屏幕，完成界面刷新。</p>
+<p>后台中断主要负责高实时性与硬件事件的快速响应，在设计上尽量减少执行时间以避免阻塞。其中，DMA 中断主要服务于 ADC 采样。系统将 ADC 配置为循环模式，当 DMA 传输完成半个缓冲区或整个缓冲区时触发中断，并置位相应的全局标志，通知前台主循环处理最新的采样数据块。定时器中断则包含捕获中断与更新中断，前者在输入信号产生跳变时触发，用于高精度频率测量；后者处理定时器溢出计数，以扩展低频信号的测量量程。USB 中断负责处理物理层的数据包收发，将发送缓冲区内的波形数据通过 USB 总线传输至 PC。此外，系统对旋转编码器与独立按键均采用基于外部中断的驱动方式。中断服务程序仅负责记录触发状态及必要的硬件状态捕获，并将耗时的业务逻辑与防抖判断转移至主循环中执行，从而保证响应实时性。</p>
+<p><img alt="下位机软件架构图.drawio" src="../基于STM32的便携式信号采集设备研究.assets/下位机软件架构图.drawio.svg" /></p>
+<center>图 4-1 下位机软件架构图</center>
+
+<h3 id="42-dma">4.2 高速数据采集与 DMA 传输优化<a class="headerlink" href="#42-dma" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>信号采集设备的核心指标取决于模拟前端的采样率与系统的数据吞吐能力。本设计采用了 STM32 的 ADC 双重规则同步模式配合 DMA 循环传输机制，构建了零 CPU 干预的高速采集链路。首先，为了实现对两路输入信号的同步观测，并确保相位测量的精确性，系统配置 ADC1 为主设备，ADC2 为从设备，工作在双重规则同步模式。</p>
+<p>在硬件通道映射方面，系统将采集通道 1 映射至 ADC1 通道 3，将采集通道 2 映射至 ADC2 通道 4。为了建立可靠的同步触发机制，系统配置 TIM1_CC1 事件作为 ADC1 的外部触发源。将 TIM1 配置为 PWM 模式，相较于传统的翻转模式，能够确保触发频率与定时器溢出频率严格一致。通过调节 TIM1 的预分频器与重装载值，系统可精确控制采样率。其采样率计算公式为：</p>
+<div class="arithmatex">\[
+f_{s} = \frac{f_{CLK}}{(PSC+1)(ARR+1)}
+\]</div>
+<p>其中 <span class="arithmatex">\(f_{clk}\)</span> 为系统时钟主频，在本系统中配置为 72 MHz。</p>
+<p>此外，为优化数据传输效率，系统采用了 32 位数据对齐策略。在双重同步模式下，ADC2 的 12 位转换结果会自动填充至 ADC1 数据寄存器的高 16 位，而 ADC1 的结果则位于低 16 位。如此一来，一次 32 位 DMA 传输即可同时搬运两个通道的采样数据，极大地提高了总线传输效率。</p>
+<p>在确立了高效的 ADC 同步采样与数据对齐机制后，为了保证波形数据的连续性并避免因 CPU 处理延迟导致的“盲区”，系统进一步启用了 DMA1 Channel 1 的循环传输模式（Circular Mode），并在 SRAM 中划分专用存储区域作为流式数据缓冲区。</p>
+<p>在软件逻辑层面，系统采用了双缓冲策略，通过利用 DMA 的半传输与传输完成中断，实现了数据流处理的有效解耦。具体而言，在前半段处理阶段，当 DMA 填满缓冲区的前 50% 时会触发半传输中断，CPU 随即锁定前半段数据，执行触发搜索算法与波形绘制。与此同时，DMA 控制器在后台继续向缓冲区的后 50% 写入新数据，两者互不干扰。在后半段处理阶段，当 DMA 填满整个缓冲区时触发传输完成中断，DMA 指针自动回绕至数组头部以覆盖旧数据，CPU 则转而处理后半段数据。</p>
+<p>数据采集部分的架构如图4-2所示。这种机制确保了数据采集（由硬件 DMA 负责）与数据处理（由软件 CPU 负责）在时间轴上的并行执行，有效避免了传统轮询或单次中断模式下的数据读取冲突，从而消除波形显示的“撕裂”与“丢帧”现象。</p>
+<p><img alt="高速数据采集与DMA传输双缓冲架构图.drawio" src="../基于STM32的便携式信号采集设备研究.assets/高速数据采集与DMA传输双缓冲架构图.drawio.svg" /></p>
+<center>图 4-2 高速数据采集与DMA传输双缓冲架</center>
+
+<p>在数据被高速搬运至内存后，如何将这些庞大且杂乱的原始数据转化为屏幕上稳定、清晰的波形，是下位机软件面临的最后一道难关。这涉及到精准的相位锁定以及高效的像素渲染机制。</p>
+<h3 id="43">4.3 波形捕获与实时渲染算法<a class="headerlink" href="#43" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>为了在资源受限的微控制器上呈现流畅且不抖动的示波器视图，系统构建了一条包含“触发锁定、坐标映射、局部刷新”在内的完整数据可视化管线。首先在触发锁定环节，为了保证每一帧图像在屏幕上显示的起始相位严格一致，消除波形左右飘移的现象，系统设计了基于软件的数字触发算法。</p>
+<p>在 DMA 完成数据传输后，CPU 会遍历缓冲区中的原始采样数据，寻找满足特定条件的采样点索引作为波形显示的起始锚点。系统默认采用下降沿触发模式，并针对采集数据执行专门的触发算法。首先，系统设定触发阈值电平为 ADC 量程的中点，以此来准确捕获交流信号的过零点。其次，考虑到信号在阈值附近可能因高频噪声产生微小抖动并引发误触发，算法特别引入了滞回区间。只有当信号大幅度穿越该设定区间时，系统才会将其认定为有效触发。在具体的下降沿判决过程中，对于缓冲区内的连续两个采样点，当且仅当前一时刻的采样值高于阈值与滞回电压之和，且当前时刻的采样值降至阈值及以下时，判定当前时刻为有效触发点：</p>
+<div class="arithmatex">\[
+\begin{cases} 
+   V_{t-1} &gt; (V_{th} + \Delta V) \\
+   V_t \leq V_{th} 
+   \end{cases}
+\]</div>
+<p>该逻辑确保了触发点始终位于信号从高电平向低电平穿越且具有一定斜率的时刻，从而准确锁定了波形在屏幕上的起始相位。</p>
+<p>完成触发相位的精准锁定后，下一步是将庞大的时域数据转化为屏幕坐标。系统以该触发点为原点基准，根据用户当前设定的时基参数执行数据抽取。在不同的水平扫描速度下，程序采取了不同的步长间隔进行数据提取。当观测高频细节（小步长）时，屏幕基本以原始采样率绘制；当需要宏观观测长时波形趋势时，系统则执行软件级别的降采样，从而实现水平方向的平滑缩放。</p>
+<p>完成时域抽取后，系统必须将 12 位 ADC 的原始数值（0-4095）映射为 TFT 屏幕有限的物理 Y 坐标轴上。为了规避微控制器执行浮点数运算所带来的巨大性能开销，系统在纯整数域内采用了高效的线性插值公式进行坐标转换：</p>
+<div class="arithmatex">\[
+Y_{\text {screen }} = Y_{\text {top }} + 1 + \frac{ADC_{\text {val }} \times \left(Y_{\text {bottom }} - Y_{\text {top }} - 2\right)}{4096}
+\]</div>
+<p>其中，<span class="arithmatex">\(Y_{\text {top }}\)</span> 和 <span class="arithmatex">\(Y_{\text {bottom }}\)</span> 分别定义了波形显示视窗在屏幕物理坐标系下的上、下边界。通过该公式，ADC 的最小值被精准映射至波形区域的顶端，最大值映射至底端。结合硬件前端的交直流偏置与衰减特性，该映射算法确保了波形在屏幕纵向上的按比例无失真还原。</p>
+<p>当坐标数据映射准备就绪后，可视化管线进入 TFT 显示屏局部刷新阶段，此时的挑战在于图形的高效输出显示。系统采用的 1.8 英寸 TFT 屏幕基于 ST7735S 控制器。由于 STM32F103C8T6 仅有 20KB 的 SRAM 资源，根本无法开辟出足够容纳全屏色彩数据的帧缓冲区。若采用传统的逐点写入“画点”函数，频繁的 SPI 地址设置指令开销将导致严重的屏幕刷新卡顿。</p>
+<p>针对这一瓶颈，本设计创新性地提出了一种基于 DMA 垂直条带刷新的显存优化方案。系统在 SRAM 中仅划拨了一个极小的一维数组作为临时缓冲区，专门用于缓存当前扫描列（单列垂直像素）的颜色数据。在渲染管线中，波形绘制函数按从左至右的顺序逐列进行画面合成：CPU 首先判断当前列的 X 坐标，在缓冲区中预填黑色背景或灰色的网格虚线颜色；随后，提取映射好的 Y 坐标，将信号波形的彩色像素点直接“覆盖”至该缓冲区的对应位置。</p>
+<p>为防止在显示频率极高的陡峭边沿时出现波形断裂的视觉瑕疵，渲染算法还内置了纵向连线机制：程序会自动在前后两列的 Y 坐标间执行线性插值，利用信号通道特定的颜色补全中间跨越的垂直像素。单列数据合成完毕后，系统将 TFT 控制器的写入窗口限制为当前这一列的物理坐标范围，并直接启动 SPI-DMA 传输，将整列缓冲区的数据一次性刷写至屏幕显存中。</p>
+<p>该方案降低了显存资源的开销，通过 DMA 控制器接管了耗时的外设数据搬运任务。实测表明，在复杂多通道波形同时显示的场景下，屏幕仍能保持极高的刷新率，肉眼观测无丝毫频闪与撕裂。</p>
+<p>在解决了设备本地的显示难题后，系统还需将更高维度的数据处理任务交由上位机完成，这就依赖于一条稳定高效的数据传输链路。</p>
+<h3 id="44-usb">4.4 USB 数据通讯协议设计<a class="headerlink" href="#44-usb" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>为了支持上位机执行复杂的后处理任务（如 FFT 频谱分析、轨道电路信号解调），下位机通过 USB CDC 接口构建了一条高速数据回传链路。在通讯协议的制定上，为了兼顾数据流同步的可靠性与不同采样深度下传输需求的灵活性，系统采用了“定长帧头 + 变长负载”的混合结构数据帧格式。</p>
+<center>表4-1 本设计采用的USB通信协议</center>
+
+<table>
+<thead>
+<tr>
+<th>字节偏移</th>
+<th>字段名称</th>
+<th>长度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Header H</td>
+<td>1 Byte</td>
+<td>固定帧头 0xAA</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Header L</td>
+<td>1 Byte</td>
+<td>固定帧头 0x55</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Timebase ID</td>
+<td>1 Byte</td>
+<td>当前时基索引 ID，用于上位机还原时间轴</td>
+</tr>
+<tr>
+<td>3-4</td>
+<td>Payload Len</td>
+<td>2 Bytes</td>
+<td>后续负载数据的字节长度</td>
+</tr>
+<tr>
+<td>5...N</td>
+<td>Payload</td>
+<td>Variable</td>
+<td>原始 ADC 数据</td>
+</tr>
+</tbody>
+</table>
+<p>在明确了数据帧格式之后，为了确保大数据量的高效且稳定传输，系统实现了基于块传输的流控机制，并采用了分片发送策略。首先，系统会构建包含同步字与元数据的 5 字节帧头，并以此作为一次独立传输，确保上位机能优先锁定帧边界。随后，庞大的 ADC 原始数据会被切割为若干个数据块依次发送。在整个分包发送过程中，系统引入了阻塞与超时机制：在发送每个数据块时，系统会轮询检查 USB 发送状态；为了防止因上位机处理不及时而导致下位机程序死锁，程序中特别设置了软件超时计数器，一旦超过 1000 次循环仍未发送成功，系统将主动丢弃当前数据包，以此优先保证下位机系统的实时响应与持续采集能力。</p>
+<h2 id="_6">第五章 上位机数据分析系统设计<a class="headerlink" href="#_6" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>下位机受限于处理能力与屏幕尺寸，主要侧重于现场数据的实时采集与基础波形观测。而对于轨道交通领域特定的复杂控制信号（如 ZPW-2000A 的移频特征与 25Hz 轨道电路的高精度相位），深度的解析与研判则依赖于上位机的强大算力支持。相比于嵌入式端，上位机系统具备更强的算力支持、大尺寸屏幕显示能力以及更灵活的算法迭代空间，能够满足铁路现场调试对实时性、数据吞吐量及复杂后处理的需求。</p>
+<p>为了实现跨平台架构的兼容性与高效的开发，本系统选用 Python 3 结合 PySide6 框架进行开发。该技术栈具备若干工程优势，兼顾了开发效率与界面美观性：Python 拥有成熟且丰富的科学计算库，为信号处理算法提供了坚实基础；PySide6 封装了成熟的 Qt C++ 库，确保了 GUI 的流畅响应；系统底层计算则由高度优化的 C/C++ 扩展（如 NumPy）完成，有效平衡了开发便捷性与运行效率。得益于这套强大的技术底座，上位机分析软件得以成为整个便携式系统的处理核心，从容承担起高速数据接收与可视化、信号特征智能解调与辅助故障诊断等多项高阶任务。本章将从数据处理管线、可视化交互界面设计，以及核心算法的数学推导与代码实现三个层面，详细阐述系统的上位机解决策略。</p>
+<h3 id="51">5.1 数据接收与预处理管线<a class="headerlink" href="#51" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>为保证接收和处理高采样率数据时 UI 界面不卡顿，系统设计了双线程协作架构。</p>
+<p>通讯线程专门负责串口的高速监听与原始数据包解析。该线程对下位机发送的 <span class="arithmatex">\(\text{0xAA 0x55}\)</span> 帧头进行校验，并采用双通道数据解算逻辑。UI主线程则负责波形的高速渲染、仪表盘数据更新以及用户交互逻辑。</p>
+<p>通讯线程与UI主线程之间通过 Qt Signals/Slots 机制通信，构建无锁数据管道，实现了零拷贝内存共享。当通讯线程解析完一帧数据（4000 字节）后，触发相应信号，将处理后的数组传递给主线程进行绘图。</p>
+<p>原始 ADC 采样数据无法直接用于处理分析，需要先进行物理量转换与误差修正。根据硬件分压电路特性，将 ADC 数值映射为实际输入电压。程序通过引入增益（Gain）和偏移（Offset）校正系数，通过公式 <span class="arithmatex">\(v_{real} = v_{raw} * gain + offset\)</span> （其中 <span class="arithmatex">\(v_{real}\)</span> 为采集电压值、<span class="arithmatex">\(v_{raw}\)</span> 为上位机上传的 ADC 原始数据值）计算出真实电压值，消除硬件电路的静态误差。系统支持“自动归零”与“自动增益”功能，通过统计多次采样的均值自动计算校准参数。</p>
+<p>为抑制信号链路中固有高频噪声并提升波形信噪比，系统引入了数字滤波与异常剔除机制。针对随机噪声，程序可选配置 3 点移动平均算法作为低通滤波器。对于离散信号序列 <span class="arithmatex">\(x[n]\)</span>，算法通过计算当前点及其前后相邻点的算术平均值来生成新的序列 <span class="arithmatex">\(y[n]\)</span>：</p>
+<div class="arithmatex">\[
+y[n] = \frac{1}{3}(x[n-1] + x[n] + x[n+1])
+\]</div>
+<p>这种处理能有效平滑掉单点的尖峰噪声。此外，为增强系统鲁棒性，算法集成了峰峰值异常过滤器，剔除因接触不良或瞬态干扰产生的异常数据包，从而为后续的高级处理提供了高质量、可信赖的数据基础。</p>
+<p>在打通了稳定可靠的数据获取与清洗链路后，系统必须通过直观友好的图形界面将这些冰冷的数据转化为工程师能够轻松理解的视觉信息。</p>
+<h3 id="52">5.2 可视化交互界面设计<a class="headerlink" href="#52" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>人机交互界面作为上位机系统与用户直接沟通的窗口，其设计遵循了“信息分层，操作直观，重点突出”的原则。为了适应现场复杂的调试需求，整个 GUI 界面在空间布局上被科学地划分为三大功能区块：交互控制区、核心绘图区与数据仪表盘区。</p>
+<p>在核心的波形渲染方面，系统采用了基于 GraphicsView 框架与 NumPy 切片优化的 PyQtGraph 绘图组件，从而实现了高采样率下毫秒级的波形流畅刷新。绘图区提供了多维度的信号观测视角。在时域层面，系统不仅能够实时绘制双通道电压波形，还支持 X/Y 轴视图锁定、自动量程调整以及连续滚屏等高级示波器功能，充分满足了从瞬态捕捉到长时趋势不同时间尺度的观测需求；在频域层面，系统支持同步显示信号的频谱分布，并允许用户在线性与对数坐标系间自由切换，从而更加直观地识别微弱的谐波与干扰分量；此外，针对 ZPW-2000A 移频信号的特殊性，系统在特定模式下会动态增加“解调频率-时间”曲线视图，将原本抽象的频率跳变规律以直观的图形化方式呈现出来。</p>
+<p>为了提升参数读取的效率，界面右侧提供了实时仪表盘。该仪表盘不仅负责持续刷新峰峰值、频率、相位等基础电气指标，还能动态展示经过专用算法解析后的轨道信号高阶特征参数，例如具体的 ZPW-2000A 载频类型与低频码位，或是 25Hz 相敏信号的精确相位差。同时，仪表盘引入了颜色编码机制，通过绿色代表正常、红色代表存在干扰或超限，为用户提供直观的信号质量视觉反馈。</p>
+<p>在辅助分析与数据留存方面，系统内置了数字化的光标测量工具。用户可以通过鼠标拖动 X 轴时间光标与 Y 轴电压光标，由上位机自动计算并显示两点间的时间差、电压差以及推算出的瞬时频率值，极大地方便了对波形细节的精细化分析。此外，系统还具备完善的数据管理功能，支持将当前屏幕定格的单帧波形或连续长时采集的原始数据连同时间戳与采样率等元数据一并导出为 CSV 格式文件，为后续的离线复盘与深度故障诊断提供了可靠的数据支撑。上位机可视化界面如图 5-1 所示。</p>
+<p><img alt="image-20260418181805320" src="../基于STM32的便携式信号采集设备研究.assets/image-20260418181805320.png" /></p>
+<p><img alt="image-20260418181826219" src="../基于STM32的便携式信号采集设备研究.assets/image-20260418181826219.png" /></p>
+<center>图 5-1 上位机可视化交互界面</center>
+
+<h3 id="53">5.3 轨道信号处理专用算法实现<a class="headerlink" href="#53" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>针对轨道交通领域的特定信号类型，本系统在完成基础的频率与相位测量的基础上，集成了针对 ZPW-2000A 移频信号与 25Hz 相敏轨道电路的专用数字信号处理算法。</p>
+<h4 id="531-zpw-2000a">5.3.1 ZPW-2000A移频信号解调算法<a class="headerlink" href="#531-zpw-2000a" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>ZPW-2000A 轨道电路采用的是 FSK（频移键控）调制方式，更准确地说是 CPFSK（连续相位频移键控）。其信号模型可以表示为：</p>
+<p>$$
+x(t) = A \cos\left( 2\pi f_c t + 2\pi \Delta f \int_{-\infty}^{t} m(\tau) d\tau + \phi_0 \right)
+$$
+其中 <span class="arithmatex">\(f_c\)</span> 为中心载频（如 1701.4Hz、2001.4Hz 等），<span class="arithmatex">\(\Delta f = \pm 11\text{Hz}\)</span> 为频偏，<span class="arithmatex">\(m(t)\)</span> 为取值 <span class="arithmatex">\(\pm 1\)</span> 的低频方波调制信号（频率 <span class="arithmatex">\(f_m \in [10.3, 29]\text{Hz}\)</span>）。理想情况下，信号的瞬时频率在 <span class="arithmatex">\(f_c - 11\text{Hz}\)</span> 与 <span class="arithmatex">\(f_c + 11\text{Hz}\)</span> 之间周期性跳变。值得注意的是，由于能量分布于两个边带频点，直接采用 FFT 峰值法估计载频将引入约 <span class="arithmatex">\(11\text{Hz}\)</span> 的系统性偏差。为此，本系统设计了一套基于希尔伯特变换的专用移频信号解调算法。相较于传统的过零检测法，该算法具有更高的抗噪性和频率分辨率。整个解调过程可划分为瞬时频率提取、载频精确估计以及低频特征解调三个核心步骤。</p>
+<p>（1）基于希尔伯特变换的瞬时频率提取</p>
+<p>在解调开始前，首先需要对信号进行宽带线性相位滤波预处理。为避免传统窄带跟踪滤波器引入的非线性相位失真，系统采用覆盖全部 ZPW-2000A 频段（1700–2600Hz）的固定宽带贝塞尔带通滤波器。该滤波器具备最大平坦群延迟特性，能够使通带内各频率成分延迟一致，有效抑制“振铃”效应。通带设定为 600–6000Hz，以完整保留载频及其高阶边带分量，确保时域上方波跳变沿的完整性。同时，为彻底消除滤波器的相位滞后，算法在离散域应用了前向与后向两次滤波的零相位滤波技术。基于预处理后的数据，系统利用希尔伯特变换构造解析信号 <span class="arithmatex">\(z(t)\)</span>。对于实信号 <span class="arithmatex">\(x(t)\)</span>，其解析信号 <span class="arithmatex">\(z(t)\)</span> 定义为：</p>
+<p>$$
+z(t) = x(t) + j\mathcal{H}[x(t)] = A(t) e^{j\Phi(t)}
+$$
+其中 <span class="arithmatex">\(\mathcal{H}[\cdot]\)</span> 是希尔伯特变换。由此推导出瞬时相位 <span class="arithmatex">\(\Phi(t)\)</span> 为：</p>
+<p>$$
+\Phi(t) = \arctan\left( \frac{\mathcal{H}[x(t)]}{x(t)} \right)
+$$
+算法对提取出的瞬时相位进行解卷绕处理后，对连续相位进行差分求导以获取瞬时频率：</p>
+<p>$$
+f_{inst}(t) = \frac{1}{2\pi} \frac{d\Phi(t)}{dt}
+$$
+得益于前端滤波器的优良时域保真特性，解调所得 <span class="arithmatex">\(f_{\text{inst}}(t)\)</span> 呈现高质量方波形态，精确反映了 <span class="arithmatex">\(f_c \pm 11\text{Hz}\)</span> 的频率跳变过程。</p>
+<p>（2）基于截断平均的载频精确估计</p>
+<p>针对 ZPW-2000A 低频调制信号占空比约为 50% 的先验特性，瞬时频率在上下边频的驻留时间具有统计对称性，其数学期望自然收敛于中心载频：</p>
+<p>$$
+E[f_{\text{inst}}(t)] \approx \frac{(f_c + \Delta f) + (f_c - \Delta f)}{2} = f_c
+$$
+然而，直接微分运算往往会引入显著的脉冲噪声。为抑制这一干扰，算法采用了截断平均值策略：对瞬时频率序列进行整体排序，剔除首尾各 10% 的离群值，再计算剩余数据的算术平均值作为精确载频估计 <span class="arithmatex">\(\hat{f}_c\)</span>。该方法巧妙利用了宽带滤波保留的丰富边带信息，通过统计平均自动抵消 <span class="arithmatex">\(\pm 11\text{Hz}\)</span> 的频偏分量，将载频测量误差降至 0.1Hz 量级，在精度上显著优于传统的频谱峰值法。</p>
+<p>（3）结合中值滤波与频谱重心的低频解调</p>
+<p>由于直接微分得到的瞬时频率序列中仍含有部分由采样离散化放大的尖峰噪声，传统的线性滤波器（如均值滤波）会模糊方波的边缘，导致低频解调失真。为此，系统对瞬时频率序列施加了非线性的中值滤波。对于一维离散信号序列 <span class="arithmatex">\(x[n]\)</span>，中值滤波器的输出 <span class="arithmatex">\(y[n]\)</span> 定义为：</p>
+<p>$$
+y[n] = \text{median}(x[n-k], \dots, x[n+k])
+$$
+其中，<span class="arithmatex">\(k\)</span> 为窗口半径，窗口总长度 <span class="arithmatex">\(L = 2k + 1\)</span>，<span class="arithmatex">\(\text{median}(\cdot)\)</span> 表示对窗口内 L 个数据排序后取中间值。中值滤波在成功滤除微分放大噪声的同时，完美保留了频移键控信号跳变沿的陡峭方波形态。随后，程序进入低频调制频率 <span class="arithmatex">\(f_m\)</span> 的提取阶段。算法首先去除瞬时频率序列中的直流分量（即中心载频），仅保留反映低频跳变的交流成分。对加注汉宁窗的序列执行快速傅里叶变换（FFT）后，为了突破 FFT 固有的频率分辨率限制（<span class="arithmatex">\(\Delta f = F_s / N\)</span>），系统采用了频谱重心法进行校正。假设峰值索引为 <span class="arithmatex">\(k\)</span>，峰值邻域幅值为 <span class="arithmatex">\(A_{k-1}, A_k, A_{k+1}\)</span>，对应频率为 <span class="arithmatex">\(f_{k-1}, f_k, f_{k+1}\)</span>，利用峰值及其左右相邻点的幅值进行加权平均：</p>
+<div class="arithmatex">\[
+\hat{f} = \frac{\sum_{i=k-1}^{k+1} f_i \cdot A_i}{\sum_{i=k-1}^{k+1} A_i}
+\]</div>
+<p>通过应用上述频谱重心公式，系统计算出校正后的低频调制频率，将频率估计精度提高到 FFT 分辨率的 <span class="arithmatex">\(1/10\)</span> 甚至更高，从而在有限的数据长度内实现了高精度的频率识别。</p>
+<p>综上所述，该解调算法体系从宽带零相位滤波的预处理起步，经由希尔伯特变换与截断平均完成载频的精准锁定，最终借助中值滤波与频谱重心法实现低频特征的高精度提取。这一套层层递进的数字信号处理链路，有效克服了传统分析方法的固有缺陷，为 ZPW-2000A 轨道电路的数字化接收与实时故障诊断提供了坚实可靠的理论基础与工程实现方案。</p>
+<h4 id="532-25hz">5.3.2 25Hz相敏轨道电路检测算法<a class="headerlink" href="#532-25hz" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>针对离散化的 25Hz 轨道电路信号，其核心检测任务涵盖了能量评估、相位提取以及干扰分析三个维度。为此，系统针对性地设计了一套包含离散有效值计算、双模式相位测量以及工频干扰锁定的综合检测算法。</p>
+<p>（1）基于离散积分的电压有效值计算</p>
+<p>电压有效值是衡量轨道信号能量最直接的指标。系统首先计算 25Hz 交流电压的有效值，通过 ADC 采集并经过预处理（去直流分量）后的电压序列为 <span class="arithmatex">\(x[n]\)</span>，其有效值计算严格遵循离散时间 RMS 定义。假设采样点数为 <span class="arithmatex">\(N\)</span>，第 <span class="arithmatex">\(n\)</span> 个采样点的电压值为 <span class="arithmatex">\(x[n]\)</span>，则有效值 <span class="arithmatex">\(V_{rms}\)</span> 的计算公式为：</p>
+<p>$$
+V_{rms} = \sqrt{\frac{1}{N} \sum_{n=0}^{N-1} (x[n])^2}
+$$
+在算法实现过程中，系统依次计算每个离散样本的平方值，求取其算术平均数后再进行开方运算。相比于传统的通过峰值推算有效值（即 <span class="arithmatex">\(V_{rms} \approx V_{peak}/\sqrt{2}\)</span>）的方法，这种基于离散积分的直接计算法在处理含有畸变、高次谐波或瞬态干扰的非标准正弦波时，能够提供更为准确的能量评估。</p>
+<p>（2）基于互相关与抛物线插值的时域相位测量</p>
+<p>完成能量层面的评估后，进一步的挑战在于相位信息的精确提取，这也是判断 25Hz 相敏轨道电路区段状态的核心依据。针对该需求，系统设计了两种相位计算模式，第一种便是基于互相关法结合抛物线插值的时域补偿算法。互相关函数 <span class="arithmatex">\(R_{xy}[m]\)</span> 能够衡量两个信号 <span class="arithmatex">\(x[n]\)</span>（参考信号/局部电压）和 <span class="arithmatex">\(y[n]\)</span>（轨道信号）在不同时间延迟 <span class="arithmatex">\(m\)</span> 下的相似程度。当 <span class="arithmatex">\(R_{xy}[m]\)</span> 达到最大值时，对应的延迟量 <span class="arithmatex">\(m_{peak}\)</span> 即为两个信号的时间差（以采样点数为单位）。离散互相关公式定义为：</p>
+<p>$$
+R_{xy}[m] = \sum_{n=0}^{N-1-|m|} x[n] \cdot y[n+m]
+$$
+在实际实现中，系统通过高效的滑动点积计算离散互相关序列，并初步锁定互相关函数的粗略峰值位置 <span class="arithmatex">\(k_{max}\)</span>。然而，由于采样率 <span class="arithmatex">\(f_s\)</span> 是有限的，真实的互相关峰值通常位于两个采样点之间。直接使用整数索引 <span class="arithmatex">\(k_{max}\)</span> 会引入量化误差。为了突破采样率限制，系统假设峰值附近的互相关函数曲线符合抛物线特征 <span class="arithmatex">\(y(x) = ax^2 + bx + c\)</span>，利用峰值点及其左右相邻点进行插值拟合。设互相关序列在粗略峰值点及其左右的值分别为 <span class="arithmatex">\(y_0 = R[k_{max}]\)</span>（峰值点）、<span class="arithmatex">\(y_{-1} = R[k_{max}-1]\)</span>（左邻点）、<span class="arithmatex">\(y_{+1} = R[k_{max}+1]\)</span>（右邻点）。为了找到真实峰值相对于 <span class="arithmatex">\(k_{max}\)</span> 的偏移量 <span class="arithmatex">\(\delta\)</span>，推导得到的偏移量 <span class="arithmatex">\(\delta\)</span> 计算公式为：</p>
+<p>$$
+\delta = \frac{y_{-1} - y_{+1}}{2(y_{-1} - 2y_0 + y_{+1})}
+$$
+通过计算该修正值 <span class="arithmatex">\(\delta\)</span>，算法对粗略的整数延迟量进行了浮点补偿。最终的精确相位差 <span class="arithmatex">\(\phi\)</span>（单位：度）由下式给出：</p>
+<p>$$
+\phi = - \left( \frac{(k_{max} + \delta) \cdot f_{signal}}{f_{s}} \right) \times 360^\circ
+$$
+其中 <span class="arithmatex">\(f_{signal}\)</span> 为信号频率（25Hz），<span class="arithmatex">\(f_{s}\)</span> 为采样率。这一机制将相位测量精度提升至亚采样点级别，有效解决了低采样率下相位分辨率不足的问题。</p>
+<p>（3）基于单频点DFT的频域相位高精度提取</p>
+<p>除了时域上的互相关法，系统还实现了第二种频域计算模式——基于单频点离散傅里叶变换（Single Bin DFT）的相位差测量方法。标准 FFT 算法将信号频谱离散化为 <span class="arithmatex">\(N\)</span> 个等间距的频点。只有当被测信号的频率 <span class="arithmatex">\(f_0\)</span> 恰好等于某个 FFT 频点时，提取的相位才是准确的。然而，在实际应用中，信号频率（如 25Hz）往往无法保证与 FFT 频点完全对齐，进而引发“栅栏效应”导致相位值严重偏离真实初相位。</p>
+<p>为克服这一固有限制，本设计充分利用了 25Hz 相敏轨道电路信号频率已知且固定的先验知识，绕过全频谱 FFT 计算，直接执行高效的单频点 DFT。根据欧拉公式，算法构建了一个旋转频率严格等于目标频率 <span class="arithmatex">\(f_{hint}\)</span>（即 25Hz）的复指数序列：</p>
+<p>$$
+e[n] = e^{-j 2\pi f_{hint} \frac{n}{f_s}}, \quad n = 0, 1, ..., N-1
+$$
+随后执行相关投影步骤，将参考信号 <span class="arithmatex">\(x[n]\)</span> 和轨道信号 <span class="arithmatex">\(y[n]\)</span> 分别与该基向量进行内积运算，得到目标频率处的复频谱值：</p>
+<div class="arithmatex">\[
+X(f_{hint}) = \sum_{n=0}^{N-1} x[n] \cdot e[n]
+\]</div>
+<div class="arithmatex">\[
+Y(f_{hint}) = \sum_{n=0}^{N-1} y[n] \cdot e[n]
+\]</div>
+<p>此过程本质上是计算 DFT 在任意指定频率 <span class="arithmatex">\(f_{hint}\)</span> 处的精确值。由于复数的辐角 <span class="arithmatex">\(\theta\)</span> 代表了该频率分量的初相位，算法通过提取两个信号在 <span class="arithmatex">\(f_{hint}\)</span> 处的初相位 <span class="arithmatex">\(\phi_x\)</span> 和 <span class="arithmatex">\(\phi_y\)</span>，求得其差值即为相位差 <span class="arithmatex">\(\Delta\phi = \phi_y - \phi_x\)</span>。最后，通过模运算将计算得到的弧度差值转换为角度，并进行归一化处理，使其严格落在 <span class="arithmatex">\([-180^\circ, 180^\circ]\)</span> 区间内。该方法的核心优势在于相位测量精度不再受 FFT 频率分辨率的限制，且通过在整个信号周期内进行积分的方式，有效抑制了随机噪声的影响。</p>
+<p>（4）基于FFT谐波锁定的工频干扰分析</p>
+<p>在完成对 25Hz 有用信号的有效值与相位解析后，为了全面评估现场的电磁环境，系统还需要对 50Hz 工频信号进行干扰评估。针对电气化铁路常见的工频干扰，系统设计了 FFT 谐波锁定算法。系统在进行傅里叶变换前，会先减去信号的平均值以消除 0Hz（直流）分量，防止其淹没低频段的微弱干扰信号。随后对时域信号进行 FFT 转换，重点关注基波干扰（50 Hz）及其二次谐波（100 Hz）和三次谐波（150 Hz）。</p>
+<p>在频域中，第 <span class="arithmatex">\(k\)</span> 条谱线对应的实际电压幅值 <span class="arithmatex">\(V_{freq}\)</span> 可通过以下公式从 FFT 模值 <span class="arithmatex">\(|X[k]|\)</span> 换算得出（考虑双边谱折叠到单边谱的能量守恒）：</p>
+<p>$$
+V_{freq} \approx \frac{2 \cdot |X[k_{freq}]|}{N}
+$$
+干扰占比（Ratio）定义为 50Hz 干扰幅值与频谱中最大主波峰（通常为 25Hz 有用信号）幅值的比值：</p>
+<div class="arithmatex">\[
+Ratio = \frac{Amp_{50Hz}}{Amp_{max}} \times 100\%
+\]</div>
+<p>在具体的算法执行流程中，系统首先在频率轴上锁定 50Hz 所对应的离散频谱索引，进而提取该频点的模值并换算为干扰电压的实际幅值。最后，通过计算该干扰幅值与基波最大幅值的百分比，得出准确的工频干扰占比。这一处理流程能够快速分离出工频特征，为现场的电磁兼容性评估及牵引电流不平衡度分析提供了直观且量化的数据依据。</p>
+<h2 id="_7">第六章 系统测试与总结展望<a class="headerlink" href="#_7" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>经过前文各章节的软硬件协同设计与专项算法开发，系统已初步具备了便携式多功能信号采集与分析的整体能力。为客观评估该系统的工程应用价值与各项技术指标的达成度，本章搭建了标准化的综合测试平台，依次开展了仪器基础测量功能、数据高速通讯链路以及轨道信号专用解调算法的一系列验证性实验，并对全文的研究成果与未来演进方向进行了总结与展望。</p>
+<h3 id="61">6.1 系统基础测量与通讯性能综合测试<a class="headerlink" href="#61" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>为验证便携式采集设备作为通用示波器的基础可靠性，首先开展了波形采集与显示性能测试。本实验采用标准任意波形发生器作为信号源，向设备的模拟前端注入多种典型波形（如不同频率的正弦波、方波、三角波等）。</p>
+<p>相关测试结果如图 6-1 所示。实验结果清晰表明，在处理 1kHz 至 10kHz 频段内的各类基础信号时，下位机内置的软件滞回触发算法均能够准确捕捉信号过零点，屏幕显示的波形相位锁定稳定，无左右漂移或随机抖动现象。同时，得益于 DMA 局部刷新机制的加持，TFT 屏幕的波形渲染极其平滑，肉眼观测无“频闪”与“撕裂”瑕疵，在响应速度与视觉体验上满足使用需求。</p>
+<table>
+  <tr>
+    <td align="center"><b>1kHz 方波</b><br><img src="../基于STM32的便携式信号采集设备研究.assets/1khz-fangbo.jpg" width="280"></td>
+    <td align="center"><b>2.5kHz 正弦波</b><br><img src="../基于STM32的便携式信号采集设备研究.assets/2.5khz-zhengxian.jpg" width="280"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>5kHz 半波</b><br><img src="../基于STM32的便携式信号采集设备研究.assets/5khz-banbo.jpg" width="280"></td>
+    <td align="center"><b>10kHz 三角波</b><br><img src="../基于STM32的便携式信号采集设备研究.assets/10khz-sanjiao.jpg" width="280"></td>
+  </tr>
+</table>
+<center>图 6-1 不同频率与波形的基础采集测试</center>
+
+<p>本系统设计有信号发生器功能，通过按钮导航至信号发生器界面并启用方波输出功能，将采集设备的 CH2 通道连接至设备上的 PWM 输出引脚，测试设备的波形自检功能，结果如图 6-2 所示。</p>
+<table>
+  <tr>
+    <td align="center"><b>信号源</b><br><img src="../基于STM32的便携式信号采集设备研究.assets/signal-gen.jpg" width="230" alt="信号源"></td>
+    <td align="center"><b>1kHz 方波 频率</b><br><img src="../基于STM32的便携式信号采集设备研究.assets/1khz-fangbo-zijian.jpg" width="230" alt="1kHz方波自检"></td>
+    <td align="center"><b>1kHz 方波 峰峰值</b><br><img src="../基于STM32的便携式信号采集设备研究.assets/1khz-fangbo-stop.jpg" width="230" alt="1kHz方波停止"></td>
+  </tr>
+</table>
+<center>图 6-2 内部信号发生器自检测试</center>
+
+<p>在验证了本地波形采集的可靠性后，为了评估“上下位机协同”架构下的数据吞吐极限，本环节进一步对系统的 USB 虚拟串口通讯链路进行了压力测试。在轨道交通低频控制信号（如 ZPW-2000A 的 3kHz 以内频带）的应用场景下，系统通常运行在数万次每秒的采样率级别。</p>
+<p>在实机连调测试中，使用标准信号源生成 2000Hz 的基准正弦信号注入下位机，同时在下位机侧启用全速 USB 数据上报功能。在 PC 侧，上位机软件同步开启数据接收与渲染管线。如图 6-3 的联合测试结果所示，面对持续、高密度的数据流，通讯链路展现出了极佳的稳定性。对于测试中 100 kS/s 以内的数据包吞吐，上位机界面不仅能够毫秒级无延迟地复现实时波形，且 FFT 频谱图中的 2000Hz 主峰尖锐纯净，无频谱泄露及干扰杂散，充分验证了上下位机联调方案的成功。</p>
+<table>
+  <tr>
+    <td align="center"><b>2kHz 正弦波 - 采集设备界面</b><br><img src="../基于STM32的便携式信号采集设备研究.assets/2khz-zhengxian.jpg" width="350" alt="2kHz正弦波"></td>
+    <td align="center"><b>2kHz 正弦波 - 信号发生器界面</b><br><img src="../基于STM32的便携式信号采集设备研究.assets/2khz-zhengxian-gen.jpg" width="350" alt="2kHz正弦波"></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><b>测试结果 - 上位机界面</b><br><img src="../基于STM32的便携式信号采集设备研究.assets/image-20260314161002503.png" width="720" alt="测试结果"></td>
+  </tr>
+</table>
+<center>图 6-3 USB 高速数据通信联合测试</center>
+
+<h3 id="62">6.2 轨道专用功能验证<a class="headerlink" href="#62" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本节重点对轨道信号分析算法进行仿真测试，采用 Python 程序生成标准 ZPW-2000A 与 25Hz 相敏数字仿真信号，并将其导入上位机，以验证系统的频率解调精度与抗干扰性能。</p>
+<p>本节以载频1698.7Hz（1700-2型）、低频13.6Hz（“LU”码）的ZPW-2000A仿真信号作为典型工况进行分析。如图6-4所示，经上位机算法解算，系统实测载频为1698.7Hz，测量误差小于0.1Hz；解调低频为13.57Hz，绝对误差为-0.03Hz。同时，系统基于解调所得的特征频率，准确识别出“LU”低频码位，并正确输出“前方2个闭塞分区空闲”的行车逻辑指示。</p>
+<p><img alt="ZPW-2000A 移频信号解调测试图" src="../基于STM32的便携式信号采集设备研究.assets/image-20260314195940516.png" /></p>
+<center>图 6-4 典型工况信号解调测试结果</center>
+
+<p>在ZPW-2000A移频信号解调测试环节，为全面验证系统的解调精度与多频段适应性，本研究选取了多种载频与低频调制组合进行综合测试。限于篇幅，前文仅详细展示了典型工况的解调结果，各组载频与低频码组合的完整联合解调测试数据与码型识别结果详见表 6-1。</p>
+<center>表 6-1 ZPW-2000A移频信号解调测试结果</center>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">信号类型</th>
+<th style="text-align: center;">载频设定/实测(Hz)</th>
+<th style="text-align: center;">载频误差(Hz)</th>
+<th style="text-align: center;">目标低频码型</th>
+<th style="text-align: center;">实测低频(Hz)</th>
+<th style="text-align: center;">低频误差(Hz)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1700-2</td>
+<td style="text-align: center;">1698.7 / 1698.7</td>
+<td style="text-align: center;">＜0.1</td>
+<td style="text-align: center;">LU (13.6Hz)</td>
+<td style="text-align: center;">13.57</td>
+<td style="text-align: center;">-0.03</td>
+</tr>
+<tr>
+<td style="text-align: center;">2000-1</td>
+<td style="text-align: center;">2001.4 / 2001.5</td>
+<td style="text-align: center;">+0.1</td>
+<td style="text-align: center;">U2 (14.7Hz)</td>
+<td style="text-align: center;">14.65</td>
+<td style="text-align: center;">-0.05</td>
+</tr>
+<tr>
+<td style="text-align: center;">2300-2</td>
+<td style="text-align: center;">2298.7 / 2298.7</td>
+<td style="text-align: center;">＜0.1</td>
+<td style="text-align: center;">H (29.0Hz)</td>
+<td style="text-align: center;">29.00</td>
+<td style="text-align: center;">＜0.01</td>
+</tr>
+<tr>
+<td style="text-align: center;">2600-1</td>
+<td style="text-align: center;">2601.4 / 2601.4</td>
+<td style="text-align: center;">＜0.1</td>
+<td style="text-align: center;">JC (27.9Hz)</td>
+<td style="text-align: center;">27.93</td>
+<td style="text-align: center;">+0.03</td>
+</tr>
+<tr>
+<td style="text-align: center;">2000-2</td>
+<td style="text-align: center;">1998.7 / 1998.8</td>
+<td style="text-align: center;">+0.1</td>
+<td style="text-align: center;">L5 (21.3Hz)</td>
+<td style="text-align: center;">21.35</td>
+<td style="text-align: center;">+0.05</td>
+</tr>
+</tbody>
+</table>
+<p>由表 6-1 可知，系统在处理不同区段、不同码型的 ZPW-2000A 信号时，载频测量误差均控制在 ±0.3Hz 以内，低频解调误差保持在 ±0.1Hz 范围内，且均能完全正确识别对应码位与行车逻辑。结果表明，基于希尔伯特变换的解调算法不仅在低信噪比下具备高鲁棒性，同时对各类标准频段均具有极高的测量精度。</p>
+<p>在成功验证了 ZPW-2000A 移频信号的解调能力之后，本研究进一步开展了 25Hz 相敏轨道电路参数测量的验证实验。实验向系统输入两路频率为 25 Hz 的正弦测试信号，并人为叠加 50 Hz 工频干扰，设定两路信号的理论相位差为 90°。测试结果显示（见图 6-5），系统测得的实际相位差为 90.0°，交流信号有效值（RMS）计算准确，且成功分离并量化了干扰信号的幅值。</p>
+<p><img alt="25Hz 相敏轨道电路参数测量图" src="../基于STM32的便携式信号采集设备研究.assets/image-20260314154532203.png" /></p>
+<center>图 6-5 25Hz 相敏轨道电路含工频干扰测试结果</center>
+
+<p>结果表明，即使在叠加 50 Hz 工频干扰（工频干扰占比约 11%）的情况下，系统仍能通过 FFT 谐波锁定准确分离干扰分量。系统不仅有效抑制了工频噪声，其相位测量误差与有效值计算偏差均严格控制在设计指标范围内。</p>
+<h3 id="63">6.3 总结与展望<a class="headerlink" href="#63" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>本文针对当前轨道交通信号维护领域对便携化、高性价比及智能化测试设备的迫切需求，设计并实现了一套基于 STM32 的嵌入式信号采集与分析系统。</p>
+<p>在硬件架构方面，系统以 STM32F103C8T6 微控制器为核心，结合高输入阻抗的模拟前端调理电路与电源管理模块，构建了紧凑可靠的采集终端。特别是利用 MCU 内置的双 ADC 资源配合 DMA 传输机制，实现了双通道信号的严格同步采样，有效解决了相敏轨道电路相位差测量的硬件基础问题。</p>
+<p>在软件算法层面，创新性地提出了基于希尔伯特变换的 ZPW-2000A 移频信号解调算法与基于互相关及 FFT 的 25Hz 相敏轨道电路相位测量算法，并开发了嵌入式前端基础测量与上位机深度分析相协同的综合工作平台。</p>
+<p>实验结果表明，该系统不仅具备通用示波器的波形观测功能，更能对特定轨道交通信号进行高精度的频率识别与相位分析，在采样精度、实时性及便携性方面均达到了预期的设计指标，为轨道交通信号设备的日常巡检与故障初判提供了一种高效、低成本的解决方案。</p>
+<p>尽管本系统已完成了预定的设计目标并在实验室环境下验证了其有效性，但受限于硬件资源与开发周期，仍存在一定的优化与改进空间。</p>
+<p>首先，当前主控芯片的运算能力与存储资源限制了系统的最高采样率与复杂 DSP 算法的片上实现，未来可考虑升级至更高性能的 Cortex-M4 或 M7 架构处理器（如 STM32F4/H7 系列），以支持更宽频带的信号采集与更高级的实时分析功能。</p>
+<p>其次，在人机交互与智能化方面，现有的 1.8 英寸屏幕与物理按键操作略显局限，后续研究可引入更大尺寸的触摸屏及无线通信模块（如 Wi-Fi/蓝牙），实现数据的无线传输与云端同步。</p>
+<p>此外，针对复杂的现场故障诊断需求，可进一步探索将轻量级神经网络或边缘计算技术融入系统，构建具备自动特征提取与故障模式识别能力的智能诊断终端，从而进一步提升轨道交通信号维护的智能化水平与作业效率。</p>
+<h2 id="end">END 致谢<a class="headerlink" href="#end" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>凡是过往，皆为序章。愿历尽千帆，心中仍有山海。</p>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">嵌入式开发</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">STM32</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面有帮助" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面可以改进" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢您的反馈!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+                感谢您的反馈! 笔者将努力改进此页面
+  </br>您可以使用<a href="/basic/contact-form/">反馈表单</a>来帮助我
+
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <!-- 头部区域：左对齐聚合布局 -->
+  <div class="comments-header">
+    <h2 id="__comments">评论</h2>
+    
+    <!-- 切换按钮容器 -->
+    <div class="comment-switch-wrapper" id="switch-wrapper" data-tip="当前正在使用 GitHub 登录评论">
+      <button id="comment-switch-btn" onclick="toggleCommentSystem()">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path fill="currentColor" d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+        </svg>
+        <span>切换模式</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Giscus 容器 -->
+  <div id="giscus-container">
+    <script src="https://giscus.app/client.js"
+            data-repo="weigo6/sufine-giscus"
+            data-repo-id="R_kgDOQvA4xA"
+            data-category="General"
+            data-category-id="DIC_kwDOQvA4xM4C0P1S"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+
+  <!-- Twikoo 容器 (默认隐藏) -->
+  <div id="twikoo-container" style="display: none;">
+    <div id="twikoo"></div>
+  </div>
+
+  <!-- 样式与逻辑 -->
+  <style>
+    /* 1. 头部布局：保持左对齐和分割线 */
+    .comments-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--md-typeset-color--lighter);
+    }
+
+    .comments-header h2 {
+        margin: 0 !important;
+        line-height: 1.2;
+    }
+
+    /* 2. 按钮样式：保持 SVG 图标和 flex 布局 */
+    #comment-switch-btn {
+        background: transparent;
+        border: 1px solid var(--md-typeset-color--lighter);
+        color: var(--md-typeset-color--light);
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 28px;
+        line-height: 1;
+    }
+    
+    #comment-switch-btn:hover {
+        border-color: var(--md-accent-fg-color);
+        color: var(--md-accent-fg-color);
+        background: var(--md-accent-bg-color--transparent);
+    }
+
+    /* 3. Tooltip 样式重构：圆润玻璃磨砂风 */
+    .comment-switch-wrapper {
+        position: relative;
+    }
+
+    .comment-switch-wrapper::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: 115%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px); /* 初始下沉一点，用于浮动动画 */
+        
+        /* 核心：玻璃磨砂效果 */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        
+        /* 亮色模式默认：半透明白底 + 黑字 (柔和灰黑) */
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(0, 0, 0, 0.05); /* 极细微的边界线 */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* 柔和的漫反射投影 */
+        
+        padding: 6px 14px;
+        border-radius: 20px; /* 大圆角，胶囊形状 */
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        
+        /* 动画与可见性 */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* 4. 暗色模式适配：半透明黑底 + 白字 */
+    [data-md-color-scheme="slate"] .comment-switch-wrapper::after {
+        background: rgba(20, 20, 20, 0.7);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 悬浮交互：上浮并淡入 */
+    .comment-switch-wrapper:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Twikoo 容器样式 */
+    #twikoo-container {
+        margin-top: 1rem;
+    }
+    [data-md-color-scheme="slate"] .tk-content {
+        color: var(--md-typeset-color) !important;
+    }
+  </style>
+
+  <script>
+    var isTwikooLoaded = false;
+
+    function toggleCommentSystem() {
+      var giscusContainer = document.getElementById('giscus-container');
+      var twikooContainer = document.getElementById('twikoo-container');
+      var wrapper = document.getElementById('switch-wrapper');
+      
+      if (twikooContainer.style.display === 'none') {
+        // === 切换到 Twikoo ===
+        giscusContainer.style.display = 'none';
+        twikooContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 Twikoo 匿名评论');
+        
+        if (!isTwikooLoaded) {
+          loadTwikooScript();
+        }
+      } else {
+        // === 切换回 Giscus ===
+        twikooContainer.style.display = 'none';
+        giscusContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 GitHub 登录评论');
+      }
+    }
+
+    function loadTwikooScript() {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/twikoo@latest/dist/twikoo.all.min.js";
+      script.async = true;
+      script.onload = function() {
+        twikoo.init({
+          envId: 'https://twikoo.sufine.top',
+          el: '#twikoo',
+          lang: 'zh-CN'
+        }).catch(console.error);
+        isTwikooLoaded = true;
+      };
+      document.body.appendChild(script);
+    }
+  </script>
+
+  <!-- Giscus 主题同步 -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+          var frame = document.querySelector(".giscus-frame")
+          if (frame) {
+            frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app")
+          }
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="上一页: 嵌入式开发">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                嵌入式开发
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E5%9B%9B%E8%BD%AE%E7%A7%BB%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1/" class="md-footer__link md-footer__link--next" aria-label="下一页: 基于STM32的四轮移动机器人设计">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                基于STM32的四轮移动机器人设计
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Luwei
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://cdn.009420.xyz/wechat.webp" target="_blank" rel="noopener" title="关注微信公众号" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/fSvCWA9say" target="_blank" rel="noopener" title="加入 Discord 服务器" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/weigo6" target="_blank" rel="noopener" title="访问 GitHub 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://gitee.com/weigo6" target="_blank" rel="noopener" title="访问 Gitee 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Gitee</title><path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.15a.59.59 0 0 1-.592-.592v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://space.bilibili.com/512710834" target="_blank" rel="noopener" title="访问 Bilibili 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M488.6 104.1c16.7 18.1 24.4 39.7 23.3 65.7v202.4c-.4 26.4-9.2 48.1-26.5 65.1-17.2 17-39.1 25.9-65.5 26.7H92c-26.4-.8-48.2-9.8-65.3-27.2S.7 396.5 0 368.2V169.8c.8-26 9.7-47.6 26.7-65.7C43.8 87.8 65.5 78.8 92 78h29.4L96 52.2c-5.7-5.7-8.6-13-8.6-21.8S90.3 14.3 96 8.6 109 0 117.9 0s16.1 2.9 21.9 8.6L213.1 78h88l74.5-69.4C381.7 2.9 389.2 0 398 0s16.1 2.9 21.9 8.6c5.7 5.7 8.6 13 8.6 21.8s-2.9 16.1-8.6 21.8L394.6 78h29.3c26.4.8 48 9.8 64.7 26.1m-38.8 69.7c-.4-9.6-3.7-17.4-10.7-23.5-5.2-6.1-14-9.4-22.7-9.8H96c-9.6.4-17.4 3.7-23.6 9.8-6.1 6.1-9.4 13.9-9.8 23.5v194.4c0 9.2 3.3 17 9.8 23.5s14.4 9.8 23.6 9.8h320.4c9.2 0 17-3.3 23.3-9.8s9.7-14.3 10.1-23.5zm-264.3 42.7c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.2 6.3-14 9.5-23.6 9.5s-17.5-3.2-23.6-9.5-9.4-14-9.8-23.2v-33.3c.4-9.1 3.8-16.9 10.1-23.2s13.2-9.6 23.3-10c9.2.4 17 3.7 23.3 10m191.5 0c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2s-14 9.5-23.6 9.5-17.4-3.2-23.6-9.5c-7-6.3-9.4-14-9.7-23.2v-33.3c.3-9.1 3.7-16.9 10-23.2s14.1-9.6 23.3-10c9.2.4 17 3.7 23.3 10"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yang92636@qq.com" target="_blank" rel="noopener" title="通过电子邮件联系我" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Gmail</title><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["navigation.instant.progress","navigation.tabs","navigation.sections","navigation.path","navigation.indexes","navigation.top","toc.follow","search.highlight","content.action.edit","content.action.view","navigation.footer","content.code.copy","content.code.select","content.code.annotate","content.footnote.tooltips","content.tooltips"],"search":"../../../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7f30b55.min.js"></script>
+      
+        <script src="../../../javascripts/feedback.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
