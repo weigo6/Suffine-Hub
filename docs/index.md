@@ -443,7 +443,7 @@ Welcome to my blog! 👋
 
 <div class="hero-avatar-area">
 <div class="avatar-glow">
-<img src="https://cnb.cool/sufine/blog-files/-/git/raw/main/aqua-stars.png" alt="avatar">
+<img src="https://cdn.009420.xyz/aqua-stars.png" alt="avatar">
 </div>
 </div>
 </div>

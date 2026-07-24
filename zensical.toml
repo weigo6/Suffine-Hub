@@ -226,7 +226,7 @@ separator = '[\s\-\.]+'  # 中文优化：'[\s\u200b\-]'
 # 社交链接配置
 [[project.extra.social]]
 icon = "fontawesome/brands/weixin"
-link = "https://cnb.cool/sufine/blog-files/-/git/raw/main/wechat.webp"
+link = "https://cdn.009420.xyz/wechat.webp"
 name = "关注微信公众号"
 
 [[project.extra.social]]

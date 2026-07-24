@@ -209,7 +209,7 @@ comments: true
   </a>
 
   <a class="friend-card-block" href="https://www.b23.kim" target="_blank" rel="noopener">
-    <img class="ava" src="https://cnb.cool/sufine/blog-files/-/git/raw/main/b23kim.jpg" loading="lazy" alt="b23.kim" />
+    <img class="ava" src="https://cdn.009420.xyz/b23kim.jpg" loading="lazy" alt="b23.kim" />
     <div class="block-content">
       <div class="title">b23.kim</div>
       <div class="desc">记住「 黑客是客，博客也是客 」by 请输入内容404</div>
