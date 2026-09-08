@@ -220,8 +220,6 @@ accent = "orange"
 
 # 搜索插件配置
 [project.plugins.search]
-lang = ["zh", "en"]
-
 separator = '[\s\-\.]+'  # 中文优化：'[\s\u200b\-]'
 
 # 标签插件配置
