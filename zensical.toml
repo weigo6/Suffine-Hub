@@ -111,6 +111,7 @@ nav = [
         {"MSYS2配置C/C++运行环境" = "CS/MSYS2配置C++运行环境.md"}
     ]},
     {"留言板" = "basic/guest-board.md"},
+    {"归档" = "basic/tags.md"},
     {"友链" = [
         {"朋友们" = "basic/friendly-links.md"},
         {"友链申请指南" = "basic/friendly-links-guide.md"},
@@ -223,6 +224,25 @@ lang = ["zh", "en"]
 
 separator = '[\s\-\.]+'  # 中文优化：'[\s\u200b\-]'
 
+# 标签插件配置
+[project.plugins.tags]
+
+# glightbox插件配置
+[project.plugins.glightbox]
+
+# minify插件配置
+[project.plugins.minify]
+minify_js = true
+minify_css = true
+cache_safe = true
+js_files = [
+    "javascripts/feedback.js",
+    "javascripts/katex.js",
+]
+css_files = [
+    "stylesheets/extra.css",
+]
+
 # 社交链接配置
 [[project.extra.social]]
 icon = "fontawesome/brands/weixin"
@@ -269,7 +289,7 @@ name = "通过电子邮件联系我"
 # 目录支持
 [project.markdown_extensions.toc]
 permalink =  true
-title = "目录 On This Page"
+title = "目录"
 permalink_title = "跳转至本节的锚点链接"
 toc_depth = 5 #目录层级
 # 表格支持
