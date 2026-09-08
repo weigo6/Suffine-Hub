@@ -1,6 +1,6 @@
 name: Build and Deploy Zensical to Deploy Branch
 
-# 触发条件：当推送到 main 分支时运行 (如果你的主分支叫 master，请修改此处)
+# 触发条件：当推送到 main 分支时运行
 on:
   push:
     branches:
@@ -19,11 +19,11 @@ jobs:
     steps:
       # 1. 检出代码
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # 2. 设置 Python 环境
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.10' # 根据需要修改 Python 版本
 
