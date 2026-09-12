@@ -194,7 +194,7 @@ wheels = [
 
 [[package]]
 name = "suffine-hub"
-version = "0.1.0"
+version = "0.3.6"
 source = { virtual = "." }
 dependencies = [
     { name = "zensical" },

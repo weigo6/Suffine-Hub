@@ -166,10 +166,11 @@ comments: true
 - [x] [查看如何加入友链](../basic/friendly-links-guide)
 - [x] **定期** 回访，来踩一脚。
 
+<!-- 友链头像用于跳转外站，使用 off-glb 排除灯箱处理，避免在卡片链接内嵌套链接。 -->
 <div class="friend-links-block-grid">
 
   <a class="friend-card-block" href="https://wcowin.work/" target="_blank" rel="noopener">
-    <img class="ava" src="https://s1.imagehub.cc/images/2025/12/06/28380affd86b014a6dcaf082fcc97064.png" loading="lazy" alt="Wcowin头像" />
+    <img class="ava off-glb" src="https://s1.imagehub.cc/images/2025/12/06/28380affd86b014a6dcaf082fcc97064.png" loading="lazy" alt="Wcowin头像" />
     <div class="block-content">
       <div class="title">Wcowin's Blog</div>
       <div class="desc">循此苦旅，以达星辰</div>
@@ -177,7 +178,7 @@ comments: true
   </a>
 
   <a class="friend-card-block" href="https://hongjun.vip/" target="_blank" rel="noopener">
-    <img class="ava" src="https://hongjun.vip/assets/avatar.png" loading="lazy" alt="极简主义" />
+    <img class="ava off-glb" src="https://hongjun.vip/assets/avatar.png" loading="lazy" alt="极简主义" />
     <div class="block-content">
       <div class="title">极简主义</div>
       <div class="desc">文档即产品</div>
@@ -185,7 +186,7 @@ comments: true
   </a>
 
   <a class="friend-card-block" href="https://www.pearworld.online/" target="_blank" rel="noopener">
-    <img class="ava" src="https://www.pearworld.online/images/avatar.jpg" loading="lazy" alt="PearWorld_Hub" />
+    <img class="ava off-glb" src="https://www.pearworld.online/images/avatar.jpg" loading="lazy" alt="PearWorld_Hub" />
     <div class="block-content">
       <div class="title">PearWorld_Hub</div>
       <div class="desc">分享日常科研、学习、运动</div>
@@ -193,7 +194,7 @@ comments: true
   </a>
 
   <a class="friend-card-block" href="https://blog.mxdyeah.com" target="_blank" rel="noopener">
-    <img class="ava" src="https://res.mxdyeah.com/favicon.webp" loading="lazy" alt="mxd's Blog" />
+    <img class="ava off-glb" src="https://res.mxdyeah.com/favicon.webp" loading="lazy" alt="mxd's Blog" />
     <div class="block-content">
       <div class="title">mxd's Blog</div>
       <div class="desc">以技术为翼，以生活为魂。Empowered by technology, inspired by life.</div>
@@ -201,7 +202,7 @@ comments: true
   </a>
 
   <a class="friend-card-block" href="https://blog.alexma.top" target="_blank" rel="noopener">
-    <img class="ava" src="https://imgproxy.alexma.top/XXKGpBkD10-GDrWn5b8asJspKs16xZz2AUxQE9VY4pI/rs:fit:512:512/f:webp/q:80/plain/s3://blog-pics/avatar.webp" loading="lazy" alt="AlexMa's Blog" />
+    <img class="ava off-glb" src="https://imgproxy.alexma.top/XXKGpBkD10-GDrWn5b8asJspKs16xZz2AUxQE9VY4pI/rs:fit:512:512/f:webp/q:80/plain/s3://blog-pics/avatar.webp" loading="lazy" alt="AlexMa's Blog" />
     <div class="block-content">
       <div class="title">AlexMa's Blog</div>
       <div class="desc">Create things with love.</div>
@@ -209,7 +210,7 @@ comments: true
   </a>
 
   <a class="friend-card-block" href="https://www.b23.kim" target="_blank" rel="noopener">
-    <img class="ava" src="https://cdn.009420.xyz/b23kim.jpg" loading="lazy" alt="b23.kim" />
+    <img class="ava off-glb" src="https://cdn.009420.xyz/b23kim.jpg" loading="lazy" alt="b23.kim" />
     <div class="block-content">
       <div class="title">b23.kim</div>
       <div class="desc">记住「 黑客是客，博客也是客 」by 请输入内容404</div>
@@ -217,7 +218,7 @@ comments: true
   </a>
 
   <a class="friend-card-block" href="https://blog.imikufans.com" target="_blank" rel="noopener">
-    <img class="ava" src="https://blog.imikufans.com/api/v3/objects/avatar/t8jpf1qw2ospuub7o8.png" loading="lazy" alt="Syskuku's Blog" />
+    <img class="ava off-glb" src="https://blog.imikufans.com/api/v3/objects/avatar/t8jpf1qw2ospuub7o8.png" loading="lazy" alt="Syskuku's Blog" />
     <div class="block-content">
       <div class="title">春雪(Syskuku's Blog)</div>
       <div class="desc">雪落有声，思绪成文。</div>
