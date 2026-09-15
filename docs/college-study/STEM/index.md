@@ -24,10 +24,6 @@ hr {
 .grid.cards > ul > li {
   padding: 0.8rem !important;
 }
-
-.md-typeset a {
-  text-decoration: none;
-}
 </style>
 
 # 理工科专业课程

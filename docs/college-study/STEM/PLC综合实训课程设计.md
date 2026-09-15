@@ -9,13 +9,6 @@ comments: true
 status: new
 ---
 
-<style>
-.md-typeset__scrollwrap {
-  display: flex;
-  justify-content: center;
-}
-</style>
-
 # PLC综合实训课程设计
 
 ## 基本实验项目

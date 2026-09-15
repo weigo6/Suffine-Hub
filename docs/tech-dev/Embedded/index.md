@@ -8,12 +8,6 @@ hide:
 comments: true
 ---
 
-<style>
-.md-typeset a {
-  text-decoration: none;
-}
-</style>
-
 # 嵌入式开发
 
 这里汇聚了硬件设计、单片机编程（STM32）、PCB 绘制以及各类学科竞赛的实战记录。从底层驱动到系统集成，见证每一个字节的跳动。

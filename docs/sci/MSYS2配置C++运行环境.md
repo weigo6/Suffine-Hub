@@ -5,7 +5,6 @@ tags:
   - C/C++
 icon: material/console-line
 comments: true
-status: new
 ---
 
 # MSYS2配置C/C++运行环境

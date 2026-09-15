@@ -1,5 +1,5 @@
 [build]
-command = "python -m pip install --upgrade pip && python -m pip install \"zensical>=0.0.21\" && python -m zensical build --clean"
+command = "python -m pip install --upgrade pip && python -m pip install \"zensical>=0.0.58\" && python -m zensical build --clean"
 publish = "site"
 
 [build.environment]

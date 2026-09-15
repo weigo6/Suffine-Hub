@@ -5,7 +5,6 @@ tags:
   - Python
 icon: material/package-variant
 comments: true
-status: new
 ---
 
 # Python 下一代包管理器 uv 上手指南

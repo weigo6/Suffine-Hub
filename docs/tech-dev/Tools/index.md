@@ -8,12 +8,6 @@ hide:
 comments: true
 ---
 
-<style>
-.md-typeset a {
-  text-decoration: none;
-}
-</style>
-
 # 工具与资源
 
 工欲善其事，必先利其器。这里整理了学习与开发过程中用到的高效工具、使用手册及资源链接。

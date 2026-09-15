@@ -6,13 +6,6 @@ hide:
 comments: true
 ---
 
-<style>
-.md-typeset a {
-  text-decoration: none;
-}
-</style>
-
-<!-- # Tags -->
 # 历史文章归档
 
 <div class="grid cards" markdown>

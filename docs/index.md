@@ -320,10 +320,6 @@ hr {
   padding: 0.8rem !important;
 }
 
-.md-typeset a {
-  text-decoration: none;
-}
-
 /* 移动端适配 */
 @media screen and (max-width: 768px) {
     .home-container {

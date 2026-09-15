@@ -8,12 +8,6 @@ hide:
 comments: true
 ---
 
-<style>
-.md-typeset a {
-  text-decoration: none;
-}
-</style>
-
 # Markdown 与文档构建
 
 Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。本专栏记录了从基础语法到高级排版，以及基于 Typora 和 MkDocs 的工具链使用心得。

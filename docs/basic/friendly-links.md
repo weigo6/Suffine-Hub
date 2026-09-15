@@ -11,11 +11,6 @@ comments: true
 ---
 
 <style>
-  /* 移除链接下划线 */
-  .md-typeset a {
-    text-decoration: none;
-  }
-
   /* 卡片网格容器：自适应列数，最小 300px */
   .friend-links-block-grid {
     display: grid;

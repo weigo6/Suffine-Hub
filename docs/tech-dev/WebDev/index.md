@@ -8,12 +8,6 @@ hide:
 comments: true
 ---
 
-<style>
-.md-typeset a {
-  text-decoration: none;
-}
-</style>
-
 # Web 相关开发
 
 个人撰写的 WEB 相关的技术笔记，以及开发项目的实战记录。
