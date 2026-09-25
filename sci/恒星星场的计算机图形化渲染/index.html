@@ -1,0 +1,5602 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="知行合一，格物致知。">
+      
+      
+        <meta name="author" content="Luwei">
+      
+      
+        <link rel="canonical" href="https://sufine.top/sci/%E6%81%92%E6%98%9F%E6%98%9F%E5%9C%BA%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%8C%96%E6%B8%B2%E6%9F%93/">
+      
+      
+        <link rel="prev" href="../MSYS2%E9%85%8D%E7%BD%AEC++%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/">
+      
+      
+        <link rel="next" href="../%E5%9C%86%E5%9E%8B%E9%99%90%E5%88%B6%E6%80%A7%E4%B8%89%E4%BD%93%E9%97%AE%E9%A2%98/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/bird.webp">
+      <meta name="generator" content="zensical-0.0.65">
+    
+    
+      
+        <title>从十亿级星表到多相机实时星空——面向大规模恒星星表的视场驱动实时渲染方法 - Suffine Hub</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.40d3fdbb.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.812a03bb.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.e1389f.min.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+  <!-- Umami Analytics 集成脚本，支持即时导航（SPA单页应用）模式，屏蔽navigation.tracking (滚动锚点变化) 干扰 -->
+<script defer 
+  src="https://cloud.umami.is/script.js" 
+  data-website-id="c53576ff-f759-4495-b8ec-bb653e56ce58"
+  data-exclude-hash="true"
+></script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Suffine Hub" class="md-header__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../images/bird.webp" alt="Suffine Hub">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Suffine Hub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              从十亿级星表到多相机实时星空——面向大规模恒星星表的视场驱动实时渲染方法
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  关于本站
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../college-study/" class="md-tabs__link">
+          
+  
+  课程学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tech-dev/" class="md-tabs__link">
+          
+  
+  技术开发
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+      
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-tabs__link">
+          
+  
+  学科小记
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../basic/guest-board/" class="md-tabs__link">
+        
+  
+  留言板
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../basic/tags/" class="md-tabs__link">
+        
+  
+  归档
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../basic/friendly-links/" class="md-tabs__link">
+          
+  
+  友链
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://nav.sufine.top" class="md-tabs__link">
+        
+  
+  导航站
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://music.sufine.top" class="md-tabs__link">
+        
+  
+  音乐台
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://009420.xyz" class="md-tabs__link">
+        
+  
+  笔记本
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Suffine Hub" class="md-nav__button md-logo" aria-label="Suffine Hub" data-md-component="logo">
+      
+  <img src="../../images/bird.webp" alt="Suffine Hub">
+
+    </a>
+    Suffine Hub
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weigo6/suffine-hub" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    weigo6/Sufine Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  关于本站
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../college-study/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  课程学习
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  课程学习
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../college-study/RailSig/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 2h7c.8 0 1.56.32 2.12.88S15 4.2 15 5v1h-2V4H4v7h5v5H8l-3 3H4v-2l1-1c-.8 0-1.56-.32-2.12-.88S2 13.8 2 13V5c0-.8.32-1.56.88-2.12S4.2 2 5 2m.71 10.29C5.5 12.11 5.27 12 5 12c-.26 0-.5.11-.71.29-.18.21-.29.45-.29.71 0 .27.11.5.29.71.21.19.45.29.71.29.27 0 .5-.1.71-.29.19-.21.29-.44.29-.71 0-.26-.1-.5-.29-.71M11 11c0-1.66 1-3 4-3h3c3 0 4 1.34 4 3v7c0 .74-.4 1.39-1 1.73V21c0 .55-.45 1-1 1s-1-.45-1-1v-1h-5v1c0 .55-.45 1-1 1s-1-.45-1-1v-1.27c-.6-.34-1-.99-1-1.73zm2-1v4h7v-4zm1 8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1m6-1c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  轨道交通信号与控制
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  轨道交通信号与控制
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/RailSig/%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E6%A6%82%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-5V6h5m-1.5 11a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5M11 11H6V6h5M7.5 17A1.5 1.5 0 0 1 6 15.5 1.5 1.5 0 0 1 7.5 14 1.5 1.5 0 0 1 9 15.5 1.5 1.5 0 0 1 7.5 17M12 2c-4.42 0-8 .5-8 4v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5v.5h12v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.58-4-8-4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  城市轨道交通概论
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%B8%80/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m0 5a2 2 0 0 1-2-2 2 2 0 0 1 2-2c1.11 0 2 .89 2 2a2 2 0 0 1-2 2m8-9h-3V8.86c1.72-.45 3-2 3-3.86h-3V4a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1H4c0 1.86 1.28 3.41 3 3.86V10H4c0 1.86 1.28 3.41 3 3.86V15H4c0 1.86 1.28 3.41 3 3.86V20a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1.14c1.72-.45 3-2 3-3.86h-3v-1.14c1.72-.45 3-2 3-3.86"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  轨道交通信号基础一
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/RailSig/%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E5%9F%BA%E7%A1%80%E4%BA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.67 10.5c-1.27 0-2.4.8-2.82 2h-1.68V7.77l3.49 2.09 1-1.72L14.11 6l3.57-2.14-1-1.72-3.51 2.09V2h-2v2.23L7.68 2.14l-1 1.72L10.23 6 6.66 8.14l1 1.72 3.51-2.09v4.73H9.5c-1.14-3.18-5.84-2.37-5.84 1s4.7 4.18 5.84 1h1.67V20a2 2 0 0 0-2 2h6a2 2 0 0 0-2-2v-5.5h1.68c.81 2.3 3.88 2.72 5.28.73s-.03-4.73-2.46-4.73m-11 4c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1m11 0c-.89 0-1.34-1.08-.71-1.71s1.71-.18 1.71.71a1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  城市轨道交通基础二
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/RailSig/%E5%8C%BA%E9%97%B4%E4%BF%A1%E5%8F%B7%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 11h-3.18C14.4 9.84 13.3 9 12 9s-2.4.84-2.82 2H6c-.33 0-2-.1-2-2V8c0-1.83 1.54-2 2-2h10.18C16.6 7.16 17.7 8 19 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3c-1.3 0-2.4.84-2.82 2H6C4.39 4 2 5.06 2 8v1c0 2.94 2.39 4 4 4h3.18c.42 1.16 1.52 2 2.82 2s2.4-.84 2.82-2H18c.33 0 2 .1 2 2v1c0 1.83-1.54 2-2 2H7.82C7.4 16.84 6.3 16 5 16a3 3 0 0 0-3 3 3 3 0 0 0 3 3c1.3 0 2.4-.84 2.82-2H18c1.61 0 4-1.07 4-4v-1c0-2.93-2.39-4-4-4m1-7a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1M5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  区间信号自动控制
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/RailSig/%E8%BD%A6%E7%AB%99%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 16V4H3v12zm0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v2h2v2H8v-2h2v-2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2zM5 6h9v5H5zm10 0h4v2h-4zm4 3v5h-4V9zM5 12h4v2H5zm5 0h4v2h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  车站信号控制系统
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../college-study/STEM/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  理工科专业课程
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  理工科专业课程
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/matlab-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v2h3v12h-3v2h5V4M4 4v16h5v-2H6V6h3V4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Matlab入门学习
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/PLC-S7-200-study/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  西门子PLC S7-200
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/PLC-ModbusRTU/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 3h10v2h2v3h-3v6H8V8H5V5h2zm10 6h2v5h-2zm-6 6h2v7h-2zM5 9h2v5H5z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  PLC ModbusRTU 学习
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h1v2H2v2h4v2H5c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2zm0 2h4v3h-4zM5 17h4v3H5zm10 0h4v3h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  计算机网络课程
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/%E4%BC%A0%E6%84%9F%E5%99%A8%E4%B8%8E%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  传感器与检测技术
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/%E4%BA%A4%E9%80%9A%E8%8B%B1%E8%AF%AD%E7%AD%94%E8%BE%A9%E8%AE%B2%E7%A8%BF/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  专业外语课程-交通英语
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  通信原理课程
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 22a3 3 0 0 1-3-3c0-.6.18-1.16.5-1.63L9 7.81V6a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1v1.81l5.5 9.56c.32.47.5 1.03.5 1.63a3 3 0 0 1-3 3zm-1-3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1c0-.21-.07-.41-.18-.57l-2.29-3.96L14 17l-5.07-5.07-3.75 6.5c-.11.16-.18.36-.18.57m8-9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  通信原理实验报告
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/%E8%8B%8F%E5%B7%9E%E8%AF%84%E5%BC%B9%E9%89%B4%E8%B5%8F/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 5a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c2.67 0 8 1.34 8 4v2H1v-2c0-2.66 5.33-4 8-4m7.76-9.64c2.02 2.2 2.02 5.25 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89zM20.07 2c3.93 4.05 3.9 10.11 0 14l-1.63-1.63c2.77-3.18 2.77-7.72 0-10.74z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  苏州评弹鉴赏
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/%E6%AF%9B%E6%A6%82%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h2v20H7zm12 7-8 5.6V3.4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  毛概复习笔记
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/%E6%95%B0%E5%AD%97%E7%94%B5%E5%8E%8B%E8%A1%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  数字电压表制作课程设计
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/PLC%E7%BB%BC%E5%90%88%E5%AE%9E%E8%AE%AD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.9 18.45c1.35 0 2.45-1.1 2.45-2.45s-1.1-2.45-2.45-2.45c-1.36 0-2.45 1.1-2.45 2.45s1.09 2.45 2.45 2.45m5.2-1.77 1.48 1.16c.13.11.17.29.08.45l-1.4 2.42a.35.35 0 0 1-.43.15l-1.74-.7c-.36.28-.76.51-1.18.69l-.27 1.85c-.02.17-.17.3-.34.3h-2.8c-.18 0-.32-.13-.35-.3l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.75.7c-.15.06-.34 0-.42-.15l-1.4-2.42a.35.35 0 0 1 .08-.45l1.48-1.16-.05-.68.05-.69-1.48-1.15a.35.35 0 0 1-.08-.45l1.4-2.42c.08-.16.27-.22.42-.16l1.75.71c.36-.28.75-.52 1.18-.69l.26-1.86c.03-.16.17-.29.35-.29h2.8c.17 0 .32.13.34.29l.27 1.86c.42.17.82.41 1.18.69l1.74-.71c.17-.06.34 0 .43.16l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.15.05.69zM6.69 8.07c.87 0 1.57-.7 1.57-1.57s-.7-1.58-1.57-1.58A1.58 1.58 0 0 0 5.11 6.5c0 .87.71 1.57 1.58 1.57m3.34-1.13.97.74c.07.07.09.19.03.29l-.9 1.56c-.05.1-.17.14-.27.1l-1.12-.45-.74.44-.19 1.19c-.02.11-.11.19-.22.19h-1.8c-.12 0-.21-.08-.23-.19L5.4 9.62l-.76-.44-1.14.45c-.09.04-.2 0-.26-.1l-.9-1.56c-.06-.1-.03-.22.05-.29l.95-.74-.03-.44.03-.44-.95-.74a.23.23 0 0 1-.05-.29l.9-1.56c.06-.1.17-.14.26-.1l1.13.45.77-.44.16-1.19c.02-.11.11-.19.23-.19h1.8c.11 0 .2.08.22.19L8 3.38l.74.44 1.12-.45c.1-.04.22 0 .27.1l.9 1.56c.06.1.04.22-.03.29l-.97.74.03.44z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  PLC综合实训课程设计
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%BF%A1%E5%8F%B7%E9%85%8D%E6%97%B6%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.1 4.8c-.1-.5-.5-.8-1-.8H13l.2 3h-2.4l.2-3H6.8c-.5 0-.9.4-1 .8l-2.7 14c-.1.6.4 1.2 1 1.2H10l.3-5h3.4l.3 5h5.8c.6 0 1.1-.6 1-1.2zM10.4 13l.2-4h2.6l.2 4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  交叉口信号配时课程设计
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/STEM/%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8C%E9%9D%A2%E9%95%9C%E6%B5%8B%E7%A3%81%E8%87%B4%E4%BC%B8%E7%BC%A9%E7%B3%BB%E6%95%B0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.29 10.28 3.24-3.25 1.06 1.06-3.24 3.25zm.41 4.33 5.66-5.66L15.42 10l-5.66 5.67zM18 3v18H6V3zm2-2H4v22h16z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  菲涅尔双面镜测磁致伸缩系数实验
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../college-study/Kaoyan/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研相关科目
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  考研相关科目
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/Kaoyan/kaoyan-math-hm/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.42 5.29c-1.1-.1-2.07.71-2.17 1.82L10 10h2.82v2h-3l-.44 5.07A4.001 4.001 0 0 1 2 18.83l1.5-1.5c.33 1.05 1.46 1.64 2.5 1.3.78-.24 1.33-.93 1.4-1.74L7.82 12h-3v-2H8l.27-3.07a4.01 4.01 0 0 1 4.33-3.65c1.26.11 2.4.81 3.06 1.89l-1.5 1.5c-.25-.77-.93-1.31-1.74-1.38M22 13.65l-1.41-1.41-2.83 2.83-2.83-2.83-1.43 1.41 2.85 2.85-2.85 2.81 1.43 1.41 2.83-2.83 2.83 2.83L22 19.31l-2.83-2.81z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研数二-高数知识点
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/Kaoyan/kaoyan-math-la/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h6v2h8V2h6v6h-2v8h2v6h-6v-2H8v2H2v-6h2V8H2zm14 6V6H8v2H6v8h2v2h8v-2h2V8zM4 4v2h2V4zm14 0v2h2V4zM4 18v2h2v-2zm14 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研数二-线代知识点
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/Kaoyan/kaoyan-eng-write/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.54 3.5 4.96 4.97-1.43 1.41-4.95-4.95zM3.5 19.78l6.5-6.47c-.1-.31-.03-.7.23-.96.39-.39 1.03-.39 1.42 0 .39.4.39 1.03 0 1.42-.26.26-.65.33-.96.23l-6.47 6.5 10.61-3.55 3.53-6.36-4.94-4.95-6.37 3.53z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研英二-作文写作
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/Kaoyan/%E8%80%83%E7%A0%94%E6%A0%B8%E5%BF%83926%E8%AF%8D%E6%B1%87%E5%8F%8A%E6%8B%93%E5%B1%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2zm0 2h2v2H3m12-.5V9a2 2 0 0 0-2-2H9v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M13 15h-2v-2h2zm0-4h-2V9h2m6-2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1h-2v1h-2V9h2v1h2V9a2 2 0 0 0-2-2Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研英二-核心词汇926词
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/Kaoyan/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-1.27 0-2.4.8-2.82 2H3v2h1.95L2 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3L6.05 7h3.12c.33.85.98 1.5 1.83 1.83V20H2v2h20v-2h-9V8.82c.85-.32 1.5-.97 1.82-1.82h3.13L15 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3l-2.95-7H21V5h-6.17C14.4 3.8 13.27 3 12 3m0 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-6.5 5.25L7 14H4zm13 0L20 14h-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  考研政治-知识点笔记
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../college-study/Kaoyan/%E8%87%AA%E6%8E%A7-%E6%A0%B9%E8%BD%A8%E8%BF%B9%E6%B3%95%E5%88%99/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.96 11.31C10.82 8.1 11.5 6 13 6s2.18 2.1 3.04 5.31C17 14.92 18.1 19 22 19v-2c-2.2 0-3-2.46-4.03-6.2C17.08 7.46 16.15 4 13 4s-4.08 3.46-4.97 6.8C7.03 14.54 6.2 17 4 17V2H2v20h20v-2H4v-1c3.9 0 5-4.08 5.96-7.69"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  自动控制原理-根轨迹法则
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tech-dev/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  技术开发
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  技术开发
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tech-dev/Markdown/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12c.79 0 1.44.63 1.44 1.41v9.18c0 .78-.65 1.41-1.44 1.41M6.81 15.19v-3.66l1.92 2.35 1.92-2.35v3.66h1.93V8.81h-1.93l-1.92 2.35-1.92-2.35H4.89v6.38zM19.69 12h-1.92V8.81h-1.92V12h-1.93l2.89 3.28z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Markdown相关
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Markdown相关
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Markdown/markdown-in-5min/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4zm10 14.5-4-4-4 4V20h8zm-4-5 4-4V4H8v3.5zM10 6h4v.75l-2 2-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Markdown 5 分钟上手
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Markdown/LaTeX-math/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 6H8.83l6 6-6 6H18v2H6v-2l6-6-6-6V4h12z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  在Markdown中编写数学公式
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Markdown/zensical-markdown/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5zm2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63s2.59.23 3.5.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  在 Zensical 中使用 Markdown 高效写作
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Markdown/markdown-typora/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7V5h2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L18 9V2h1c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7zm4 4H5v2h2zm0-4V5H5v2zm0 12v-2H5v2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Markdown 与 Typora 学习笔记
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Markdown/typora-theme/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 12a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 17.5 9a1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-3-4A1.5 1.5 0 0 1 13 6.5 1.5 1.5 0 0 1 14.5 5 1.5 1.5 0 0 1 16 6.5 1.5 1.5 0 0 1 14.5 8m-5 0A1.5 1.5 0 0 1 8 6.5 1.5 1.5 0 0 1 9.5 5 1.5 1.5 0 0 1 11 6.5 1.5 1.5 0 0 1 9.5 8m-3 4A1.5 1.5 0 0 1 5 10.5 1.5 1.5 0 0 1 6.5 9 1.5 1.5 0 0 1 8 10.5 1.5 1.5 0 0 1 6.5 12M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9 1.5 1.5 0 0 0 1.5-1.5c0-.39-.15-.74-.39-1-.23-.27-.38-.62-.38-1a1.5 1.5 0 0 1 1.5-1.5H16a5 5 0 0 0 5-5c0-4.42-4.03-8-9-8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Typora 软件主题分享与记录
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tech-dev/WebDev/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.19 14.19 6 18l3.81-8.19L18 6m-6-4A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 8.9a1.1 1.1 0 0 0-1.1 1.1 1.1 1.1 0 0 0 1.1 1.1 1.1 1.1 0 0 0 1.1-1.1 1.1 1.1 0 0 0-1.1-1.1"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Web 相关开发
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Web 相关开发
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/WebDev/%E4%BD%BF%E7%94%A8EO-Pages%E6%89%98%E7%AE%A1Zensical%E7%AB%99%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83s-2.05.78-2.83 0m-5.66 7.07-1.41-1.41zM6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  使用 EdgeOne Pages 托管 Zensical 站点
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E8%A1%A8%E5%8D%95%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.13c-.15.01-.29.06-.39.17l-1 1 2.05 2 1-1c.22-.21.22-.56 0-.77l-1.24-1.23a.56.56 0 0 0-.38-.17m-2 1.75L13 19.94V22h2.06l6.06-6.07M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7v-.89l8.24-8.22c.47-.49 1.12-.76 1.8-.76.34 0 .68.06 1 .19V6c0-1.12-.92-2-2.04-2m0 4-8 5-8-5V6l8 5 8-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  为 Zensical 站点添加邮件表单功能
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/WebDev/%E5%9F%BA%E4%BA%8EEO-Pages%E5%AE%9E%E7%8E%B0%E7%AB%99%E7%82%B9%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于 EdgeOne Pages 实现站点访问统计功能
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0AI%E9%97%AE%E7%AD%94%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-1.26 2.75L15 5l2.74 1.26L19 9l1.25-2.74L23 5l-2.75-1.25M9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5M19 15l-1.26 2.74L15 19l2.74 1.25L19 23l1.25-2.75L23 19l-2.75-1.26"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  为 Zensical 站点添加 AI 问答功能
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/WebDev/%E4%B8%BAZensical%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  为 Zensical 站点添加音乐播放器功能
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tech-dev/Embedded/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9zm-4 10H4V5h14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  嵌入式开发
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  嵌入式开发
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E4%BE%BF%E6%90%BA%E5%BC%8F%E4%BF%A1%E5%8F%B7%E9%87%87%E9%9B%86%E8%AE%BE%E5%A4%87%E7%A0%94%E7%A9%B6/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-2 1-1 1-1-1-1 3-1-3-1 8-1-8-1 2-1-2-1 4-1-4-1 9-1-9-1 6-1-6-1 1-1-1-2-1 2-1 1-1 1 1 1-6 1 6 1-9 1 9 1-4 1 4 1-2 1 2 1-8 1 8 1-3 1 3 1-1 1 1z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于STM32的便携式信号采集设备研究
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E5%9B%9B%E8%BD%AE%E7%A7%BB%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 0 0 5 15.5 2.5 2.5 0 0 0 7.5 18a2.5 2.5 0 0 0 2.5-2.5A2.5 2.5 0 0 0 7.5 13m9 0a2.5 2.5 0 0 0-2.5 2.5 2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于STM32的四轮移动机器人设计
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ERFID%E7%9A%84%E6%99%BA%E8%83%BD%E4%BB%93%E5%82%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h2v2H6zm6-16L2 8v13h2v-8h16v8h2V8zm-4 8H4V9h4zm6 0h-4V9h4zm6 0h-4V9h4zM6 15h2v2H6zm4 0h2v2h-2zm0 4h2v2h-2zm4 0h2v2h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于RFID的智能仓储管理系统设计
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Embedded/2024%E7%94%B5%E8%B5%9BH%E9%A2%98%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2c-.9 0-2 1-2 2H8c0-1-1.1-2-2-2H2v9c0 1 1 2 2 2h2.2c.4 2 1.7 3.7 4.8 4v2.08C8 19.54 8 22 8 22h8s0-2.46-3-2.92V17c3.1-.3 4.4-2 4.8-4H20c1 0 2-1 2-2V2zM6 11H4V4h2zm14 0h-2V4h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  2024电赛H题参赛记录
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Embedded/2024%E8%A5%BF%E9%97%A8%E5%AD%90%E6%9D%AF%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4v2l5.81 4.36a7.004 7.004 0 0 0-4.46 8.84 6.996 6.996 0 0 0 8.84 4.46 7 7 0 0 0 0-13.3L20 4zm-5.06 17.5L12 17.78 9.06 19.5l.78-3.33-2.59-2.24 3.41-.29L12 10.5l1.34 3.14 3.41.29-2.59 2.24z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  2024西门子杯参赛记录
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Embedded/%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  蓝桥杯嵌入式与STM32学习笔记
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Embedded/PCB%E8%AE%BE%E8%AE%A1%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0 3 7l1.63 1.27L12 14l7.36-5.73L21 7zm7.37 10.73L12 16.47l-7.38-5.73L3 12l9 7 9-7zm0 5L12 21.47l-7.38-5.73L3 17l9 7 9-7z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  PCB设计注意事项
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Embedded/%E5%9F%BA%E4%BA%8ECD4017%E7%9A%84%E7%AE%80%E6%98%93%E5%AF%86%E7%A0%81%E5%99%A8%E6%8E%A7%E5%88%B6%E8%A3%85%E7%BD%AE/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m5.6-4c-.8-2.3-3-4-5.6-4-3.3 0-6 2.7-6 6s2.7 6 6 6c2.6 0 4.8-1.7 5.6-4H16v4h4v-4h3v-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于CD4017的简易密码器控制装置
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tech-dev/Software/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v10H4m16 2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  软件程序开发
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  软件程序开发
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Software/%E5%9F%BA%E4%BA%8EAST%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E7%9A%84Python%E6%96%87%E4%BB%B6%E6%9F%A5%E9%87%8D/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18H6v-2h4zm0-4H6v-2h4zm0-13v1H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h4v1h2V1zm10 7v12c0 1.11-.89 2-2 2h-4v-2h4v-9h-4V9h4.5L14 4.5V2zm-4 6h-2v-2h2zm0 4h-2v-2h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于AST语义分析的Python文件查重
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Software/%E6%97%8B%E8%BD%AC%E9%9F%B3%E5%BE%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m0 2v12h16V6zm3.24.58 11.59 3.11-2.07 7.73-11.59-3.11z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  基于Pyside6与ffmpeg的旋转音律视频稳定工具
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Software/Turbot4%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Turbot4机器人开发记录
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tech-dev/Tools/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.8 3.8 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.8 3.8 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4Z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  工具与资源
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  工具与资源
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Tools/Git%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-git-merge" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Git网络代理设置教程
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tech-dev/Tools/%E5%8D%A1%E8%A5%BF%E6%AC%A7fx-991%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4zm0 6v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  卡西欧fx-991使用技巧
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  学科小记
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  学科小记
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  计算机科学
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_4_1">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  计算机科学
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55 6.28-3.63-.58-1.01-6.28 3.63z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Python 下一代包管理器 uv 上手指南
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MSYS2%E9%85%8D%E7%BD%AEC++%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 19v-3h8v3zm-4.5-6L2.47 7h4.24l4.96 4.95c.58.59.58 1.55 0 2.12L6.74 19H2.5z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  MSYS2配置C/C++运行环境
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 11H1v2h6zm2.17-3.24L7.05 5.64 5.64 7.05l2.12 2.12zM13 1h-2v6h2zm5.36 6.05-1.41-1.41-2.12 2.12 1.41 1.41zM17 11v2h6v-2zm-5-2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m2.83 7.24 2.12 2.12 1.41-1.41-2.12-2.12zm-9.19.71 1.41 1.41 2.12-2.12-1.41-1.41zM11 23h2v-6h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  恒星星场的计算机图形化渲染
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 11H1v2h6zm2.17-3.24L7.05 5.64 5.64 7.05l2.12 2.12zM13 1h-2v6h2zm5.36 6.05-1.41-1.41-2.12 2.12 1.41 1.41zM17 11v2h6v-2zm-5-2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m2.83 7.24 2.12 2.12 1.41-1.41-2.12-2.12zm-9.19.71 1.41 1.41 2.12-2.12-1.41-1.41zM11 23h2v-6h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  恒星星场的计算机图形化渲染
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+      
+        
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        摘要
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1 引言
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2 系统框架与恒星数据表征
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 系统框架与恒星数据表征">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.1 研究数据与目录组成
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.2 星表预处理与属性语义
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 星表预处理与属性语义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-gaia" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.2.1 Gaia 测光数据与恒星的亮度颜色
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.3 紧凑目录格式与记录解码
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.4 连续天空背景：从星表通量到全天辐亮度
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.5 分层星场与多相机数据所有权
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.6 从赤道坐标到引擎方向
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.7 测地分区与星等有序访问
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3 视场驱动的渐进加载与驻留管理
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 视场驱动的渐进加载与驻留管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.1 从可见视锥到稳定的分区需求
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.2 续读、合并与异步结果校验
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.3 局部预算与进程级准入
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.4 驻留缓存、GPU 容量与渐进发布
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4 GPU 可见性、外观计算与星点生成
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 GPU 可见性、外观计算与星点生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.1 目录点源的 GPU 生成
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-lod" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.2 深空星点的 LOD：先控制深度，再控制密度
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5 方法性质与复杂度
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5 方法性质与复杂度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.1 深空暗星的计算流程与并行组织
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.2 存储与计算复杂度
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6 讨论
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        7 结论
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        参考文献
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        附录 A　术语与基础概念
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="附录 A 术语与基础概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A.1 天文学术语
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A.2 图形学术语
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A.3 流式数据与资源术语
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  天体动力学
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  天体动力学
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9C%86%E5%9E%8B%E9%99%90%E5%88%B6%E6%80%A7%E4%B8%89%E4%BD%93%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 14.25 4.75 11H7c.25-5.61 2.39-10 5-10 2 0 3.77 2.64 4.55 6.45C20.36 8.23 23 10 23 12c0 1.83-2.17 3.43-5.4 4.3l.29-2.03C19.8 13.72 21 12.91 21 12c0-1.06-1.65-2-4.13-2.5.08.79.13 1.63.13 2.5 0 6.08-2.24 11-5 11-1.83 0-3.43-2.17-4.3-5.4l2.03.29C10.28 19.8 11.09 21 12 21c1.66 0 3-4.03 3-9q0-1.5-.15-2.85Q13.5 9 12 9l-1.86.06.29-2.01L12 7c.87 0 1.71.05 2.5.13C14 4.65 13.06 3 12 3c-1.54 0-2.82 3.5-3 8h2.25zM14.25 16 11 19.25V17c-5.61-.25-10-2.39-10-5 0-1.83 2.17-3.43 5.4-4.3l-.29 2.03C4.2 10.28 3 11.09 3 12c0 1.54 3.5 2.82 8 3v-2.25z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  圆形限制性三体问题
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9C%86%E5%9E%8B%E9%99%90%E5%88%B6%E6%80%A7%E4%B8%89%E4%BD%93%E9%97%AE%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.36 2.64c1.64 0 3 1.36 3 3 0 1.65-1.36 3-3 3-1.65 0-3-1.35-3-3 0-.3.05-.58.14-.84-1.07-.51-2.25-.8-3.5-.8a8 8 0 0 0-8 8l.04.84-1.99.21L2 12A10 10 0 0 1 12 2c1.69 0 3.28.42 4.67 1.16.49-.33 1.07-.52 1.69-.52m0 2a1 1 0 0 0-1 1 1 1 0 0 0 1 1c.56 0 1-.45 1-1 0-.56-.44-1-1-1M5.64 15.36c1.65 0 3 1.35 3 3 0 .3-.05.58-.14.84 1.07.51 2.25.8 3.5.8a8 8 0 0 0 8-8l-.04-.84 1.99-.21L22 12a10 10 0 0 1-10 10c-1.69 0-3.28-.42-4.67-1.16-.49.33-1.07.52-1.69.52-1.64 0-3-1.36-3-3 0-1.65 1.36-3 3-3m0 2c-.56 0-1 .45-1 1 0 .56.44 1 1 1a1 1 0 0 0 1-1 1 1 0 0 0-1-1M12 8a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  圆形限制性三体问题（二）：平衡点、雅可比常数与零速度面
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="最近更新">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic/guest-board/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  留言板
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic/tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  归档
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  友链
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  友链
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic/friendly-links/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 17q.86 0 1.45.6t.58 1.4L14 22l-7-2v-9h1.95l7.27 2.69q.78.31.78 1.12 0 .47-.34.82t-.86.37H13l-1.75-.67-.33.94L13 17zM16 3.23Q17.06 2 18.7 2q1.36 0 2.3 1t1 2.3q0 1.03-1 2.46t-1.97 2.39T16 13q-2.08-1.89-3.06-2.85t-1.97-2.39T10 5.3q0-1.36.97-2.3t2.34-1q1.6 0 2.69 1.23M.984 11H5v11H.984z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  朋友们
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic/friendly-links-guide/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 14c-2.67 0-8 1.33-8 4v2h16v-2c0-2.67-5.33-4-8-4m-9-4V7H4v3H1v2h3v3h2v-3h3v-2m6 2a4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4 4 4 0 0 0 4 4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  友链申请指南
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic/contact-form/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 8V7l-3 2-3-2v1l3 2m4-7H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M8 6a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m6 12H2v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1m8-5h-8V6h8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  联系表单
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nav.sufine.top" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  导航站
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://music.sufine.top" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  音乐台
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://009420.xyz" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  笔记本
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        摘要
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1 引言
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2 系统框架与恒星数据表征
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 系统框架与恒星数据表征">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.1 研究数据与目录组成
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.2 星表预处理与属性语义
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 星表预处理与属性语义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-gaia" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.2.1 Gaia 测光数据与恒星的亮度颜色
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.3 紧凑目录格式与记录解码
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.4 连续天空背景：从星表通量到全天辐亮度
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.5 分层星场与多相机数据所有权
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.6 从赤道坐标到引擎方向
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2.7 测地分区与星等有序访问
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3 视场驱动的渐进加载与驻留管理
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 视场驱动的渐进加载与驻留管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.1 从可见视锥到稳定的分区需求
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.2 续读、合并与异步结果校验
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.3 局部预算与进程级准入
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3.4 驻留缓存、GPU 容量与渐进发布
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4 GPU 可见性、外观计算与星点生成
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 GPU 可见性、外观计算与星点生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.1 目录点源的 GPU 生成
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-lod" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4.2 深空星点的 LOD：先控制深度，再控制密度
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5 方法性质与复杂度
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5 方法性质与复杂度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.1 深空暗星的计算流程与并行组织
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5.2 存储与计算复杂度
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6 讨论
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        7 结论
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        参考文献
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        附录 A　术语与基础概念
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="附录 A 术语与基础概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A.1 天文学术语
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A.2 图形学术语
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A.3 流式数据与资源术语
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  
+  <span class="md-ellipsis">
+    关于本站
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    学科小记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    计算机科学
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/weigo6/suffine-hub/edit/main/docs/sci/恒星星场的计算机图形化渲染.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/weigo6/suffine-hub/raw/main/docs/sci/恒星星场的计算机图形化渲染.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+<h1 id="_1">从十亿级星表到多相机实时星空——面向大规模恒星星表的视场驱动实时渲染方法<a class="headerlink" href="#_1" title="跳转至本节的锚点链接">&para;</a></h1>
+<h2 id="_2">摘要<a class="headerlink" href="#_2" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>面向天文可视化、虚拟观测和沉浸式仿真等应用，大规模恒星星场渲染需要同时处理星表数据规模、相机视场差异、GPU 可见性筛选以及星点感知外观等问题。将完整星表常驻显存会产生显著的存储与候选处理开销，而仅将恒星预烘焙为天空纹理又难以支持观测深度变化、多相机独立视场和可查询的恒星属性。</p>
+<p>本文提出一种基于分层数据所有权和视场驱动渐进加载的实时恒星渲染方法。该方法将星场分解为连续天空背景、跨相机共享的基础恒星层以及按相机维护的暗星扩展层；利用测地网格组织天球空间，通过按星等排序的分区记录实现可续传的局部读取；在 GPU 端采用范围表和紧凑工作项完成可见性判断、投影、感知外观计算、屏幕记录压缩及亮度分桶，并由 GPU 直接生成间接绘制参数。星点外观由星等、视场角、B−V 颜色和点扩散纹理共同确定，并以加法混合写入线性高动态范围（high dynamic range, HDR）目标。该方法在复用多相机公共目录数据的同时，使暗星工作集能够适应各相机独立的观测方向和限深，为大规模恒星目录的实时图形化表达提供一种可复现的工程框架。</p>
+<p><strong>关键词：</strong> 恒星星场；实时渲染；星表；流式加载；GPU 驱动绘制；点扩散函数</p>
+<p><a class="glightbox" data-type="image" href="../恒星星场的计算机图形化渲染.assets/image.png"><img alt="image" src="../恒星星场的计算机图形化渲染.assets/image.png" /></a></p>
+<h2 id="1">1 引言<a class="headerlink" href="#1" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>恒星星场是天文可视化系统中的基础视觉对象，其渲染目标并非简单复现离散光点，而是在有限的计算与显示条件下维持方向、亮度、颜色和空间密度之间的一致关系。Gaia 等全天巡天已提供大规模天体测量和多通带光度数据[1–3]。对于小规模场景，将恒星作为普通粒子或预先写入天空纹理即可获得可接受结果。然而，当数据源扩展到大型恒星目录，且系统需要支持宽视场浏览、窄视场观测、动态星等上限以及多台独立相机时，传统方法会暴露出明显局限。完整目录一次性进入显存会放大加载、上传和逐帧筛选成本；为每台相机复制数据会造成资源冗余；固定天空纹理则无法保留恒星属性，也难以响应观测深度变化。</p>
+<p>上述矛盾的根源在于，恒星数据与相机状态具有不同的所有权。恒星的天球方向、星等和颜色由恒星数据集决定，在相同数据源下具有共享条件；可见分区、预取范围、加载深度、屏幕投影和输出缓冲则由相机视场决定，必须独立维护。基于这一认识，本文采用分层星场表示，将稳定且高频使用的亮星组织为基础恒星层，将只有在更深观测中才需要的暗星组织为视场相关的扩展层，并将连续银河结构纹理与未解析恒星辐亮度纹理保留为背景场。后者用于表达宽视场下密集暗星的连续外观，不保存可查询的单星记录。该结构避免了恒星数据在“全部共享”与“全部复制”之间作简单折中，而是依据数据产生机制划分共享边界。</p>
+<p>现有数字星空表达大体可分为三类：预计算全天纹理具有固定成本和良好连续性，却难以保留可查询的单星属性，且无法在不同的相机FOV参数下维持星点大小不变；逐星粒子或公告板能够保留目录语义，但在十亿级目录下受到内存、候选遍历和提交数量约束；基于空间索引的分块加载可以显著缩小工作集，却仍需处理多相机资源重复与异步上传一致性。Stellarium 等开源天文软件展示了目录驱动天空模拟的实用价值[4]。本文工作的侧重点不在于天文历算或目录服务，而是将目录点源以明确的空间、光度与资源所有权映射到实时图形管线。</p>
+<p>本文关注恒星目录数据流的实时图形化方法，旨在使相关显示输出尽量接近天文摄影效果，以实现可视化仿真目标。研究内容包括星表到屏幕坐标的数据表征、测地分区上的渐进加载、GPU 可见性与紧凑化、星点感知外观以及多相机数据组织。整体流程如图 1 所示：</p>
+<p><a class="glightbox" data-type="image" href="../恒星星场的计算机图形化渲染.assets/stellar_streaming_presentation.png"><img alt="恒星星场渐进加载与星点渲染模型" src="../恒星星场的计算机图形化渲染.assets/stellar_streaming_presentation.png" /></a></p>
+<p><em>图 1　视场驱动的恒星星场渐进加载与星点渲染流程</em></p>
+<p>本文的主要贡献包括三方面：第一，建立从 Gaia/Hipparcos 离线目录到运行时定长记录的数据表征方法，明确天体测量、光度、颜色和来源标志在渲染阶段的语义；第二，提出“目录固有数据共享、视场相关状态隔离”的多相机所有权模型，并以严格星等边界消除基础层与扩展层的记录重叠；第三，构建由磁盘续读、CPU 驻留、GPU 上传前缀、范围表紧凑化和间接绘制组成的预算约束流水线。</p>
+<h2 id="2">2 系统框架与恒星数据表征<a class="headerlink" href="#2" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="21">2.1 研究数据与目录组成<a class="headerlink" href="#21" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>Gaia 是以高精度天体测量为核心的全天巡天任务，Gaia DR3 数据集提供位置、自行、视差及多波段光度等信息[1–3]。本文所采用的主数据集以 Gaia DR3 的 <span class="arithmatex">\(G&lt;18\)</span> 源为主体，并加入 1,553 条经审计的 Hipparcos 亮星补充记录，以减小高亮端因目录匹配或光度字段缺失造成的不完整性。两个补充数据集分别包含主表中因 Gaia 蓝/红光度（BP/RP）缺失、无效或超出颜色变换适用区间而未被纳入的 <span class="arithmatex">\(G&lt;18\)</span> 源，以及 <span class="arithmatex">\(18\leq G\leq20\)</span> 的深星源。相关星表数据集在处理时，复用了开源项目 Stellarium 公开的成果[4]。</p>
+<p>表 1 给出研究数据的组成。三个数据集在运行时保持逻辑独立，访问时先索引主数据集，再按观测限深组合补充数据集，从而避免在初始化阶段重新合并约 12 GiB 的目录文件（<code>.sgc文件</code>仅保留图形化渲染的必要数据字段，以压缩数据集体积）。统计量对应本文使用的数据版本。</p>
+<p><em>表 1　研究所用复合恒星目录的组成</em></p>
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>选择范围与作用</th>
+<th style="text-align: right;">记录数</th>
+<th style="text-align: right;">SGC 层数</th>
+<th>测地层级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gaia-g-lt-18-primary-mixed</code></td>
+<td><span class="arithmatex">\(G&lt;18\)</span> 主体及 Hipparcos 亮星补充</td>
+<td style="text-align: right;">296,641,262</td>
+<td style="text-align: right;">9</td>
+<td>0–8</td>
+</tr>
+<tr>
+<td><code>gaia-g-lt-18-color-supplement</code></td>
+<td><span class="arithmatex">\(G&lt;18\)</span> 颜色缺失或越界源补充</td>
+<td style="text-align: right;">8,300,611</td>
+<td style="text-align: right;">8</td>
+<td>1–8</td>
+</tr>
+<tr>
+<td><code>gaia-g-18-to-20</code></td>
+<td><span class="arithmatex">\(18\leq G\leq20\)</span> 超深星层</td>
+<td style="text-align: right;">755,530,258</td>
+<td style="text-align: right;">1</td>
+<td>9</td>
+</tr>
+<tr>
+<td><strong>合计</strong></td>
+<td>—</td>
+<td style="text-align: right;"><strong>1,060,472,131</strong></td>
+<td style="text-align: right;"><strong>18</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22">2.2 星表预处理与属性语义<a class="headerlink" href="#22" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>从原始天文目录到运行时星表及背景纹理的处理可以概括为以下六个环节。</p>
+<ol>
+<li><strong>源选择与补充。</strong> 以 Gaia DR3 为主源，按 Gaia G 星等建立 <span class="arithmatex">\(G&lt;18\)</span> 主数据集和 <span class="arithmatex">\(18\leq G\leq20\)</span> 深星数据集；在亮星端引入 Hipparcos 记录，并通过来源标记区分 Gaia 主源、Gaia 光度补充、Hipparcos 回退及混合补充。交叉匹配与重复源消解在离线阶段完成，实时阶段不再执行天体名称匹配。</li>
+<li><strong>历元与坐标统一。</strong> 坐标框架采用 ICRS，天体测量位置被传播或归一化到参考历元 J2000.0（JD 2451545.0）。Gaia 的观测 G 光度以及亮星补充所用目录光度不随坐标历元传播，也不进行距离模数修正；本文将其视为目录给定的观测光度，而不是由传播后位置重新推导的物理量。</li>
+<li><strong>光度与颜色处理。</strong> 排序、分层、加载上限和点源亮度使用实测 Gaia G 或带来源标记的合成 G；亮星补充记录可由 Johnson V 与有效 Gaia BP−RP 估计 G，部分记录则标记为由 Johnson V 与 Stellarium B−V 合成。颜色使用 Johnson B−V 语义，并预量化为运行时颜色表索引。缺色回退和颜色边界处理需与直接测光结果区分；颜色只控制显示色，不参与星等分层。具体光度关系见第 2.2.1 节。</li>
+<li><strong>空间划分与排序。</strong> 恒星按星等区间写入不同测地层级，再按球面三角分区聚集；每个分区内部按 G 从亮到暗升序排列。这一顺序是运行时按层跳过、星等上限早停和续传读取成立的前提。</li>
+<li><strong>量化与一致性检查。</strong> 连续量被编码为定长整数记录，数据集身份、星数、星等范围、记录步长和来源统计写入元数据清单。预处理结果通过构建版本和文件校验值建立数据可追溯性，使相同数据标识对应唯一的目录内容。</li>
+<li><strong>天球背景准备。</strong> 运行时分别使用连续银河结构图和未解析恒星辐亮度图。前者表达银河大尺度结构与尘埃暗带，后者提供密集暗星的连续外观；两者均不保留可查询的单星属性。现存未解析图为线性 EXR 等距柱状纹理，但其离线生产程序已遗失。第 4.2 节依据 Gaia Physical HEALPix12 Baked Skybox 的设计给出可复现的构建方法，并区分该参考设计与现存 EXR 的已知属性。</li>
+</ol>
+<h4 id="221-gaia">2.2.1 Gaia 测光数据与恒星的亮度颜色<a class="headerlink" href="#221-gaia" title="跳转至本节的锚点链接">&para;</a></h4>
+<p>一颗恒星的亮度和颜色来自不同的测光信息。星表使用 Gaia G 星等控制恒星的可见性与亮度；颜色则由 Gaia BP、RP 波段数据预处理为 Johnson B−V 色指数。</p>
+<p>预处理时，程序先计算 <span class="arithmatex">\(C=BP-RP\)</span>，再使用 Gaia DR3 的转换关系：</p>
+<div class="arithmatex">\[ \begin{aligned} G-V&amp;=-0.02704+0.01424C-0.2156C^2+0.01426C^3,\\ G-B&amp;=\phantom{-}0.01448-0.6874C-0.3604C^2+0.06718C^3-0.006061C^4,\\ B-V&amp;=(G-V)-(G-B). \end{aligned} \]</div>
+<p>得到的 B−V 不以浮点数直接写入发布的星表，而是量化为一个 0–127 的索引：</p>
+<div class="arithmatex">\[ i=\operatorname{clip}_{[0,127]} \left(\operatorname{trunc}\bigl((B-V+0.5)\times31.75\bigr)\right). \]</div>
+<p>每条运行时记录保存的是这个1 字节 B−V 索引和单独编码的 Gaia G 星等，不保存原始 BP/RP。渲染时，程序用索引查询从 Stellarium 移植的 128 项 RGB 色表，再按 G 星等计算出的亮度调节星点显示。换句话说，B−V 决定星色，G 主要决定星点有多亮；最终外观还会受到星点大小、曝光和光晕纹理的影响。</p>
+<p>这个转换有适用范围。主星表默认只对 <span class="arithmatex">\(-0.5&lt;BP-RP&lt;4.0\)</span> 的有效颜色数据使用上述关系；颜色补充星表对部分范围外数据采用边界颜色，对缺少可用 BP/RP 的恒星使用 <span class="arithmatex">\(B-V=0.65\)</span> 的暖白色回退值。</p>
+<blockquote>
+<p>Stellarium 项目的公开脚本以 <span class="arithmatex">\(B=G-Q(c)\)</span> 近似 Johnson <span class="arithmatex">\(B\)</span>，其中 <span class="arithmatex">\(Q(c)=-0.006061c^4+0.06718c^3-0.3604c^2-0.6874c+0.01448\)</span>，故在常规分支中 <span class="arithmatex">\(B-V=P(c)-Q(c)\)</span>[6–7]。脚本对 <span class="arithmatex">\(c&gt;2.2\)</span> 的红端改取 <span class="arithmatex">\(B=G+0.5c+1.6\)</span>；在 BP−RP 缺失而 G 已知的批量处理分支中，回退为估计的 <span class="arithmatex">\(V=G\)</span> 和 <span class="arithmatex">\(B-V=0.65\)</span>。有 Gaia XP 合成 Johnson 测光时，其生成笔记本优先使用合成 <span class="arithmatex">\(B-V\)</span>，多项式作为近似途径[6]。</p>
+</blockquote>
+<p>项目将 Gaia G 定为恒星的统一亮度口径。Gaia 主体、颜色补充星表和 <span class="arithmatex">\(18\leq G\leq20\)</span> 深星扩展，均直接采用星表目录中的 Gaia 星等 G，用它决定星等分层、区域内排序、可见性截止和点源亮度。在星等计算时，由于来自不同恒星数据集的 <span class="arithmatex">\(G\)</span>、<span class="arithmatex">\(G_{\rm BP}\)</span>、<span class="arithmatex">\(G_{\rm RP}\)</span> 与 Johnson <span class="arithmatex">\(V\)</span> 对应不同通带，不能将 <span class="arithmatex">\(V\)</span>​ 直接作为 Gaia G 的测量值。记 <span class="arithmatex">\(c=G_{\rm BP}-G_{\rm RP}\)</span>。Gaia EDR3 的经验关系给出 <span class="arithmatex">\(G-V=P(c)\)</span>；用于 Stellarium 星表制作的公开脚本采用等价方向 <span class="arithmatex">\(V=G-P(c)\)</span>[5–6]，本文在处理星表数据集时，沿用该公式：
+$$
+P&copy;=-0.02704+0.01424c-0.2156c<sup>2+0.01426c</sup>3,
+\qquad G_{\rm syn}=V+P&copy;.
+$$</p>
+<p>当记录同时具有可靠的 Gaia G 时，仍使用实测值；最后一式只用于已有 Johnson <span class="arithmatex">\(V\)</span>、需要估计 Gaia G 的情形。Gaia 文档给出的适用颜色范围为 <span class="arithmatex">\(-0.5&lt;c&lt;5.0\)</span>，拟合散布约为 0.03017 mag[5]。由此得到的 <span class="arithmatex">\(G_{\rm syn}\)</span> 是经验估计而非新的 Gaia 测量。</p>
+<blockquote>
+<p>需要特殊处理的是 Hipparcos 亮星补丁。其中有观测 Gaia G 的恒星直接使用观测值；缺少可信 G 的 在离线阶段合成 G：利用 Johnson V 和 Gaia BP−RP，按 <span class="arithmatex">\(G_{\mathrm{syn}}=V+(G-V)(BP-RP)\)</span> 计算；缺失 Gaia BP−RP 的恒星使用 Stellarium 项目数据集提供的 B−V 反求近似 BP−RP数据，再计算合成 G。数据同时记录星等来源，使观测值与合成值可以区分。发布为 <code>.sgc</code> 数据文件时量化为千分之一星等的整数。</p>
+</blockquote>
+<h3 id="23">2.3 紧凑目录格式与记录解码<a class="headerlink" href="#23" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>为降低磁盘占用并支持分区随机访问，本文采用由元数据清单和只读分层文件组成的紧凑目录格式。分层文件使用小端编码，由 80 B 固定头、每分区 16 B 的索引项和连续的 12 B 恒星记录组成。文件头描述格式版本、测地层级、记录步长、分区数、历元、星等范围、总星数、索引与数据偏移以及“分区内按星等排序”标志；索引项给出分区数据相对偏移、记录数和分区星等上下界。读取阶段对格式标识、版本、J2000 历元、步长、分区数、偏移一致性、记录计数和文件完整性进行检查，以防止不兼容或截断数据进入渲染流程。</p>
+<p>设一条磁盘记录为</p>
+<div class="arithmatex">\[
+q_i=(q_{\alpha},q_{\sin\delta},q_G,q_{BV},q_f),
+\tag{1}
+\]</div>
+<p>其中 <span class="arithmatex">\(q_{\alpha}\)</span> 为无符号 32 位整周赤经，<span class="arithmatex">\(q_{\sin\delta}\)</span> 为有符号 32 位正弦赤纬，<span class="arithmatex">\(q_G\)</span> 为有符号 16 位毫星等，<span class="arithmatex">\(q_{BV}\)</span> 与 <span class="arithmatex">\(q_f\)</span> 分别为 8 位颜色索引和来源标志。其解码关系为</p>
+<div class="arithmatex">\[
+\alpha=2\pi\frac{q_{\alpha}}{2^{32}},\qquad
+\sin\delta=\mathrm{clamp}\left(\frac{q_{\sin\delta}}{2^{31}-1},-1,1\right),\qquad
+G=10^{-3}q_G.
+\tag{2}
+\]</div>
+<p>颜色索引指向 128 项 B−V 颜色查找表；来源标志按 2 bit 一组记录天体测量模式、数据源类别、颜色模式和星等模式。逐帧着色仅使用方向、G 和颜色索引，来源标志则用于数据审计、异常定位及后续模型扩展。与直接保存四个浮点属性相比，12 B 记录降低了磁盘占用和随机读取带宽；进入 GPU 前，记录被展开为适合内存对齐和并行访问的 32 B 源记录。</p>
+<p>图 2 汇总了从 Gaia DR3 与 Hipparcos 亮星补充记录到运行时目录的离线处理链，输入目录经源选择、历元统一、光度与颜色处理、测地分区、排序和量化后，形成元数据清单及可随机访问的分层文件。</p>
+<p><a class="glightbox" data-type="image" href="../恒星星场的计算机图形化渲染.assets/catalog_production_format.png"><img alt="星表生产流程与 SGC 紧凑格式" src="../恒星星场的计算机图形化渲染.assets/catalog_production_format.png" /></a></p>
+<p><em>图 2　星表离线生产流程与 SGC 紧凑格式</em></p>
+<h3 id="24">2.4 连续天空背景：从星表通量到全天辐亮度<a class="headerlink" href="#24" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>项目用两张全天纹理构成连续背景：银河结构图描述银河带的大尺度形态，未解析恒星图描述大量暗星汇聚后的弥散星光。前者来自银河Milky Way 全天图；后者由预处理星表离线计算，保存为 <span class="arithmatex">\(1024\times512\)</span> 的线性 HDR EXR，以记录的是按天区面积归一化的RGB 等效面亮度。</p>
+<p><strong>离线生成未解析恒星图</strong></p>
+<p>对星表中的第 <span class="arithmatex">\(i\)</span> 颗恒星，取 Gaia G 星等 <span class="arithmatex">\(G_i\)</span> 和 B−V 色表给出的颜色 <span class="arithmatex">\(\mathbf c_i\)</span>。构建程序将星等换成相对通量，并用权重 <span class="arithmatex">\(w(G_i)\)</span> 控制它进入背景图的比例：</p>
+<div class="arithmatex">\[ \mathbf f_i=\mathbf c_i\,10^{-0.4G_i}w(G_i), \qquad w(G)=t^2(3-2t), \qquad t=\operatorname{clamp}_{[0,1]} \left(\frac{G-(G_c-\Delta G)}{\Delta G}\right). \]</div>
+<p>当前构建参数取 <span class="arithmatex">\(G_c=9\)</span>、<span class="arithmatex">\(\Delta G=1\)</span>，读取星表至 <span class="arithmatex">\(G=18\)</span>。因此 <span class="arithmatex">\(G\leq8\)</span> 的星对这张图没有贡献，<span class="arithmatex">\(8&lt;G&lt;9\)</span> 的贡献平滑增加，<span class="arithmatex">\(G\geq9\)</span> 时取完整权重。这里的权重只用于生成背景图；当前运行时的点星绘制是独立的，背景图并可由FOV视场调整相应亮度。</p>
+<p>程序根据恒星的 J2000 单位方向 <span class="arithmatex">\(\mathbf d=(d_x,d_y,d_z)\)</span> 计算赤经与赤纬：</p>
+<div class="arithmatex">\[ \alpha=\operatorname{atan2}(d_y,d_x)\pmod{2\pi}, \qquad \delta=\arcsin(d_z). \]</div>
+<p>随后将其放入全天等经纬网格：</p>
+<div class="arithmatex">\[ x=\left\lfloor W\frac{\alpha}{2\pi}\right\rfloor,\qquad y=\left\lfloor H\left(\frac{\delta}{\pi}+\frac12\right)\right\rfloor,\qquad \mathbf A_{xy}=\sum_{i\to(x,y)}\mathbf f_i. \]</div>
+<p><span class="arithmatex">\(\mathbf A_{xy}\)</span> 仍是像素内累积的通量。由于等经纬图靠近两极的像素覆盖天区更小，程序为每个赤纬行计算立体角：</p>
+<div class="arithmatex">\[ \Omega_y=\frac{2\pi}{W} \left(\sin\delta_{y+1}-\sin\delta_y\right),\qquad \delta_y=-\frac{\pi}{2}+\frac{\pi y}{H}. \]</div>
+<p>将 <span class="arithmatex">\(\Omega_y\)</span> 换算为平方角分后，使用代码中的标定常数 <span class="arithmatex">\(K\)</span> 得到面亮度：</p>
+<div class="arithmatex">\[ \mathbf R^{(0)}_{xy} =\frac{K\,\mathbf A_{xy}} {\Omega_y(10800/\pi)^2}, \qquad K=2(2025000)(3600)\,10^{-0.4(12.12331)}. \]</div>
+<p>最后对 <span class="arithmatex">\(\mathbf R^{(0)}\)</span> 做角度高斯模糊，当前标准差为 <span class="arithmatex">\(0.5^\circ\)</span>。经度方向的像素角宽随 <span class="arithmatex">\(\cos\delta\)</span> 缩小，因此模糊半径按赤纬逐行调整；经度接缝循环取样，越过两极时则翻转纬度并平移半圈经度。模糊后，程序还按通道校正全天球面积分，尽量保持模糊前后的总光量。所得 <span class="arithmatex">\(\mathbf R\)</span> 才写入 EXR。</p>
+<p><strong>运行时采样与合成</strong></p>
+<p>绘制背景时，着色器为每个屏幕像素依据当前相机投影重建视线，转换到 J2000 方向 <span class="arithmatex">\(\mathbf d\)</span>，再分别查询两张全天图。未解析恒星图使用标准赤经、赤纬坐标：</p>
+<div class="arithmatex">\[ (u_{\rm star},v_{\rm star}) = \left(\frac{\alpha}{2\pi}, \frac{\delta}{\pi}+\frac12\right). \]</div>
+<p>银河结构图沿用其自身的纹理方向约定：</p>
+<div class="arithmatex">\[ (u_{\rm MW},v_{\rm MW}) = \left( \frac{\operatorname{atan2}(d_x,d_y)}{2\pi}, \frac{\arccos(-d_z)}{\pi} \right). \]</div>
+<p>两张图的横向坐标都具有周期性。采样器会把跨越经度接缝的纹理梯度折回最短周期，再选择 mip 级别，避免接缝出现模糊条带。</p>
+<p>两层背景按视场角分别淡入。令 <span class="arithmatex">\(S(t)=t^2(3-2t)\)</span>，默认权重为：</p>
+<div class="arithmatex">\[ w_{\rm MW} =\operatorname{clamp}_{[0,1]} \left(\frac{\mathrm{FOV}-0.25^\circ}{2.5^\circ-0.25^\circ}\right), \qquad w_{\rm star} =S\!\left( \operatorname{clamp}_{[0,1]} \left(\frac{\mathrm{FOV}-45^\circ}{75^\circ-45^\circ}\right) \right). \]</div>
+<p>银河样本经过亮度、色调和饱和度调整；未解析图先计算亮度
+<span class="arithmatex">\(Y=0.2126R+0.7152G+0.0722B\)</span>，再把整组 RGB 乘以显示适应后的亮度比 <span class="arithmatex">\(Y_{\rm display}/Y\)</span>，并施加强度与 <span class="arithmatex">\(w_{\rm star}\)</span>。两层结果在 HDR 缓冲区相加，点星随后由独立路径绘制。这样，相机转向时背景始终按同一 J2000 天球方向采样；缩放时，则从强调单颗恒星逐渐过渡到银河结构和弥散星光。</p>
+<h3 id="25">2.5 分层星场与多相机数据所有权<a class="headerlink" href="#25" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>对于第 <span class="arithmatex">\(k\)</span> 台相机，线性空间中的星场图像可表示为</p>
+<div class="arithmatex">\[
+C_k=C_{\mathrm{bg},k}
++\sum_{i\in A_k}C_{i,k}
++\sum_{j\in E_k}C_{j,k},
+\tag{3}
+\]</div>
+<p>其中，<span class="arithmatex">\(C_{\mathrm{bg},k}\)</span> 表示银河结构图和未解析恒星图构成的连续背景，<span class="arithmatex">\(A_k\)</span> 表示基础恒星集合，<span class="arithmatex">\(E_k\)</span> 表示暗星扩展集合。基础恒星层取 <span class="arithmatex">\(G\leq9.5\)</span> 的记录，其内容由目录本身决定，因此可在使用同一目录根的相机之间共享；暗星扩展层取严格满足 <span class="arithmatex">\(G&gt;9.5\)</span> 的记录，其选择、驻留和 GPU 输出依赖当前相机的观测方向、视场角与星等上限。二者在点源记录所有权上互不重叠，扩展层只增加暗星细节，而不复制基础恒星。未解析背景与暗星点源属于不同表示，可能覆盖相同的星等范围；式（3）是图像合成关系，不意味着逐源通量不存在重叠。</p>
+<p>该系统的资源关系如图 3 所示。目录索引和基础恒星 GPU 缓冲属于可共享资源，每台相机仍保留自己的可见掩码、投影参数、材质状态与命令缓冲。暗星扩展层进一步按相机维护请求状态、驻留缓存、源记录缓冲、屏幕记录缓冲和间接绘制参数。连续背景同样需要逐相机重建观察射线并写入各自的渲染目标。</p>
+<p><a class="glightbox" data-type="image" href="../恒星星场的计算机图形化渲染.assets/architecture.png"><img alt="恒星渲染的共享资源与相机私有状态" src="../恒星星场的计算机图形化渲染.assets/architecture.png" /></a></p>
+<p><em>图 3　恒星星场的分层资源组织</em></p>
+<p>在单相机条件下，目录索引、视区选择、异步分区解码、CPU/GPU 缓存和绘制命令可以由同一渲染上下文维护。这种组织方式数据路径较短，但直接扩展到多相机后，<span class="arithmatex">\(G\leq9.5\)</span> 的稳定亮星会随相机数量被重复解码和上传。由于这些记录只由目录和固定星等边界决定，而不依赖具体视场，将其复制到每个相机上下文并非必要。</p>
+<p>基于上述观察，本文将数据所有权拆分为三类：进程级目录资源保存不可变的基础恒星 GPU 缓冲；相机级基础恒星状态保存可见掩码、投影参数和绘制命令；相机级暗星状态保存视场相关的请求、驻留、源记录与输出缓冲。未解析恒星背景纹理的天球采样与条件启用的暗星增量均按相机计算。研究数据中的基础恒星层包含 294,513 条 <span class="arithmatex">\(G\leq9.5\)</span> 记录，按 32 B GPU 源记录计算约占 8.99 MiB。对 <span class="arithmatex">\(N\)</span> 台使用同一目录的相机，该划分可避免约 <span class="arithmatex">\((N-1)\times8.99\)</span> MiB 的基础恒星源缓冲复制，但相机私有投影、光栅化和输出成本仍随相机数量增加。</p>
+<h3 id="26">2.6 从赤道坐标到引擎方向<a class="headerlink" href="#26" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>解码后的赤经 <span class="arithmatex">\(\alpha\)</span> 和赤纬 <span class="arithmatex">\(\delta\)</span> 首先转换为 J2000 赤道坐标系中的单位方向</p>
+<div class="arithmatex">\[
+\mathbf d=
+(\cos\delta\cos\alpha,\ \cos\delta\sin\alpha,\ \sin\delta).
+\tag{4}
+\]</div>
+<p>随后，方向向量根据图形引擎的坐标轴约定完成映射，并通过相机旋转与投影得到归一化设备坐标。恒星被视为无限远点，因此相机平移不改变其屏幕位置；相机旋转、视场角、画幅比例和投影形式构成主要几何变量。该建模方式使目录方向保持静态，而视图相关计算可以在 GPU 中逐帧并行完成。</p>
+<p>本文采用如下从 J2000 坐标到图形坐标的轴映射：</p>
+<div class="arithmatex">\[
+(x_g,y_g,z_g)=(y_{J2000},z_{J2000},-x_{J2000}).
+\tag{5}
+\]</div>
+<p>未解析恒星背景纹理、基础恒星路径、暗星计算路径和几何校验使用相同的轴约定。若任一路径交换坐标轴、反转赤经或遗漏相机滚转，合成结果会出现背景镜像或点源错位。</p>
+<h3 id="27">2.7 测地分区与星等有序访问<a class="headerlink" href="#27" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>为了支持观测相机的局部访问功能，星表按照测地网格划分天球。网格以二十面体为根，每一级将球面三角形继续细分为四个子区域。相机视锥与分区包围锥进行保守相交，从而得到可见分区及其外围预取分区。每个分区内部按星等排序，任一后续读取位置可写为</p>
+<div class="arithmatex">\[
+P=O_z+n_sR,
+\tag{6}
+\]</div>
+<p>其中，<span class="arithmatex">\(O_z\)</span> 为分区在文件中的起始偏移，<span class="arithmatex">\(n_s\)</span> 为已读取记录数，<span class="arithmatex">\(R\)</span> 为单条磁盘记录长度。式（6）允许系统在观测深度增加时从已有位置继续读取，而无需重新扫描整个分区，也为按帧控制 I/O 和上传量提供了基础。</p>
+<p>图 4 将上述机制分为三个相互关联的尺度：测地层次描述球面三角形的一对四递归细分；双视锥示意当前可见集合与外围预取集合；单个分区内的星等有序序列则说明目标限深增加时如何从 <code>nextRecord</code> 继续读取。可见锥决定当前渲染分区，扩大后的预取锥准备邻近分区；分区内按 G 升序排列的记录支持从既有偏移继续加深读取。图中的二维视锥截面仅用于解释集合关系，实际查询在单位球面上以分区包围锥进行保守相交。</p>
+<p><a class="glightbox" data-type="image" href="../恒星星场的计算机图形化渲染.assets/geodesic_fov_selection.png"><img alt="测地分区、视场选择与按星等续读" src="../恒星星场的计算机图形化渲染.assets/geodesic_fov_selection.png" /></a></p>
+<p><em>图 4　测地分区、视场选择与按星等续读原理</em></p>
+<h2 id="3">3 视场驱动的渐进加载与驻留管理<a class="headerlink" href="#3" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="31">3.1 从可见视锥到稳定的分区需求<a class="headerlink" href="#31" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>暗星扩展层的工作集随相机视场变化。系统从测地网格的根三角形出发，用分区包围锥与扩展视锥的保守相交测试逐级剪枝，再区分当前用于绘制的分区与视场边缘的预取分区。搜索范围包含一定角度余量，使相机缓慢转向时，邻近分区有机会先于画面边界进入加载流程。对待加载的分区，系统以分区中心方向 <span class="arithmatex">\(\mathbf c_z\)</span> 与视线中心 <span class="arithmatex">\(\mathbf v\)</span> 的点积 <span class="arithmatex">\(p_z=\mathbf c_z\cdot\mathbf v\)</span> 作为中心优先级；较大的 <span class="arithmatex">\(p_z\)</span> 通常先获得请求机会。这样，有限的加载名额优先服务画面中心，而外围预取用于降低随后转向时的等待。</p>
+<p>分区选择也不必响应每一次极小的浮点变化。缓存的选择状态记录视线中心、搜索 FOV、扩展余量、点源所有权边界、目录代次和参与搜索的数据层。默认情况下，方向变化不超过 <span class="arithmatex">\(0.05^\circ\)</span>、搜索 FOV 变化不超过 <span class="arithmatex">\(0.01^\circ\)</span>，且原有分区余量仍覆盖新视场时，可以复用上次选择；数据层或目录拓扑改变则重新搜索。迟滞减少缓慢移动时反复遍历网格和改写请求队列，同时仍由保守余量保证视场覆盖。快速转向会触发新的选择，已经离屏的请求随之取消；迟到的结果在合并前仍须通过代次和请求校验。</p>
+<h3 id="32">3.2 续读、合并与异步结果校验<a class="headerlink" href="#32" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>系统将分区编号、起始记录、星等上限、排他下限、数据标记和格式版本组合为请求键。只有请求键完全相同的任务才共享一次物理读取和不可变的 CPU 载荷；部分重叠的视场不会自动合并成同一个任务。每台相机仍独立保存其订阅、续读位置与驻留状态。为避免滑块或 FOV 的微小变化反复发起相近请求，目标加载星等先以默认 <span class="arithmatex">\(\Delta G=0.1\)</span> mag 向上量化，再受分区及目录上限约束。近似地，可写为</p>
+<div class="arithmatex">\[
+G_{\rm load}=\Delta G\left\lceil\frac{G_{\rm target}}{\Delta G}\right\rceil,
+\qquad \Delta G=0.1\ \mathrm{mag}.
+\]</div>
+<p>这一量化值决定预先读到哪里，最终绘制仍采用当前精确的可见星等上限。若某分区已读至 <span class="arithmatex">\(G=16.2\)</span>，目标加深为 <span class="arithmatex">\(G=17.0\)</span>，工作线程便从保存的记录偏移继续顺序解码，直到达到新的星等上限、记录预算或分区末尾。后台线程只处理文件访问与记录解码；<code>GraphicsBuffer</code> 创建、扩容和上传命令仍在主线程进行。完成载荷进入相机缓存前，要核对目录代次、请求编号和预期记录偏移。相机转向、目录切换或续读位置改变后，旧结果不能写入新的驻留状态。图 5 概括了这一过程。</p>
+<p><a class="glightbox" data-type="image" href="../恒星星场的计算机图形化渲染.assets/algorithm_view_driven_streaming.svg"><img alt="单个相机的视场驱动增量更新流程" src="../恒星星场的计算机图形化渲染.assets/algorithm_view_driven_streaming.svg" /></a></p>
+<p><em>图 5　单个相机的视场驱动增量更新流程</em></p>
+<p>图中的相同请求合并只作用于物理读取和不可变 CPU 载荷，异步校验则是载荷进入当前相机驻留状态之前的安全屏障。</p>
+<h3 id="33">3.3 局部预算与进程级准入<a class="headerlink" href="#33" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>渐进处理受两级预算约束。单台相机可以限制未完成请求数、每帧接收并合并的分区数、每帧新增候选分区数，以及每个实际渲染帧录制的源缓冲上传量；进程级调度器再对所有相机共同使用的物理工作线程、完成交付和上传带宽施加总量限制。当前参考配置中，每台相机的上限分别为 8 个未完成请求、12 个完成分区、128 个新增候选分区和 16 MiB 源记录上传；进程级对应的主要上限为 8 个物理工作线程、每帧 24 次完成交付及 32 MiB 源记录上传。这些值是可调的工程预算，不代表每台相机独占同等数量的线程或带宽。</p>
+<p>设第 <span class="arithmatex">\(k\)</span> 台相机本帧实际上传量为 <span class="arithmatex">\(U_k\)</span>，本地限额为 <span class="arithmatex">\(B_k\)</span>，进程级上传限额为 <span class="arithmatex">\(B_{\rm global}\)</span>，则调度目标满足</p>
+<div class="arithmatex">\[
+0\leq U_k\leq B_k,
+\qquad \sum_k U_k\leq B_{\rm global}.
+\]</div>
+<p>因此，将一台相机的局部上限调高，只是允许它提出更多需求；多相机并发时仍需经过进程级准入。预算抑制突发工作量，但单帧成本还受缓冲扩容、命令提交和实际星点覆盖面积影响，不能仅由请求数量推断。</p>
+<h3 id="34-gpu">3.4 驻留缓存、GPU 容量与渐进发布<a class="headerlink" href="#34-gpu" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>完成解码的暗星先进入相机私有的驻留缓存。不可见分区默认可保留 360 帧，以便短时间转回时复用；超过保留时间或默认 256 MiB 的缓存预算时，系统优先淘汰不可见且最久未使用的分区，当前可见分区不会仅为满足缓存预算而被直接删除。该预算依据仍被持有的记录和批次估算占用触发淘汰，不能等同于设备上已分配显存的硬上限：每台深空相机另有一个容纳已上传源记录的 <code>GraphicsBuffer</code>，其容量通常按历史峰值增长，缓存淘汰后也不会立即随活记录数收缩。若分配容量为 <span class="arithmatex">\(C_{\rm source}\)</span> 条，则仅源记录缓冲的占用约为</p>
+<div class="arithmatex">\[
+M_{\rm source}=32 C_{\rm source}\ \mathrm{bytes},
+\]</div>
+<p>这还未计入范围表、工作表、屏幕输出桶和渲染目标。分配器复用空闲区间，并按批次容量增长；全局源缓冲扩容还受设备单缓冲大小约束，在估算上扣除 1–16 MiB 安全余量，并按 65,536 条记录对容量上限对齐。若已达到安全容量，系统保留现有暗星，暂停继续加深与新增请求，等待不可见记录释放可复用区间。</p>
+<p>从驻留记录生成的 GPU 源记录固定为 32 B：<code>float4</code> 保存 J2000 单位方向与 Gaia G，随后依次保存打包 RGB、分区编号、数据集标记和填充字段。B−V 索引在 CPU 端查询 128 项颜色表并打包为 RGB，使 GPU 端的普通星与深空星使用一致的方向、光度和颜色语义。源缓冲上传通过相机 <code>CommandBuffer</code> 中的 <code>SetBufferData</code> 按帧推进，大批次可以拆成多帧；默认单相机上传预算为每个实际渲染帧 16 MiB，并同时受进程级准入限制。</p>
+<p>CPU 已驻留不意味着对应 GPU 记录已经完整可读。对于一个按顺序上传的批次，范围表只公布已上传完成的连续前缀。若批次共有 <span class="arithmatex">\(N\)</span> 条记录，本帧仅完成前 <span class="arithmatex">\(n\)</span> 条，则提交给 Compute 的范围满足 <span class="arithmatex">\(0\leq N_{\rm published}\leq n\leq N\)</span>；尚未写入的后缀不会成为候选。源缓冲需要扩容或搬迁时，新缓冲按预算分批写入，旧范围继续服务当前绘制，直到新布局完整可用才切换，旧缓冲在切换后延迟约两帧释放。</p>
+<p>图 6 展示异步读取与上传前缀的先后关系，图 7 总结这一路径如何把相机需求转成可供 GPU 筛选的范围。</p>
+<p><a class="glightbox" data-type="image" href="../恒星星场的计算机图形化渲染.assets/async_streaming_timeline.png"><img alt="异步请求、上传前缀与缓冲切换时序" src="../恒星星场的计算机图形化渲染.assets/async_streaming_timeline.png" /></a></p>
+<p><em>图 6　异步请求、上传前缀与缓冲切换时序</em></p>
+<p><a class="glightbox" data-type="image" href="../恒星星场的计算机图形化渲染.assets/streaming_gpu.png"><img alt="视场驱动的流式加载与 GPU 紧凑化" src="../恒星星场的计算机图形化渲染.assets/streaming_gpu.png" /></a></p>
+<p><em>图 7　暗星扩展层的渐进加载和 GPU 数据准备</em></p>
+<p>相机快速旋转或缩放时，持续追求原始最深星等会增加无效请求和短期候选数量。系统因此根据视口遍历速度生成运动压力，在配置范围内降低当前请求与绘制的深空星等上限，并以较快进入、较慢恢复的时间响应避免反复振荡。此过程不清空已有驻留记录；相机稳定后可从保存的续读位置继续加深。第 4.2 节进一步说明运动限深与 GPU 密度抽样如何共同控制星点绘制。</p>
+<h2 id="4-gpu">4 GPU 可见性、外观计算与星点生成<a class="headerlink" href="#4-gpu" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="41-gpu">4.1 目录点源的 GPU 生成<a class="headerlink" href="#41-gpu" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>上传到 GPU 的源记录仍是潜在候选。系统使用范围记录描述源缓冲中的连续区段及其可见掩码，并将每个范围进一步拆分为至多 256 条记录的工作项。计算着色器以工作项为调度单位，依次执行范围合法性判断、分区掩码测试、星等上限测试、视图旋转、投影、外观计算、运动淡出和屏幕边界剔除。通过筛选的 32 B 源记录被压缩为 16 B 屏幕记录，后者仅保存归一化设备坐标（normalized device coordinates, NDC）中心、半精度半径和亮度以及打包颜色。该压缩减少了后续绘制阶段的数据访问量，并使绘制缓冲只包含实际可见的星点。</p>
+<p>星点外观由星等、FOV、显示适应参数和颜色共同决定。系统首先构造与星等相关的对数项</p>
+<div class="arithmatex">\[
+\ell_W=-0.92103(G+12.12331)+\ln f_{\mathrm{FOV}},
+\tag{7}
+\]</div>
+<p>再计算原始 RCMag 半径</p>
+<div class="arithmatex">\[
+r_0=s\exp\{p(A\ell_W+B)\},
+\tag{8}
+\]</div>
+<p>其中，<span class="arithmatex">\(A\)</span> 表示世界与显示适应指数之比，<span class="arithmatex">\(B\)</span> 汇集输入尺度、适应中间项和最大显示亮度等与单颗恒星无关的色调常数。设相对和绝对星点尺度分别为 <span class="arithmatex">\(s_r\)</span> 与 <span class="arithmatex">\(s_a\)</span>，参考实现取 <span class="arithmatex">\(p=0.7s_r\)</span>、<span class="arithmatex">\(s=(70s_a)^{0.7s_r}\)</span>；默认 <span class="arithmatex">\(s_r=s_a=1\)</span>。基础峰值亮度定义为</p>
+<div class="arithmatex">\[
+L_0=\min\left[1,
+\left(\frac{\max(0,r_0)}{1.2}\right)^3\right].
+\tag{9}
+\]</div>
+<p>在有界星点模式下，显示半径不直接等于 <span class="arithmatex">\(r_0\)</span>，而是根据星等在最大与最小半径之间进行平滑插值：</p>
+<div class="arithmatex">\[
+r_b=r_{\max}+(r_{\min}-r_{\max})S(t_G),
+\qquad
+S(t)=u^2(3-2u),
+\quad u=\mathrm{clamp}(t,0,1).
+\tag{10}
+\]</div>
+<p>其中，<span class="arithmatex">\(t_G=(G-G_b)/(G_f-G_b)\)</span>，<span class="arithmatex">\(G_b\)</span> 和 <span class="arithmatex">\(G_f\)</span> 分别表示最大半径与最小半径对应的星等。峰值亮度与屏幕覆盖范围由此可以分别控制，从而限制极亮恒星的屏幕扩张，并为暗星保留最小可见尺寸。窄视场条件下的自适应权重表示为</p>
+<div class="arithmatex">\[
+z=S\left(
+\frac{\ln(F_s/F)}{\ln(F_s/F_f)}
+\right),
+\tag{11}
+\]</div>
+<p>其中，<span class="arithmatex">\(F\)</span> 为当前 FOV，<span class="arithmatex">\(F_s\)</span> 和 <span class="arithmatex">\(F_f\)</span> 分别为响应开始与完全生效的视场阈值。随着 <span class="arithmatex">\(F\)</span> 减小，<span class="arithmatex">\(z\)</span> 增大，系统可以提高暗星半径包络和曝光档位，并通过随星等变化的峰值上限维持亮度层次。该过程面向有限分辨率显示中的视觉可读性，不能直接视为能量守恒或科学测光模型。图 8 给出了相关公式在默认参数下的解析响应。</p>
+<p><a class="glightbox" data-type="image" href="../恒星星场的计算机图形化渲染.assets/response_curves.png"><img alt="由实现公式计算的响应曲线" src="../恒星星场的计算机图形化渲染.assets/response_curves.png" /></a></p>
+<p><em>图 8　星点半径、峰值亮度、视场响应、候选压力 LOD 和光晕纹理的解析曲线</em></p>
+<p>表 2 汇总图 8 及式（7）—（11）采用的主要默认参数。世界与显示适应亮度、显示峰值和伽马值共同进入式（8）中的常量项；其余参数控制有界半径和窄视场暗星增强。默认值描述参考实现的视觉标定点，而非普适的天文测光常数。</p>
+<p><em>表 2　星点外观模型的主要默认参数</em></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align: right;">默认值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>世界适应亮度</td>
+<td style="text-align: right;">1.0</td>
+<td>RCMag 世界端适应量</td>
+</tr>
+<tr>
+<td>显示适应亮度</td>
+<td style="text-align: right;">50.0</td>
+<td>RCMag 显示端适应量</td>
+</tr>
+<tr>
+<td>最大显示亮度</td>
+<td style="text-align: right;">100.0</td>
+<td>峰值归一化上限</td>
+</tr>
+<tr>
+<td>显示伽马</td>
+<td style="text-align: right;">2.2222</td>
+<td>显示适应曲线参数</td>
+</tr>
+<tr>
+<td>相对/绝对星点尺度</td>
+<td style="text-align: right;">1.0 / 1.0</td>
+<td>控制式（8）的 <span class="arithmatex">\(p\)</span> 与 <span class="arithmatex">\(s\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(G_b,G_f\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(-1.5,9.5\)</span></td>
+<td>有界半径插值端点</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(r_{\min},r_{\max}\)</span></td>
+<td style="text-align: right;">0.65 px / 4.0 px</td>
+<td>基础屏幕半径范围</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(F_s,F_f\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(20^\circ,2^\circ\)</span></td>
+<td>窄视场响应开始/完全生效阈值</td>
+</tr>
+<tr>
+<td>暗星尺寸过渡星等</td>
+<td style="text-align: right;">8.0–12.0</td>
+<td>半径包络的星等区间</td>
+</tr>
+<tr>
+<td>暗星半径包络</td>
+<td style="text-align: right;">1.25–1.0 px</td>
+<td>完全窄视场响应下的半径下限</td>
+</tr>
+<tr>
+<td>曝光补偿星等区间</td>
+<td style="text-align: right;">15.5–18.0</td>
+<td>暗星曝光增强区间</td>
+</tr>
+<tr>
+<td>最大曝光补偿</td>
+<td style="text-align: right;">2.0 档（stops）</td>
+<td>线性亮度最多放大 4 倍后截断</td>
+</tr>
+<tr>
+<td>最暗端峰值上限</td>
+<td style="text-align: right;">0.16</td>
+<td>限制完全窄视场响应下的暗星峰值</td>
+</tr>
+</tbody>
+</table>
+<p>B−V 索引通过查找表转换为恒星颜色，并与半径、亮度和投影中心共同写入屏幕记录。可见记录随后按照峰值亮度划分为亮、中、暗三个输出桶。</p>
+<blockquote>
+<p>亮星不采用随机细节层次（level of detail, LOD）抽样，中等和暗星则使用由源记录索引与分区索引构造的稳定哈希进行选择。当源布局和观察状态稳定时，该方法能够避免逐帧随机选择造成的闪烁。实现细节见 4.2、5.1节。</p>
+</blockquote>
+<p>各桶的实例数量由 GPU 原子计数获得，随后由另一计算内核生成间接绘制参数，CPU 无需读回可见恒星总数。绘制阶段将每颗恒星展开为由两个三角形组成的屏幕四边形，并在片元阶段采样共享的光晕纹理 <span class="arithmatex">\(H(\mathbf{uv})\)</span>。最终星点颜色可写为</p>
+<div class="arithmatex">\[
+C_{\mathrm{star}}(\mathbf{x})
+=\mathrm{RGB}_{BV}\,L\,H(\mathbf{uv}).
+\tag{12}
+\]</div>
+<p>其中，<span class="arithmatex">\(\mathrm{RGB}_{BV}\)</span> 为颜色查找结果，<span class="arithmatex">\(L\)</span> 为峰值亮度。所有星点采用加法混合写入线性 HDR 目标，连续背景、基础恒星层和暗星扩展层在同一线性空间完成合成，随后再进入曝光、色调映射、显示或科学捕获流程。</p>
+<h3 id="42-lod">4.2 深空星点的 LOD：先控制深度，再控制密度<a class="headerlink" href="#42-lod" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>超深空视场可能同时包含数百万条候选恒星。项目采用两级 LOD 控制绘制负担：相机快速移动时收浅深空星等上限；候选星过于密集时，在 GPU 上稳定地减少中、暗星数量。普通视场共享的 <span class="arithmatex">\(G\leq9.5\)</span> 亮星层不受运动深度控制影响。</p>
+<p>运动 LOD 根据相机转动和视场角变化，估算每秒跨越多少个当前视场。默认从 <span class="arithmatex">\(0.35\)</span> 个视场/秒开始施加压力，到 <span class="arithmatex">\(1.5\)</span> 个视场/秒达到最大压力。若原本请求显示到 <span class="arithmatex">\(G=20\)</span>，最大压力时会将深空增量的有效上限逐渐收至 <span class="arithmatex">\(G=18.5\)</span>；若请求上限本来更亮，则不额外收浅。压力以较快的速度进入、较慢的速度退出，星等边界也有短暂淡出，避免相机刚停下时大量暗星同时跳回。已加载的星表数据仍留在缓存中，因此恢复深度通常无需重新读盘。</p>
+<p>第二级发生在 Compute 绘制路径。CPU 先从可见分区中截取满足当前星等上限的记录，得到候选数 <span class="arithmatex">\(N\)</span>。默认在 <span class="arithmatex">\(N&gt;350\,000\)</span> 时开始降低密度，到 <span class="arithmatex">\(N=1\,800\,000\)</span> 达到预设强度。令</p>
+<div class="arithmatex">\[ p=\operatorname{clamp}_{[0,1]} \left(\frac{N-350\,000}{1\,800\,000-350\,000}\right), \]</div>
+<p>中亮星与暗星的保留率分别为</p>
+<div class="arithmatex">\[ r_{\rm medium}=1-(1-\sqrt{0.28})p,\qquad r_{\rm faint}=1-(1-0.28)p. \]</div>
+<p>因此在最大预设压力下，约保留 53% 的中亮星和 28% 的暗星。这个 <span class="arithmatex">\(N\)</span> 是逐星投影和屏幕裁剪前的候选数，并非最终画面中的星数。</p>
+<p>GPU 为每颗候选星计算投影位置、半径和峰值亮度，然后按峰值亮度分为亮、中、暗三桶。默认亮度达到 <span class="arithmatex">\(0.35\)</span> 的星直接进入亮桶；亮度在 <span class="arithmatex">\(0.05\)</span> 到 <span class="arithmatex">\(0.35\)</span>​ 之间的星进入中桶；更暗的星进入暗桶。亮桶直接写入；中、暗桶则计算</p>
+<div class="arithmatex">\[ h_i= \frac{ H\!\left(\text{sourceIndex}_i\ \oplus\ (\text{zoneIndex}_i\cdot\mathtt{0x9e3779b9})\right) \ \&amp;\ \mathtt{0x00ffffff} }{2^{24}}, \]</div>
+<p>仅当 <span class="arithmatex">\(h_i\leq r_{\rm medium}\)</span> 或 <span class="arithmatex">\(h_i\leq r_{\rm faint}\)</span> 时写入相应桶。<span class="arithmatex">\(H\)</span> 是固定的整数混合函数，输入不含帧号；因此源记录布局和观察状态稳定时，同一颗星每帧会得到相同结果，不会因逐帧重新掷随机数而闪烁。</p>
+<p>当候选数超过配置的输出预算 <span class="arithmatex">\(C\)</span> 时，系统还会依据 <span class="arithmatex">\(C/N\)</span> 进一步压低中、暗星保留率。亮星不参与哈希抽样，但输出桶各有容量：亮桶满后尝试转写中桶，中桶满后尝试暗桶，最终仍可能因容量耗尽而截断。由此，LOD 优先保留视觉上突出的恒星，同时为密集深空视场提供可控的 GPU 绘制规模。</p>
+<h2 id="5">5 方法性质与复杂度<a class="headerlink" href="#5" title="跳转至本节的锚点链接">&para;</a></h2>
+<h3 id="51">5.1 深空暗星的计算流程与并行组织<a class="headerlink" href="#51" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>深空恒星的 GPU 绘制从一张紧凑的工作表开始。CPU 根据当前可见的空间分区和已上传的星等前缀，为每段连续星表记录建立一个 <code>range</code>，其中保存源缓冲区偏移、记录数、可见分区掩码等信息。每个 <code>range</code> 再按 256 颗候选星切分为工作项，因此需要启动的计算线程组数为</p>
+<div class="arithmatex">\[ N_{\mathrm{groups}}=\sum_i\left\lceil\frac{N_i}{256}\right\rceil , \]</div>
+<p>其中 <span class="arithmatex">\(N_i\)</span> 是第 <span class="arithmatex">\(i\)</span> 段的候选记录数。这样的组织方式让每个线程组对应一段实际存在的记录，避免为了容纳最长分段而给大量短分段分配空线程。</p>
+<p>第一个 Compute kernel <code>CullProjectRanges</code> 每组启动 256 个线程，原则上由一个线程处理一颗候选星。线程先检查分区掩码和当前星等上限，再把恒星方向投影到屏幕，计算星点半径与峰值亮度，并排除落在视口之外或亮度过低的记录。通过检查后，它将屏幕中心、半径、亮度和颜色压入一条 16 字节的 <code>ScreenStarRecord</code>。亮度决定记录进入亮、中、暗哪个输出桶；中星和暗星还会用源记录索引及分区索引构造稳定哈希，按当前 LOD 保留率决定是否写入。亮星跳过这一步随机抽样，但三个桶仍受输出容量保护。</p>
+<p>筛选结束后，第二个 Compute kernel <code>BuildIndirectArgs</code> 读取三个桶的 GPU 计数，为每个桶写入一组间接绘制参数：</p>
+<div class="arithmatex">\[ \mathrm{args}_b= \bigl(6,\ \min(C_b,K_b),\ 0,\ 0\bigr), \qquad b\in\{\text{亮、中、暗}\}, \]</div>
+<p>其中 <span class="arithmatex">\(C_b\)</span> 是桶计数，<span class="arithmatex">\(K_b\)</span> 是桶容量。“6”表示每颗星使用 6 个顶点组成两枚三角形，实例数则是该桶最终绘制的星数。随后程序分别对暗、中、亮三个桶调用一次 <code>DrawProceduralIndirect</code>。每个桶一次绘制，每颗入选恒星只作为其中一次绘制的一个实例。顶点着色器通过 <code>SV_InstanceID</code> 读取屏幕记录并展开星点四边形，片元着色器再采样光晕纹理。桶内星数始终留在 GPU 上，CPU 不必为每帧的可见计数执行回读。</p>
+<p>当设备支持 Compute、间接参数缓冲和实例化等功能时，采用上述 Compute 筛选 + 三桶间接绘制 流程。若这些条件不满足，则进入几何着色器回退路径：程序按可见空间批次提交 <code>DrawProcedural(Points)</code>，由几何着色器逐点完成筛选、投影和四边形展开。两条路径沿用相同的星表颜色、光度与光晕语义，但工作分配不同：默认路径的绘制提交数固定为三个桶，回退路径的提交数随可见批次数变化，并让更多候选点进入图形管线。</p>
+<p>项目中共享的普通亮星（<span class="arithmatex">\(G\leq9.5\)</span>）另由普通星渲染器按批次走点与几何着色器路径，不属于这里的三次深空间接绘制。</p>
+<h3 id="52">5.2 存储与计算复杂度<a class="headerlink" href="#52" title="跳转至本节的锚点链接">&para;</a></h3>
+<p>表 3 列出研究数据和核心中间表示的规模。磁盘总量与记录数由目录元数据统计，基础层数量由 <span class="arithmatex">\(G\leq9.5\)</span> 的所有权规则确定，GPU 记录大小由数据布局给出。</p>
+<p><em>表 3　项目数据规模与核心记录布局</em></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th style="text-align: right;">数值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目录记录总数</td>
+<td style="text-align: right;">1,060,472,131</td>
+<td>三个数据集记录数之和</td>
+</tr>
+<tr>
+<td>分层目录总大小</td>
+<td style="text-align: right;">12,865,492,061 B（约 11.98 GiB）</td>
+<td>不计说明性元数据文件</td>
+</tr>
+<tr>
+<td>磁盘恒星记录步长</td>
+<td style="text-align: right;">12 B</td>
+<td>随机读取的最小定长记录</td>
+</tr>
+<tr>
+<td>主数据集层数</td>
+<td style="text-align: right;">9（level 0–8）</td>
+<td>星等区间与空间层级联合组织</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(18\leq G\leq20\)</span> 分区数</td>
+<td style="text-align: right;">5,242,881</td>
+<td>level 9 分区及一个附加全局槽</td>
+</tr>
+<tr>
+<td>共享基础层记录数</td>
+<td style="text-align: right;">294,513</td>
+<td>满足 <span class="arithmatex">\(G\leq9.5\)</span> 的记录</td>
+</tr>
+<tr>
+<td>共享基础层 GPU 源缓冲</td>
+<td style="text-align: right;">9,424,416 B（约 8.99 MiB）</td>
+<td><span class="arithmatex">\(294,513\times32\)</span> B</td>
+</tr>
+<tr>
+<td>暗星 GPU 源/屏幕记录</td>
+<td style="text-align: right;">32 B / 16 B</td>
+<td>紧凑化前后的单记录大小</td>
+</tr>
+</tbody>
+</table>
+<p>对 <span class="arithmatex">\(N\)</span> 台使用同一目录根的有效相机，若每台均持有一份基础恒星源缓冲，则该部分显存为 <span class="arithmatex">\(N M_o\)</span>；共享后为 <span class="arithmatex">\(M_o+\sum_k M_{v,k}\)</span>，其中 <span class="arithmatex">\(M_o\approx8.99\)</span> MiB，<span class="arithmatex">\(M_{v,k}\)</span> 表示相机私有的材质、可见掩码、命令及输出状态。因而仅基础恒星源记录一项的理论节省量为</p>
+<div class="arithmatex">\[
+\Delta M=(N-1)M_o.
+\tag{13}
+\]</div>
+<p>式（13）量化了本文所有权重构中可严格共享的那一部分。</p>
+<p>设第 <span class="arithmatex">\(k\)</span> 台相机在一帧内公布的 GPU 候选记录数为 <span class="arithmatex">\(N_{c,k}\)</span>，紧凑后的可见记录数为 <span class="arithmatex">\(N_{v,k}\)</span>，新读取记录数为 <span class="arithmatex">\(\Delta N_{s,k}\)</span>。分区索引使磁盘工作量与新增记录近似成正比，即 <span class="arithmatex">\(O(\Delta N_{s,k})\)</span>，而非与完整目录规模成正比。GPU 裁剪与外观计算对每个候选执行常数次操作，复杂度为 <span class="arithmatex">\(O(N_{c,k})\)</span>；紧凑后的光栅化和片元开销由 <span class="arithmatex">\(N_{v,k}\)</span>、星点覆盖面积及输出分辨率共同决定。对 <span class="arithmatex">\(K\)</span> 台相机，点源数据的总体存储可表示为</p>
+<div class="arithmatex">\[
+M_{\mathrm{total}}
+=M_o+\sum_{k=1}^{K}
+\left(M_{\mathrm{resident},k}+M_{\mathrm{output},k}+M_{\mathrm{view},k}\right),
+\tag{14}
+\]</div>
+<p>其中 <span class="arithmatex">\(M_o\)</span> 为共享基础层，后三项分别表示暗星驻留、GPU 输出和相机视图状态。式（14）说明，共享策略消除的是目录固有数据的重复副本，而不能消除与相机视场和像素输出相关的线性增长项。</p>
+<h2 id="6">6 讨论<a class="headerlink" href="#6" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>本文所述方法的主要特征在于把数据规模问题转化为所有权与工作集问题。基础恒星层的集合不依赖具体视场，因此可以按目录根共享不可变 GPU 缓冲；暗星扩展层的可见范围和加载深度由相机决定，因而采用独立驻留与独立 GPU 输出。相同请求的物理读取与 CPU 载荷可以短期共享，但不同相机的源缓冲、屏幕记录、投影与渲染目标仍需分别维护。这一边界使多相机系统能够减少重复数据准备，但是逐相机像素成本仍会随分辨率和相机数量增长。</p>
+<p>计算着色器中的紧凑化把星表记录与实际绘制实例分离。其优势不仅体现在减少无效绘制，还体现在避免 CPU 读取 GPU 可见计数。范围表、工作项和屏幕记录构成显式的中间表示，使上传完整性、分区可见性、候选规模和输出容量均可独立观察。运动与稳定哈希 LOD 则在候选压力较高时提供连续的密度退化方式，以满足特定的性能需求。</p>
+<p>外观模型将星等映射为屏幕亮度与半径，并在窄视场中提高暗星可读性。该策略适合实时展示和观测交互，但其输出受到显示分辨率、光晕纹理、颜色空间、采样过滤、曝光和色调映射共同影响。式（7）—（12）描述的是感知渲染响应，而非经过仪器标定的光学辐照度。若系统用于定量天文分析，应另外建立从目录光度到传感器响应的标定关系。</p>
+<p>所提方法仍存在若干适用边界。恒星采用无限远方向模型，未在本文流程中引入自行、周年视差或光行差；解析投影需要针对非对称投影、抖动投影和双目渲染分别考察。</p>
+<h2 id="7">7 结论<a class="headerlink" href="#7" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>本文提出一种面向大型恒星目录的视场驱动实时渲染方法。该方法在 ICRS 框架下将天体测量位置统一到参考历元 J2000.0，以 Gaia G 和 B−V 颜色索引统一光度与显示语义，并用 Gaia BP−RP 经验关系处理部分仅有 Johnson V 的亮星补充。星场由连续银河与未解析恒星辐亮度纹理、共享基础恒星层和相机私有暗星扩展层组成，并通过测地分区与星等有序记录限制磁盘工作集。续传读取、驻留缓存和上传前缀共同形成受预算约束的渐进数据通路；范围表与紧凑工作项则在 GPU 上完成可见性筛选、投影、感知外观计算、亮度分桶和间接绘制参数生成，最终在线性 HDR 空间合成背景辐亮度与离散星点。</p>
+<pre class="mermaid"><code>flowchart LR
+    Disk["外部 GaiaCatalogExtensions&lt;br/&gt;manifest + SGC"]
+    Index["不可变 SGC indexes"]
+    OrdinaryCpu["一次性普通锚点解码"]
+    OrdinaryGpu["共享 ordinary GraphicsBuffer"]
+    ZoneJobs["按 zone 的 deep jobs"]
+    Resident["每相机 resident cache"]
+    DeepGpu["每相机 source/range/output buffers"]
+    Frame["背景 + ordinary + deep&lt;br/&gt;线性 HDR RenderTexture"]
+    Display["Preview / Capture 显示输出"]
+
+    Disk --&gt; Index
+    Index --&gt; OrdinaryCpu --&gt; OrdinaryGpu --&gt; Frame
+    Index --&gt; ZoneJobs --&gt; Resident --&gt; DeepGpu --&gt; Frame
+    Frame --&gt; Display</code></pre>
+<p>项目实践表明，静态目录数据的复用降低了多相机数据冗余，视场相关状态的隔离保持了独立观测行为，GPU 紧凑化则使绘制规模与实际可见工作集相关联。所提方法因而适用于同时要求宽视场稳定性、窄视场暗星细节和多相机扩展能力的实时天文可视化场景。</p>
+<h2 id="_3">参考文献<a class="headerlink" href="#_3" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>[1] PRUSTI T, DE BRUIJNE J H J, BROWN A G A, et al. The Gaia mission[J]. <em>Astronomy &amp; Astrophysics</em>, 2016, 595: A1. DOI: 10.1051/0004-6361/201629272.</p>
+<p>[2] GAIA COLLABORATION, VALLENARI A, BROWN A G A, et al. Gaia Data Release 3: Summary of the content and survey properties[J]. <em>Astronomy &amp; Astrophysics</em>, 2023, 674: A1. DOI: 10.1051/0004-6361/202243940.</p>
+<p>[3] JORDI C, GEBRAN M, CARRASCO J M, et al. Gaia broad band photometry[J]. <em>Astronomy &amp; Astrophysics</em>, 2010, 523: A48. DOI: 10.1051/0004-6361/201015441.</p>
+<p>[4] ZOTTI G, HOFFMANN S M, WOLF A, et al. The Simulated Sky: Stellarium for Cultural Astronomy Research[J]. <em>Journal of Skyscape Archaeology</em>, 2021, 6(2): 221–258. DOI: 10.1558/jsa.17822.</p>
+<p>[5] ESA Gaia DPAC. Gaia Early Data Release 3 Documentation, §5.5.1: Relationships with other photometric systems[EB/OL]. <a href="https://gea.esac.esa.int/archive/documentation/GEDR3/Data_processing/chap_cu5pho/cu5pho_sec_photSystem/cu5pho_ssec_photRelations.html">Gaia photometric relationships</a>.</p>
+<p>[6] LEUNG H. <em>stellarium_star_catalogs</em>: Gaia photometry conversion and star-catalogue generation notebooks[EB/OL]. GitHub, commit ff2311bb21fb1066237a77352d538fdb45b6331d. <a href="https://github.com/henrysky/stellarium_star_catalogs/tree/ff2311bb21fb1066237a77352d538fdb45b6331d">Source repository</a>.</p>
+<p>[7] WISCHNEWSKI E. Johnson B und B−V aus Gaia-Helligkeiten berechnen[EB/OL]. <em>BAV Rundbrief</em>, 2022(3). <a href="https://www.bav-astro.eu/Rundbriefe/RB2022-3/171.pdf">Photometric relation note</a>.</p>
+<p>[8] GÓRSKI K M, HIVON E, BANDAY A J, et al. HEALPix: A Framework for High-Resolution Discretization and Fast Analysis of Data Distributed on the Sphere[J]. <em>The Astrophysical Journal</em>, 2005, 622: 759–771. DOI: 10.1086/427976.</p>
+<p>[9] ESA Gaia DPAC. Gaia Data Release 3 Documentation, §20.1.1: Gaia source data model[EB/OL]. <a href="https://gea.esac.esa.int/archive/documentation/GDR3/Gaia_archive/chap_datamodel/sec_dm_main_source_catalogue/ssec_dm_gaia_source.html">Gaia DR3 source identifier</a>.</p>
+<h2 id="a">附录 A　术语与基础概念<a class="headerlink" href="#a" title="跳转至本节的锚点链接">&para;</a></h2>
+<p>为避免天文学中的观测量、图形学中的屏幕量以及流式系统中的资源状态相互混淆，本附录统一本文使用的基础术语。除特别说明外，角度计算使用弧度，面向配置和界面显示的视场角使用度，屏幕半径使用像素。</p>
+<h3 id="a1">A.1 天文学术语<a class="headerlink" href="#a1" title="跳转至本节的锚点链接">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>基本定义</th>
+<th>本文中的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天球（celestial sphere）</td>
+<td>以观测者为中心、半径任意的假想球面，用方向而非真实距离表示天体位置</td>
+<td>恒星被视为位于无穷远，其目录位置转换为天球上的单位方向；相机平移不改变星点位置</td>
+</tr>
+<tr>
+<td>国际天球参考系（ICRS）</td>
+<td>由河外射电源方向定义的准惯性天球参考系</td>
+<td>星表方向所属的坐标框架；ICRS 本身不等同于某一观测历元</td>
+</tr>
+<tr>
+<td>参考历元 J2000.0</td>
+<td>儒略日 JD 2451545.0，对应 2000-01-01 12:00 TT 的标准参考时刻</td>
+<td>星表中的天体测量位置被传播或归一化到该参考历元</td>
+</tr>
+<tr>
+<td>赤经（right ascension, RA）<span class="arithmatex">\(\alpha\)</span></td>
+<td>赤道坐标系中的经度，通常以时、分、秒或角度表示，沿天球赤道向东增加</td>
+<td>经量化后存储为一个无符号 32 位整周值，解码范围为 <span class="arithmatex">\([0,2\pi)\)</span></td>
+</tr>
+<tr>
+<td>赤纬（declination, Dec）<span class="arithmatex">\(\delta\)</span></td>
+<td>赤道坐标系中的纬度，范围为 <span class="arithmatex">\([-90^\circ,90^\circ]\)</span></td>
+<td>以 <span class="arithmatex">\(\sin\delta\)</span> 的有符号 32 位量化值保存，再恢复为三维单位方向</td>
+</tr>
+<tr>
+<td>自行（proper motion）</td>
+<td>恒星在天球上的长期角位置变化，通常以 mas/yr 表示</td>
+<td>离线预处理可据此把目录位置传播到 J2000.0；实时渲染不再逐帧计算自行</td>
+</tr>
+<tr>
+<td>周年视差（annual parallax）</td>
+<td>由观测者绕太阳运动引起的恒星视位置周期变化</td>
+<td>本文的无穷远方向模型不在运行时引入该效应</td>
+</tr>
+<tr>
+<td>视星等（apparent magnitude）</td>
+<td>描述观测亮度的对数尺度，数值越小表示越亮</td>
+<td>星等差 <span class="arithmatex">\(\Delta G\)</span> 对应的通量比为 <span class="arithmatex">\(10^{-0.4\Delta G}\)</span>，因此星等不能按线性亮度处理</td>
+</tr>
+<tr>
+<td>Gaia G、BP、RP</td>
+<td>Gaia 的宽波段 G 光度及蓝、红光度通道</td>
+<td>G 用于选择、排序、加载上限和星点亮度；BP/RP 用于推导显示颜色</td>
+</tr>
+<tr>
+<td>颜色指数 B−V</td>
+<td>Johnson B 与 V 波段星等之差，用于近似描述恒星颜色和有效温度趋势</td>
+<td>被量化为颜色查找表索引，只影响显示色，不参与 Gaia G 星等分层</td>
+</tr>
+<tr>
+<td>极限星等（limiting magnitude）</td>
+<td>给定观测或显示条件下仍被纳入或可辨识的最暗星等</td>
+<td>本文区分目录加载上限、GPU 可见上限和感知显示阈值，三者不必相同</td>
+</tr>
+<tr>
+<td>点源与未解析恒星背景</td>
+<td>点源可作为独立恒星辨识；未解析恒星背景以连续辐亮度参与图像合成</td>
+<td>运行时将线性 EXR 作为连续背景独立采样；<span class="arithmatex">\(9.5&lt;G\leq15\)</span> 是本文提出的重建筛选范围，原 EXR 的逐源组成因生产源码遗失而无法验证</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a2">A.2 图形学术语<a class="headerlink" href="#a2" title="跳转至本节的锚点链接">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>基本定义</th>
+<th>本文中的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>视图变换（view transform）</td>
+<td>将世界或天球方向转换到相机坐标系</td>
+<td>由相机姿态决定；对无穷远恒星只使用旋转，不使用相机平移</td>
+</tr>
+<tr>
+<td>投影变换（projection）</td>
+<td>将相机空间位置或方向映射到裁剪空间</td>
+<td>与 FOV、画幅比例和投影类型共同决定星点的屏幕位置</td>
+</tr>
+<tr>
+<td>视场角（field of view, FOV）</td>
+<td>相机能够覆盖的角范围，通常指垂直或水平张角</td>
+<td>决定可见天区、测地分区搜索范围和窄视场外观响应</td>
+</tr>
+<tr>
+<td>视锥体（view frustum）</td>
+<td>透视相机可见空间的几何边界</td>
+<td>与分区包围锥进行保守相交，用于选择渲染区和预取区</td>
+</tr>
+<tr>
+<td>归一化设备坐标（NDC）</td>
+<td>透视除法后的标准化屏幕坐标</td>
+<td>紧凑屏幕记录保存星点 NDC 中心，便于后续生成屏幕四边形</td>
+</tr>
+<tr>
+<td>计算着色器（compute shader）</td>
+<td>不依赖传统光栅化阶段的通用 GPU 并行程序</td>
+<td>执行分区掩码测试、星等筛选、投影、外观计算、紧凑化和计数</td>
+</tr>
+<tr>
+<td>工作项与调度（thread/dispatch）</td>
+<td>GPU 并行执行的基本线程及其批量启动方式</td>
+<td>每个范围被拆成有限长度工作项，多个范围在一次二维调度中处理</td>
+</tr>
+<tr>
+<td>结构化缓冲（structured buffer）</td>
+<td>由固定步长记录组成、可由 GPU 随机访问的缓冲区</td>
+<td>保存 32 B 源记录、16 B 屏幕记录以及范围表</td>
+</tr>
+<tr>
+<td>紧凑化（compaction）</td>
+<td>将满足条件的稀疏候选写入连续输出区域</td>
+<td>把可见恒星从源缓冲压缩到亮、中、暗三个屏幕记录桶</td>
+</tr>
+<tr>
+<td>间接绘制（indirect draw）</td>
+<td>绘制数量由 GPU 缓冲中的参数给出，无需 CPU 读回计数</td>
+<td>GPU 根据原子计数生成绘制参数，CPU 只提交固定数量的绘制命令</td>
+</tr>
+<tr>
+<td>公告板（billboard）</td>
+<td>始终面向相机的二维图元</td>
+<td>每颗恒星被展开为由两个三角形组成的屏幕对齐四边形</td>
+</tr>
+<tr>
+<td>点扩散函数（PSF）</td>
+<td>点源经过成像系统后在图像平面形成的空间响应</td>
+<td>以共享光晕纹理近似星点中心到边缘的亮度衰减，不等同于标定后的真实光学 PSF</td>
+</tr>
+<tr>
+<td>加法混合（additive blending）</td>
+<td>将新片元颜色与目标颜色相加的混合方式</td>
+<td>用于叠加未解析恒星背景纹理与离散星点的辐射亮度；结果需在线性颜色空间解释</td>
+</tr>
+<tr>
+<td>线性 HDR</td>
+<td>在色调映射前保存大于显示范围的线性高动态范围颜色</td>
+<td>承载星点峰值和多层累加结果，之后再执行曝光与色调映射</td>
+</tr>
+<tr>
+<td>色调映射（tone mapping）</td>
+<td>将 HDR 亮度范围映射到显示设备可表示范围</td>
+<td>位于星点合成之后，会影响最终可见亮度但不改变目录星等</td>
+</tr>
+<tr>
+<td>细节层次（LOD）</td>
+<td>按观察条件或负载降低几何、采样或实例密度</td>
+<td>候选压力较高时稳定抽样中、暗星；亮星保持完整</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a3">A.3 流式数据与资源术语<a class="headerlink" href="#a3" title="跳转至本节的锚点链接">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>基本定义</th>
+<th>本文中的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测地网格（geodesic grid）</td>
+<td>由二十面体球面三角形递归细分形成的层次空间划分</td>
+<td>用于按天区组织目录、搜索视场相交分区和建立局部读取范围</td>
+</tr>
+<tr>
+<td>分区（zone）</td>
+<td>测地网格中的一个球面三角区域</td>
+<td>分区内部记录按星等排序，是磁盘读取和续传状态的基本单位</td>
+</tr>
+<tr>
+<td>驻留集（resident set）</td>
+<td>已进入内存或显存、可被后续处理直接使用的数据集合</td>
+<td>暗星驻留集按相机维护，基础恒星缓冲则可跨相机共享</td>
+</tr>
+<tr>
+<td>预取（prefetch）</td>
+<td>在数据进入精确可见区域前提前读取</td>
+<td>在渲染视场外围增加角度边界，以降低相机移动时的可见延迟</td>
+</tr>
+<tr>
+<td>续传位置（continuation offset）</td>
+<td>上次读取结束后可继续访问的位置</td>
+<td>由分区起始偏移和已读取记录数确定，增加限深时无需从头扫描</td>
+</tr>
+<tr>
+<td>上传前缀（uploaded prefix）</td>
+<td>已完成 CPU 到 GPU 传输的连续记录前缀</td>
+<td>范围表只公布该前缀，防止 GPU 读取尚未完成写入的记录</td>
+</tr>
+<tr>
+<td>请求键（request key）</td>
+<td>判断两个数据请求是否完全等价的字段组合</td>
+<td>只有数据层、分区、起始记录、星等边界和格式标记均相同的请求才共享物理读取</td>
+</tr>
+<tr>
+<td>资源所有权（resource ownership）</td>
+<td>决定资源由谁创建、共享、更新和释放的生命周期规则</td>
+<td>目录固有数据按目录共享，视场相关驻留、投影和输出按相机隔离</td>
+</tr>
+<tr>
+<td>不可变载荷（immutable payload）</td>
+<td>发布后不再被修改的数据块</td>
+<td>相同请求可共享一次解码结果，但各相机仍独立维护驻留和上传进度</td>
+</tr>
+</tbody>
+</table>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../basic/tags/#tag:计算机图形学" class="md-tag">计算机图形学</a>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面有帮助" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="此页面可以改进" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢您的反馈!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+                感谢您的反馈! 笔者将努力改进此页面
+  </br>您可以使用<a href="/basic/contact-form/">反馈表单</a>来帮助我
+
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <!-- 头部区域：左对齐聚合布局 -->
+  <div class="comments-header">
+    <h2 id="__comments">评论</h2>
+    
+    <!-- 切换按钮容器 -->
+    <div class="comment-switch-wrapper" id="switch-wrapper" data-tip="当前正在使用 GitHub 登录评论">
+      <button id="comment-switch-btn" onclick="toggleCommentSystem()">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path fill="currentColor" d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+        </svg>
+        <span>切换模式</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Giscus 容器 -->
+  <div id="giscus-container">
+    <script src="https://giscus.app/client.js"
+            data-repo="weigo6/sufine-giscus"
+            data-repo-id="R_kgDOQvA4xA"
+            data-category="General"
+            data-category-id="DIC_kwDOQvA4xM4C0P1S"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="0"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+
+  <!-- Twikoo 容器 (默认隐藏) -->
+  <div id="twikoo-container" style="display: none;">
+    <div id="twikoo"></div>
+  </div>
+
+  <!-- 样式与逻辑 -->
+  <style>
+    /* 1. 头部布局：保持左对齐和分割线 */
+    .comments-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--md-typeset-color--lighter);
+    }
+
+    .comments-header h2 {
+        margin: 0 !important;
+        line-height: 1.2;
+    }
+
+    /* 2. 按钮样式：保持 SVG 图标和 flex 布局 */
+    #comment-switch-btn {
+        background: transparent;
+        border: 1px solid var(--md-typeset-color--lighter);
+        color: var(--md-typeset-color--light);
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 28px;
+        line-height: 1;
+    }
+    
+    #comment-switch-btn:hover {
+        border-color: var(--md-accent-fg-color);
+        color: var(--md-accent-fg-color);
+        background: var(--md-accent-bg-color--transparent);
+    }
+
+    /* 3. Tooltip 样式重构：圆润玻璃磨砂风 */
+    .comment-switch-wrapper {
+        position: relative;
+    }
+
+    .comment-switch-wrapper::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: 115%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px); /* 初始下沉一点，用于浮动动画 */
+        
+        /* 核心：玻璃磨砂效果 */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        
+        /* 亮色模式默认：半透明白底 + 黑字 (柔和灰黑) */
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(0, 0, 0, 0.05); /* 极细微的边界线 */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* 柔和的漫反射投影 */
+        
+        padding: 6px 14px;
+        border-radius: 20px; /* 大圆角，胶囊形状 */
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        
+        /* 动画与可见性 */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* 4. 暗色模式适配：半透明黑底 + 白字 */
+    [data-md-color-scheme="slate"] .comment-switch-wrapper::after {
+        background: rgba(20, 20, 20, 0.7);
+        color: var(--md-typeset-color);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 悬浮交互：上浮并淡入 */
+    .comment-switch-wrapper:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Twikoo 容器样式 */
+    #twikoo-container {
+        margin-top: 1rem;
+    }
+    [data-md-color-scheme="slate"] .tk-content {
+        color: var(--md-typeset-color) !important;
+    }
+  </style>
+
+  <script>
+    var isTwikooLoaded = false;
+
+    function toggleCommentSystem() {
+      var giscusContainer = document.getElementById('giscus-container');
+      var twikooContainer = document.getElementById('twikoo-container');
+      var wrapper = document.getElementById('switch-wrapper');
+      
+      if (twikooContainer.style.display === 'none') {
+        // === 切换到 Twikoo ===
+        giscusContainer.style.display = 'none';
+        twikooContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 Twikoo 匿名评论');
+        
+        if (!isTwikooLoaded) {
+          loadTwikooScript();
+        }
+      } else {
+        // === 切换回 Giscus ===
+        twikooContainer.style.display = 'none';
+        giscusContainer.style.display = 'block';
+        wrapper.setAttribute('data-tip', '当前正在使用 GitHub 登录评论');
+      }
+    }
+
+    function loadTwikooScript() {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/twikoo@latest/dist/twikoo.all.min.js";
+      script.async = true;
+      script.onload = function() {
+        twikoo.init({
+          envId: 'https://twikoo.sufine.top',
+          el: '#twikoo',
+          lang: 'zh-CN'
+        }).catch(console.error);
+        isTwikooLoaded = true;
+      };
+      document.body.appendChild(script);
+    }
+  </script>
+
+  <!-- Giscus 主题同步 -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
+          var frame = document.querySelector(".giscus-frame")
+          if (frame) {
+            frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app")
+          }
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../MSYS2%E9%85%8D%E7%BD%AEC++%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/" class="md-footer__link md-footer__link--prev" aria-label="上一页: MSYS2配置C&#x2f;C++运行环境">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                MSYS2配置C/C++运行环境
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../%E5%9C%86%E5%9E%8B%E9%99%90%E5%88%B6%E6%80%A7%E4%B8%89%E4%BD%93%E9%97%AE%E9%A2%98/" class="md-footer__link md-footer__link--next" aria-label="下一页: 圆形限制性三体问题">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                圆形限制性三体问题
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Luwei
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://cdn.009420.xyz/wechat.webp" target="_blank" rel="noopener" title="关注微信公众号" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/fSvCWA9say" target="_blank" rel="noopener" title="加入 Discord 服务器" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/weigo6" target="_blank" rel="noopener" title="访问 GitHub 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://gitee.com/weigo6" target="_blank" rel="noopener" title="访问 Gitee 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Gitee</title><path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.15a.59.59 0 0 1-.592-.592v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://space.bilibili.com/512710834" target="_blank" rel="noopener" title="访问 Bilibili 主页" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M488.6 104.1c16.7 18.1 24.4 39.7 23.3 65.7v202.4c-.4 26.4-9.2 48.1-26.5 65.1-17.2 17-39.1 25.9-65.5 26.7H92c-26.4-.8-48.2-9.8-65.3-27.2S.7 396.5 0 368.2V169.8c.8-26 9.7-47.6 26.7-65.7C43.8 87.8 65.5 78.8 92 78h29.4L96 52.2c-5.7-5.7-8.6-13-8.6-21.8S90.3 14.3 96 8.6 109 0 117.9 0s16.1 2.9 21.9 8.6L213.1 78h88l74.5-69.4C381.7 2.9 389.2 0 398 0s16.1 2.9 21.9 8.6c5.7 5.7 8.6 13 8.6 21.8s-2.9 16.1-8.6 21.8L394.6 78h29.3c26.4.8 48 9.8 64.7 26.1m-38.8 69.7c-.4-9.6-3.7-17.4-10.7-23.5-5.2-6.1-14-9.4-22.7-9.8H96c-9.6.4-17.4 3.7-23.6 9.8-6.1 6.1-9.4 13.9-9.8 23.5v194.4c0 9.2 3.3 17 9.8 23.5s14.4 9.8 23.6 9.8h320.4c9.2 0 17-3.3 23.3-9.8s9.7-14.3 10.1-23.5zm-264.3 42.7c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.2 6.3-14 9.5-23.6 9.5s-17.5-3.2-23.6-9.5-9.4-14-9.8-23.2v-33.3c.4-9.1 3.8-16.9 10.1-23.2s13.2-9.6 23.3-10c9.2.4 17 3.7 23.3 10m191.5 0c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2s-14 9.5-23.6 9.5-17.4-3.2-23.6-9.5c-7-6.3-9.4-14-9.7-23.2v-33.3c.3-9.1 3.7-16.9 10-23.2s14.1-9.6 23.3-10c9.2.4 17 3.7 23.3 10"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yang92636@qq.com" target="_blank" rel="noopener" title="通过电子邮件联系我" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Gmail</title><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.instant.progress","navigation.tabs","navigation.sections","navigation.path","navigation.indexes","navigation.top","toc.follow","search.highlight","content.action.edit","content.action.view","navigation.footer","content.code.copy","content.code.select","content.code.annotate","content.footnote.tooltips","content.tooltips"],"redirect":null,"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c04ba553.min.js"></script>
+      
+        <script src="../../javascripts/feedback.634fb4.min.js"></script>
+      
+        <script src="../../javascripts/katex.e09cbe.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
