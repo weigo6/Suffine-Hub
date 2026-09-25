@@ -65,6 +65,7 @@
     - 计算机科学
         - [Python 下一代包管理器 uv 上手指南](sci/uv包管理器上手指南.md)
         - [MSYS2配置C/C++运行环境](sci/MSYS2配置C++运行环境.md)
+        - [恒星星场的计算机图形化渲染](sci/恒星星场的计算机图形化渲染.md)
     - 天体动力学
         - [圆形限制性三体问题](sci/圆型限制性三体问题.md)
         - [圆形限制性三体问题（二）：平衡点、雅可比常数与零速度面](sci/圆型限制性三体问题（二）.md)
@@ -75,4 +76,5 @@
     - [友链申请指南](basic/friendly-links-guide.md)
     - [联系表单](basic/contact-form.md)
 - [导航站](https://nav.sufine.top)
+- [音乐台](https://music.sufine.top)
 - [笔记本](https://009420.xyz)

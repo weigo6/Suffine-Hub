@@ -5,7 +5,7 @@ hide:
   - toc
   - footer
   - feedback
-icon: material/forum
+#icon: material/forum
 comments: false
 ---
 

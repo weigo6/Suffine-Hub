@@ -1,6 +1,6 @@
 ---
 title: Welcome to my blog! 👋
-icon: material/home
+#icon: material/home
 hide:
   - navigation
   - toc

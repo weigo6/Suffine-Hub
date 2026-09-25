@@ -2,7 +2,7 @@
 title: 技术开发导航
 tags:
   - 导航概览
-icon: material/view-dashboard
+#icon: material/view-dashboard
 hide:
   - footer
 comments: true

@@ -2,7 +2,7 @@
 title: 课程学习导航
 tags:
   - 导航概览
-icon: material/vector-square
+#icon: material/vector-square
 hide: 
   - footer
 comments: true
