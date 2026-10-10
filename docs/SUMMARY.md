@@ -75,6 +75,8 @@
     - [朋友们](basic/friendly-links.md)
     - [友链申请指南](basic/friendly-links-guide.md)
     - [联系表单](basic/contact-form.md)
+- 博客
+    - [Blog](blog/index.md)
 - [导航站](https://nav.sufine.top)
 - [音乐台](https://music.sufine.top)
 - [笔记本](https://009420.xyz)

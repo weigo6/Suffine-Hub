@@ -1,5 +1,9 @@
 ---
 title: Welcome to my blog! 👋
+# 分享卡片标题省略字体不支持的表情符号
+social:
+  cards_layout_options:
+    title: Welcome to my blog!
 #icon: material/home
 hide:
   - navigation

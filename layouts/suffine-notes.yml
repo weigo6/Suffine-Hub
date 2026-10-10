@@ -1,0 +1,974 @@
+# Suffine Hub · Notes — native Zensical social layout (1200 × 630).
+# Warm paper, ink typography, vermilion rules. Background is editable SVG.
+# Title automatically selects the largest of four sizes fitting three rows.
+# Latin advances are measured from Noto Sans SC Bold, with a small safety margin.
+# Explicit rows handle Chinese titles while preserving Latin words and brackets.
+# Page overrides: title, description, category, color, logo, signature,
+# panel_image, site_label, background_image, brand_image and font_family.
+definitions: []
+tags:
+  og:type: website
+  og:site_name: '{{ config.site_name }}'
+  og:title: '{% if page.is_homepage %}{{ config.site_name }}{% else %}{{ layout.title or page.meta.get("title",
+    page.title) }} - {{ config.site_name }}{% endif %}'
+  og:description: '{{ layout.description or page.meta.get("description", config.site_description) | x }}'
+  og:image: '{{ image.url }}'
+  og:image:type: '{{ image.type }}'
+  og:image:width: '{{ image.width }}'
+  og:image:height: '{{ image.height }}'
+  og:url: '{{ page.canonical_url }}'
+  twitter:card: summary_large_image
+  twitter:title: '{% if page.is_homepage %}{{ config.site_name }}{% else %}{{ layout.title or page.meta.get("title",
+    page.title) }} - {{ config.site_name }}{% endif %}'
+  twitter:description: '{{ layout.description or page.meta.get("description", config.site_description) | x }}'
+  twitter:image: '{{ image.url }}'
+size:
+  width: 1200
+  height: 630
+layers:
+- background:
+    image: '{{ layout.background_image or "layouts/assets/suffine-notes.svg" }}'
+- size:
+    width: 40
+    height: 40
+  offset:
+    x: 64
+    y: 54
+  background:
+    image: '{{ layout.logo or (config.docs_dir ~ "/" ~ config.theme.logo) }}'
+- size:
+    width: 188
+    height: 34
+  offset:
+    x: 124
+    y: 57
+  background:
+    image: '{{ layout.brand_image or "layouts/assets/suffine-wordmark.svg" }}'
+- size:
+    width: 296
+    height: 31
+  offset:
+    x: 840
+    y: 59
+  typography:
+    content: '{{ (page.meta.get("tags") or []) | join(" · ") }}'
+    color: '#6b675f'
+    align: end top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Medium
+- size:
+    width: 730
+    height: 35
+  offset:
+    x: 84
+    y: 152
+  typography:
+    content: '{%- if layout.category -%}{{ layout.category }}{%- elif ''/sci/'' in page.canonical_url -%}科学探索{%-
+      elif ''/tech-dev/'' in page.canonical_url -%}技术开发{%- elif ''/college-study/'' in page.canonical_url -%}课程学习{%-
+      elif ''/blog/'' in page.canonical_url -%}随笔记录{%- elif page.is_homepage -%}知识 · 实践 · 探索{%- else -%}知识与实践{%-
+      endif -%}'
+    color: '#a83b2b'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Medium
+- size:
+    width: 336
+    height: 340
+  offset:
+    x: 838
+    y: 156
+  background:
+    image: '{{ layout.panel_image or "layouts/assets/suffine-globe.svg" }}'
+- size:
+    width: 754
+    height: 96
+  offset:
+    x: 62
+    y: 203
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 0 -%}{{ fit.lines[0] if fit.lines|length > 0 else "" }}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 96
+  offset:
+    x: 62
+    y: 299
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 0 -%}{{ fit.lines[1] if fit.lines|length > 1 else "" }}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 96
+  offset:
+    x: 62
+    y: 395
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 0 -%}{% if fit.lines|length > 3 %}{{ fit.lines[2][:-1] }}…{% elif fit.lines|length > 2 %}{{ fit.lines[2] }}{% endif %}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 78
+  offset:
+    x: 62
+    y: 203
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 1 -%}{{ fit.lines[0] if fit.lines|length > 0 else "" }}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 78
+  offset:
+    x: 62
+    y: 281
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 1 -%}{{ fit.lines[1] if fit.lines|length > 1 else "" }}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 78
+  offset:
+    x: 62
+    y: 359
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 1 -%}{% if fit.lines|length > 3 %}{{ fit.lines[2][:-1] }}…{% elif fit.lines|length > 2 %}{{ fit.lines[2] }}{% endif %}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 64
+  offset:
+    x: 62
+    y: 203
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 2 -%}{{ fit.lines[0] if fit.lines|length > 0 else "" }}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 64
+  offset:
+    x: 62
+    y: 267
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 2 -%}{{ fit.lines[1] if fit.lines|length > 1 else "" }}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 64
+  offset:
+    x: 62
+    y: 331
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 2 -%}{% if fit.lines|length > 3 %}{{ fit.lines[2][:-1] }}…{% elif fit.lines|length > 2 %}{{ fit.lines[2] }}{% endif %}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 52
+  offset:
+    x: 62
+    y: 203
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 3 -%}{{ fit.lines[0] if fit.lines|length > 0 else "" }}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 52
+  offset:
+    x: 62
+    y: 255
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 3 -%}{{ fit.lines[1] if fit.lines|length > 1 else "" }}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 52
+  offset:
+    x: 62
+    y: 307
+  typography:
+    content: |-
+      {%- set t = layout.title or page.meta.get("title", page.title) -%}
+      {%- set ascii_widths = {" ": 0.48, "!": 0.76, "\"": 1.17, "#": 1.2, "$": 1.2, "%": 1.95, "&": 1.5, "'": 0.67, "(": 0.78, ")": 0.78, "*": 1.04, "+": 1.2, ",": 0.67, "-": 0.76, ".": 0.67, "/": 0.8, "0": 1.2, "1": 1.2, "2": 1.2, "3": 1.2, "4": 1.2, "5": 1.2, "6": 1.2, "7": 1.2, "8": 1.2, "9": 1.2, ":": 0.67, ";": 0.67, "<": 1.2, "=": 1.2, ">": 1.2, "?": 1.05, "@": 2.04, "A": 1.31, "B": 1.39, "C": 1.34, "D": 1.45, "E": 1.25, "F": 1.19, "G": 1.46, "H": 1.54, "I": 0.68, "J": 1.16, "K": 1.4, "L": 1.18, "M": 1.73, "N": 1.52, "O": 1.56, "P": 1.36, "Q": 1.56, "R": 1.39, "S": 1.27, "T": 1.27, "U": 1.52, "V": 1.26, "W": 1.85, "X": 1.28, "Y": 1.18, "Z": 1.25, "[": 0.78, "\\": 0.8, "]": 0.78, "^": 1.2, "_": 1.16, "`": 1.28, "a": 1.21, "b": 1.31, "c": 1.08, "d": 1.31, "e": 1.19, "f": 0.77, "g": 1.22, "h": 1.3, "i": 0.63, "j": 0.64, "k": 1.23, "l": 0.65, "m": 1.95, "n": 1.31, "o": 1.28, "p": 1.31, "q": 1.31, "r": 0.9, "s": 1.01, "t": 0.87, "u": 1.3, "v": 1.18, "w": 1.75, "x": 1.15, "y": 1.17, "z": 1.05, "{": 0.78, "|": 0.62, "}": 0.78, "~": 1.2} -%}
+      {%- set ns = namespace(tokens=[], pending="", group=false, lines=[], current="", units=0, weight=0) -%}
+      {%- for c in t -%}
+        {%- if c in "（(" and not ns.group -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+          {%- set ns.pending = c -%}{%- set ns.group = true -%}
+        {%- elif ns.group -%}
+          {%- set ns.pending = ns.pending + c -%}
+          {%- if c in "）)" -%}
+            {%- set ns.tokens = ns.tokens + [ns.pending] -%}
+            {%- set ns.pending = "" -%}{%- set ns.group = false -%}
+          {%- endif -%}
+        {%- elif c <= "~" and c not in " \t\n" -%}
+          {%- set ns.pending = ns.pending + c -%}
+        {%- else -%}
+          {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- set ns.pending = "" -%}{%- endif -%}
+          {%- set ns.tokens = ns.tokens + [c] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.pending -%}{%- set ns.tokens = ns.tokens + [ns.pending] -%}{%- endif -%}
+      {%- set fit = namespace(lines=[], tier=3, selected=false) -%}
+      {%- for limit in [22, 26, 32, 40] -%}
+      {%- set ns.lines = [] -%}{%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+      {%- set tier_index = loop.index0 -%}
+      {%- set split = namespace(tokens=[], weight=0) -%}
+      {%- for token in ns.tokens -%}
+        {%- set split.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set split.weight = split.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if split.weight > limit -%}
+          {%- for c in token -%}{%- set split.tokens = split.tokens + [c] -%}{%- endfor -%}
+        {%- else -%}
+          {%- set split.tokens = split.tokens + [token] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for token in split.tokens -%}
+        {%- set ns.weight = 0 -%}
+        {%- for c in token -%}
+          {%- set ns.weight = ns.weight + ascii_widths.get(c, 2) -%}
+        {%- endfor -%}
+        {%- if ns.units + ns.weight > limit and ns.current|trim -%}
+          {%- set ns.lines = ns.lines + [ns.current|trim] -%}
+          {%- set ns.current = "" -%}{%- set ns.units = 0 -%}
+        {%- endif -%}
+        {%- if ns.current or token|trim -%}
+          {%- set ns.current = ns.current + token -%}
+          {%- set ns.units = ns.units + ns.weight -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if ns.current|trim -%}{%- set ns.lines = ns.lines + [ns.current|trim] -%}{%- endif -%}
+      {%- if not fit.selected -%}
+        {%- set fit.lines = ns.lines -%}{%- set fit.tier = tier_index -%}
+        {%- if ns.lines|length <= 3 -%}{%- set fit.selected = true -%}{%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {%- if fit.tier == 3 -%}{% if fit.lines|length > 3 %}{{ fit.lines[2][:-1] }}…{% elif fit.lines|length > 2 %}{{ fit.lines[2] }}{% endif %}{%- endif -%}
+    color: '{{ layout.color or "#24231f" }}'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Bold
+- size:
+    width: 754
+    height: 34
+  offset:
+    x: 64
+    y: 503
+  typography:
+    content: '{{ layout.description or page.meta.get("description", config.site_description) | x }}'
+    color: '#777168'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Regular
+- size:
+    width: 520
+    height: 31
+  offset:
+    x: 64
+    y: 564
+  typography:
+    content: '{{ layout.site_label or "sufine.top" }}'
+    color: '#24231f'
+    align: start top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Medium
+- size:
+    width: 446
+    height: 29
+  offset:
+    x: 650
+    y: 565
+  typography:
+    content: '{{ layout.signature or config.site_author }}'
+    color: '#6b675f'
+    align: end top
+    font:
+      family: '{{ layout.font_family or "Noto Sans SC" }}'
+      style: Medium

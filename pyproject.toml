@@ -1,9 +1,9 @@
 [project]
 name = "suffine-hub"
-version = "0.3.8"
+version = "0.3.9"
 description = "Suffine Hub Website"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "zensical>=0.0.58",
+    "zensical>=0.0.67",
 ]

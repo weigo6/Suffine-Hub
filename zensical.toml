@@ -65,7 +65,7 @@ note = """
 variant = "modern"
 #variant = "material"
 language = "zh"
-font.text = "Noto Sans"
+#font.text = "Noto Sans"
 font.code = "JetBrains Mono"
 logo = "images/bird.webp"
 favicon = "images/bird.webp"
@@ -127,6 +127,9 @@ accent = "orange"
 [project.plugins.literate-nav]
 nav_file = "SUMMARY.md"
 
+# 博客插件配置
+[project.plugins.blog]
+
 # 搜索插件配置
 [project.plugins.search]
 separator = '[\s\-\.]+'  # 中文优化：'[\s\u200b\-]'
@@ -152,6 +155,14 @@ js_files = [
 css_files = [
     "stylesheets/extra.css",
 ]
+
+# 分享卡片：构建时生成 Open Graph / Twitter 预览图
+[project.plugins.social]
+cards_layout = "suffine-notes"
+
+[project.plugins.social.cards_layout_options]
+# 卡片中的中英文统一使用 Noto Sans SC
+font_family = "Noto Sans SC"
 
 # 社交链接配置
 [[project.extra.social]]

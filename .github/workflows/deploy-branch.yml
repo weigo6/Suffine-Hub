@@ -25,12 +25,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.10' # 根据需要修改 Python 版本
+          python-version: '3.11' # 根据需要修改 Python 版本
 
       # 3. 安装依赖并构建
       - name: Install and Build
         run: |
-          pip install zensical
+          pip install "zensical>=0.0.67"
           zensical build --clean
 
       # 4. 部署 'site' 文件夹到 'deploy' 分支
