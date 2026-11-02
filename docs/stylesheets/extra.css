@@ -18,10 +18,20 @@
   }
 }
 
-/* 目录导航的缩进参考线，仅二级以上目录显示 */
-nav.md-nav--secondary ul ul {
-  /* 原为 #B0B4BA，改为带透明度的 rgba，以适应明暗模式 */
-  border-left: 1px solid rgba(176, 180, 186, 0.4);
+/* 目录缩进参考线：仅绘制在子级导航，保留主题原有的列表缩进 */
+nav.md-nav--secondary .md-nav {
+  position: relative;
+}
+
+nav.md-nav--secondary .md-nav::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  /* Modern 主题父标题文字起点：链接外边距 0.2rem + 内边距 0.6rem */
+  inset-inline-start: 0.8rem;
+  width: 1px;
+  background-color: rgba(176, 180, 186, 0.4);
+  pointer-events: none;
 }
 
 /* 移除链接下划线 */
