@@ -1,9 +1,9 @@
 [build]
-command = "python -m pip install --upgrade pip && python -m pip install \"zensical>=0.0.67\" && python -m zensical build --clean"
+command = "python -m pip install --upgrade pip && python -m pip install \"zensical>=0.1.1\" && python -m zensical build --clean"
 publish = "site"
 
 [build.environment]
-PYTHON_VERSION = "3.11"
+PYTHON_VERSION = "3.14"
 
 [[redirects]]
 from = "/*"

@@ -15,30 +15,37 @@ comments: true
 **解法(分部积分 + 凑微分)：**
 
 首先，利用凑微分：
+
 $$
 \because \int e^{-x} \, dx = -\int e^{-x} d(-x) = -e^{-x}
 $$
+
 $$
 \therefore \frac{d(-e^{-x})}{dx} = e^{-x} \quad \Rightarrow \quad d(-e^{-x}) = e^{-x} dx
 $$
 
 原式可改写为：
+
 $$
 \int x \, d(-e^{-x})
 $$
 
 应用分部积分公式 $\int u \, dv = uv - \int v \, du$：
+
 $$
 = x \cdot (-e^{-x}) - \int (-e^{-x}) \, dx
 $$
+
 $$
 = -x e^{-x} + \int e^{-x} \, dx
 $$
+
 $$
 = -x e^{-x} - e^{-x} + C
 $$
 
 **最终结果：**
+
 $$
 \boxed{\int e^{-x} x \, dx = -xe^{-x} - e^{-x} + C}
 $$
@@ -60,14 +67,16 @@ $$
 ## 4. 立方和与立方差公式
 
 - **立方和公式：**
-  $$
-  a^3 + b^3 = (a + b)(a^2 - ab + b^2)
-  $$
+
+    $$
+    a^3 + b^3 = (a + b)(a^2 - ab + b^2)
+    $$
 
 - **立方差公式：**
-  $$
-  a^3 - b^3 = (a - b)(a^2 + ab + b^2)
-  $$
+
+    $$
+    a^3 - b^3 = (a - b)(a^2 + ab + b^2)
+    $$
 
 ---
 
@@ -78,9 +87,10 @@ $$
 - $\int \frac{1}{(1+x)^2} \, dx = -\int 1 \, d\left(\frac{1}{1+x}\right) = -\frac{1}{1+x} + C$
 
 - **重要恒等式：**
-  $$
-  \int e^x [f(x) + f'(x)] \, dx = e^x f(x) + C
-  $$
+
+    $$
+    \int e^x [f(x) + f'(x)] \, dx = e^x f(x) + C
+    $$
 
 ---
 
@@ -138,14 +148,16 @@ $$
 由基本恒等式 $\sin^2 t + \cos^2 t = 1$ 推导：
 
 - 两边同除以 $\cos^2 t$ 得：
-  $$
-  1 + \tan^2 t = \sec^2 t \quad \text{其中} \quad \sec t = \frac{1}{\cos t}
-  $$
+
+    $$
+    1 + \tan^2 t = \sec^2 t \quad \text{其中} \quad \sec t = \frac{1}{\cos t}
+    $$
 
 - 两边同除以 $\sin^2 t$ 得：
-  $$
-  1 + \cot^2 t = \csc^2 t \quad \text{其中} \quad \cot t = \frac{\cos t}{\sin t} = \frac{1}{\tan t}, \quad \csc t = \frac{1}{\sin t}
-  $$
+
+    $$
+    1 + \cot^2 t = \csc^2 t \quad \text{其中} \quad \cot t = \frac{\cos t}{\sin t} = \frac{1}{\tan t}, \quad \csc t = \frac{1}{\sin t}
+    $$
 
 ---
 
@@ -165,19 +177,22 @@ $$
 由此可得：
 
 - **正弦：**
-  $$
-  \sin x = 2 \sin\frac{x}{2} \cos\frac{x}{2} = \frac{2 \tan\frac{x}{2}}{\tan^2\frac{x}{2} + 1} = \frac{2t}{1 + t^2}
-  $$
+
+    $$
+    \sin x = 2 \sin\frac{x}{2} \cos\frac{x}{2} = \frac{2 \tan\frac{x}{2}}{\tan^2\frac{x}{2} + 1} = \frac{2t}{1 + t^2}
+    $$
 
 - **余弦：**
-  $$
-  \cos x = \cos^2\frac{x}{2} - \sin^2\frac{x}{2} = \frac{1 - \tan^2\frac{x}{2}}{1 + \tan^2\frac{x}{2}} = \frac{1 - t^2}{1 + t^2}
-  $$
+
+    $$
+    \cos x = \cos^2\frac{x}{2} - \sin^2\frac{x}{2} = \frac{1 - \tan^2\frac{x}{2}}{1 + \tan^2\frac{x}{2}} = \frac{1 - t^2}{1 + t^2}
+    $$
 
 - **正切：**
-  $$
-  \tan x = \frac{\sin x}{\cos x} = \frac{2t}{1 - t^2}
-  $$
+
+    $$
+    \tan x = \frac{\sin x}{\cos x} = \frac{2t}{1 - t^2}
+    $$
 
 > **用途：** 将任意关于 $\sin x$ 和 $\cos x$ 的有理函数积分转化为关于 $t$ 的有理函数积分。
 
@@ -188,11 +203,13 @@ $$
 **解法：**
 
 设分子为分母及其导数的线性组合：
+
 $$
 A \sin x + B \cos x = P \cdot (C \sin x + D \cos x) + Q \cdot (C \sin x + D \cos x)'
 $$
 
 其中：
+
 $$
 (C \sin x + D \cos x)' = C \cos x - D \sin x
 $$
@@ -200,6 +217,7 @@ $$
 代入并比较系数，解出常数 $P$ 和 $Q$。
 
 则原积分为：
+
 $$
 \int \frac{P \cdot (\text{分母}) + Q \cdot (\text{分母})'}{\text{分母}} \, dx = \int \left( P + Q \cdot \frac{(\text{分母})'}{\text{分母}} \right) dx = Px + Q \ln |\text{分母}| + C
 $$
@@ -209,6 +227,7 @@ $$
 ## 14. $\int \csc x \, dx = \int \frac{1}{\sin x} \, dx$
 
 标准结果：
+
 $$
 \int \csc x \, dx = \ln | \csc x - \cot x | + C
 $$
@@ -238,6 +257,7 @@ a \sin \alpha + b \cos \alpha = \sqrt{a^2 + b^2} \cdot \sin(\alpha + \varphi)
 $$
 
 其中：
+
 $$
 \tan \varphi = \frac{b}{a}, \quad \varphi \in \left(-\frac{\pi}{2}, \frac{\pi}{2}\right)
 $$
@@ -249,6 +269,7 @@ $$
 ## 17. 反常积分敛散性“万能公式”
 
 考虑积分：
+
 $$
 \int_0^{+\infty} \frac{1}{x^\alpha \ln^\beta x} \, dx
 $$
@@ -256,14 +277,14 @@ $$
 其敛散性需分别讨论在 $x \to 0^+$ 和 $x \to +\infty$ 两端的行为：
 
 - **当 $x \to 0^+$ 时：**
-  - 若 $\alpha < 1$，收敛；
-  - 若 $\alpha = 1$，且 $\beta > 1$，收敛；
-  - 否则发散。
+    - 若 $\alpha < 1$，收敛；
+    - 若 $\alpha = 1$，且 $\beta > 1$，收敛；
+    - 否则发散。
 
 - **当 $x \to +\infty$ 时：**
-  - 若 $\alpha > 1$，收敛；
-  - 若 $\alpha = 1$，且 $\beta > 1$，收敛；
-  - 否则发散。
+    - 若 $\alpha > 1$，收敛；
+    - 若 $\alpha = 1$，且 $\beta > 1$，收敛；
+    - 否则发散。
 
 > **结论：** 整个积分收敛当且仅当两端均收敛。
 
@@ -290,9 +311,11 @@ $$
 ### Γ函数 (Gamma Function)
 
 **定义:**
+
 $$
 \Gamma(\alpha) = \int_{0}^{+\infty} x^{\alpha-1} e^{-x} dx \quad (\alpha > 0)
 $$
+
 *注：通过变量代换 $x = t^2$ 可得 $\Gamma(\alpha) = 2 \int_{0}^{+\infty} t^{2\alpha-1} e^{-t^2} dt$。*
 
 **递推公式:**
@@ -330,19 +353,22 @@ $$
 来源：凯积分不等式专题 P11
 
 - 对于区间 $[a, b]$ 上的函数 $f(x), g(x)$，有：
-  $$
-  \int_a^b f \, dx \cdot \int_a^b g \, dx \ge \left( \int_a^b \sqrt{f \cdot g} \, dx \right)^2
-  $$
+
+    $$
+    \int_a^b f \, dx \cdot \int_a^b g \, dx \ge \left( \int_a^b \sqrt{f \cdot g} \, dx \right)^2
+    $$
 
 - 更标准的形式（平方积分）：
-  $$
-  \int_a^b f^2 \, dx \cdot \int_a^b g^2 \, dx \ge \left( \int_a^b f \cdot g \, dx \right)^2
-  $$
+
+    $$
+    \int_a^b f^2 \, dx \cdot \int_a^b g^2 \, dx \ge \left( \int_a^b f \cdot g \, dx \right)^2
+    $$
 
 - 或写成：
-  $$
-  \left| \int_a^b f(x) g(x) \, dx \right| \le \sqrt{ \int_a^b f^2(x) \, dx } \cdot \sqrt{ \int_a^b g^2(x) \, dx }
-  $$
+
+    $$
+    \left| \int_a^b f(x) g(x) \, dx \right| \le \sqrt{ \int_a^b f^2(x) \, dx } \cdot \sqrt{ \int_a^b g^2(x) \, dx }
+    $$
 
 ---
 
@@ -381,14 +407,16 @@ $$
 设 $f(x)$ 是以 $T$ 为周期的函数，则：
 
 - 在一个完整周期内积分值相同：
-  $$
-  \int_a^{a+T} f(x) \, dx = \int_0^T f(x) \, dx
-  $$
+
+    $$
+    \int_a^{a+T} f(x) \, dx = \int_0^T f(x) \, dx
+    $$
 
 - 在 $n$ 个完整周期内积分：
-  $$
-  \int_a^{a+nT} f(x) \, dx = n \int_0^T f(x) \, dx
-  $$
+
+    $$
+    \int_a^{a+nT} f(x) \, dx = n \int_0^T f(x) \, dx
+    $$
 
 ---
 
@@ -397,9 +425,10 @@ $$
 图示：$\sin x$ 在 $[0, 2\pi]$ 上的图像。
 
 - 从 $0$ 到 $\pi$ 为“拱形”，其下方面积为：
-  $$
-  \int_0^\pi \sin x \, dx = 2
-  $$
+
+    $$
+    \int_0^\pi \sin x \, dx = 2
+    $$
 
 - 从 $\pi$ 到 $2\pi$ 为“谷形”，面积为 $-2$，总积分为 $0$。
 
@@ -452,6 +481,7 @@ $$
 ## 30. 利用二重积分定义求极限
 
 考虑极限：
+
 $$
 \lim_{n \to \infty} \sum_{i=1}^n \sum_{j=1}^n f\left(\frac{i}{n}, \frac{j}{n}\right) \cdot \frac{1}{n^2}
 $$
@@ -469,6 +499,7 @@ $$
 ## 31. 利用定积分定义求极限（一维情况）
 
 考虑极限：
+
 $$
 \lim_{n \to \infty} \sum_{i=1}^n f\left(\frac{i}{n}\right) \cdot \frac{1}{n}
 $$
@@ -500,19 +531,22 @@ $$
 如果积分区域 $D$ 关于直线 $y = x$ 对称，则：
 
 - 函数值交换：
-  $$
-  \iint_D f(x,y) \, d\sigma = \iint_D f(y,x) \, d\sigma
-  $$
+
+    $$
+    \iint_D f(x,y) \, d\sigma = \iint_D f(y,x) \, d\sigma
+    $$
 
 - 坐标变量交换：
-  $$
-  \iint_D x \, d\sigma = \iint_D y \, d\sigma
-  $$
+
+    $$
+    \iint_D x \, d\sigma = \iint_D y \, d\sigma
+    $$
 
 - 函数平均值：
-  $$
-  \iint_D f(x,y) \, d\sigma = \frac{1}{2} \iint_D \left[ f(x,y) + f(y,x) \right] \, d\sigma
-  $$
+
+    $$
+    \iint_D f(x,y) \, d\sigma = \frac{1}{2} \iint_D \left[ f(x,y) + f(y,x) \right] \, d\sigma
+    $$
 
 > **核心思想：** 利用对称性简化计算或证明等式/不等式。
 
@@ -525,14 +559,16 @@ $$
 令 $I_n = \int_0^{\frac{\pi}{2}} \sin^n x \, dx = \int_0^{\frac{\pi}{2}} \cos^n x \, dx$
 
 - 若 \( n = 2m \)（\( m \in \mathbb{N}^+ \)）为正偶数：
-  $$
-  I_n = \frac{n-1}{n} \cdot \frac{n-3}{n-2} \cdot \cdots \cdot \frac{3}{4} \cdot \frac{1}{2} \cdot \frac{\pi}{2}
-  $$
+
+    $$
+    I_n = \frac{n-1}{n} \cdot \frac{n-3}{n-2} \cdot \cdots \cdot \frac{3}{4} \cdot \frac{1}{2} \cdot \frac{\pi}{2}
+    $$
 
 - 若 \( n = 2m+1 \)（\( m \in \mathbb{N}^+ \)，即 \( n \geq 3 \) 奇数）：
-  $$
-  I_n = \frac{n-1}{n} \cdot \frac{n-3}{n-2} \cdot \cdots \cdot \frac{4}{5} \cdot \frac{2}{3} \cdot 1
-  $$
+
+    $$
+    I_n = \frac{n-1}{n} \cdot \frac{n-3}{n-2} \cdot \cdots \cdot \frac{4}{5} \cdot \frac{2}{3} \cdot 1
+    $$
 
 > 注意：偶数情形的最后一个分数是 \(\frac{1}{2}\)，**不是** \(\frac{2}{3} \cdot \frac{1}{2}\)。
 
@@ -561,25 +597,30 @@ $$
 **解法推荐：分子有理化**
 
 原式：
+
 $$
 \int \sqrt{\frac{1-t}{1+t}} \, dt
 $$
 
 分子分母同乘 $\sqrt{1-t}$ 进行有理化：
+
 $$
 = \int \frac{\sqrt{1-t} \cdot \sqrt{1-t}}{\sqrt{1+t} \cdot \sqrt{1-t}} \, dt = \int \frac{1-t}{\sqrt{(1+t)(1-t)}} \, dt = \int \frac{1-t}{\sqrt{1-t^2}} \, dt
 $$
 
 拆分为两项：
+
 $$
 = \int \frac{1}{\sqrt{1-t^2}} \, dt - \int \frac{t}{\sqrt{1-t^2}} \, dt
 $$
 
 分别求解：
+
 - 第一项是反正弦函数：$\int \frac{1}{\sqrt{1-t^2}} \, dt = \arcsin t + C_1$
 - 第二项用凑微分：$\int \frac{t}{\sqrt{1-t^2}} \, dt = -\sqrt{1-t^2} + C_2$
 
 **最终结果：**
+
 $$
 \boxed{\int \sqrt{\frac{1-t}{1+t}} \, dt = \arcsin t + \sqrt{1-t^2} + C}
 $$
@@ -605,6 +646,7 @@ $$
 其中，组合数 $C_n^k = \binom{n}{k} = \dfrac{n!}{k!(n-k)!}$
 
 > **性质：**
+>
 > - 共有 $n+1$ 项。
 > - 第 $k+1$ 项为 $T_{k+1} = C_n^k a^{n-k} b^k$。
 
@@ -615,6 +657,7 @@ $$
 ### ① 可分离变量型微分方程
 
 **形式：**
+
 $$
 y' = f(x) \cdot g(y)
 $$
@@ -622,11 +665,13 @@ $$
 **解法：**
 
 将变量分离：
+
 $$
 \frac{dy}{dx} = f(x) \cdot g(y) \quad \Rightarrow \quad \frac{1}{g(y)} \, dy = f(x) \, dx
 $$
 
 两边同时积分：
+
 $$
 \int \frac{1}{g(y)} \, dy = \int f(x) \, dx + C
 $$
@@ -636,6 +681,7 @@ $$
 ### ② 齐次型微分方程
 
 **形式：**
+
 $$
 \frac{dy}{dx} = \varphi\left(\frac{y}{x}\right)
 $$
@@ -643,16 +689,19 @@ $$
 **解法：**
 
 令 $u = \frac{y}{x}$，则 $y = ux$，对 $x$ 求导得：
+
 $$
 \frac{dy}{dx} = u + x \frac{du}{dx}
 $$
 
 代入原方程：
+
 $$
 u + x \frac{du}{dx} = \varphi(u)
 $$
 
 整理为可分离变量形式：
+
 $$
 \frac{du}{\varphi(u) - u} = \frac{dx}{x}
 $$
@@ -667,6 +716,7 @@ $$
 形如 $y' + P(x)y = Q(x)$ 的方程称为一阶线性微分方程。
 
 **通解公式：**
+
 $$
 y = e^{-\int P(x) \, dx} \left[ \int e^{\int P(x) \, dx} \cdot Q(x) \, dx + C \right]
 $$
@@ -680,6 +730,7 @@ $$
 > **Tips:** 数二考生亦可通过提示“换元”解题。
 
 **形式：**
+
 $$
 \frac{dy}{dx} + P(x)y = Q(x)y^n \quad (n \neq 0, 1)
 $$
@@ -687,11 +738,13 @@ $$
 **解法：**
 
 1.  **变形：** 方程两边同除以 $y^n$：
+
     $$
     y^{-n} \frac{dy}{dx} + P(x) y^{1-n} = Q(x)
     $$
 
 2.  **换元：** 令 $z = y^{1-n}$，对 $x$ 求导：
+
     $$
     \frac{dz}{dx} = (1-n) y^{-n} \frac{dy}{dx}
     \quad \Rightarrow \quad
@@ -699,6 +752,7 @@ $$
     $$
 
 3.  **代入：** 将上式代入变形后的方程：
+
     $$
     \frac{1}{1-n} \frac{dz}{dx} + P(x) z = Q(x)
     $$
@@ -714,17 +768,20 @@ $$
 **解法：**
 
 令 $y' = p$，则 $y'' = p'$，原方程化为：
+
 $$
 \frac{dp}{dx} = f(x, p)
 $$
+
 这是一个关于 $p$ 和 $x$ 的一阶微分方程（$p = p(x)$“赶尽杀绝 $y$”）。
 
 - 解得其通解为 $p = \varphi(x, C_1)$。
 - 由于 $p = y'$，即 $y' = \varphi(x, C_1)$。
 - 再对 $x$ 积分一次，得到原方程的通解：
-  $$
-  y = \int \varphi(x, C_1) \, dx + C_2
-  $$
+
+    $$
+    y = \int \varphi(x, C_1) \, dx + C_2
+    $$
 
 ---
 
@@ -733,22 +790,28 @@ $$
 **解法：**
 
 令 $y' = p$，则 $y'' = \frac{dp}{dx} = \frac{dp}{dy} \cdot \frac{dy}{dx} = p \frac{dp}{dy}$，原方程化为：
+
 $$
 p \frac{dp}{dy} = f(y, p)
 $$
+
 这是一个关于 $p$ 和 $y$ 的一阶微分方程（$p = p(y)$“斩草除根 $x$”）。
 
 - 解得其通解为 $p = \varphi(y, C_1)$。
 - 由于 $p = \frac{dy}{dx}$，即 $\frac{dy}{dx} = \varphi(y, C_1)$。
 - 分离变量得：
-  $$
-  \frac{dy}{\varphi(y, C_1)} = dx
-  $$
+
+    $$
+    \frac{dy}{\varphi(y, C_1)} = dx
+    $$
+
 - 两边积分得：
-  $$
-  \int \frac{dy}{\varphi(y, C_1)} = x + C_2
-  $$
-  即得原方程的通解。
+
+    $$
+    \int \frac{dy}{\varphi(y, C_1)} = x + C_2
+    $$
+
+    即得原方程的通解。
 
 ---
 
@@ -763,6 +826,7 @@ $$
 ## 40. 二阶常系数齐次线性微分方程
 
 **标准形式：**
+
 $$
 y'' + py' + qy = 0 \quad , \text{其中 } p, q \text{ 为常数}
 $$
@@ -770,6 +834,7 @@ $$
 **理论基础：**
 
 若 $y_1(x), y_2(x)$ 是该方程的两个解，且它们线性无关（即 $\frac{y_1(x)}{y_2(x)} \neq \text{常数}$），则方程的通解为：
+
 $$
 y(x) = C_1 y_1(x) + C_2 y_2(x)
 $$
@@ -777,11 +842,13 @@ $$
 **求解步骤：**
 
 1.  **写出特征方程：**
+
     $$
     r^2 + pr + q = 0
     $$
 
 2.  **求特征根：**
+
     $$
     r_{1,2} = \frac{-p \pm \sqrt{p^2 - 4q}}{2}
     $$
@@ -789,28 +856,33 @@ $$
 3.  **根据特征根的不同情况，写出通解：**
 
     - **① 两个不相等的实根 ($r_1 \neq r_2$)：**
-      $$
-      y = C_1 e^{r_1 x} + C_2 e^{r_2 x}
-      $$
+
+        $$
+        y = C_1 e^{r_1 x} + C_2 e^{r_2 x}
+        $$
 
     - **② 两个相等的实根 ($r_1 = r_2 = r$)：**
-      $$
-      y = (C_1 + C_2 x) e^{rx}
-      $$
+
+        $$
+        y = (C_1 + C_2 x) e^{rx}
+        $$
 
     - **③ 一对共轭复根 ($p^2 - 4q < 0$)，设 $r = \alpha \pm \beta i$：**
-      $$
-      y = e^{\alpha x} (C_1 \cos \beta x + C_2 \sin \beta x)
-      $$
+
+        $$
+        y = e^{\alpha x} (C_1 \cos \beta x + C_2 \sin \beta x)
+        $$
 
 ---
 
 ## 41. 二阶常系数非齐次线性微分方程
 
 **标准形式：**
+
 $$
 y'' + py' + qy = f(x) \quad (f(x) \neq 0)
 $$
+
 其中 $p, q$ 为常数，$f(x)$ 为已知的连续函数。
 
 ---
@@ -818,6 +890,7 @@ $$
 ### 通解结构
 
 若 $y_h(x) = C_1 y_1(x) + C_2 y_2(x)$ 是对应的齐次方程 $y'' + py' + qy = 0$ 的通解，$y_p^*(x)$ 是原非齐次方程的一个特解，则原方程的通解为：
+
 $$
 y(x) = y_h(x) + y_p^*(x)
 $$
@@ -841,16 +914,17 @@ $$
 其中 $P_n(x)$ 为 $x$ 的 $n$ 次多项式。
 
 - **特解形式：** $y_p^* = e^{\alpha x} Q_n(x) x^k$
-  - $Q_n(x)$ 为与 $P_n(x)$ 同次的多项式。
-  - $k$ 由 $\alpha$ 是否为特征根决定：
-    $$
-    k =
-    \begin{cases}
-    0, & \text{若 } \alpha \text{ 不是特征根} \\
-    1, & \text{若 } \alpha \text{ 是单特征根} \\
-    2, & \text{若 } \alpha \text{ 是二重特征根}
-    \end{cases}
-    $$
+    - $Q_n(x)$ 为与 $P_n(x)$ 同次的多项式。
+    - $k$ 由 $\alpha$ 是否为特征根决定：
+
+        $$
+        k =
+        \begin{cases}
+        0, & \text{若 } \alpha \text{ 不是特征根} \\
+        1, & \text{若 } \alpha \text{ 是单特征根} \\
+        2, & \text{若 } \alpha \text{ 是二重特征根}
+        \end{cases}
+        $$
 
 > **提示：** “$e^{\alpha x}$ 照抄”，只需确定 $k$ 值。
 
@@ -861,16 +935,17 @@ $$
 其中 $P_m(x), P_n(x)$ 分别为 $x$ 的 $m$ 次、$n$ 次多项式。
 
 - **特解形式：** $y_p^* = e^{\alpha x} [Q_l^{(1)}(x) \cos \beta x + Q_l^{(2)}(x) \sin \beta x] x^k$
-  - $l = \max\{m, n\}$。
-  - $Q_l^{(1)}(x), Q_l^{(2)}(x)$ 为两个不同的 $l$ 次多项式。
-  - $k$ 由 $\alpha \pm \beta i$ 是否为特征根决定：
-    $$
-    k =
-    \begin{cases}
-    0, & \text{若 } \alpha \pm \beta i \text{ 不是特征根} \\
-    1, & \text{若 } \alpha \pm \beta i \text{ 是特征根}
-    \end{cases}
-    $$
+    - $l = \max\{m, n\}$。
+    - $Q_l^{(1)}(x), Q_l^{(2)}(x)$ 为两个不同的 $l$ 次多项式。
+    - $k$ 由 $\alpha \pm \beta i$ 是否为特征根决定：
+
+        $$
+        k =
+        \begin{cases}
+        0, & \text{若 } \alpha \pm \beta i \text{ 不是特征根} \\
+        1, & \text{若 } \alpha \pm \beta i \text{ 是特征根}
+        \end{cases}
+        $$
 
 > **提示：** “$e^{\alpha x}$ 照抄”，只需确定 $k$ 值。
 
@@ -894,6 +969,7 @@ $$
     代入：$a e^x - 2a e^x + 5a e^x = e^x \Rightarrow 4a e^x = e^x \Rightarrow a = \frac{1}{4}$。
 
 4.  **写出通解：**
+
     $$
     y = e^x (C_1 \cos 2x + C_2 \sin 2x) + \frac{1}{4} e^x
     $$
@@ -1013,9 +1089,11 @@ $$
 **解法步骤：**
 
 1.  **构造辅助函数（拉格朗日函数）：**
+
     $$
     F(x, y, z, \lambda, \mu) = f(x, y, z) + \lambda \varphi(x, y, z) + \mu \psi(x, y, z)
     $$
+
     > **注：** 辅助函数中的自变量个数 = 目标函数自变量个数 + 约束条件个数。
 
 2.  **令所有偏导数为零：**
@@ -1040,6 +1118,7 @@ $$
 ## 48. 无条件极值 (二元函数)
 
 设函数 $z = f(x, y)$ 在点 $(x_0, y_0)$ 处具有一阶偏导数，且在该点取极值，则必有：
+
 $$
 f'_x(x_0, y_0) = 0, \quad f'_y(x_0, y_0) = 0
 $$
@@ -1049,14 +1128,16 @@ $$
 1.  **求驻点：** 解方程组 $\begin{cases} f'_x(x, y) = 0 \\ f'_y(x, y) = 0 \end{cases}$，得到可能为极值的坐标点 $(x_0, y_0)$。
 
 2.  **二阶充分条件：** 记
+
     $$
     A = f''_{xx}(x_0, y_0), \quad B = f''_{xy}(x_0, y_0), \quad C = f''_{yy}(x_0, y_0)
     $$
+
     并计算判别式 $\Delta = AC - B^2$。
 
     - 若 $\Delta > 0$：
-      - $A < 0$ $\Rightarrow$ 存在极大值。
-      - $A > 0$ $\Rightarrow$ 存在极小值。
+        - $A < 0$ $\Rightarrow$ 存在极大值。
+        - $A > 0$ $\Rightarrow$ 存在极小值。
     - 若 $\Delta < 0$ $\Rightarrow$ 不是极值点。
     - 若 $\Delta = 0$ $\Rightarrow$ 方法失效，需用定义法判断。
 
@@ -1069,6 +1150,7 @@ $$
 设 $z = f(u, v)$，而 $u, v$ 又是 $x, y$ 的函数，即 $u = u(x, y)$, $v = v(x, y)$。
 
 则 $z$ 在点 $(x, y)$ 处的全微分为：
+
 $$
 dz = \frac{\partial z}{\partial u} du + \frac{\partial z}{\partial v} dv
 $$
@@ -1086,10 +1168,12 @@ $$
 ### ① 二元隐函数 $F(x, y) = 0$
 
 若方程 $F(x, y) = 0$ 在点 $(x_0, y_0)$ 的某邻域内满足：
+
 - $F(x, y)$ 具有一阶连续偏导数。
 - $F_y'(x_0, y_0) \neq 0$。
 
 则在该点附近可确定一个单值函数 $y = f(x)$，且其导数为：
+
 $$
 \frac{dy}{dx} = -\frac{F_x'(x, y)}{F_y'(x, y)}
 $$
@@ -1099,10 +1183,12 @@ $$
 ### ② 三元隐函数 $F(x, y, z) = 0$
 
 若方程 $F(x, y, z) = 0$ 在点 $(x_0, y_0, z_0)$ 的某邻域内满足：
+
 - $F(x, y, z)$ 具有一阶连续偏导数。
 - $F_z'(x_0, y_0, z_0) \neq 0$。
 
 则在该点附近可确定一个单值函数 $z = f(x, y)$，且其偏导数为：
+
 $$
 \frac{\partial z}{\partial x} = -\frac{F_x'(x, y, z)}{F_z'(x, y, z)}, \quad \frac{\partial z}{\partial y} = -\frac{F_y'(x, y, z)}{F_z'(x, y, z)}
 $$
@@ -1116,6 +1202,7 @@ $$
 ![image-20251016000732118](kaoyan-math-hm.assets/image-20251016000732118-1760586088823-18.png)
 
 > **关键点：**
+>
 > - 对于一元函数，“可微”与“可导”是等价的。
 > - 对于多元函数，“可微”蕴含“连续”和“偏导存在”，但“偏导存在”不能推出“可微”，“连续”也不能推出“可微”。
 
@@ -1126,35 +1213,44 @@ $$
 判断函数 $z = f(x, y)$ 在点 $(x_0, y_0)$ 处是否可微，按以下步骤进行：
 
 1.  **计算全增量：**
+
     $$
     \Delta z = f(x_0 + \Delta x, y_0 + \Delta y) - f(x_0, y_0)
     $$
 
 2.  **写出线性增量：**
+
     $$
     A \Delta x + B \Delta y
     $$
+
     其中 $A = f'_x(x_0, y_0)$, $B = f'_y(x_0, y_0)$，即在该点处的两个偏导数值。
 
 3.  **作极限判断：**
+
     $$
     \lim_{\substack{\Delta x \to 0 \\ \Delta y \to 0}} \frac{\Delta z - (A \Delta x + B \Delta y)}{\sqrt{(\Delta x)^2 + (\Delta y)^2}} = 0
     $$
+
     若该极限等于 $0$，则函数 $z = f(x, y)$ 在点 $(x_0, y_0)$ 处可微。
 
 > **Tips:** 一元函数可微的判别方法：
+>
 > - 计算 $\Delta y = f(x_0 + \Delta x) - f(x_0)$。
 > - 线性增量为 $A \Delta x = f'(x_0) \Delta x$。
 > - 判断极限：
->   $$
->   \lim_{\Delta x \to 0} \frac{\Delta y - A \Delta x}{\Delta x} = 0
->   $$
->   若成立，则 $y = f(x)$ 在 $x_0$ 处可微。
+>
+>     $$
+>     \lim_{\Delta x \to 0} \frac{\Delta y - A \Delta x}{\Delta x} = 0
+>     $$
+>
+>     若成立，则 $y = f(x)$ 在 $x_0$ 处可微。
 
 ## 53.微分与导数的关系
 
 ### 1. 微分的定义
 在点 $x = x_0$ 处，函数 $y = f(x)$ 的微分 $dy$ 定义为：
+
 $$
 \left. dy \right|_{x=x_0} = f'(x_0) \cdot dx
 $$
@@ -1168,6 +1264,7 @@ $$
 
 ### 2. 函数增量与微分的关系
 函数在 $x_0$ 点的总增量 $\Delta y$ 可以分解为：
+
 $$
 \Delta x = dx, \quad \Delta y = dy + o(\Delta x)
 $$
@@ -1180,6 +1277,7 @@ $$
 
 ### 3. 导数的极限定义与微分的关系推导
 通过极限过程，可以从增量比推导出导数：
+
 $$
 \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \frac{A \Delta x}{\Delta x} + \lim_{\Delta x \to 0} \frac{o(\Delta x)}{\Delta x} = A = f'(x_0)
 $$
@@ -1188,16 +1286,21 @@ $$
 
 - 将 $\Delta y = dy + o(\Delta x)$ 代入增量比 $\frac{\Delta y}{\Delta x}$。
 - 由于 $dy = f'(x_0) \cdot dx = f'(x_0) \cdot \Delta x$（这里令 $A = f'(x_0)$），所以：
-  $$
-  \frac{\Delta y}{\Delta x} = \frac{f'(x_0) \cdot \Delta x + o(\Delta x)}{\Delta x} = f'(x_0) + \frac{o(\Delta x)}{\Delta x}
-  $$
+
+    $$
+    \frac{\Delta y}{\Delta x} = \frac{f'(x_0) \cdot \Delta x + o(\Delta x)}{\Delta x} = f'(x_0) + \frac{o(\Delta x)}{\Delta x}
+    $$
+
 - 当 $\Delta x \to 0$ 时：
-  第一项 $f'(x_0)$ 保持不变。
-  第二项 $\frac{o(\Delta x)}{\Delta x} \to 0$（因为 $o(\Delta x)$ 是比 $\Delta x$ 更高阶的无穷小）。
+    第一项 $f'(x_0)$ 保持不变。
+    第二项 $\frac{o(\Delta x)}{\Delta x} \to 0$（因为 $o(\Delta x)$ 是比 $\Delta x$ 更高阶的无穷小）。
+
 - 因此：
-  $$
-  \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = f'(x_0)
-  $$
+
+    $$
+    \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = f'(x_0)
+    $$
+
 - 这正是导数的定义！它从“微分近似”的角度重新验证了导数的极限本质。<img src="./kaoyan-math-hm.assets/IMG_20251015_212126-1760586088823-19.jpg" alt="IMG_20251015_212126" style="zoom:25%;" />
 
 > **导数 $f'(x_0)$ 是函数在某点的变化率，而微分 $dy$ 是利用这个变化率对函数增量进行线性近似的结果。**
@@ -1207,6 +1310,7 @@ $$
 ## 54. 均值不等式 (调和平均 ≤ 几何平均 ≤ 算术平均 ≤ 平方平均)
 
 对于 $n$ 个非负实数 $x_1, x_2, \dots, x_n \ge 0$，有：
+
 $$
 \frac{1}{\frac{1}{x_1} + \frac{1}{x_2} + \cdots + \frac{1}{x_n}} \le \sqrt[n]{x_1 x_2 \cdots x_n} \le \frac{x_1 + x_2 + \cdots + x_n}{n} \le \sqrt{\frac{x_1^2 + x_2^2 + \cdots + x_n^2}{n}}
 $$
@@ -1235,37 +1339,44 @@ $$
 
 ### ① 位移大小
 若速度函数为 $v(t)$，则从时刻 $t_1$ 到 $t_2$ 的位移大小为：
+
 $$
 s = \int_{t_1}^{t_2} v(t) \, dt
 $$
 
 ### ② 总路程
 总路程是速度的绝对值积分：
+
 $$
 s = \int_{t_1}^{t_2} |v(t)| \, dt
 $$
 
 ### ③ 做功
 若力 $F(x)$ 是位置 $x$ 的函数，则从 $a$ 到 $b$ 所做的功为：
+
 $$
 W = \int_a^b dW = \int_a^b F(x) \, dx
 $$
 
 ### ④ 从容器中抽出液体所做的功
 设液体密度为 $\rho$，重力加速度为 $g$，容器在高度 $y$ 处的横截面积为 $A(y)$，需将液体提升到高度 $H$，则所做的功为：
+
 $$
 W = \int_{y_1}^{y_2} \rho g A(y) (H - y) \, dy
 $$
+
 其中，$(H - y)$ 为在深度 $y$ 处的液体质点需要被提升的距离。
 
 ### ⑤ 静水压力
 作用在竖直平板上的静水压力，若平板在深度范围 $[y_1, y_2]$ 内，深度为 $y$ 处的水平宽度为 $L(y)$，则压力为：
+
 $$
 F = \int_{y_1}^{y_2} \rho g y \cdot L(y) \, dy
 $$
 
 ### ⑥ 细杆质心
 若细杆在区间 $[a, b]$ 上的线密度为 $\rho(x)$，则其质心坐标 $\bar{x}$ 为：
+
 $$
 \bar{x} = \frac{\int_a^b x \cdot \rho(x) \, dx}{\int_a^b \rho(x) \, dx}
 $$
@@ -1279,6 +1390,7 @@ $$
 ### ① 牛顿-莱布尼茨公式 (微积分基本定理)
 
 若函数 $f(x)$ 在区间 $[a, b]$ 上连续，则：
+
 $$
 f(b) - f(a) = \left. f(x) \right|_a^b = \int_a^b f'(x) \, dx
 $$
@@ -1288,6 +1400,7 @@ $$
 ### ② 拉格朗日中值定理
 
 若函数 $f(x)$ 在闭区间 $[a, b]$ 上连续，在开区间 $(a, b)$ 内可导，则至少存在一点 $\xi \in (a, b)$，使得：
+
 $$
 f'(\xi) = \frac{f(b) - f(a)}{b - a}
 $$
@@ -1318,12 +1431,14 @@ $$
 ### 推广形式（莱布尼茨公式）：
 
 若 $u(x), v(x)$ 可导，且 $f(t)$ 连续，则：
+
 $$
 \frac{d}{dx} \left[ \int_{v(x)}^{u(x)} f(t) \, dt \right] = f(u(x)) \cdot u'(x) - f(v(x)) \cdot v'(x)
 $$
 
 > **Tips:**
 > 
+>
 > - 只要 $f(x)$ 在积分区间上可积，变限积分函数 $\Phi(x)$ 一定连续。
 > - 对变限积分求导时，被积函数中不能含有求导变量 $x$（即积分上下限中的变量）。
 
@@ -1332,6 +1447,7 @@ $$
 ## 60. 关于 $f(x)$ 在区间 $[a, b]$ 上的平均值
 
 函数 $f(x)$ 在区间 $[a, b]$ 上的平均值定义为：
+
 $$
 \bar{f}(x) = \frac{\int_a^b f(x) \, dx}{b - a}
 $$
@@ -1343,6 +1459,7 @@ $$
 ### ① 直角坐标系下：
 
 由两条曲线 $y_1(x)$ 和 $y_2(x)$ 围成的图形面积为：
+
 $$
 S = \int_a^b |y_1(x) - y_2(x)| \, dx
 $$
@@ -1350,6 +1467,7 @@ $$
 ### ② 极坐标系下：
 
 由两条极径曲线 $r_1(\theta)$ 和 $r_2(\theta)$ 围成的图形面积为：
+
 $$
 S = \int_\alpha^\beta \frac{1}{2} |r_1^2(\theta) - r_2^2(\theta)| \, d\theta
 $$
@@ -1361,6 +1479,7 @@ $$
 ### ① 绕 $x$ 轴旋转：
 
 由曲线 $y = f(x)$ ($a \le x \le b$) 与 $x$ 轴围成的区域绕 $x$ 轴旋转所得体积为：
+
 $$
 V_x = \int_a^b \pi y^2(x) \, dx
 $$
@@ -1368,6 +1487,7 @@ $$
 ### ② 绕 $y$ 轴旋转：
 
 由曲线 $y = f(x)$ ($a \le x \le b$) 与 $y$ 轴围成的区域绕 $y$ 轴旋转所得体积为：
+
 $$
 V_y = 2\pi \int_a^b x |y(x)| \, dx
 $$
@@ -1393,6 +1513,7 @@ $$
 
 > **Tips:**
 > 
+>
 > - 当积分区域 $D$ 为圆形时，由于对称性，形心 $\bar{x}, \bar{y}$ 已知。
 > - 此时，有 $\iint_D x \, d\sigma = \bar{x} \cdot A$，$\iint_D y \, d\sigma = \bar{y} \cdot A$，可以简化二重积分运算。
 
@@ -1403,6 +1524,7 @@ $$
 ### ① 显函数形式：
 
 若曲线方程为 $y = y(x)$ ($a \le x \le b$)，则弧长为：
+
 $$
 s = \int_a^b \sqrt{1 + [y'(x)]^2} \, dx
 $$
@@ -1410,6 +1532,7 @@ $$
 ### ② 参数方程形式：
 
 若曲线方程为 $\begin{cases} x = x(t) \\ y = y(t) \end{cases}$ ($\alpha \le t \le \beta$)，则弧长为：
+
 $$
 s = \int_\alpha^\beta \sqrt{[x'(t)]^2 + [y'(t)]^2} \, dt
 $$
@@ -1417,6 +1540,7 @@ $$
 ### ③ 极坐标形式：
 
 若曲线方程为 $r = r(\theta)$ ($\alpha \le \theta \le \beta$)，则弧长为：
+
 $$
 s = \int_\alpha^\beta \sqrt{[r(\theta)]^2 + [r'(\theta)]^2} \, d\theta
 $$
@@ -1442,6 +1566,7 @@ $$
 ## 66. $e^x$ 的泰勒级数展开
 
 对于任意实数 $x \in \mathbb{R}$，有：
+
 $$
 e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots
 $$
@@ -1452,13 +1577,15 @@ $$
 
 ### ① 复合关系：
 
-$
+$$
 \sin(\arcsin x) = x \quad (\text{定义域 } [-1, 1])
-$
+$$
+
 但
-$
+
+$$
 \arcsin(\sin x) \neq x \quad (\text{除非 } x \in [-\frac{\pi}{2}, \frac{\pi}{2}])
-$
+$$
 
 ### ② 函数 $f(x) = \arcsin(\sin x)$ 的图像：
 
@@ -1483,13 +1610,14 @@ $
 
 - 通项公式：$a_n = a_1 \cdot q^{n-1}$
 - 前 $n$ 项和：
-  $$
-  S_n =
-  \begin{cases}
-  n a_1, & q = 1 \\
-  \dfrac{a_1(1 - q^n)}{1 - q}, & q \neq 1
-  \end{cases}
-  $$
+
+    $$
+    S_n =
+    \begin{cases}
+    n a_1, & q = 1 \\
+    \dfrac{a_1(1 - q^n)}{1 - q}, & q \neq 1
+    \end{cases}
+    $$
 
 - 特殊情况：当 $|q| < 1$ 时，无穷等比级数和为 $S = \frac{a_1}{1-q}$。
 - 求和公式：$1 + q + q^2 + \cdots + q^{n-1} = \frac{1 - q^n}{1 - q}$ ($q \neq 1$)
@@ -1564,22 +1692,26 @@ $$
 设函数 $y = f(x)$ 在点 $x_0$ 的某个邻域内有定义，则其导数定义为：
 
 - **增量形式：**
-  $$
-  f'(x_0) = \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}
-  $$
+
+    $$
+    f'(x_0) = \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}
+    $$
 
 - **差商形式：**
-  $$
-  f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
-  $$
+
+    $$
+    f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
+    $$
 
 - **导函数定义：**
-  $$
-  f'(x) = \lim_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x}, \quad x \in I
-  $$
+
+    $$
+    f'(x) = \lim_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x}, \quad x \in I
+    $$
 
 > **Tips:**
 > 
+>
 > - 对称导数：$\lim_{h \to 0} \frac{f(x_0 + h) - f(x_0 - h)}{2h}$ 存在，不能保证 $f'(x_0)$ 存在（仅当 $f(x)$ 在 $x_0$ 处连续时等价）
 > - 导数 $f'(x_0)$ 存在 $\Leftrightarrow$ 左右导数存在且相等。
 
@@ -1598,9 +1730,11 @@ $$
 ### ① 垂直渐近线：
 
 若 $x_0$ 是函数 $f(x)$ 的无定义点或定义区间的端点，且满足：
+
 $$
 \lim_{x \to x_0^+} f(x) = \infty \quad \text{或} \quad \lim_{x \to x_0^-} f(x) = \infty
 $$
+
 则直线 $x = x_0$ 是一条垂直渐近线。
 
 ### ② 水平渐近线：
@@ -1613,6 +1747,7 @@ $$
 
 > **求解步骤：**
 > 
+>
 > 1. 先求 $a = \lim_{x \to \infty} \frac{f(x)}{x}$。
 > 2. 再求 $b = \lim_{x \to \infty} [f(x) - ax]$。
 > 3. 得到斜渐近线方程 $y = ax + b$。
@@ -1622,6 +1757,7 @@ $$
 ## 75. 高阶无穷小的运算
 
 对于任意实数 $m, n$，有：
+
 $$
 x^m \cdot O(x^n) = O(x^{m+n})
 $$
@@ -1640,6 +1776,7 @@ $$
 
 > **重要提示：**
 > 
+>
 > - “$f(x)$ 可积”意味着其原函数存在，但反之不成立。即“在积分区域上存在原函数”是“可积”的**必要条件**，而非**充分条件**。
 > - 因此，“$f(x)$ 可积 $\Rightarrow$ 在积分区域上存在原函数”的说法是**错误的**。
 
@@ -1682,6 +1819,7 @@ $$
 ## 78. 关于 $\int e^{ax} \sin(bx) \, dx$ 和 $\int e^{ax} \cos(bx) \, dx$ 型积分的求解
 
 这类积分可以通过构造一个二阶线性方程组来求解，或者直接使用公式：
+
 $$
 \int e^{ax} \sin bx \, dx = 
 \frac{
@@ -1739,37 +1877,42 @@ $$
 ### ① 平均值放缩
 
 对于任意实数 $u_1, u_2, \dots, u_n$：
+
 $$
 n \cdot u_{\min} \le u_1 + u_2 + \cdots + u_n \le n \cdot u_{\max}
 $$
 
 - 当所有 $u_i \ge 0$ 时，有更紧的下界：
-  $$
-  1 \cdot u_{\max} \le u_1 + u_2 + \cdots + u_n \le n \cdot u_{\max}
-  $$
+
+    $$
+    1 \cdot u_{\max} \le u_1 + u_2 + \cdots + u_n \le n \cdot u_{\max}
+    $$
 
 ### ② 绝对值三角不等式
 
 - $|a \pm b| \le |a| + |b|$
 - $||a| - |b|| \le |a - b|$
 - 推广到 $n$ 项：
-  $$
-  |a_1 \pm a_2 \pm \cdots \pm a_n| \le |a_1| + |a_2| + \cdots + |a_n|
-  $$
+
+    $$
+    |a_1 \pm a_2 \pm \cdots \pm a_n| \le |a_1| + |a_2| + \cdots + |a_n|
+    $$
 
 ### ③ 均值不等式链
 
 对于非负实数 $a, b, c \ge 0$：
 
 - 二元情况：
-  $$
-  \sqrt{ab} \le \frac{a+b}{2} \le \sqrt{\frac{a^2 + b^2}{2}} \quad \text{且} \quad |ab| \le \frac{a^2 + b^2}{2}
-  $$
+
+    $$
+    \sqrt{ab} \le \frac{a+b}{2} \le \sqrt{\frac{a^2 + b^2}{2}} \quad \text{且} \quad |ab| \le \frac{a^2 + b^2}{2}
+    $$
 
 - 三元情况：
-  $$
-  \sqrt[3]{abc} \le \frac{a+b+c}{3} \le \sqrt{\frac{a^2 + b^2 + c^2}{3}}
-  $$
+
+    $$
+    \sqrt[3]{abc} \le \frac{a+b+c}{3} \le \sqrt{\frac{a^2 + b^2 + c^2}{3}}
+    $$
 
 ### ④ 幂函数单调性
 
@@ -1781,6 +1924,7 @@ $$
 ### ⑤ 分式不等式
 
 若 $0 < a < x < b$ 且 $0 < c < y < d$，则：
+
 $$
 \frac{c}{b} < \frac{y}{x} < \frac{d}{a}
 $$
@@ -1823,9 +1967,11 @@ $$
 ### ⑪ 对数函数不等式
 
 对于 $x > 0$：
+
 $$
 \frac{1}{1+x} < \ln(1 + \frac{1}{x}) < \frac{1}{x}
 $$
+
 $$
 \frac{x}{1+x} < \ln(1 + x) < x
 $$
@@ -1841,15 +1987,20 @@ $$
 #### i. 数列收敛判定：
 
 对数列 $\{x_n\}$，若存在常数 $k \in (0, 1)$，使得：
+
 $$
 |x_{n+1} - a| \le k |x_n - a|, \quad n = 1, 2, \dots
 $$
+
 则数列 $\{x_n\}$ 收敛于 $a$。
 
 > **证明：**
+>
 > $$
 > 0 \le |x_{n+1} - a| \le k |x_n - a| \le k^2 |x_{n-1} - a| \le \cdots \le k^n |x_1 - a| \to 0 \quad (\text{因为 } \lim_{n \to \infty} k^n = 0)
-> $$ 故 $\lim_{n \to \infty} |x_{n+1} - a| = 0$，即 $\{x_n\}$ 收敛于 $a$。
+> $$
+>
+> 故 $\lim_{n \to \infty} |x_{n+1} - a| = 0$，即 $\{x_n\}$ 收敛于 $a$。
 
 #### ii. 迭代数列收敛判定：
 
@@ -1857,9 +2008,12 @@ $$
 
 > **证明：**
 > 由拉格朗日中值定理，存在 $\xi$ 介于 $a$ 与 $x_n$ 之间，使得：
+>
 > $$
 > |x_{n+1} - a| = |f(x_n) - f(a)| = |f'(\xi)| \cdot |x_n - a| \le k |x_n - a|
-> $$ 由 i 知，$\{x_n\}$ 收敛于 $a$。
+> $$
+>
+> 由 i 知，$\{x_n\}$ 收敛于 $a$。
 
 ---
 
@@ -1870,9 +2024,11 @@ $$
 1.  **存在瑕点，拆区间：** 若积分区间内或端点处存在瑕点（被积函数无界），需将积分区间在瑕点处拆开。
 2.  **拆成多积分（分部），考虑每一项敛散性：** 将原积分拆分为多个定积分或反常积分，分别判断其敛散性。若其中任意一项发散，则整个积分发散。
     - 利用分部积分法时，有：
-      $$
-      \int u v' \, dx = \int u \, dv = uv - \int v \, du = uv - \int v \cdot u' \, dx
-      $$
+
+        $$
+        \int u v' \, dx = \int u \, dv = uv - \int v \, du = uv - \int v \cdot u' \, dx
+        $$
+
 3.  **对于无穷区间 $(0, +\infty)$：**
     - 可将其拆为 $(0, 1)$ 和 $(1, +\infty)$ 两部分。
     - 对于 $(1, +\infty)$ 部分，可令 $x = \frac{1}{t}$，将其变为 $(0, 1)$ 区间。
@@ -1885,18 +2041,20 @@ $$
 设函数 $f(x)$ 在闭区间 $[a, b]$ 上可积，则有以下恒等式：
 
 - **基本形式：**
-  $$
-  \int_a^b f(x) \, dx = \int_a^b f(a + b - x) \, dx
-  $$
+
+    $$
+    \int_a^b f(x) \, dx = \int_a^b f(a + b - x) \, dx
+    $$
 
 - **推论：**
-  $$
-  \int_a^b f(x) \, dx = \frac{1}{2} \left( \int_a^b f(x) \, dx + \int_a^b f(a + b - x) \, dx \right)
-  $$
+
+    $$
+    \int_a^b f(x) \, dx = \frac{1}{2} \left( \int_a^b f(x) \, dx + \int_a^b f(a + b - x) \, dx \right)
+    $$
 
 - **三角函数应用：**
-  - $\int_0^{\frac{\pi}{2}} f(\sin x) \, dx = \int_0^{\frac{\pi}{2}} f(\cos x) \, dx$ （因为 $\sin(\frac{\pi}{2} - x) = \cos x$）
-  - $\int_0^{\pi} f(\sin x) \, dx = 2 \int_0^{\frac{\pi}{2}} f(\sin x) \, dx$ （因为 $\sin(\pi - x) = \sin x$，函数关于 $x = \frac{\pi}{2}$ 对称）
+    - $\int_0^{\frac{\pi}{2}} f(\sin x) \, dx = \int_0^{\frac{\pi}{2}} f(\cos x) \, dx$ （因为 $\sin(\frac{\pi}{2} - x) = \cos x$）
+    - $\int_0^{\pi} f(\sin x) \, dx = 2 \int_0^{\frac{\pi}{2}} f(\sin x) \, dx$ （因为 $\sin(\pi - x) = \sin x$，函数关于 $x = \frac{\pi}{2}$ 对称）
 
 > **用途：** 简化对称区间的积分计算。
 
@@ -1905,6 +2063,7 @@ $$
 ## 83.$f(x)$积分的奇偶性与周期性讨论
 
 (1) $f(x)$ 为可积的奇函数 $\Rightarrow$
+
 $$
 \begin{cases}
 \int_0^x f(t)dt \text{ 为偶函数}, \\
@@ -1947,18 +2106,22 @@ $\rightarrow f'(x)$ 也是以 $T$ 为周期
 莱布尼兹公式用于求两个函数乘积的高阶导数。
 
 - **加法形式：**
-  $$
-  (u \pm v)^{(n)} = u^{(n)} \pm v^{(n)}
-  $$
+
+    $$
+    (u \pm v)^{(n)} = u^{(n)} \pm v^{(n)}
+    $$
 
 - **乘法形式：**
-  $$
-  (uv)^{(n)} = u^{(n)}v + C_n^1 u^{(n-1)} v' + C_n^2 u^{(n-2)} v'' + \cdots + C_n^{n-1} u' v^{(n-1)} + u v^{(n)}
-  $$
-  或者写成求和形式：
-  $$
-  (uv)^{(n)} = \sum_{k=0}^{n} C_n^k \, u^{(n-k)} \, v^{(k)}
-  $$
+
+    $$
+    (uv)^{(n)} = u^{(n)}v + C_n^1 u^{(n-1)} v' + C_n^2 u^{(n-2)} v'' + \cdots + C_n^{n-1} u' v^{(n-1)} + u v^{(n)}
+    $$
+
+    或者写成求和形式：
+
+    $$
+    (uv)^{(n)} = \sum_{k=0}^{n} C_n^k \, u^{(n-k)} \, v^{(k)}
+    $$
 
 其中，组合数 $C_n^k = \binom{n}{k} = \dfrac{n!}{k!(n-k)!}$。
 
@@ -1998,9 +2161,11 @@ $\rightarrow f'(x)$ 也是以 $T$ 为周期
 ### 必要条件：
 
 若函数 $f(x)$ 在 $x = x_0$ 处可导且取极值，则必有：
+
 $$
 f'(x_0) = 0
 $$
+
 > **注意：** 此为必要条件，非充分条件。满足 $f'(x_0) = 0$ 的点称为**驻点**，驻点不一定是极值点。
 
 > **Tips:** 驻点一定是可导点，称 $f'(x_0) = 0$，$x_0$ 为驻点。但驻点不一定为极值点。
@@ -2107,6 +2272,7 @@ $$
     - $\int_a^{+\infty} f(x) \, dx$ 和 $\int_a^{+\infty} g(x) \, dx$ 的敛散性相同。
 
 > **推论：**
+>
 > - 当 $x \to +\infty$ 时，若 $f(x)$ 和 $g(x)$ 为同阶无穷小，则两个积分同敛散。
 > - 当 $x \to a^+$ 时，若 $f(x)$ 和 $g(x)$ 为同阶无穷大，则 $\int_a^b f(x) \, dx$ 和 $\int_a^b g(x) \, dx$ 同敛散。
 
@@ -2117,6 +2283,7 @@ $$
 ### ① 无穷区间上的P积分：
 
 对于 $\int_1^{+\infty} \frac{1}{x^p} \, dx$，结论为：
+
 $$
 \begin{cases}
 p > 1, & \text{收敛} \\
@@ -2129,6 +2296,7 @@ $$
 ### ② 瑕积分上的P积分：
 
 对于 $\int_0^1 \frac{1}{x^p} \, dx$ 或 $\int_a^b \frac{1}{(x-a)^p} \, dx$、$\int_a^b \frac{1}{(x-b)^p} \, dx$，结论为：
+
 $$
 \begin{cases}
 0 < p < 1, & \text{收敛} \\
@@ -2169,6 +2337,7 @@ $$
 ## 91. $\arctan x + \arctan \frac{1}{x}$ 的恒等式
 
 该恒等式为：
+
 $$
 \arctan x + \arctan \frac{1}{x} =
 \begin{cases}
@@ -2186,6 +2355,7 @@ $$
 ### ① 罗尔定理 (Rolle's Theorem)
 
 设函数 $f(x)$ 在闭区间 $[a, b]$ 上连续，在开区间 $(a, b)$ 内可导，且 $f(a) = f(b)$，则至少存在一点 $\xi \in (a, b)$，使得：
+
 $$
 f'(\xi) = 0
 $$
@@ -2193,6 +2363,7 @@ $$
 ### ② 拉格朗日中值定理 (Lagrange's Mean Value Theorem)
 
 设函数 $f(x)$ 在闭区间 $[a, b]$ 上连续，在开区间 $(a, b)$ 内可导，则至少存在一点 $\xi \in (a, b)$，使得：
+
 $$
 f(b) - f(a) = (b - a) f'(\xi)
 $$
@@ -2200,6 +2371,7 @@ $$
 ### ③ 积分中值定理 (Integral Mean Value Theorem)
 
 设函数 $f(x)$ 在闭区间 $[a, b]$ 上连续，则至少存在一点 $\xi \in [a, b]$，使得：
+
 $$
 \int_a^b f(x) \, dx = (b - a) f(\xi)
 $$
@@ -2211,6 +2383,7 @@ $$
 ### ⑤ 柯西中值定理 (Cauchy's Mean Value Theorem)
 
 设函数 $f(x), g(x)$ 在闭区间 $[a, b]$ 上连续，在开区间 $(a, b)$ 内可导，且 $g'(x) \neq 0$，则至少存在一点 $\xi \in (a, b)$，使得：
+
 $$
 \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(\xi)}{g'(\xi)}
 $$
@@ -2224,23 +2397,28 @@ $$
 > **“常用来解中值定理证明题”**
 
 对于形如 $f'(\xi) + f(\xi) g(\xi) = 0$ 的题目，都可以构造辅助函数：
+
 $$
 F(x) = f(x) e^{\int g(x) \, dx}
 $$
 
 **原理：**
 对 $F(x)$ 求导：
+
 $$
 F'(x) = f'(x) e^{\int g(x) \, dx} + f(x) \cdot g(x) e^{\int g(x) \, dx} = e^{\int g(x) \, dx} \left[ f'(x) + f(x) g(x) \right]
 $$
+
 因此，若 $F'(x) = 0$，则原方程成立。
 
 > **Tips:** 在表达式 $f'(x) + f(x) g(x)$ 上乘以积分因子 $e^{\int g(x) \, dx}$ 后，恰好可以凑成一个函数的导数形式。
 
 > **特殊情况：** 若 $g(x)$ 是一个抽象函数，则需要将公式修改为：
+>
 > $$
 > F(x) = f(x) \int_a^x g(t) \, dt
 > $$
+>
 
 ---
 
@@ -2251,6 +2429,7 @@ $$
 ### 1. 带佩亚诺余项的泰勒展开 (用于计算极限)
 
 若函数 $f(x)$ 在 $x = x_0$ 处 $n$ 阶可导，则在 $x_0$ 的邻域内，有：
+
 $$
 f(x) = f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2!}(x - x_0)^2 + \cdots + \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n + o\left[(x - x_0)^n\right]
 $$
@@ -2262,9 +2441,11 @@ $$
 ### 2. 带拉格朗日余项的泰勒展开 (用于证明中值定理问题)
 
 若函数 $f(x)$ 在 $x = x_0$ 处 $n+1$ 阶可导，则在 $x_0$ 的邻域内，有：
+
 $$
 f(x) = f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2!}(x - x_0)^2 + \cdots + \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x - x_0)^{n+1}
 $$
+
 其中 $\xi$ 介于 $x_0$ 和 $x$ 之间。
 
 > **特点：** 余项是一个具体的表达式，包含一个未知点 $\xi$ 的 $(n+1)$ 阶导数。
@@ -2294,36 +2475,43 @@ $$
 以下是几个常用初等函数在 $x=0$ 处的麦克劳林展开式（通常取到 $n$ 阶或特定形式）：
 
 ### ① 指数函数：
+
 $$
 e^x = 1 + x + \frac{x^2}{2!} + \cdots + \frac{x^n}{n!} + o(x^n)
 $$
 
 ### ② 正弦函数：
+
 $$
 \sin x = x - \frac{x^3}{3!} + \cdots + (-1)^n \frac{x^{2n+1}}{(2n+1)!} + o(x^{2n+1})
 $$
 
 ### ③ 余弦函数：
+
 $$
 \cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \cdots + (-1)^n \frac{x^{2n}}{(2n)!} + o(x^{2n})
 $$
 
 ### ④ 几何级数：
+
 $$
 \frac{1}{1-x} = 1 + x + x^2 + \cdots + x^n + o(x^n), \quad |x| < 1
 $$
 
 ### ⑤ 有理函数：
+
 $$
 \frac{1}{1+x} = 1 - x + x^2 - \cdots + (-1)^n x^n + o(x^n), \quad |x| < 1
 $$
 
 ### ⑥ 对数函数：
+
 $$
 \ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \cdots + (-1)^{n-1} \frac{x^n}{n} + o(x^n), \quad -1 < x \le 1
 $$
 
 ### ⑦ 幂函数：
+
 $$
 (1+x)^\alpha = 1 + \alpha x + \frac{\alpha(\alpha-1)}{2!}x^2 + \cdots + \frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}x^n + o(x^n)
 $$
@@ -2370,6 +2558,7 @@ $$
 ### 当 $x \to 0$ 时：
 
 #### 等价无穷小：
+
 - $\sin x \sim x$
 - $\tan x \sim x$
 - $\arcsin x \sim x$
@@ -2395,6 +2584,7 @@ $$
 ## 99. 幂指函数的处理方法
 
 对于形如 $u^v$ 的幂指函数，可将其转化为指数形式：
+
 $$
 u^v = e^{v \ln u}
 $$
@@ -2404,6 +2594,7 @@ $$
 ## 100. 对数函数的等价关系
 
 当 $x \to 1$ 时：
+
 $$
 \ln x \sim x - 1
 $$
@@ -2415,6 +2606,7 @@ $$
 ## 101. 计算 $1^\infty$ 型极限
 
 对于形如 $\lim u^v$ 的极限，其中 $u \to 1$, $v \to \infty$，可用以下公式：
+
 $$
 \lim u^v = e^{\lim (u-1) \cdot v}
 $$
@@ -2488,22 +2680,27 @@ $$
 ### ④ 三角函数积分
 
 #### 基本三角函数：
+
 - $\int \sin x \, dx = -\cos x + C$
 - $\int \cos x \, dx = \sin x + C$
 
 #### 正切与余切：
+
 - $\int \tan x \, dx = -\ln |\cos x| + C$
 - $\int \cot x \, dx = \ln |\sin x| + C$
 
 #### 正割与余割：
+
 - $\int \sec x \, dx = \int \frac{dx}{\cos x} = \ln |\sec x + \tan x| + C$
 - $\int \csc x \, dx = \int \frac{dx}{\sin x} = \ln |\csc x - \cot x| + C$
 
 #### 平方三角函数：
+
 - $\int \sec^2 x \, dx = \tan x + C$
 - $\int \csc^2 x \, dx = -\cot x + C$
 
 #### 乘积形式：
+
 - $\int \sec x \tan x \, dx = \sec x + C$
 - $\int \csc x \cot x \, dx = -\csc x + C$
 
@@ -2536,10 +2733,12 @@ $$
 ### ⑩ 三角函数平方积分
 
 #### 正弦与余弦平方：
+
 - $\int \sin^2 x \, dx = \frac{x}{2} - \frac{\sin 2x}{4} + C$ （利用恒等式 $\sin^2 x = \frac{1 - \cos 2x}{2}$）
 - $\int \cos^2 x \, dx = \frac{x}{2} + \frac{\sin 2x}{4} + C$ （利用恒等式 $\cos^2 x = \frac{1 + \cos 2x}{2}$）
 
 #### 正切与余切平方：
+
 - $\int \tan^2 x \, dx = \tan x - x + C$ （利用恒等式 $\tan^2 x = \sec^2 x - 1$）
 - $\int \cot^2 x \, dx = -\cot x - x + C$ （利用恒等式 $\cot^2 x = \csc^2 x - 1$）
 
